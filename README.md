@@ -27,14 +27,42 @@ English | [简体中文](./README.zh-CN.md)
  - user       用户信息数据
 
 - route
- - Home         系统首页
-   - IndexPage    首页
-   - ChartList    首页图标查看全部页面
- -Details       数据详情页面
-   - Detail  一级详情页面
- -Demention     地表数据页面
- - Login        用户登录页面相关
-   - WeChartLogin        用户登录页面,工程的入口页面
+ - Home                 系统首页
+   - IndexPage          首页  (根据权限分发对应的首页页面)
+      -Boss             boss和院长级别权限首页汇总
+        -Monthly        月度绩效
+          -index        对boss和学院权限进行判断,涉及到分档和占比的显示
+          -proportion   绩效占比页面
+          -step         绩效分档页面
+        -index          boss和college 权限首页
+        -pandect        绩效总览页面
+        
+
+      -Teachers         运营长,家族长,权限首页
+        -index          运营长班主任权限首页,进行权限分发
+        -family         家族长权限首页
+        -group          运营长权限首页
+
+ - Level                分档详情页面(boss级别,学院级别)
+   - index              分档详情(暂定一个页面)
+
+-  Details
+  - index               详情列表页面(暂定))
+
+- History               确认绩效-历史绩效
+  -index.jsx            历史绩效根据权限进行页面分发
+  - Boss                boss和院长权限历史绩效首页
+    - index             boss和院长权限查看历史绩效首页  (暂定一个页面)
+  - Teachers            家族长,运营长,班主任 历史绩效首页
+    - index             家族长,运营长,班主任 历史绩效首页公共部分数据展示
+    - family            家族长权限历史绩效
+    - group             运营长...
+    - class             班主任.....
+  - Details             确认绩效详情页面
+    -index              家族或小组历史绩效详情页面
+
+ - Login                用户登录页面相关
+   - WeChartLogin       用户登录页面,工程的入口页面
 ```
 
 ## Usage
