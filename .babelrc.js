@@ -7,8 +7,8 @@ module.exports = {
       {
         alias: {
           components: path.join(__dirname, './src/components'),
-          utils: path.resolve(__dirname, 'src/utils/'),
-          services: path.resolve(__dirname, 'src/services/'),
+          utils: path.join(__dirname, 'src/utils/'),
+          services: path.join(__dirname, 'src/services/'),
         },
       },
     ],

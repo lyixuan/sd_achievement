@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Redirect, Switch, Route } from 'dva/router';
 import { getRoutes, assignUrlParams } from '../../utils/routerUtils';
+import { getCurrentAuthInfo } from '../../utils/localStorage';
 
 class indexPage extends React.Component {
   constructor(props) {
@@ -14,13 +15,19 @@ class indexPage extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
-  componentDidMount() {}
-  toDementionPage = () => {
-    const { dateType, startTime, endTime } = this.state.paramsObj;
-    this.props.setRouteUrlParams('/demention', { dateType, startTime, endTime });
+  checkoutUserAuth = () => {
+    const currentAuthInfo = getCurrentAuthInfo() || {};
+    const { groupType = null } = currentAuthInfo;
+    if (groupType === 'boss' || groupType === 'college') {
+      return '/indexPage/boss';
+    } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
+      return '/indexPage/teacher';
+    }
   };
   render() {
     const { routerData, match } = this.props;
+    const redirectUrl = this.checkoutUserAuth();
+    console.log(redirectUrl);
     return (
       <div>
         <Switch>
@@ -34,7 +41,7 @@ class indexPage extends React.Component {
               redirectPath="/exception/403"
             />
           ))}
-          <Redirect exact from="/" to="/indexPage" />
+          <Redirect exact from="/indexPage" to={redirectUrl} />
         </Switch>
       </div>
     );
