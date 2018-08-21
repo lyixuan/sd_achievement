@@ -7,7 +7,7 @@ import config from '../../config';
 
 const { DEBUGGER = false, performanceUser } = config;
 class WeChartLogin extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     if (DEBUGGER) {
       setItem('performanceUser', { performanceUser });
       this.props.setRouteUrlParams('/');
