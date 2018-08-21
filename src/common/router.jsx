@@ -118,7 +118,7 @@ export const getRouterData = app => {
       showTitle: false,
     },
     '/indexPage/teacher/class': {
-      component: dynamicWrapper(app, [], () => import('../routes/Home/Teachers/class')),
+      component: dynamicWrapper(app, [], () => import('../routes/Home/Teachers/group')),
       title: '班主任首页',
       showTitle: false,
     },
