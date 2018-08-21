@@ -94,7 +94,7 @@ class Boss extends React.Component {
             <Dialog
               visible={dialogVisible}
               showModel={bol => this.showModel(bol)}
-              title={<p className={styles.dialogTitle}>请选择所要下载的底表</p>}
+              title={<p className={styles.dialogTitle}>请选择想要查看的月份</p>}
               modelClass={styles.modelClass}
               cotainerClass={styles.flexContainer}
             >
