@@ -127,13 +127,13 @@ export const getRouterData = app => {
       title: '家族长首页',
       showTitle: false,
     },
-    '/level/:group': {
+    '/level': {
       component: dynamicWrapper(app, [], () => import('../routes/Level/index')),
       title: '分档详情',
       showTitle: false,
     },
     '/details': {
-      component: dynamicWrapper(app, [], () => import('../routes/Level/index')),
+      component: dynamicWrapper(app, [], () => import('../routes/Details/index')),
       title: '小组绩效',
       showTitle: true,
     },
