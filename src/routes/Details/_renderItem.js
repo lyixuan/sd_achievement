@@ -1,4 +1,5 @@
 import React from 'react';
+import arrowDown from '../../assets/down.svg';
 import styles from './_render.less';
 
 class RenderItem extends React.Component {
@@ -12,9 +13,10 @@ class RenderItem extends React.Component {
         <div className={styles.performance}>
           <span>{rowData.familyNum}</span>
           <span className={styles.remark}>
+            {' '}
             ({rowData.familyNum} | {rowData.familyNum})
           </span>
-          <img src="" alt="" />
+          <img src={arrowDown} alt="" className={styles.arrowCls} />
         </div>
       </div>
     );
