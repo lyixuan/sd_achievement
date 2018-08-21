@@ -1,5 +1,5 @@
 import React from 'react';
-import arrowRight from '../../assets/yay.jpg';
+import arrowRight from '../../assets/right.svg';
 import MultipHeaderList from '../../components/ListView/listView';
 import RenderHeader from './_renderHeader';
 import RenderItem from './_renderItem';
@@ -12,17 +12,14 @@ class Level extends React.Component {
   }
   componentDidMount() {}
   jumpDetail = param => {
+    this.props.setRouteUrlParams('/details', { hh: 1 });
     console.log(param);
   };
   renderHeader = name => {
     return <div className={`${styles.m_list} ${styles.m_list_header}`}>{name}</div>;
   };
-  renderFooter = param => {
-    return (
-      <div onClick={this.jumpDetail(param)} className={`${styles.m_list} ${styles.m_list_footer}`}>
-        查看详情
-      </div>
-    );
+  renderFooter = () => {
+    return <div className={`${styles.m_list} ${styles.m_list_footer}`}>查看详情</div>;
   };
   render() {
     const dataList = {
@@ -68,7 +65,7 @@ class Level extends React.Component {
         {
           groupName: 'barrier',
           arr: 'activeCS',
-          familyNum: '2',
+          familyNum: '-1',
           key: '2',
         },
         {
@@ -89,8 +86,8 @@ class Level extends React.Component {
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
           <span>2018年7月预测绩效</span>
-          <div>
-            绩效详情 <img src={arrowRight} alt="arrow" width="13" />{' '}
+          <div onClick={() => this.jumpDetail()}>
+            绩效详情 <img src={arrowRight} alt="arrow" className={styles.arrowRight} />
           </div>
         </div>
         {/* *************** listview *************** */}
