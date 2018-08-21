@@ -6,8 +6,20 @@ class RenderDetails extends React.Component {
 
   render() {
     return (
-      <div className={`${styles.m_render} ${styles.m_detailRender}`}>
-        <dl className={styles.distribute}>
+      <div className={styles.m_detailRender}>
+        <dl className={`${styles.u_dlCls} ${styles.distribute}`}>
+          <dt>11</dt>
+          <dd>22</dd>
+        </dl>
+        <dl className={`${styles.u_dlCls} ${styles.scale}`}>
+          <dt>11</dt>
+          <dd>22</dd>
+        </dl>
+        <dl className={`${styles.u_dlCls} ${styles.scale}`}>
+          <dt>11</dt>
+          <dd>22</dd>
+        </dl>
+        <dl className={`${styles.u_dlCls} ${styles.scale}`}>
           <dt>11</dt>
           <dd>22</dd>
         </dl>
