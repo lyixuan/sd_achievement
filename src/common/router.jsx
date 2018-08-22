@@ -138,12 +138,12 @@ export const getRouterData = app => {
       showTitle: true,
     },
     '/history': {
-      component: dynamicWrapper(app, [], () => import('../routes/History/index')),
+      component: dynamicWrapper(app, [], () => import('../routes/History')),
       title: '历史绩效',
       showTitle: true,
     },
     '/history/boss': {
-      component: dynamicWrapper(app, [], () => import('../routes/History/index')),
+      component: dynamicWrapper(app, [], () => import('../routes/History')),
       title: 'boss院长确认绩效',
       showTitle: true,
     },

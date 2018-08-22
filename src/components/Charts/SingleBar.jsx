@@ -1,24 +1,21 @@
 import React from 'react';
 import Bar from './BaseChart/bar';
-import { fontSizeAuto, Formatter } from './_chartUtils';
+import { fontSizeAuto, Formatter, TooltipFormatter } from './_chartUtils';
 
 export default class SingleBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.tooltipInstance = null;
+  }
   setChartsOps = dataSource => {
     const { seriesData, xAxisData } = dataSource;
+    const tooltip = this.setTooltip();
+    const title = this.tooltipInstance.chartTitle('集团总绩效');
+    const grid = this.tooltipInstance.chartGrid();
     const chartOps = {
-      tooltip: {
-        ...this.setTooltip(),
-      },
-      title: {
-        top: fontSizeAuto(20),
-        left: fontSizeAuto(20),
-        text: '集团总绩效', // 变动数据
-        textStyle: {
-          fontWeight: 400,
-          color: '#444348',
-          fontSize: fontSizeAuto(26),
-        },
-      },
+      tooltip,
+      title,
+      grid,
       legend: {
         left: fontSizeAuto(279),
         top: fontSizeAuto(80),
@@ -35,13 +32,6 @@ export default class SingleBar extends React.Component {
             },
           },
         ],
-      },
-      grid: {
-        containLabel: true, // 此属性用于设置名字太长显示不全
-        left: fontSizeAuto(20),
-        top: fontSizeAuto(160),
-        right: fontSizeAuto(20),
-        bottom: fontSizeAuto(30),
       },
       color: '#4A90E2', // 设置图例远点颜色,可跟数组
       xAxis: {
@@ -112,7 +102,7 @@ export default class SingleBar extends React.Component {
     return {
       trigger: 'axis',
       backgroundColor: 'rgba(0,0,0,0.6)',
-      formatter: Formatter.tooltipFormate,
+      formatter: this.tooltipInstance.tooltipFormate,
       axisPointer: {
         type: 'line',
         lineStyle: {
@@ -123,7 +113,7 @@ export default class SingleBar extends React.Component {
         },
       },
       textStyle: {
-        fontSize: fontSizeAuto(16),
+        fontSize: fontSizeAuto(18),
         color: '#FFFFFF',
       },
     };
@@ -141,13 +131,13 @@ export default class SingleBar extends React.Component {
       };
       seriesData.push(opsXobj);
     });
+    this.tooltipInstance = new TooltipFormatter(dataSource);
     const xAxisData = this.setXAxis(dataSource);
     return this.setChartsOps({ seriesData, xAxisData });
   };
 
   render() {
     const dataSource = this.handleData();
-    console.log(dataSource);
     return dataSource ? <Bar dataSource={dataSource} width="7.1rem" height="6rem" /> : null;
   }
 }

@@ -17,7 +17,7 @@ class Boss extends React.Component {
         { val: 3, name: '2018.03', isPredicted: 0 },
         { val: 5, name: '2018.04', isPredicted: 0 },
         { val: 7, name: '2018.05', isPredicted: 0 },
-        { val: 10, name: '2018.06', isPredicted: 1 },
+        { val: 100000, name: '2018.06', isPredicted: 1 },
         { val: 1, name: '2018.07', isPredicted: 1 },
       ],
     };

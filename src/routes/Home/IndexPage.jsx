@@ -27,7 +27,6 @@ class indexPage extends React.Component {
   render() {
     const { routerData, match } = this.props;
     const redirectUrl = this.checkoutUserAuth();
-    console.log(redirectUrl);
     return (
       <div>
         <Switch>

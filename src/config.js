@@ -5,7 +5,7 @@ export default {
   performanceUser: {
     userId: 'ManZhenHua',
     currentAuthInfo: {
-      groupType: 'family',
+      groupType: 'boss',
     },
   },
 };
