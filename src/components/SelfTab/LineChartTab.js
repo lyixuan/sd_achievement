@@ -1,4 +1,4 @@
-/* GroupCollegeTab组件是专门针对首页的集团院内tab进行封装，因为其独特性，暂时只有一个地方使用，后期开发新需求的时候，有和该组件类似的，会再提取封装优化组件
+/*
 *
 * callBackFun{必传 Funciton}:父组件需要传入点击对应tab返回时触发接受数据的function，返回数据为（item,index）
 * firstId{非必传 Number}:传入默认选中第几个tab,若不传入默认选中第一个tab

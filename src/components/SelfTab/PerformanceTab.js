@@ -1,4 +1,4 @@
-/* PerformanceTab组件是专门针对首页的家族分档，绩效占比tab进行封装，因为其独特性，暂时只有一个地方使用，后期开发新需求的时候，有和该组件类似的，会再提取封装优化组件
+/* PerformanceTab组件是专门针对首页的绩效分档，绩效占比tab进行封装
 *
 * callBackFun{必传 Funciton}:父组件需要传入点击对应tab返回时触发接受数据的function，返回数据为（item,index）
 * firstId{非必传 Number}:传入默认选中第几个tab,若不传入默认选中第一个tab
@@ -31,7 +31,7 @@ class PerformanceTab extends Component {
     return (
       <div className={styles.segmentCls}>
         <span onClick={() => this.selectTab(1)} className={firstId === 1 ? styles.selectSpan1 : ''}>
-          <i className={styles.text}>家族分档</i>
+          <i className={styles.text}>绩效分档</i>
           <img className={styles.iconImg} src={firstId === 1 ? path2 : path} alt="" />
         </span>
         <span onClick={() => this.selectTab(2)} className={firstId === 2 ? styles.selectSpan2 : ''}>
