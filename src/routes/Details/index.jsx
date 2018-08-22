@@ -8,13 +8,23 @@ import styles from './index.less';
 class Details extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      dateTime: '2018年7月',
+      groupType: 1,
+      familyType: 2,
+    };
   }
   componentDidMount() {}
   onChange = val => {
     console.log(val);
   };
   render() {
+    const { dateTime, groupType, familyType } = this.state;
+    const paramsObj = {
+      dateTime,
+      groupType,
+      familyType,
+    };
     const dataList = {
       selfExam: [
         {
@@ -91,7 +101,7 @@ class Details extends React.Component {
                 dataList={dataList}
                 groupName={item.groupName}
                 customRenderHeader={() => <RenderHeader />}
-                customRenderItem={rowData => <RenderItem rowData={rowData} />}
+                customRenderItem={rowData => <RenderItem paramsObj={paramsObj} rowData={rowData} />}
               />
             )
           );

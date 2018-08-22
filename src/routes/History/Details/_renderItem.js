@@ -1,5 +1,5 @@
 import React from 'react';
-import arrowDown from '../../assets/down.svg';
+import arrowDown from '../../../assets/down.svg';
 import RenderDetails from './_details';
 import styles from './_render.less';
 
@@ -16,7 +16,7 @@ class RenderItem extends React.Component {
     this.setState({ isShowDetail: !isShowDetail });
   };
   render() {
-    const { paramsObj, rowData } = this.props;
+    const { rowData } = this.props;
     const { isShowDetail } = this.state;
     return (
       <div className={styles.marBottom}>
@@ -38,7 +38,7 @@ class RenderItem extends React.Component {
             />
           </div>
         </div>
-        {!isShowDetail ? null : <RenderDetails paramsObj={paramsObj} />}
+        {!isShowDetail ? null : <RenderDetails />}
       </div>
     );
   }

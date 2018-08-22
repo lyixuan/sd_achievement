@@ -1,8 +1,8 @@
 import React from 'react';
-import distribute from '../../assets/distribute.png';
-import scale from '../../assets/scale.png';
-import average from '../../assets/average.png';
-import daily from '../../assets/daily.png';
+import distribute from '../../../assets/distribute.png';
+import scale from '../../../assets/scale.png';
+import average from '../../../assets/average.png';
+import daily from '../../../assets/daily.png';
 import styles from './_render.less';
 
 class RenderDetails extends React.Component {
@@ -39,10 +39,9 @@ class RenderDetails extends React.Component {
     }
   };
   render() {
-    const { paramsObj } = this.props;
     return (
       <div className={styles.m_detailRender}>
-        {this.renderFn(paramsObj.familyType === 1)}
+        {this.renderFn(true)}
         <dl className={`${styles.u_dlCls} ${styles.scale}`}>
           <dt>
             <img className={styles.iconCls} src={scale} alt="管理规模" />
