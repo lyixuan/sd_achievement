@@ -22,6 +22,7 @@ class Boss extends React.Component {
       flag: 1,
       flag2: 1,
       dialogVisible: false,
+      showTime: '2018.08.01 - 2018.08.22',
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -38,12 +39,6 @@ class Boss extends React.Component {
     } else {
       this.setState({ dialogVisible: bol });
     }
-  };
-
-  nextStep = () => {
-    this.setState({
-      dialogVisible: false,
-    });
   };
 
   choseDateArea = () => {
@@ -66,24 +61,36 @@ class Boss extends React.Component {
         btnClass={styles.timeBtnStyle}
         btnSelectedClass={styles.timeBtnSelected}
         dataReturnFun={item => {
-          console.log(item);
+          const d = new Date();
+          const first = d.getMonth() + 1;
+          const aa = first < 10 ? `0${first}` : first;
+          const testDate = `${d.getFullYear()}.${aa}`;
+          console.log(item.id, testDate, item.id < testDate);
+          if (item.id < testDate) {
+            this.setState({
+              dialogVisible: false,
+              showTime: item.id,
+            });
+          } else {
+            this.setState({
+              showTime: '2018.08.01 - 2018.08.22',
+              dialogVisible: false,
+            });
+          }
         }}
       />
     );
   };
 
   render() {
-    const { dialogVisible, flag, flag2 } = this.state;
-    const buttonList1 = { id: 1, name: '日均学分排名系数', score: '1000' };
-    const buttonList2 = { id: 2, name: '绩效基数', score: '900000' };
-    const buttonList3 = { id: 3, name: '管理规模系数', score: '70%' };
+    const { dialogVisible, flag, flag2, showTime } = this.state;
     return (
       <div>
         <span>家族长首页,权限是:{this.checkoutUserAuth()}</span>
         <div style={{ marginTop: '1rem', position: 'relative', marginLeft: '0.3rem' }}>
           <span className={styles.timeName}>时间:</span>
           <span style={{ marginLeft: '0.1rem' }} className={styles.timeDate}>
-            2018.08.01 - 2018.08.21
+            {showTime}
           </span>
           <img
             onClick={this.showModel.bind(this, true)}
@@ -103,16 +110,14 @@ class Boss extends React.Component {
               cotainerClass={styles.flexContainer}
             >
               <div className={styles.timeList}>{this.renderGroupList()}</div>
-              <Button className={styles.nextStep} onClick={this.nextStep}>
-                下一步
-              </Button>
+              <Button />
             </Dialog>
           )}
         </div>
 
         <div className={styles.btnContainer} style={{ marginTop: '0.4rem' }}>
           <FormulaButton
-            dataSource={buttonList1}
+            dataSource={{ id: 1, name: '日均学分排名系数', score: '1000' }}
             dataReturnFun={item => {
               this.setState({ flag2: item.id });
             }}
@@ -120,7 +125,7 @@ class Boss extends React.Component {
           />
           <span className={styles.buttonLineStyle}>×️️</span>
           <FormulaButton
-            dataSource={buttonList2}
+            dataSource={{ id: 2, name: '绩效基数', score: '900000' }}
             dataReturnFun={item => {
               this.setState({ flag2: item.id });
             }}
@@ -128,7 +133,7 @@ class Boss extends React.Component {
           />
           <span className={styles.buttonLineStyle}>×️️</span>
           <FormulaButton
-            dataSource={buttonList3}
+            dataSource={{ id: 3, name: '管理规模系数', score: '70%' }}
             dataReturnFun={item => {
               this.setState({ flag2: item.id });
             }}
