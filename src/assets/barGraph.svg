@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="29px" viewBox="0 0 38 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>柱状图</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="院长-绩效总览-折线图-copy" transform="translate(-644.000000, -292.000000)" fill="#DADADA" fill-rule="nonzero">
+            <g id="Group-13" transform="translate(30.000000, 253.000000)">
+                <g id="Group-4" transform="translate(521.000000, 21.000000)">
+                    <g id="Group-7" transform="translate(21.000000, 17.000000)">
+                        <g id="柱状图" transform="translate(72.000000, 1.000000)">
+                            <path d="M0,26 L38,26 L38,29 L0,29 L0,26 Z M4.65523697,16.1537617 L9.31036327,16.1537617 L9.31036327,23.0769174 L4.65523697,23.0769174 L4.65523697,16.1537617 Z M11.6379449,6.9230094 L16.2931081,6.9230094 L16.2931081,23.0769174 L11.6379449,23.0769174 L11.6379449,6.9230094 Z M18.6207634,13.8460919 L23.2759266,13.8460919 L23.2759266,23.0769174 L18.6207634,23.0769174 L18.6207634,13.8460919 Z M25.6034713,0 L30.2587083,0 L30.2587083,23.0769174 L25.6034713,23.0769174 L25.6034713,0 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
