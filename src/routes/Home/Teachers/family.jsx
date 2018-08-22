@@ -9,6 +9,7 @@ import PerformanceTab from '../../../components/SelfTab/PerformanceTab';
 import dateImg from '../../../assets/dateSelect.svg';
 import Dialog from '../../../components/Dialog';
 import ButtonGroup from '../../../components/ButtonGroup/ButtonGroup';
+import FormulaButton from '../../../components/ButtonGroup/FormulaButton';
 
 class Boss extends React.Component {
   constructor(props) {
@@ -73,6 +74,9 @@ class Boss extends React.Component {
 
   render() {
     const { dialogVisible, flag, flag2 } = this.state;
+    const buttonList1 = { id: 1, name: '日均学分排名系数', score: '1000' };
+    const buttonList2 = { id: 2, name: '绩效基数', score: '900000' };
+    const buttonList3 = { id: 3, name: '管理规模系数', score: '70%' };
     return (
       <div>
         <span>家族长首页,权限是:{this.checkoutUserAuth()}</span>
@@ -104,6 +108,38 @@ class Boss extends React.Component {
               </Button>
             </Dialog>
           )}
+        </div>
+
+        <div className={styles.btnContainer} style={{ marginTop: '0.4rem' }}>
+          <FormulaButton
+            dataSource={buttonList1}
+            dataReturnFun={item => {
+              this.setState({ flag2: item.id });
+            }}
+            id={flag2}
+            btnClass={styles.btnStyle}
+            btnSelectedClass={styles.btnSelected}
+          />
+          <span className={styles.buttonLineStyle}>×️️</span>
+          <FormulaButton
+            dataSource={buttonList2}
+            dataReturnFun={item => {
+              this.setState({ flag2: item.id });
+            }}
+            id={flag2}
+            btnClass={styles.btnStyle}
+            btnSelectedClass={styles.btnSelected}
+          />
+          <span className={styles.buttonLineStyle}>×️️</span>
+          <FormulaButton
+            dataSource={buttonList3}
+            dataReturnFun={item => {
+              this.setState({ flag2: item.id });
+            }}
+            id={flag2}
+            btnClass={styles.btnStyle}
+            btnSelectedClass={styles.btnSelected}
+          />
         </div>
 
         <div style={{ marginTop: '0.4rem' }}>
