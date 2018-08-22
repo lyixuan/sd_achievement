@@ -21,7 +21,7 @@ class Boss extends React.Component {
   };
 
   render() {
-    return <div>家族首页,权限是:{this.checkoutUserAuth()}</div>;
+    return <div>绩效总览页面,权限是:{this.checkoutUserAuth()}</div>;
   }
 }
 export default connect(({ loading }) => ({ loading }))(Boss);
