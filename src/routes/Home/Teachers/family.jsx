@@ -117,8 +117,6 @@ class Boss extends React.Component {
               this.setState({ flag2: item.id });
             }}
             id={flag2}
-            btnClass={styles.btnStyle}
-            btnSelectedClass={styles.btnSelected}
           />
           <span className={styles.buttonLineStyle}>×️️</span>
           <FormulaButton
@@ -127,8 +125,6 @@ class Boss extends React.Component {
               this.setState({ flag2: item.id });
             }}
             id={flag2}
-            btnClass={styles.btnStyle}
-            btnSelectedClass={styles.btnSelected}
           />
           <span className={styles.buttonLineStyle}>×️️</span>
           <FormulaButton
@@ -137,8 +133,6 @@ class Boss extends React.Component {
               this.setState({ flag2: item.id });
             }}
             id={flag2}
-            btnClass={styles.btnStyle}
-            btnSelectedClass={styles.btnSelected}
           />
         </div>
 
@@ -150,6 +144,7 @@ class Boss extends React.Component {
             }}
           />
         </div>
+
         <div style={{ marginTop: '0.4rem' }}>
           <LineChartTab
             firstId={flag}

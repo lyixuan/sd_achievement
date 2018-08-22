@@ -78,11 +78,11 @@ class FormulaButton extends Component {
     const { dataSource = null, id = null, btnClass = null, btnSelectedClass = null } = this.props;
     // 获取父组件传入button选中和未选中样式,未传入则使用默认样式，传入补充到提前定义好接收的样式里面
     const newBtnClass = !btnClass
-      ? classNames(styles.btnStyle, btnClass)
-      : classNames(styles.newBtnClass, btnClass);
+      ? classNames(styles.m_btnStyle, btnClass)
+      : classNames(styles.m_newbtnStyle, btnClass);
     const newBtnSelectedClass = !btnSelectedClass
-      ? classNames(styles.btnSelected, btnSelectedClass)
-      : classNames(styles.newBtnSelectedClass, btnSelectedClass);
+      ? classNames(styles.m_btnSelected, btnSelectedClass)
+      : classNames(styles.m_newbtnSelected, btnSelectedClass);
     return <div>{this.buttonListItem(dataSource, id, newBtnClass, newBtnSelectedClass)}</div>;
   }
 }
