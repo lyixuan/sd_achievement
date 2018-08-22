@@ -60,7 +60,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.16rem 0;
     font-size: 0.2rem;
+    box-sizing: border-box;
     .iconCls {
       width: 0.48rem;
       height: 0.48rem;
@@ -82,12 +84,20 @@
     border-bottom: 1px solid #eee;
   }
   .distribute {
-    height: 1.29rem;
+    min-height: 0.98rem;
   }
   .scale {
-    height: 0.88rem;
+    min-height: 1.33rem;
   }
 }
 .marBottom {
   margin-bottom: 0.2rem;
+}
+.marRight {
+  margin-right: 0.2rem;
+}
+.width_50 {
+  width: 50%;
+  float: left;
+  margin-top: 0.07rem;
 }

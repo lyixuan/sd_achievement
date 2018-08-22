@@ -7,8 +7,7 @@ class RenderHeader extends React.Component {
   render() {
     return (
       <div className={`${styles.m_render} ${styles.m_hdRender}`}>
-        <span className={styles.familyName}>小组（自考）</span>
-        <span className={styles.performance}>总绩效=基本绩效+打分绩效</span>
+        <span className={styles.familyName}>家组（自考）</span>
       </div>
     );
   }

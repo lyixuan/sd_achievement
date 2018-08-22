@@ -26,11 +26,7 @@ class RenderItem extends React.Component {
         >
           <span className={styles.familyName}>{rowData.groupName}</span>
           <div className={styles.performance}>
-            <span>{rowData.familyNum}</span>
-            <span className={styles.remark}>
-              {' '}
-              ({rowData.familyNum} | {rowData.familyNum})
-            </span>
+            <span>{rowData.familyNum} 元</span>
             <img
               src={arrowDown}
               alt=""
