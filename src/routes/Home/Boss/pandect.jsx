@@ -5,6 +5,10 @@ import { getCurrentAuthInfo } from 'utils/localStorage';
 import SingleBar from 'components/Charts/BarCharts/SingleBar';
 import ProportionBar from 'components/Charts/BarCharts/ProportionBar';
 import MultiBar from 'components/Charts/BarCharts/MultiBar';
+import SingleLine from 'components/Charts/LineCharts/SingleLine';
+import MultLine from 'components/Charts/LineCharts/MultLine';
+import Funnel from 'components/Charts/FunnelCharts/Funnel';
+
 import styles from './boss.less';
 
 class Boss extends React.Component {
@@ -36,6 +40,12 @@ class Boss extends React.Component {
         { val: 16, name: '2018.06', isPredicted: 1, baseMoney: 9, markMoney: 7 },
         { val: 17, name: '2018.07', isPredicted: 1, baseMoney: 10, markMoney: 7 },
       ],
+      FunnelChartData: [
+        { val: 30, type: 1 },
+        { val: 50, type: 2 },
+        { val: 70, type: 3 },
+        { val: 10, type: 4 },
+      ],
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -46,7 +56,7 @@ class Boss extends React.Component {
   };
 
   render() {
-    const { chartData, chartZhanbi, chartMulti } = this.state;
+    const { chartData, chartZhanbi, chartMulti, FunnelChartData } = this.state;
     return (
       <div>
         绩效总览页面,权限是:{this.checkoutUserAuth()}
@@ -58,6 +68,15 @@ class Boss extends React.Component {
         </div>
         <div className={styles.chart}>
           <MultiBar dataSource={chartMulti} />
+        </div>
+        <div className={styles.chart}>
+          <SingleLine dataSource={chartMulti} />
+        </div>
+        <div className={styles.chart}>
+          <MultLine dataSource={chartMulti} />
+        </div>
+        <div className={styles.chart}>
+          <Funnel dataSource={FunnelChartData} />
         </div>
       </div>
     );
