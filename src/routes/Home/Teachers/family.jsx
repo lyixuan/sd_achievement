@@ -12,6 +12,7 @@ import multiple from '../../../assets/multiple.svg';
 import Dialog from '../../../components/Dialog';
 import ButtonGroup from '../../../components/ButtonGroup/ButtonGroup';
 import FormulaButton from '../../../components/ButtonGroup/FormulaButton';
+import ImgTitle from '../../../components/ImgTitle/ImgTitle';
 
 class Boss extends React.Component {
   constructor(props) {
@@ -90,30 +91,13 @@ class Boss extends React.Component {
       <div>
         <div className={styles.m_timeContener}>
           <span className={styles.timeName}>时间:</span>
-          <span style={{ marginLeft: '0.1rem' }} className={styles.timeDate}>
-            {showTime}
-          </span>
+          <span className={styles.timeDate}>{showTime}</span>
           <img
             onClick={this.showModel.bind(this, true)}
             className={styles.timeImg}
             src={dateImg}
             alt="时间图片"
           />
-        </div>
-
-        <div>
-          {dialogVisible && (
-            <Dialog
-              visible={dialogVisible}
-              showModel={bol => this.showModel(bol)}
-              title={<p className={styles.dialogTitle}>请选择想要查看的月份</p>}
-              modelClass={styles.modelClass}
-              cotainerClass={styles.flexContainer}
-            >
-              <div className={styles.timeList}>{this.renderGroupList()}</div>
-              <Button style={{ height: '0' }} />
-            </Dialog>
-          )}
         </div>
 
         <div className={styles.m_btnContainer}>
@@ -144,11 +128,45 @@ class Boss extends React.Component {
 
         <div className={styles.m_perTable}>
           <img
-            style={{ left: flag2 === 1 ? '0.6rem' : flag2 === 2 ? '3.2rem' : '5.6rem' }}
+            style={{ left: flag2 === 1 ? '0.7rem' : flag2 === 2 ? '3.2rem' : '5.7rem' }}
             className={styles.u_arrowImg}
             src={arrow}
             alt="箭头"
           />
+          <div className={styles.m_scoreContener}>
+            <ImgTitle
+              dataSource={{
+                imgSrc: flag2 === 1 ? 4 : flag2 === 2 ? 2 : 1,
+                titleValue: '日均学分',
+                numValue: '9.5分',
+                showDetail: flag2 === 2 ? 'show' : 'hidden',
+              }}
+            />
+            <div className={styles.u_ySplitLine} />
+            <ImgTitle
+              dataSource={{
+                imgSrc: flag2 === 1 ? 3 : flag2 === 2 ? 3 : 2,
+                titleValue: '排名',
+                numValue: '8 / 400 （20%）',
+              }}
+            />
+          </div>
+          <div className={styles.u_xSplitLine} />
+        </div>
+
+        <div>
+          {dialogVisible && (
+            <Dialog
+              visible={dialogVisible}
+              showModel={bol => this.showModel(bol)}
+              title={<p className={styles.dialogTitle}>请选择想要查看的月份</p>}
+              modelClass={styles.modelClass}
+              cotainerClass={styles.flexContainer}
+            >
+              <div className={styles.timeList}>{this.renderGroupList()}</div>
+              <Button style={{ height: '0' }} />
+            </Dialog>
+          )}
         </div>
 
         <div style={{ marginTop: '0.4rem' }}>
