@@ -8,18 +8,26 @@ import styles from './index.less';
 class Level extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      dateTime: '2018年7月预测绩效',
+    };
   }
   componentDidMount() {}
   jumpDetail = param => {
-    this.props.setRouteUrlParams('/details', { hh: 1 });
-    console.log(param);
+    this.props.setRouteUrlParams('/details', { hh: param });
   };
   renderHeader = name => {
     return <div className={`${styles.m_list} ${styles.m_list_header}`}>{name}</div>;
   };
-  renderFooter = () => {
-    return <div className={`${styles.m_list} ${styles.m_list_footer}`}>查看详情</div>;
+  renderFooter = val => {
+    return (
+      <div
+        className={`${styles.m_list} ${styles.m_list_footer}`}
+        onClick={() => this.jumpDetail(val)}
+      >
+        查看详情
+      </div>
+    );
   };
   render() {
     const dataList = {
@@ -81,19 +89,18 @@ class Level extends React.Component {
       { groupName: 'barrier', arr: 'activeCS' },
       { groupName: 'incubator', arr: 'activeCS' },
     ];
-
+    const { dateTime } = this.state;
     return (
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
-          <span>2018年7月预测绩效</span>
-          <div onClick={() => this.jumpDetail()}>
+          <span>{dateTime}</span>
+          <div onClick={() => this.jumpDetail(1)}>
             绩效详情 <img src={arrowRight} alt="arrow" className={styles.arrowRight} />
           </div>
         </div>
         {/* *************** listview *************** */}
         {param.map(item => {
           const newDataList = Object.keys(dataList).filter(obj => obj === item.groupName);
-          console.log(newDataList);
           return (
             newDataList.length > 0 && (
               <MultipHeaderList
@@ -101,7 +108,7 @@ class Level extends React.Component {
                 dataList={dataList}
                 groupName={item.groupName}
                 renderHeader={name => this.renderHeader(name)}
-                renderFooter={() => this.renderFooter()}
+                renderFooter={val => this.renderFooter(val)}
                 customRenderHeader={() => <RenderHeader />}
                 customRenderItem={rowData => <RenderItem rowData={rowData} />}
               />

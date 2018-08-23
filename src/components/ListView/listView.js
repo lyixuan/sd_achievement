@@ -32,9 +32,8 @@ class MultipHeaderList extends Component {
     if (this.props.renderHeader) return this.props.renderHeader(this.props.groupName);
   };
   // 组件底部
-  renderFooter = dataSource => {
-    console.log(dataSource);
-    if (this.props.renderFooter) return this.props.renderFooter(dataSource);
+  renderFooter = groupName => {
+    if (this.props.renderFooter) return this.props.renderFooter(groupName);
   };
   renderSectionWrapper = sectionID => {
     const { sectionClass = '' } = this.props;

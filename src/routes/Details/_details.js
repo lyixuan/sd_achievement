@@ -44,7 +44,7 @@ class RenderDetails extends React.Component {
     const { paramsObj } = this.props;
     return (
       <div className={styles.m_detailRender}>
-        {this.renderFn(paramsObj.familyType === 2)}
+        {this.renderFn(paramsObj.hh === 'barrier')}
         <dl className={`${styles.u_dlCls} ${styles.scale}`}>
           <dt>
             <img className={styles.iconCls} src={scale} alt="管理规模" />

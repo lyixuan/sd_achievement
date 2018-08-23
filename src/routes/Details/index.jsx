@@ -1,4 +1,5 @@
 import React from 'react';
+import { assignUrlParams } from '../../utils/routerUtils';
 import Switch from '../../components/Switch/Switch';
 import MultipHeaderList from '../../components/ListView/listView';
 import RenderHeader from './_renderHeader';
@@ -8,23 +9,24 @@ import styles from './index.less';
 class Details extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      dateTime: '2018年7月',
-      groupType: 1,
-      familyType: 2,
+    const { urlParams = {} } = props;
+    const initState = {
+      paramsObj: {
+        dateTime: '2018年7月',
+        groupType: 1,
+        familyType: 2,
+        hh: urlParams.hh,
+      },
     };
+
+    this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {}
   onChange = val => {
     console.log(val);
   };
   render() {
-    const { dateTime, groupType, familyType } = this.state;
-    const paramsObj = {
-      dateTime,
-      groupType,
-      familyType,
-    };
+    const { paramsObj } = this.state;
     const dataList = {
       selfExam: [
         {
@@ -84,7 +86,6 @@ class Details extends React.Component {
       { groupName: 'barrier', arr: 'activeCS' },
       { groupName: 'incubator', arr: 'activeCS' },
     ];
-
     return (
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
@@ -100,7 +101,7 @@ class Details extends React.Component {
                 key={item.groupName}
                 dataList={dataList}
                 groupName={item.groupName}
-                customRenderHeader={() => <RenderHeader />}
+                customRenderHeader={sectionData => <RenderHeader sectionData={sectionData} />}
                 customRenderItem={rowData => <RenderItem paramsObj={paramsObj} rowData={rowData} />}
               />
             )
