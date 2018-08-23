@@ -110,7 +110,7 @@ class Boss extends React.Component {
               cotainerClass={styles.flexContainer}
             >
               <div className={styles.timeList}>{this.renderGroupList()}</div>
-              <Button />
+              <Button style={{ height: '0' }} />
             </Dialog>
           )}
         </div>
