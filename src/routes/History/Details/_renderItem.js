@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatMoney } from '../../../utils/utils';
 import arrowDown from '../../../assets/down.svg';
 import RenderDetails from './_details';
 import styles from './_render.less';
@@ -26,7 +27,7 @@ class RenderItem extends React.Component {
         >
           <span className={styles.familyName}>{rowData.groupName}</span>
           <div className={styles.performance}>
-            <span>{rowData.familyNum} 元</span>
+            <span>{formatMoney(rowData.familyNum)} 元</span>
             <img
               src={arrowDown}
               alt=""
@@ -34,7 +35,7 @@ class RenderItem extends React.Component {
             />
           </div>
         </div>
-        {!isShowDetail ? null : <RenderDetails />}
+        {!isShowDetail ? null : <RenderDetails rowData={rowData} />}
       </div>
     );
   }

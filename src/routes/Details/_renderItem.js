@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatMoney } from '../../utils/utils';
 import arrowDown from '../../assets/down.svg';
 import RenderDetails from './_details';
 import styles from './_render.less';
@@ -11,6 +12,7 @@ class RenderItem extends React.Component {
     };
   }
   componentDidMount() {}
+
   toggleClick = () => {
     const { isShowDetail } = this.state;
     this.setState({ isShowDetail: !isShowDetail });
@@ -26,10 +28,10 @@ class RenderItem extends React.Component {
         >
           <span className={styles.familyName}>{rowData.groupName}</span>
           <div className={styles.performance}>
-            <span>{rowData.familyNum}</span>
+            <span>{formatMoney(rowData.familyNum)} 元</span>
             <span className={styles.remark}>
               {' '}
-              ({rowData.familyNum} | {rowData.familyNum})
+              ({formatMoney(rowData.familyNum)} | {formatMoney(rowData.familyNum)})
             </span>
             <img
               src={arrowDown}
@@ -38,7 +40,7 @@ class RenderItem extends React.Component {
             />
           </div>
         </div>
-        {!isShowDetail ? null : <RenderDetails paramsObj={paramsObj} />}
+        {!isShowDetail ? null : <RenderDetails paramsObj={paramsObj} rowData={rowData} />}
       </div>
     );
   }

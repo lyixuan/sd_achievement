@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatMoney } from '../../utils/utils';
 import distribute from '../../assets/distribute.png';
 import scale from '../../assets/scale.png';
 import average from '../../assets/average.png';
@@ -9,6 +10,7 @@ class RenderDetails extends React.Component {
   componentDidMount() {}
 
   renderFn = isShow => {
+    const { rowData } = this.props;
     if (isShow) {
       return (
         <dl className={`${styles.u_dlCls} ${styles.distribute}`}>
@@ -19,17 +21,17 @@ class RenderDetails extends React.Component {
             <p className={styles.greyColor}>绩效分配</p>
             <div style={{ margin: '.07rem 0' }}>
               <span className={styles.blackColor}>运营长绩效 </span>
-              <span className={styles.blackColor}> 3600元 </span>
-              <span className={styles.greyColor}> (3600 </span>
+              <span className={styles.blackColor}> {formatMoney(rowData.familyNum)} 元 </span>
+              <span className={styles.greyColor}> ({formatMoney(rowData.familyNum)} </span>
               <span className={styles.blueColor}> | </span>
-              <span className={styles.greyColor}> 3600) </span>
+              <span className={styles.greyColor}> {formatMoney(rowData.familyNum)}) </span>
             </div>
             <div>
-              <span className={styles.blackColor}>运营长绩效 </span>
-              <span className={styles.blackColor}> 3600元 </span>
-              <span className={styles.greyColor}> (3600 </span>
+              <span className={styles.blackColor}>每个班主任 </span>
+              <span className={styles.blackColor}> {formatMoney(rowData.familyNum)} 元 </span>
+              <span className={styles.greyColor}> ({formatMoney(rowData.familyNum)} </span>
               <span className={styles.blueColor}> | </span>
-              <span className={styles.greyColor}> 3600) </span>
+              <span className={styles.greyColor}> {formatMoney(rowData.familyNum)}) </span>
             </div>
           </dd>
         </dl>
@@ -42,7 +44,7 @@ class RenderDetails extends React.Component {
     const { paramsObj } = this.props;
     return (
       <div className={styles.m_detailRender}>
-        {this.renderFn(paramsObj.familyType === 1)}
+        {this.renderFn(paramsObj.familyType === 2)}
         <dl className={`${styles.u_dlCls} ${styles.scale}`}>
           <dt>
             <img className={styles.iconCls} src={scale} alt="管理规模" />

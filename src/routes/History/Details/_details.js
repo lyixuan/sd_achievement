@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatMoney } from '../../../utils/utils';
 import distribute from '../../../assets/distribute.png';
 import scale from '../../../assets/scale.png';
 import styles from './_render.less';
@@ -7,6 +8,7 @@ class RenderDetails extends React.Component {
   componentDidMount() {}
 
   renderFn = isShow => {
+    const { rowData } = this.props;
     if (isShow) {
       return (
         <div>
@@ -21,7 +23,7 @@ class RenderDetails extends React.Component {
                   return (
                     <p key={item} className={styles.width_50}>
                       <span className={styles.marRight}>黄蓉</span>
-                      <span>30,000元</span>
+                      <span>{formatMoney(rowData.familyNum)}元</span>
                     </p>
                   );
                 })}
@@ -39,7 +41,7 @@ class RenderDetails extends React.Component {
                   return (
                     <p key={item} className={styles.width_50}>
                       <span className={styles.marRight}>黄蓉</span>
-                      <span>30,000元</span>
+                      <span>{formatMoney(rowData.familyNum)}元</span>
                     </p>
                   );
                 })}
@@ -61,7 +63,7 @@ class RenderDetails extends React.Component {
                 return (
                   <p key={item} className={styles.width_50}>
                     <span className={styles.marRight}>黄蓉</span>
-                    <span>30,000元</span>
+                    <span>{formatMoney(rowData.familyNum)}元</span>
                   </p>
                 );
               })}
