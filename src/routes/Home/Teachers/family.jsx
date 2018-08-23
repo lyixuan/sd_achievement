@@ -8,6 +8,7 @@ import LineChartTab from '../../../components/SelfTab/LineChartTab';
 import PerformanceTab from '../../../components/SelfTab/PerformanceTab';
 import dateImg from '../../../assets/dateSelect.svg';
 import arrow from '../../../assets/arrow.svg';
+import multiple from '../../../assets/multiple.svg';
 import Dialog from '../../../components/Dialog';
 import ButtonGroup from '../../../components/ButtonGroup/ButtonGroup';
 import FormulaButton from '../../../components/ButtonGroup/FormulaButton';
@@ -87,8 +88,7 @@ class Boss extends React.Component {
     const { dialogVisible, flag, flag2, showTime } = this.state;
     return (
       <div>
-        <span>家族长首页,权限是:{this.checkoutUserAuth()}</span>
-        <div style={{ marginTop: '1rem', position: 'relative', marginLeft: '0.3rem' }}>
+        <div className={styles.m_timeContener}>
           <span className={styles.timeName}>时间:</span>
           <span style={{ marginLeft: '0.1rem' }} className={styles.timeDate}>
             {showTime}
@@ -101,7 +101,7 @@ class Boss extends React.Component {
           />
         </div>
 
-        <div className={styles.download}>
+        <div>
           {dialogVisible && (
             <Dialog
               visible={dialogVisible}
@@ -116,7 +116,7 @@ class Boss extends React.Component {
           )}
         </div>
 
-        <div className={styles.btnContainer} style={{ marginTop: '0.4rem', position: 'relative' }}>
+        <div className={styles.m_btnContainer}>
           <FormulaButton
             dataSource={{ id: 1, name: '日均学分排名系数', score: '1000' }}
             dataReturnFun={item => {
@@ -124,7 +124,7 @@ class Boss extends React.Component {
             }}
             id={flag2}
           />
-          <span className={styles.buttonLineStyle}>×️️</span>
+          <img className={styles.u_buttonLineStyle} src={multiple} alt="乘号" />
           <FormulaButton
             dataSource={{ id: 2, name: '绩效基数', score: '900000' }}
             dataReturnFun={item => {
@@ -132,7 +132,7 @@ class Boss extends React.Component {
             }}
             id={flag2}
           />
-          <span className={styles.buttonLineStyle}>×️️</span>
+          <img className={styles.u_buttonLineStyle} src={multiple} alt="乘号" />
           <FormulaButton
             dataSource={{ id: 3, name: '管理规模系数', score: '70%' }}
             dataReturnFun={item => {
@@ -142,17 +142,7 @@ class Boss extends React.Component {
           />
         </div>
 
-        <div
-          style={{
-            marginTop: '0.4rem',
-            height: '6.68rem',
-            width: '6.9rem',
-            background: '#fff',
-            marginLeft: '0.3rem',
-            position: 'relative',
-            borderRadius: '0.12rem',
-          }}
-        >
+        <div className={styles.m_perTable}>
           <img
             style={{ left: flag2 === 1 ? '0.6rem' : flag2 === 2 ? '3.2rem' : '5.6rem' }}
             className={styles.u_arrowImg}
