@@ -7,6 +7,7 @@ import styles from './index.less';
 import LineChartTab from '../../../components/SelfTab/LineChartTab';
 import PerformanceTab from '../../../components/SelfTab/PerformanceTab';
 import dateImg from '../../../assets/dateSelect.svg';
+import arrow from '../../../assets/arrow.svg';
 import Dialog from '../../../components/Dialog';
 import ButtonGroup from '../../../components/ButtonGroup/ButtonGroup';
 import FormulaButton from '../../../components/ButtonGroup/FormulaButton';
@@ -115,7 +116,7 @@ class Boss extends React.Component {
           )}
         </div>
 
-        <div className={styles.btnContainer} style={{ marginTop: '0.4rem' }}>
+        <div className={styles.btnContainer} style={{ marginTop: '0.4rem', position: 'relative' }}>
           <FormulaButton
             dataSource={{ id: 1, name: '日均学分排名系数', score: '1000' }}
             dataReturnFun={item => {
@@ -138,6 +139,25 @@ class Boss extends React.Component {
               this.setState({ flag2: item.id });
             }}
             id={flag2}
+          />
+        </div>
+
+        <div
+          style={{
+            marginTop: '0.4rem',
+            height: '6.68rem',
+            width: '6.9rem',
+            background: '#fff',
+            marginLeft: '0.3rem',
+            position: 'relative',
+            borderRadius: '0.12rem',
+          }}
+        >
+          <img
+            style={{ left: flag2 === 1 ? '0.6rem' : flag2 === 2 ? '3.2rem' : '5.6rem' }}
+            className={styles.u_arrowImg}
+            src={arrow}
+            alt="箭头"
           />
         </div>
 
