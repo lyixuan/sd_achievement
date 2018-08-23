@@ -21,14 +21,14 @@ class RenderDetails extends React.Component {
             <p className={styles.greyColor}>绩效分配</p>
             <div style={{ margin: '.07rem 0' }}>
               <span className={styles.blackColor}>运营长绩效 </span>
-              <span className={styles.blackColor}> {formatMoney(rowData.familyNum)} 元 </span>
+              <span className={styles.blackColor}> {formatMoney(rowData.familyNum)}元 </span>
               <span className={styles.greyColor}> ({formatMoney(rowData.familyNum)} </span>
               <span className={styles.blueColor}> | </span>
               <span className={styles.greyColor}> {formatMoney(rowData.familyNum)}) </span>
             </div>
             <div>
               <span className={styles.blackColor}>每个班主任 </span>
-              <span className={styles.blackColor}> {formatMoney(rowData.familyNum)} 元 </span>
+              <span className={styles.blackColor}> {formatMoney(rowData.familyNum)}元 </span>
               <span className={styles.greyColor}> ({formatMoney(rowData.familyNum)} </span>
               <span className={styles.blueColor}> | </span>
               <span className={styles.greyColor}> {formatMoney(rowData.familyNum)}) </span>

@@ -28,7 +28,7 @@ class RenderItem extends React.Component {
         >
           <span className={styles.familyName}>{rowData.groupName}</span>
           <div className={styles.performance}>
-            <span>{formatMoney(rowData.familyNum)} 元</span>
+            <span>{formatMoney(rowData.familyNum)}元</span>
             <span className={styles.remark}>
               {' '}
               ({formatMoney(rowData.familyNum)} | {formatMoney(rowData.familyNum)})
