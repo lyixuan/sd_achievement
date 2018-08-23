@@ -1,6 +1,8 @@
 import React from 'react';
-import Bar from './BaseChart/bar';
-import { fontSizeAuto, Formatter, TooltipFormatter } from './_chartUtils';
+import {fontSizeAuto} from 'utils/chartUtils';
+import Bar from '../BaseChart/bar';
+import {BarClass } from './_chartUtils';
+
 
 export default class SingleBar extends React.Component {
   constructor(props) {
@@ -9,19 +11,17 @@ export default class SingleBar extends React.Component {
   }
   setChartsOps = dataSource => {
     const { seriesData, xAxisData } = dataSource;
-    const tooltip = this.setTooltip();
     const title = this.tooltipInstance.chartTitle('集团总绩效');
     const grid = this.tooltipInstance.chartGrid();
     const chartOps = {
-      tooltip,
+      tooltip:{
+        ...this.tooltipInstance.tooltipStyle,
+        formatter: this.tooltipInstance.tooltipFormate,
+      },
       title,
       grid,
       legend: {
-        left: fontSizeAuto(279),
-        top: fontSizeAuto(80),
-        selectedMode: true, // 禁止点击图例
-        itemWidth: fontSizeAuto(10),
-        itemHeight: fontSizeAuto(10),
+        ...this.tooltipInstance.legendStyle,
         data: [
           {
             name: `人均绩效`,
@@ -45,6 +45,7 @@ export default class SingleBar extends React.Component {
         axisLabel: {
           color: '#8C8C8C',
           fontSize: fontSizeAuto(16),
+          formatter: this.tooltipInstance.axisLabel,
         },
         axisLine: {
           show: false,
@@ -80,7 +81,7 @@ export default class SingleBar extends React.Component {
       axisLabel: {
         interval: 0,
         color: '#999999',
-        formatter: (value, index) => Formatter.isPredictedStr(value, index, dataSource),
+        formatter: this.tooltipInstance.isPredictedStr,
         rich: {
           a: {
             color: '#50E3C2',
@@ -98,26 +99,6 @@ export default class SingleBar extends React.Component {
       data: dataSource.map(item => item.name),
     };
   };
-  setTooltip = () => {
-    return {
-      trigger: 'axis',
-      backgroundColor: 'rgba(0,0,0,0.6)',
-      formatter: this.tooltipInstance.tooltipFormate,
-      axisPointer: {
-        type: 'line',
-        lineStyle: {
-          color: '#DADADA',
-        },
-        label: {
-          show: false,
-        },
-      },
-      textStyle: {
-        fontSize: fontSizeAuto(18),
-        color: '#FFFFFF',
-      },
-    };
-  };
   handleData = () => {
     const { dataSource } = this.props;
     const seriesData = [];
@@ -131,7 +112,7 @@ export default class SingleBar extends React.Component {
       };
       seriesData.push(opsXobj);
     });
-    this.tooltipInstance = new TooltipFormatter(dataSource);
+    this.tooltipInstance = new BarClass(dataSource);
     const xAxisData = this.setXAxis(dataSource);
     return this.setChartsOps({ seriesData, xAxisData });
   };
