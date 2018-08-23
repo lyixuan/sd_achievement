@@ -42,9 +42,9 @@ class Boss extends React.Component {
       ],
       FunnelChartData: [
         { val: 30, type: 1 },
-        { val: 50, type: 2 },
-        { val: 70, type: 3 },
-        { val: 10, type: 4 },
+        { val: 10, type: 2 },
+        { val: 10, type: 3 },
+        { val: 70, type: 4 },
       ],
     };
     this.state = assignUrlParams(initState, urlParams);

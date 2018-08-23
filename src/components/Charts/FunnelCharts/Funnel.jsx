@@ -9,7 +9,7 @@ export default class SingleBar extends React.Component {
     this.tooltipInstance = null;
   }
   setChartsOps = dataSource => {
-    const { seriesData } = dataSource;
+    const { seriesData, chartStyle } = dataSource;
     const title = this.tooltipInstance.chartTitle('预测绩效分档(小组)');
     const label = this.tooltipInstance.setLabel();
     const chartOps = {
@@ -19,21 +19,16 @@ export default class SingleBar extends React.Component {
         {
           name: 'top',
           type: 'funnel',
-          width: fontSizeAuto(251),
-          height: fontSizeAuto(146),
-          left: fontSizeAuto(82),
-          top: fontSizeAuto(109),
-          sort: 'ascending',
+          ...chartStyle.top,
+          sort: seriesData.level1.value >= seriesData.level2.value ? 'descending' : 'ascending',
           label,
           data: [seriesData.level1, seriesData.level2],
         },
         {
           name: 'bottom',
           type: 'funnel',
-          width: fontSizeAuto(251),
-          height: fontSizeAuto(146),
-          left: fontSizeAuto(82),
-          top: fontSizeAuto(255),
+          sort: seriesData.level3.value >= seriesData.level4.value ? 'descending' : 'ascending',
+          ...chartStyle.bottom,
           label,
           data: [seriesData.level3, seriesData.level4],
         },
@@ -65,11 +60,35 @@ export default class SingleBar extends React.Component {
       },
     };
   };
+  handleChartStyle = seriesData => {
+    const width = parseInt(fontSizeAuto(251), 10); // 设置图标的宽度
+    const height = parseInt(fontSizeAuto(146), 10);
+    const left = parseInt(fontSizeAuto(82), 10);
+
+    const maxNum = Math.max.apply(null, seriesData.map(item => item.val));
+    const topMax = Math.max.apply(null, seriesData.map((item, index) => index < 2 && item.val));
+    const bottomMax = Math.max.apply(null, seriesData.map((item, index) => index >= 2 && item.val));
+    return {
+      top: {
+        height,
+        left: left + (width - parseInt(topMax / maxNum * width, 10)) / 2,
+        top: fontSizeAuto(109),
+        width: parseInt(topMax / maxNum * width, 10),
+      },
+      bottom: {
+        height,
+        left: left + (width - parseInt(bottomMax / maxNum * width, 10)) / 2,
+        top: fontSizeAuto(255),
+        width: parseInt(bottomMax / maxNum * width, 10),
+      },
+    };
+  };
   handleData = () => {
     const { dataSource } = this.props;
-    const seriesData = this.handleLayout(dataSource);
     this.tooltipInstance = new BarClass(dataSource);
-    return this.setChartsOps({ seriesData });
+    const seriesData = this.handleLayout(dataSource);
+    const chartStyle = this.handleChartStyle(dataSource);
+    return this.setChartsOps({ seriesData, chartStyle });
   };
 
   render() {
