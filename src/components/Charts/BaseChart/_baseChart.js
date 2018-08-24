@@ -25,7 +25,7 @@ export class ChartBase {
       containLabel: true,
       top: fontSizeAuto(155),
       right: fontSizeAuto(30),
-      bottom: fontSizeAuto(50),
+      bottom: fontSizeAuto(30),
       left: fontSizeAuto(30),
     };
   };

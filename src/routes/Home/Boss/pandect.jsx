@@ -4,11 +4,11 @@ import { assignUrlParams } from 'utils/routerUtils';
 import { getCurrentAuthInfo } from 'utils/localStorage';
 import SingleBar from 'components/Charts/BarCharts/SingleBar';
 import ProportionBar from 'components/Charts/BarCharts/ProportionBar';
-import MultiBar from 'components/Charts/BarCharts/MultiBar';
 import SingleLine from 'components/Charts/LineCharts/SingleLine';
-import MultLine from 'components/Charts/LineCharts/MultLine';
 import Funnel from 'components/Charts/FunnelCharts/Funnel';
 import RosePie from 'components/Charts/PieCharts/RosePie';
+import AllGroupPandect from 'container/AllGroupPandect';
+import PerGroupPandect from 'container/PerGroupPandect';
 
 import styles from './boss.less';
 
@@ -70,6 +70,12 @@ class Boss extends React.Component {
     return (
       <div>
         绩效总览页面,权限是:{this.checkoutUserAuth()}
+        <AllGroupPandect dataSource={chartMulti}>
+          <div>dutton按钮</div>
+        </AllGroupPandect>
+        <PerGroupPandect dataSource={chartMulti}>
+          <div>dutton按钮</div>
+        </PerGroupPandect>
         <div className={styles.chart}>
           <SingleBar dataSource={chartData} />
         </div>
@@ -77,13 +83,7 @@ class Boss extends React.Component {
           <ProportionBar dataSource={chartZhanbi} />
         </div>
         <div className={styles.chart}>
-          <MultiBar dataSource={chartMulti} />
-        </div>
-        <div className={styles.chart}>
           <SingleLine dataSource={chartMulti} />
-        </div>
-        <div className={styles.chart}>
-          <MultLine dataSource={chartMulti} />
         </div>
         <div className={styles.chart}>
           <Funnel dataSource={FunnelChartData} />

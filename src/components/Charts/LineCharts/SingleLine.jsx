@@ -18,20 +18,23 @@ export default class SingleBar extends React.Component {
         formatter: this.tooltipInstance.tooltipFormate,
       },
       title,
-      grid,
-      legend: {
-        ...this.tooltipInstance.legendStyle,
-        data: [
-          {
-            name: `人均绩效`,
-            icon: 'circle',
-            textStyle: {
-              color: '#999999',
-              fontSize: fontSizeAuto(18),
-            },
-          },
-        ],
+      grid: {
+        ...grid,
+        top: fontSizeAuto(115),
       },
+      // legend: {
+      //   ...this.tooltipInstance.legendStyle,
+      //   data: [
+      //     {
+      //       name: `人均绩效`,
+      //       icon: 'circle',
+      //       textStyle: {
+      //         color: '#999999',
+      //         fontSize: fontSizeAuto(18),
+      //       },
+      //     },
+      //   ],
+      // },
       color: '#4A90E2', // 设置图例远点颜色,可跟数组
       xAxis: {
         ...xAxisData,

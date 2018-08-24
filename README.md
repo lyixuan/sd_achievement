@@ -26,6 +26,8 @@ English | [简体中文](./README.zh-CN.md)
  - gobal      页面全局交互使用
  - user       用户信息数据
 
+- container      工程容器组件,根据页面的业务需求对组件的处理组合
+
 - route
  - Home                 系统首页
    - IndexPage          首页  (根据权限分发对应的首页页面)

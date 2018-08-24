@@ -19,37 +19,40 @@ export default class SingleBar extends React.Component {
         formatter: this.tooltipInstance.tooltipFormate,
       },
       title,
-      grid,
-      legend: {
-        ...this.tooltipInstance.legendStyle,
-        left: fontSizeAuto(157),
-        data: [
-          {
-            name: `全体总绩效`,
-            icon: 'circle',
-            textStyle: {
-              color: '#999999',
-              fontSize: fontSizeAuto(18),
-            },
-          },
-          {
-            name: `基本绩效`,
-            icon: 'circle',
-            textStyle: {
-              color: '#999999',
-              fontSize: fontSizeAuto(18),
-            },
-          },
-          {
-            name: `打分绩效`,
-            icon: 'circle',
-            textStyle: {
-              color: '#999999',
-              fontSize: fontSizeAuto(18),
-            },
-          },
-        ],
+      grid: {
+        ...grid,
+        top: fontSizeAuto(115),
       },
+      // legend: {
+      //   ...this.tooltipInstance.legendStyle,
+      //   left: fontSizeAuto(157),
+      //   data: [
+      //     {
+      //       name: `全体总绩效`,
+      //       icon: 'circle',
+      //       textStyle: {
+      //         color: '#999999',
+      //         fontSize: fontSizeAuto(18),
+      //       },
+      //     },
+      //     {
+      //       name: `基本绩效`,
+      //       icon: 'circle',
+      //       textStyle: {
+      //         color: '#999999',
+      //         fontSize: fontSizeAuto(18),
+      //       },
+      //     },
+      //     {
+      //       name: `打分绩效`,
+      //       icon: 'circle',
+      //       textStyle: {
+      //         color: '#999999',
+      //         fontSize: fontSizeAuto(18),
+      //       },
+      //     },
+      //   ],
+      // },
       color: ['#B68CFF', '#52C9C2', '#FDBF41'], // 设置图例远点颜色,可跟数组
       xAxis: {
         ...xAxisData,
