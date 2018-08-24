@@ -4,6 +4,7 @@ import Switch from '../../components/Switch/Switch';
 import MultipHeaderList from '../../components/ListView/listView';
 import RenderHeader from './_renderHeader';
 import RenderItem from './_renderItem';
+import FloatIcon from './_floatIcon';
 import styles from './index.less';
 
 class Details extends React.Component {
@@ -107,6 +108,8 @@ class Details extends React.Component {
             )
           );
         })}
+        {/* *************** floatIcon *************** */}
+        <FloatIcon />
       </div>
     );
   }

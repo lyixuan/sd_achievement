@@ -1,0 +1,33 @@
+.m_dialogWrap {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  .flexContainer {
+    max-height: 75vh;
+    .buttonDiv {
+      margin-left: 0.05rem;
+      text-align: left;
+      .u_btnStyle {
+        position: relative;
+        z-index: 100;
+        display: inline-block !important;
+        width: 2.1rem !important;
+        height: 0.56rem !important;
+        line-height: 0.56rem !important;
+        background: #f5f8fa !important;
+        margin: 0 0.2rem 0.1rem 0;
+        font-size: 0.2rem !important;
+        border-radius: 0.04rem !important;
+      }
+      .u_btnSelected {
+        background: #52c9c2 !important;
+      }
+    }
+  }
+  :global(.am-modal-content) {
+    border-radius: 7px 7px 0 0 !important;
+  }
+  :global(.am-modal-header) {
+    margin-bottom: 0.4rem;
+  }
+}
