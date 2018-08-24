@@ -160,6 +160,18 @@ class Boss extends React.Component {
           />
         </div>
 
+        <div className={styles.m_performanceContener}>
+          <div className={styles.u_totalMoney}>
+            <p className={styles.u_totalNum}>1,500,000元</p>
+          </div>
+
+          <div className={styles.m_performanceMoney}>
+            <div className={styles.u_basicMoney}>test2</div>
+            <div className={styles.u_splitLine} />
+            <div className={styles.u_scoreMoney}>test3</div>
+          </div>
+        </div>
+
         <div className={styles.m_btnContainer}>
           <FormulaButton
             dataSource={{ id: 1, name: '日均学分排名系数', score: '1000' }}
