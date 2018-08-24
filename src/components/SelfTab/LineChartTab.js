@@ -29,25 +29,19 @@ class LineChartTab extends Component {
   render() {
     const { firstId = 1 } = this.props;
     return (
-      <div className={styles.newContenter}>
-        <div className={styles.newsegmentCls}>
-          <span
-            onClick={() => this.selectTab(1)}
-            className={firstId === 1 ? styles.newselectSpan1 : styles.span1}
-          >
-            <img
-              className={styles.newiconImg}
-              src={firstId === 1 ? lineChart2 : lineChart}
-              alt=""
-            />
-          </span>
-          <span
-            onClick={() => this.selectTab(2)}
-            className={firstId === 2 ? styles.newselectSpan2 : styles.span2}
-          >
-            <img className={styles.newiconImg2} src={firstId === 2 ? barGraph2 : barGraph} alt="" />
-          </span>
-        </div>
+      <div className={styles.newsegmentCls}>
+        <span
+          onClick={() => this.selectTab(1)}
+          className={firstId === 1 ? styles.newselectSpan1 : styles.span1}
+        >
+          <img className={styles.newiconImg} src={firstId === 1 ? lineChart2 : lineChart} alt="" />
+        </span>
+        <span
+          onClick={() => this.selectTab(2)}
+          className={firstId === 2 ? styles.newselectSpan2 : styles.span2}
+        >
+          <img className={styles.newiconImg2} src={firstId === 2 ? barGraph2 : barGraph} alt="" />
+        </span>
       </div>
     );
   }
