@@ -11,7 +11,7 @@ export default class SingleBar extends React.Component {
   }
   setChartsOps = dataSource => {
     const { allMoney, xAxisData } = dataSource;
-    const title = this.tooltipInstance.chartTitle('集团总绩效');
+    const title = this.tooltipInstance.chartTitle();
     const grid = this.tooltipInstance.chartGrid();
     const chartOps = {
       tooltip: {
@@ -80,7 +80,7 @@ export default class SingleBar extends React.Component {
     };
     return chartOps;
   };
-  setXAxis = dataSource => {
+  setXAxis = () => {
     return {
       type: 'category',
       axisTick: {
@@ -105,7 +105,7 @@ export default class SingleBar extends React.Component {
           color: '#52C9C2',
         },
       },
-      data: dataSource.map(item => item.name),
+      data: this.tooltipInstance.chartData.map(item => item.name),
     };
   };
   setServiesItem = data => {
@@ -137,10 +137,11 @@ export default class SingleBar extends React.Component {
   //   };
   handleData = () => {
     const { dataSource } = this.props;
-    this.tooltipInstance = new Proportion(dataSource);
+    this.tooltipInstance = new Proportion({ dataSource });
+    const { chartData } = this.tooltipInstance;
 
-    const xAxisData = this.setXAxis(dataSource);
-    const allMoney = this.setServiesItem(dataSource);
+    const xAxisData = this.setXAxis(chartData);
+    const allMoney = this.setServiesItem(chartData);
     // const baseMoney = this.setBaseMoney(dataSource);
     // const markMoney = this.setMarkMoney(dataSource);
     return this.setChartsOps({ allMoney, xAxisData });

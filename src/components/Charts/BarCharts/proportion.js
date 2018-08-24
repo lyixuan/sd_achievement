@@ -1,10 +1,6 @@
 import { BarClass } from './_chartUtils';
 
 export class Proportion extends BarClass {
-  constructor(props) {
-    super(props);
-    this.chartData = props;
-  }
   seriesLaber = params => {
     const { value } = params;
     return `${value}%`;

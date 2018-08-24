@@ -11,7 +11,7 @@ export default class SingleBar extends React.Component {
   }
   setChartsOps = dataSource => {
     const { seriesData, xAxisData } = dataSource;
-    const title = this.tooltipInstance.chartTitle('集团总绩效');
+    const title = this.tooltipInstance.chartTitle();
     const grid = this.tooltipInstance.chartGrid();
     const chartOps = {
       tooltip: {
@@ -109,9 +109,10 @@ export default class SingleBar extends React.Component {
   };
   handleData = () => {
     const { dataSource } = this.props;
-    this.tooltipInstance = new Proportion(dataSource);
+    this.tooltipInstance = new Proportion({ dataSource });
+    const { chartData } = this.tooltipInstance;
     const seriesData = [];
-    dataSource.forEach(item => {
+    chartData.forEach(item => {
       const opsXobj = {
         value: item.val,
         itemStyle: {
@@ -128,7 +129,7 @@ export default class SingleBar extends React.Component {
       };
       seriesData.push(opsXobj);
     });
-    const xAxisData = this.setXAxis(dataSource);
+    const xAxisData = this.setXAxis(chartData);
     return this.setChartsOps({ seriesData, xAxisData });
   };
 

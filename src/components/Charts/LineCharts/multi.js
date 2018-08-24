@@ -1,10 +1,6 @@
 import { BarClass } from './_chartUtils';
 
 export class Proportion extends BarClass {
-  constructor(props) {
-    super(props);
-    this.chartData = props;
-  }
   tooltipFormate = params => {
     const that = this;
     const { name } = params[0];

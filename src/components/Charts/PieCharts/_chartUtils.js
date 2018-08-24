@@ -5,7 +5,6 @@ import { ChartBase } from '../BaseChart/_baseChart';
 export class BarClass extends ChartBase {
   constructor(props) {
     super(props);
-    this.chartData = props;
     this.legendStyle = {
       left: fontSizeAuto(279),
       top: fontSizeAuto(80),

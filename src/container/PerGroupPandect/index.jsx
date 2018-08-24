@@ -1,6 +1,6 @@
 import React from 'react';
-import MultiBar from 'components/Charts/BarCharts/MultiBar';
-import MultLine from 'components/Charts/LineCharts/MultLine';
+import SingleBar from 'components/Charts/BarCharts/SingleBar';
+import SingleLine from 'components/Charts/LineCharts/SingleLine';
 import LineChartTab from 'components/SelfTab/LineChartTab';
 import styles from './index.less';
 
@@ -20,9 +20,9 @@ export default class PandectChart extends React.Component {
     });
   };
   render() {
-    const { dataSource, chartTitle, children = [] } = this.props;
+    const { dataSource = {}, children = [] } = this.props;
     const { chartState } = this.state;
-    const hasData = Array.isArray(dataSource) && dataSource.length > 0;
+    const hasData = Array.isArray(dataSource.data) && dataSource.data.length > 0;
     return !hasData ? null : (
       <div className={styles.container}>
         <span className={styles.chartTab}>
@@ -33,8 +33,8 @@ export default class PandectChart extends React.Component {
             firstId={chartState}
           />
         </span>
-        {chartState === 1 && <MultLine dataSource={dataSource} chartTitle={chartTitle} />}
-        {chartState === 2 && <MultiBar dataSource={dataSource} chartTitle={chartTitle} />}
+        {chartState === 1 && <SingleLine dataSource={dataSource} />}
+        {chartState === 2 && <SingleBar dataSource={dataSource} />}
         <div className={styles.content}>
           {Array.isArray(children) ? [...children] : { ...children }}
         </div>

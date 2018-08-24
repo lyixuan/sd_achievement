@@ -70,26 +70,26 @@ class Boss extends React.Component {
     return (
       <div>
         绩效总览页面,权限是:{this.checkoutUserAuth()}
-        <AllGroupPandect dataSource={chartMulti}>
+        <AllGroupPandect dataSource={{ data: chartMulti, title: '集团总绩效' }}>
           <div>dutton按钮</div>
         </AllGroupPandect>
-        <PerGroupPandect dataSource={chartMulti}>
+        <PerGroupPandect dataSource={{ data: chartData, title: '集团人均绩效' }}>
           <div>dutton按钮</div>
         </PerGroupPandect>
         <div className={styles.chart}>
-          <SingleBar dataSource={chartData} />
+          <SingleBar dataSource={{ data: chartData, title: '集团人均绩效' }} />
         </div>
         <div className={styles.chart}>
-          <ProportionBar dataSource={chartZhanbi} />
+          <ProportionBar dataSource={{ data: chartZhanbi, title: '集团人均绩效' }} />
         </div>
         <div className={styles.chart}>
-          <SingleLine dataSource={chartMulti} />
+          <SingleLine dataSource={{ data: chartMulti, title: '集团人均绩效' }} />
         </div>
         <div className={styles.chart}>
-          <Funnel dataSource={FunnelChartData} />
+          <Funnel dataSource={{ data: FunnelChartData, title: '集团人均绩效' }} />
         </div>
         <div className={styles.chart}>
-          <RosePie dataSource={pieChartData} />
+          <RosePie dataSource={{ data: pieChartData, title: '集团人均绩效' }} />
         </div>
       </div>
     );
