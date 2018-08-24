@@ -13,6 +13,8 @@ import Dialog from '../../../components/Dialog';
 import ButtonGroup from '../../../components/ButtonGroup/ButtonGroup';
 import FormulaButton from '../../../components/ButtonGroup/FormulaButton';
 import ImgTitle from '../../../components/ImgTitle/ImgTitle';
+import redtriangle from '../../../assets/redtriangle.png';
+import greentriangle from '../../../assets/greentriangle.png';
 
 class Boss extends React.Component {
   constructor(props) {
@@ -87,6 +89,30 @@ class Boss extends React.Component {
 
   render() {
     const { dialogVisible, flag, flag2, showTime } = this.state;
+
+    const scoreLeft = () => (
+      <span className={styles.u_numSpan}>
+        {flag2 === 1 ? '9.5分' : flag2 === 2 ? '1000人' : '10人'}
+      </span>
+    );
+    const scoreRight = () => (
+      <span className={styles.u_numSpan}>
+        {flag2 === 3 ? (
+          '1000人'
+        ) : (
+          <span>
+            {2}
+            <img
+              src={flag2 === 1 ? redtriangle : greentriangle}
+              alt="均分图标"
+              className={styles.u_triangleImg}
+            />
+            /{50} ({'20%'})
+          </span>
+        )}
+      </span>
+    );
+
     return (
       <div>
         <div className={styles.m_timeContener}>
@@ -118,7 +144,7 @@ class Boss extends React.Component {
           />
           <img className={styles.u_buttonLineStyle} src={multiple} alt="乘号" />
           <FormulaButton
-            dataSource={{ id: 3, name: '管理规模系数', score: '70%' }}
+            dataSource={{ id: 3, name: flag === 1 ? '管理规模系数' : '绩效比例', score: '70%' }}
             dataReturnFun={item => {
               this.setState({ flag2: item.id });
             }}
@@ -128,7 +154,7 @@ class Boss extends React.Component {
 
         <div className={styles.m_perTable}>
           <img
-            style={{ left: flag2 === 1 ? '0.7rem' : flag2 === 2 ? '3.2rem' : '5.7rem' }}
+            style={{ left: flag2 === 1 ? '0.7rem' : flag2 === 2 ? '3.25rem' : '5.7rem' }}
             className={styles.u_arrowImg}
             src={arrow}
             alt="箭头"
@@ -137,18 +163,21 @@ class Boss extends React.Component {
             <ImgTitle
               dataSource={{
                 imgSrc: flag2 === 1 ? 4 : flag2 === 2 ? 2 : 1,
-                titleValue: '日均学分',
-                numValue: '9.5分',
-                showDetail: flag2 === 2 ? 'show' : 'hidden',
+                titleValue:
+                  flag2 === 1
+                    ? '日均学分'
+                    : flag2 === 2 ? '人均在服学员' : flag === 1 ? '管理规模' : '组内老师',
+                showDetail: flag === 2 && flag2 === 2 ? 'show' : 'hidden',
               }}
+              spanFunction={() => scoreLeft()}
             />
             <div className={styles.u_ySplitLine} />
             <ImgTitle
               dataSource={{
                 imgSrc: flag2 === 1 ? 3 : flag2 === 2 ? 3 : 2,
-                titleValue: '排名',
-                numValue: '8 / 400 （20%）',
+                titleValue: flag2 === 3 ? '在服学员' : '排名',
               }}
+              spanFunction={() => scoreRight()}
             />
           </div>
           <div className={styles.u_xSplitLine} />

@@ -12,18 +12,19 @@ import manageImg from '../../assets/manageImg.png';
 import sortImg from '../../assets/sortImg.png';
 import studentImg from '../../assets/studentImg.png';
 import scoreImg from '../../assets/scoreImg.png';
+import detaiPro from '../../assets/detaiPro.svg';
 
 class ImgTitle extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
-  spanFun = dataSource => {
+  spanFun = () => {
     const { spanFunction } = this.props;
     if (spanFunction && typeof spanFunction === 'function') {
-      return this.props.spanFunction(dataSource);
+      return this.props.spanFunction();
     } else {
-      return <span className={styles.u_numSpan}>{dataSource.numValue}</span>;
+      return <span className={styles.u_numSpan}>分数</span>;
     }
   };
 
@@ -37,9 +38,14 @@ class ImgTitle extends Component {
         <div className={styles.m_spanContener}>
           {this.spanFun(dataSource)}
           <br />
-          <span className={styles.u_titleSpan}>{dataSource.titleValue}</span>
-          <span style={{ display: dataSource.showDetail === 'show' ? 'inline' : 'none' }}>
-            <img src={scoreImg} alt="详情" className={styles.u_detailImg} />
+          <span className={styles.u_titleSpan}>
+            {dataSource.titleValue || '日均学分'}
+            <img
+              src={detaiPro}
+              alt="详情"
+              className={styles.u_detailImg}
+              style={{ display: dataSource.showDetail === 'show' ? 'inline' : 'none' }}
+            />
           </span>
         </div>
       </div>
