@@ -1,8 +1,7 @@
 import React from 'react';
-import {fontSizeAuto} from 'utils/chartUtils';
+import { fontSizeAuto } from 'utils/chartUtils';
 import Bar from '../BaseChart/bar';
-import {BarClass } from './_chartUtils';
-
+import { BarClass } from './_chartUtils';
 
 export default class SingleBar extends React.Component {
   constructor(props) {
@@ -14,7 +13,7 @@ export default class SingleBar extends React.Component {
     const title = this.tooltipInstance.chartTitle('集团总绩效');
     const grid = this.tooltipInstance.chartGrid();
     const chartOps = {
-      tooltip:{
+      tooltip: {
         ...this.tooltipInstance.tooltipStyle,
         formatter: this.tooltipInstance.tooltipFormate,
       },
@@ -94,6 +93,7 @@ export default class SingleBar extends React.Component {
         show: true,
         lineStyle: {
           color: '#52C9C2',
+          width: fontSizeAuto(1),
         },
       },
       data: dataSource.map(item => item.name),
@@ -119,6 +119,6 @@ export default class SingleBar extends React.Component {
 
   render() {
     const dataSource = this.handleData();
-    return dataSource ? <Bar dataSource={dataSource} width="7.1rem" height="6rem" /> : null;
+    return dataSource ? <Bar dataSource={dataSource} width="7.1rem" height="6.8rem" /> : null;
   }
 }

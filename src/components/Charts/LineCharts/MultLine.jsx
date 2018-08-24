@@ -33,7 +33,7 @@ export default class SingleBar extends React.Component {
           },
         ],
       },
-      color: ['#52C9C2'], // 设置图例远点颜色,可跟数组
+      color: '#52C9C2', // 设置图例远点颜色,可跟数组
       xAxis: {
         ...xAxisData,
       },
@@ -65,7 +65,7 @@ export default class SingleBar extends React.Component {
         symbol: 'circle', // 拐点样式 圆
         symbolSize: fontSizeAuto(8), // 拐点大小
         itemStyle: {
-          color: '#3389FF',
+          color: '#52C9C2',
         },
         // 线段
         lineStyle: {
@@ -145,6 +145,6 @@ export default class SingleBar extends React.Component {
 
   render() {
     const dataSource = this.handleData();
-    return dataSource ? <Bar dataSource={dataSource} width="7.1rem" height="6rem" /> : null;
+    return dataSource ? <Bar dataSource={dataSource} width="7.1rem" height="6.8rem" /> : null;
   }
 }

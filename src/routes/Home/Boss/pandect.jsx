@@ -8,6 +8,7 @@ import MultiBar from 'components/Charts/BarCharts/MultiBar';
 import SingleLine from 'components/Charts/LineCharts/SingleLine';
 import MultLine from 'components/Charts/LineCharts/MultLine';
 import Funnel from 'components/Charts/FunnelCharts/Funnel';
+import RosePie from 'components/Charts/PieCharts/RosePie';
 
 import styles from './boss.less';
 
@@ -46,6 +47,15 @@ class Boss extends React.Component {
         { val: 10, type: 3 },
         { val: 70, type: 4 },
       ],
+      pieChartData: [
+        { val: 70, name: '睿博' },
+        { val: 60, name: '芝士' },
+        { val: 50, name: '自变量' },
+        { val: 40, name: 'π学院' },
+        { val: 30, name: '狐罗' },
+        { val: 20, name: '泰罗' },
+        { val: 10, name: '浩博' },
+      ],
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -56,7 +66,7 @@ class Boss extends React.Component {
   };
 
   render() {
-    const { chartData, chartZhanbi, chartMulti, FunnelChartData } = this.state;
+    const { chartData, chartZhanbi, chartMulti, FunnelChartData, pieChartData } = this.state;
     return (
       <div>
         绩效总览页面,权限是:{this.checkoutUserAuth()}
@@ -77,6 +87,9 @@ class Boss extends React.Component {
         </div>
         <div className={styles.chart}>
           <Funnel dataSource={FunnelChartData} />
+        </div>
+        <div className={styles.chart}>
+          <RosePie dataSource={pieChartData} />
         </div>
       </div>
     );

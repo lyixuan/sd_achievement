@@ -26,7 +26,7 @@ export class ChartBase {
       top: fontSizeAuto(155),
       right: fontSizeAuto(30),
       bottom: fontSizeAuto(50),
-      left: 0,
+      left: fontSizeAuto(30),
     };
   };
   tooltipNumUnit = () => {

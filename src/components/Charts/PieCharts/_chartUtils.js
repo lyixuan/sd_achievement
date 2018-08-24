@@ -16,18 +16,22 @@ export class BarClass extends ChartBase {
   }
   tooltipFormate = params => {
     const { name } = params;
-    const str = `${name}\n`;
-    const demation = `{a|家族数: 3个  占比:42.9%}`;
+    const str = `{b|${name} : 47.9%\n}`;
+    const demation = `{a|5个家族\n1,000,000元}\n`;
     return str + demation;
   };
   setLabel = () => {
     return {
       fontSize: fontSizeAuto(18),
       formatter: this.tooltipFormate,
-      lineHeight: fontSizeAuto(24),
+      color: '#333',
       rich: {
         a: {
-          color: '#151515',
+          color: '#6D6D75',
+          fontSize: fontSizeAuto(18),
+        },
+        b: {
+          color: '#333',
           fontSize: fontSizeAuto(18),
         },
       },

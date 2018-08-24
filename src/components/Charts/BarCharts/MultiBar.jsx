@@ -176,6 +176,6 @@ export default class SingleBar extends React.Component {
 
   render() {
     const dataSource = this.handleData();
-    return dataSource ? <Bar dataSource={dataSource} width="7.1rem" height="6rem" /> : null;
+    return dataSource ? <Bar dataSource={dataSource} width="7.1rem" height="6.8rem" /> : null;
   }
 }

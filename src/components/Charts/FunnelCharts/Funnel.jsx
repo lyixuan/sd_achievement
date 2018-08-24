@@ -63,7 +63,7 @@ export default class SingleBar extends React.Component {
   handleChartStyle = seriesData => {
     const width = parseInt(fontSizeAuto(251), 10); // 设置图标的宽度
     const height = parseInt(fontSizeAuto(146), 10);
-    const left = parseInt(fontSizeAuto(82), 10);
+    const left = parseInt(fontSizeAuto(115), 10);
 
     const maxNum = Math.max.apply(null, seriesData.map(item => item.val));
     const topMax = Math.max.apply(null, seriesData.map((item, index) => index < 2 && item.val));
