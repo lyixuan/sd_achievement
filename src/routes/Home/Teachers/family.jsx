@@ -16,6 +16,10 @@ import ImgTitle from '../../../components/ImgTitle/ImgTitle';
 import redtriangle from '../../../assets/redtriangle.png';
 import greentriangle from '../../../assets/greentriangle.png';
 
+import MultipHeaderList from '../../../components/ListView/listView';
+import CustomRenderHeader from '../../../components/TableItem/TableHeader';
+import CustomRenderItem from '../../../components/TableItem/TableItem';
+
 class Boss extends React.Component {
   constructor(props) {
     super(props);
@@ -89,6 +93,29 @@ class Boss extends React.Component {
 
   render() {
     const { dialogVisible, flag, flag2, showTime } = this.state;
+
+    const columnsData = {
+      titleFour: '班主任',
+      titleOne: '日期',
+      titleThree: '预估分',
+      titleTwo: '学员ID',
+    };
+    const tableList = [
+      {
+        key: 1,
+        titleFour: '黄晓云',
+        titleOne: '2018-07-17',
+        titleThree: 4,
+        titleTwo: 3844093,
+      },
+      {
+        key: 2,
+        titleFour: '黄晓云',
+        titleOne: '2018-07-17',
+        titleThree: 4,
+        titleTwo: 3844093,
+      },
+    ];
 
     const scoreLeft = () => (
       <span className={styles.u_numSpan}>
@@ -181,6 +208,12 @@ class Boss extends React.Component {
             />
           </div>
           <div className={styles.u_xSplitLine} />
+
+          <MultipHeaderList
+            dataList={tableList}
+            customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
+            customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
+          />
         </div>
 
         <div>
