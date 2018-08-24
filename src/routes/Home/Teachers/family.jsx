@@ -4,8 +4,6 @@ import { Button } from 'antd-mobile';
 import { assignUrlParams } from '../../../utils/routerUtils';
 import { getCurrentAuthInfo } from '../../../utils/localStorage';
 import styles from './index.less';
-import LineChartTab from '../../../components/SelfTab/LineChartTab';
-import PerformanceTab from '../../../components/SelfTab/PerformanceTab';
 import dateImg from '../../../assets/dateSelect.svg';
 import arrow from '../../../assets/arrow.svg';
 import multiple from '../../../assets/multiple.svg';
@@ -95,25 +93,34 @@ class Boss extends React.Component {
     const { dialogVisible, flag, flag2, showTime } = this.state;
 
     const columnsData = {
-      titleFour: '班主任',
-      titleOne: '日期',
-      titleThree: '预估分',
-      titleTwo: '学员ID',
+      titleOne: '小组排名',
+      titleTwo: '档位内最低分',
+      titleThree: '系数',
     };
     const tableList = [
       {
         key: 1,
-        titleFour: '黄晓云',
-        titleOne: '2018-07-17',
-        titleThree: 4,
-        titleTwo: 3844093,
+        titleOne: '0% ～ 5%',
+        titleTwo: 11,
+        titleThree: 2.5,
       },
       {
         key: 2,
-        titleFour: '黄晓云',
-        titleOne: '2018-07-17',
-        titleThree: 4,
-        titleTwo: 3844093,
+        titleOne: '5% ～ 15%',
+        titleTwo: 9.9,
+        titleThree: 2,
+      },
+      {
+        key: 3,
+        titleOne: '15% ～ 60%',
+        titleTwo: 8.5,
+        titleThree: 1.5,
+      },
+      {
+        key: 4,
+        titleOne: '60% ～ 100%',
+        titleTwo: 7.7,
+        titleThree: 0.8,
       },
     ];
 
@@ -208,12 +215,13 @@ class Boss extends React.Component {
             />
           </div>
           <div className={styles.u_xSplitLine} />
-
-          <MultipHeaderList
-            dataList={tableList}
-            customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
-            customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
-          />
+          <div className={styles.testList}>
+            <MultipHeaderList
+              dataList={tableList}
+              customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
+              customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
+            />
+          </div>
         </div>
 
         <div>
@@ -229,24 +237,6 @@ class Boss extends React.Component {
               <Button style={{ height: '0' }} />
             </Dialog>
           )}
-        </div>
-
-        <div style={{ marginTop: '0.4rem' }}>
-          <PerformanceTab
-            firstId={flag2}
-            callBackFun={id => {
-              this.setState({ flag2: id });
-            }}
-          />
-        </div>
-
-        <div style={{ marginTop: '0.4rem' }}>
-          <LineChartTab
-            firstId={flag}
-            callBackFun={id => {
-              this.setState({ flag: id });
-            }}
-          />
         </div>
       </div>
     );
