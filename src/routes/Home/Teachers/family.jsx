@@ -418,6 +418,9 @@ class Boss extends React.Component {
           </div>
         </div>
 
+        <div style={{ width: '6.9rem', margin: '0.2rem auto' }}>
+          <span style={{ fontSize: '0.3rem', color: '#333' }}>班主任预测绩效</span>
+        </div>
         <div className={styles.teacherList}>
           <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
           <MultipHeaderList
