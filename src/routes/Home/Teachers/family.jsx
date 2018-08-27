@@ -102,6 +102,7 @@ class Boss extends React.Component {
             }}
           />
         </div>
+
         <div className={styles.m_performanceContener}>
           <span className={styles.u_totalNum}>1,500,000元</span>
           <div className={styles.m_performanceMoney}>
@@ -129,7 +130,6 @@ class Boss extends React.Component {
           <span className={styles.u_spanTitle}>预测绩效计算 | </span>
           <span className={styles.u_spanTitle}>英语1组</span>
         </div>
-
         <div className={styles.m_btnContainer}>
           <FormulaButton
             dataSource={{ id: 1, name: '日均学分排名系数', score: '1000' }}

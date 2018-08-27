@@ -2,7 +2,7 @@
 *
 * showTime:父组件传来指示自组件显示的时间
 * onChange:{必传 Function}:传入该属性，则子组件选择完日期之后Value部返回给父组件去请求接口使用
-* selectId:默认选中的时间
+*
 *
 * */
 
