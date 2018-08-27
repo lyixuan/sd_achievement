@@ -85,6 +85,7 @@ class FloatIcon extends React.Component {
           showModel={v => {
             this.showModel(v);
           }}
+          changeCollegeName={v => this.props.changeCollegeName(v)}
         />
       </div>
     );

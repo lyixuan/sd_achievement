@@ -9,12 +9,22 @@ import styles from './index.less';
 class HistoryDetails extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      paramObj: {
+        dateTime: '2018年7月预测绩效',
+      },
+      collegeName: '',
+    };
   }
   componentDidMount() {}
   onChange = val => {
     console.log(val);
   };
+  changeCollegeName(v) {
+    this.setState({
+      collegeName: v,
+    });
+  }
   render() {
     const dataList = {
       selfExam: [
@@ -76,10 +86,13 @@ class HistoryDetails extends React.Component {
       { groupName: 'incubator', arr: 'activeCS' },
     ];
 
+    const { paramObj, collegeName } = this.state;
     return (
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
-          <span>2018年7月预测绩效</span>
+          <span>
+            {paramObj.dateTime} - {collegeName}
+          </span>
           <Switch onChange={val => this.onChange(val)} />
         </div>
         {/* *************** listview *************** */}
@@ -98,7 +111,7 @@ class HistoryDetails extends React.Component {
           );
         })}
         {/* *************** floatIcon *************** */}
-        <FloatIcon />
+        <FloatIcon changeCollegeName={val => this.changeCollegeName(val)} />
       </div>
     );
   }

@@ -52,7 +52,7 @@ class CollegeDialog extends React.Component {
         <ButtonGroup
           dataSource={res}
           dataReturnFun={item => {
-            this.selectGroup(item.id);
+            this.selectGroup(item);
           }}
           id={this.state.selected}
           btnClass={styles.u_btnStyle}
@@ -62,10 +62,12 @@ class CollegeDialog extends React.Component {
     );
   };
 
-  selectGroup(groupId) {
+  selectGroup(item) {
     this.setState({
-      selected: groupId,
+      selected: item.id,
     });
+
+    this.props.changeCollegeName(item.name);
     this.props.showModel(false);
 
     // todo 接口请求

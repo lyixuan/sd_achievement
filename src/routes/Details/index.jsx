@@ -16,8 +16,8 @@ class Details extends React.Component {
         dateTime: '2018年7月预测绩效',
         groupType: 1,
         familyType: 2,
-        collegeName: urlParams.collegeName,
       },
+      collegeName: urlParams.collegeName,
     };
 
     this.state = assignUrlParams(initState, urlParams);
@@ -26,8 +26,13 @@ class Details extends React.Component {
   onChange = val => {
     console.log(val);
   };
+  changeCollegeName(v) {
+    this.setState({
+      collegeName: v,
+    });
+  }
   render() {
-    const { paramsObj } = this.state;
+    const { paramsObj, collegeName } = this.state;
     const dataList = {
       selfExam: [
         {
@@ -91,7 +96,7 @@ class Details extends React.Component {
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
           <span>
-            {paramsObj.dateTime}-{paramsObj.collegeName}
+            {paramsObj.dateTime} - {collegeName}
           </span>
           <Switch onChange={val => this.onChange(val)} />
         </div>
@@ -111,7 +116,7 @@ class Details extends React.Component {
           );
         })}
         {/* *************** floatIcon *************** */}
-        <FloatIcon />
+        <FloatIcon changeCollegeName={val => this.changeCollegeName(val)} />
       </div>
     );
   }
