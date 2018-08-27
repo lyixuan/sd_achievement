@@ -1,7 +1,7 @@
 .m_timeContener {
   position: relative;
   width: 6.9rem;
-  margin: 0.5rem auto;
+  margin: 0.37rem auto 0.27rem;
 }
 .timeName {
   font-size: 0.3rem;
@@ -30,21 +30,65 @@
   height: 2.8rem;
   margin: 0 auto;
 }
-.u_totalMoney {
-  .u_totalNum {
-    padding: 0.35rem auto;
-    line-height: 0.67rem;
-    //font-family: Helvetica-Bold;
-    font-size: 0.48rem;
-    color: #fff;
-    text-align: center;
-  }
+.u_totalNum {
+  line-height: 1.4rem;
+  display: block;
+  font-size: 0.48rem;
+  color: #fff;
+  text-align: center;
+}
+.u_basicMoney {
+  display: inline-block;
+  width: 3.3rem;
+}
+.u_splitLine {
+  display: inline-block;
+  opacity: 0.6;
+  background: #f8fafb;
+  width: 0.02rem;
+  height: 0.8rem;
+  margin: auto 0.08rem;
+}
+.u_scoreMoney {
+  display: inline-block;
+  width: 3.3rem;
+}
+.u_spanMoney {
+  font-size: 0.32rem;
+  color: #fff;
+  text-align: center;
+  line-height: 0.46rem;
+}
+.u_spanBasic {
+  font-size: 0.22rem;
+  color: #fff;
+  text-align: center;
+  line-height: 0.46rem;
+}
+
+.m_warningP {
+  margin: 0.2rem auto 0.32rem;
+  width: 6.9rem;
+}
+.u_pContent {
+  font-size: 0.22rem;
+  color: #999;
+  line-height: 0.35rem;
+}
+
+.m_titile {
+  margin: 0 auto;
+  width: 6.9rem;
+}
+.u_spanTitle {
+  font-size: 0.3rem;
+  color: #333;
 }
 
 .m_btnContainer {
   display: flex;
   width: 6.9rem;
-  margin: 0.2rem auto;
+  margin: 0.1rem auto 0.3rem;
   flex-flow: row wrap;
   justify-content: start;
   box-sizing: border-box;

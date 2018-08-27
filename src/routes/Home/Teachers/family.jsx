@@ -26,8 +26,8 @@ class Boss extends React.Component {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
-      flag: 1,
-      flag2: 1,
+      flag: 2,
+      flag2: 2,
       dialogVisible: false,
       showTime: '2018.08.01 - 2018.08.22',
     };
@@ -161,15 +161,31 @@ class Boss extends React.Component {
         </div>
 
         <div className={styles.m_performanceContener}>
-          <div className={styles.u_totalMoney}>
-            <p className={styles.u_totalNum}>1,500,000元</p>
-          </div>
-
+          <span className={styles.u_totalNum}>1,500,000元</span>
           <div className={styles.m_performanceMoney}>
-            <div className={styles.u_basicMoney}>test2</div>
+            <div className={styles.u_basicMoney}>
+              <span className={styles.u_spanMoney}>1,000,000</span>
+              <br />
+              <span className={styles.u_spanBasic}>基本绩效</span>
+            </div>
             <div className={styles.u_splitLine} />
-            <div className={styles.u_scoreMoney}>test3</div>
+            <div className={styles.u_scoreMoney}>
+              <span className={styles.u_spanMoney}>500,000</span>
+              <br />
+              <span className={styles.u_spanBasic}>打分绩效</span>
+            </div>
           </div>
+        </div>
+
+        <div className={styles.m_warningP}>
+          <p className={styles.u_pContent}>
+            *预估绩效每天与小德学分同步更新；学院打分绩效为浮动绩效，月底根据本月工作表现确定实发绩效
+          </p>
+        </div>
+
+        <div className={styles.m_titile}>
+          <span className={styles.u_spanTitle}>预测绩效计算 | </span>
+          <span className={styles.u_spanTitle}>英语1组</span>
         </div>
 
         <div className={styles.m_btnContainer}>
@@ -234,6 +250,14 @@ class Boss extends React.Component {
               customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
             />
           </div>
+        </div>
+
+        <div className={styles.testList}>
+          <MultipHeaderList
+            dataList={tableList}
+            customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
+            customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
+          />
         </div>
 
         <div>
