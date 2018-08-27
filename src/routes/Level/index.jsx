@@ -14,7 +14,7 @@ class Level extends React.Component {
   }
   componentDidMount() {}
   jumpDetail = param => {
-    this.props.setRouteUrlParams('/details', { hh: param });
+    this.props.setRouteUrlParams('/details', { collegeName: param });
   };
   renderHeader = name => {
     return <div className={`${styles.m_list} ${styles.m_list_header}`}>{name}</div>;

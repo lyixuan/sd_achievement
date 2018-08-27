@@ -13,10 +13,10 @@ class Details extends React.Component {
     const { urlParams = {} } = props;
     const initState = {
       paramsObj: {
-        dateTime: '2018年7月',
+        dateTime: '2018年7月预测绩效',
         groupType: 1,
         familyType: 2,
-        hh: urlParams.hh,
+        collegeName: urlParams.collegeName,
       },
     };
 
@@ -90,7 +90,9 @@ class Details extends React.Component {
     return (
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
-          <span>2018年7月预测绩效</span>
+          <span>
+            {paramsObj.dateTime}-{paramsObj.collegeName}
+          </span>
           <Switch onChange={val => this.onChange(val)} />
         </div>
         {/* *************** listview *************** */}
