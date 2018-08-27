@@ -3,6 +3,7 @@ import Switch from '../../../components/Switch/Switch';
 import MultipHeaderList from '../../../components/ListView/listView';
 import RenderHeader from './_renderHeader';
 import RenderItem from './_renderItem';
+import FloatIcon from '../../../components/FloatIcon/_floatIcon';
 import styles from './index.less';
 
 class HistoryDetails extends React.Component {
@@ -96,6 +97,8 @@ class HistoryDetails extends React.Component {
             )
           );
         })}
+        {/* *************** floatIcon *************** */}
+        <FloatIcon />
       </div>
     );
   }
