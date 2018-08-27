@@ -25,17 +25,17 @@ export default class PandectChart extends React.Component {
     const hasData = Array.isArray(dataSource.data) && dataSource.data.length > 0;
     return !hasData ? null : (
       <div className={styles.container}>
-        <span className={styles.chartTab}>
-          <LineChartTab
-            callBackFun={id => {
-              this.changeChartType(id);
-            }}
-            firstId={chartState}
-          />
-        </span>
-        {chartState === 1 && <MultLine dataSource={dataSource} />}
-        {chartState === 2 && <MultiBar dataSource={dataSource} />}
         <div className={styles.content}>
+          <span className={styles.chartTab}>
+            <LineChartTab
+              callBackFun={id => {
+                this.changeChartType(id);
+              }}
+              firstId={chartState}
+            />
+          </span>
+          {chartState === 1 && <MultLine dataSource={dataSource} />}
+          {chartState === 2 && <MultiBar dataSource={dataSource} />}
           {Array.isArray(children) ? [...children] : { ...children }}
         </div>
       </div>

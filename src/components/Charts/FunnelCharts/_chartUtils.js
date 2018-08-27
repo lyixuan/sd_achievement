@@ -32,18 +32,4 @@ export class BarClass extends ChartBase {
       },
     };
   };
-  handleData = () => {
-    const seriesData = [];
-    this.chartData.forEach(item => {
-      const opsXobj = {
-        value: item.val,
-        itemStyle: {
-          color: '#3389FF',
-          barBorderRadius: [2, 2, 0, 0], // 处理数据正副职圆角的问题
-        },
-      };
-      seriesData.push(opsXobj);
-    });
-    return seriesData;
-  };
 }

@@ -47,14 +47,14 @@ export default class Dialog extends React.Component {
   };
   handleTouch = bol => {
     fixModal(bol);
-    if (bol) {
-      document.querySelector('#root').style.overflow = 'auto';
-    } else {
-      document.querySelector('#root').style.overflow = 'hidden';
-    }
+    // if (bol) {
+    //   document.querySelector('#root').style = {};
+    // } else {
+    //   document.querySelector('#root').style.overflow = 'hidden';
+    // }
   };
   showModel(bol) {
-    this.handleTouch(!bol);
+    // this.handleTouch(!bol);
     if (this.props.showModel) {
       this.props.showModel(bol);
     }

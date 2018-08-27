@@ -67,7 +67,7 @@ export function fixModal(removeEvent = false) {
   };
 
   const event = removeEvent ? 'removeEventListener' : 'addEventListener';
-  document.body.style.overflow = removeEvent ? 'auto' : 'hiden';
+  // document.body.style.overflow = removeEvent ? 'auto' : 'hiden';
   document.body[event]('touchstart', onTouchStart, { passive: false });
   document.body[event]('touchmove', onTouchmove, { passive: false });
   document.body[event]('touchend', onTouchend, { passive: false });

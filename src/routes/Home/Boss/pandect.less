@@ -1,0 +1,29 @@
+.chart {
+  border: 1px solid red;
+  box-sizing: border-box;
+  background: #ddd;
+}
+.buttonContainer {
+  width: 7.1rem;
+  height: 0.8rem;
+  padding-bottom: 0.2rem;
+  background: #fff;
+  box-sizing: border-box;
+}
+.btnClass {
+  float: left;
+  width: 1.52rem;
+  height: 0.58rem;
+  line-height: 0.58rem;
+  font-size: 0.22rem;
+  color: #444348;
+  text-align: center;
+  border-radius: 4px;
+  background: #f4f8fb;
+  margin-left: 0.2rem;
+}
+.btnSelectedClass {
+  &:extend(.btnClass);
+  background: #52c9c2;
+  color: #fff;
+}

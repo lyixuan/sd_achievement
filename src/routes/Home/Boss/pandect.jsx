@@ -2,15 +2,14 @@ import React from 'react';
 import { connect } from 'dva';
 import { assignUrlParams } from 'utils/routerUtils';
 import { getCurrentAuthInfo } from 'utils/localStorage';
-import SingleBar from 'components/Charts/BarCharts/SingleBar';
 import ProportionBar from 'components/Charts/BarCharts/ProportionBar';
-import SingleLine from 'components/Charts/LineCharts/SingleLine';
 import Funnel from 'components/Charts/FunnelCharts/Funnel';
 import RosePie from 'components/Charts/PieCharts/RosePie';
 import AllGroupPandect from 'container/AllGroupPandect';
 import PerGroupPandect from 'container/PerGroupPandect';
+import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 
-import styles from './boss.less';
+import styles from './pandect.less';
 
 class Boss extends React.Component {
   constructor(props) {
@@ -59,6 +58,10 @@ class Boss extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
+
+  onChangeAllGroup = id => {
+    console.log(id);
+  };
   checkoutUserAuth = () => {
     const currentAuthInfo = getCurrentAuthInfo() || {};
     const { groupType = null } = currentAuthInfo;
@@ -67,23 +70,41 @@ class Boss extends React.Component {
 
   render() {
     const { chartData, chartZhanbi, chartMulti, FunnelChartData, pieChartData } = this.state;
+    const groupList = [
+      { id: 1, name: '全体总绩效' },
+      { id: 2, name: '家族长绩效' },
+      { id: 3, name: '运营长绩效' },
+      { id: 4, name: '班主任绩效' },
+    ];
     return (
       <div>
         绩效总览页面,权限是:{this.checkoutUserAuth()}
         <AllGroupPandect dataSource={{ data: chartMulti, title: '集团总绩效' }}>
-          <div>dutton按钮</div>
+          <div className={styles.buttonContainer}>
+            <ButtonGroup
+              dataSource={{ data: groupList }}
+              dataReturnFun={id => {
+                this.onChangeAllGroup(id);
+              }}
+              btnClass={styles.btnClass}
+              btnSelectedClass={styles.btnSelectedClass}
+            />
+          </div>
         </AllGroupPandect>
         <PerGroupPandect dataSource={{ data: chartData, title: '集团人均绩效' }}>
-          <div>dutton按钮</div>
+          <div className={styles.buttonContainer}>
+            <ButtonGroup
+              dataSource={{ data: groupList }}
+              dataReturnFun={id => {
+                this.onChangeAllGroup(id);
+              }}
+              btnClass={styles.btnClass}
+              btnSelectedClass={styles.btnSelectedClass}
+            />
+          </div>
         </PerGroupPandect>
         <div className={styles.chart}>
-          <SingleBar dataSource={{ data: chartData, title: '集团人均绩效' }} />
-        </div>
-        <div className={styles.chart}>
           <ProportionBar dataSource={{ data: chartZhanbi, title: '集团人均绩效' }} />
-        </div>
-        <div className={styles.chart}>
-          <SingleLine dataSource={{ data: chartMulti, title: '集团人均绩效' }} />
         </div>
         <div className={styles.chart}>
           <Funnel dataSource={{ data: FunnelChartData, title: '集团人均绩效' }} />
