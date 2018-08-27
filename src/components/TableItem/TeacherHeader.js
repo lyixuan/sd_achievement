@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './TableHeader.less';
+import styles from './TeacherHeader.less';
 
-class RenderHeader extends React.Component {
+class TeacherHeader extends React.Component {
   render() {
     const columns = this.props.columnsData || [];
     console.log(columns);
@@ -19,4 +19,4 @@ class RenderHeader extends React.Component {
     );
   }
 }
-export default RenderHeader;
+export default TeacherHeader;

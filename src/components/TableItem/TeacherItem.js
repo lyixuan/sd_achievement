@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './TableItem.less';
+import styles from './TeacherItem.less';
 
-class RenderItem extends React.Component {
+class TeacherItem extends React.Component {
   render() {
     const { rowData } = this.props || [];
     console.log(rowData.clsName);
@@ -22,4 +22,4 @@ class RenderItem extends React.Component {
     );
   }
 }
-export default RenderItem;
+export default TeacherItem;
