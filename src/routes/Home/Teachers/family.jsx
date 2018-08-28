@@ -25,7 +25,7 @@ class Boss extends React.Component {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
-      flag: 1,
+      flag: 2,
       flag2: 2,
       showTime: '2018.09',
     };
@@ -189,6 +189,23 @@ class Boss extends React.Component {
           },
         ],
       },
+      {
+        key: 5,
+        data: [
+          {
+            value: flag2 === 1 ? '60% ～ 100%' : flag2 === 2 ? '70% ～ 90%' : 4,
+            clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
+          },
+          {
+            value: flag2 === 1 ? '7.7' : flag2 === 2 ? '500人' : '40%',
+            clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
+          },
+          {
+            value: flag2 === 1 ? '0.8' : flag2 === 2 ? '4,000' : '20% 20% 40% 20% 20%',
+            clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
+          },
+        ],
+      },
     ];
 
     // 用户为运营长前tab切换时，table列头数据
@@ -298,6 +315,17 @@ class Boss extends React.Component {
           { value: '0', clsName: 'six' },
         ],
       },
+      {
+        key: 7,
+        data: [
+          { value: '甘文斌', clsName: 'one' },
+          { value: '0', clsName: 'two' },
+          { value: ' ', clsName: 'three' },
+          { value: '0', clsName: 'four' },
+          { value: '', clsName: 'five' },
+          { value: '0', clsName: 'six' },
+        ],
+      },
     ];
 
     const scoreLeft = () => (
@@ -343,7 +371,7 @@ class Boss extends React.Component {
                 <span className={styles.u_spanBasic}>基本绩效</span>
               </div>
             </div>
-            <span className={styles.u_splitLine} />
+            <div className={styles.u_splitLine} />
             <div className={styles.u_scoreMoney}>
               <div className={styles.u_contentDiv}>
                 <span className={styles.u_spanMoney}>500,000</span>
@@ -420,7 +448,7 @@ class Boss extends React.Component {
             />
           </div>
           <div className={styles.u_xSplitLine} />
-          <div className={styles.testList}>
+          <div className={styles.testList} style={{ marginTop: '0.2rem' }}>
             <MultipHeaderList
               dataList={flag === 1 && flag2 === 3 ? tableList3 : tableList}
               customRenderHeader={() => (
@@ -439,11 +467,14 @@ class Boss extends React.Component {
         </div>
         <div className={styles.teacherList}>
           <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
-          <MultipHeaderList
-            dataList={teacherItem}
-            customRenderHeader={() => <TeacherHeader columnsData={teacher} />}
-            customRenderItem={rowData => <TeacherItem rowData={rowData} />}
-          />
+          <div className={styles.testList}>
+            <MultipHeaderList
+              dataList={teacherItem}
+              customRenderHeader={() => <TeacherHeader columnsData={teacher} />}
+              customRenderItem={rowData => <TeacherItem rowData={rowData} />}
+            />
+          </div>
+
           <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
         </div>
         <div style={{ height: '0.7rem', width: '100%' }} />
