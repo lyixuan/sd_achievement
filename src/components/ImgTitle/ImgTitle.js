@@ -39,7 +39,7 @@ class ImgTitle extends Component {
           {this.spanFun(dataSource)}
           <br />
           <span className={styles.u_titleSpan}>
-            <span>{dataSource.titleValue || '日均学分'}</span>
+            {dataSource.titleValue || '日均学分'}
             <img
               src={detaiPro}
               alt="详情"

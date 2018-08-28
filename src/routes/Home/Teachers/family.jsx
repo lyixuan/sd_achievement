@@ -27,7 +27,7 @@ class Boss extends React.Component {
       },
       flag: 2,
       flag2: 2,
-      showTime: '2018.09',
+      defaultDate: '2018.09',
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -38,7 +38,7 @@ class Boss extends React.Component {
   };
 
   render() {
-    const { flag, flag2, showTime } = this.state;
+    const { flag, flag2, defaultDate } = this.state;
 
     // 用户为运营长前tab切换时，table列头数据
     const columns = [
@@ -355,9 +355,9 @@ class Boss extends React.Component {
       <div>
         <TimeSelect
           style={{ marginBottom: '0.22rem' }}
-          showTime={showTime}
+          defaultDate={defaultDate}
           onChange={item => {
-            this.setState({ showTime: item.id });
+            this.setState({ defaultDate: item.id });
           }}
         />
 
