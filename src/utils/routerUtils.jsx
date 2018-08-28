@@ -62,7 +62,7 @@ export function assignUrlParams(paramsObj = {}, urlParams = {}) {
     } else {
       const value = urlParams[key] || paramsObj[key] || null;
       if (typeof value !== 'object' && !isNaN(Number(value))) {
-        returnParams[key] = Number(value);
+        returnParams[key] = typeof paramsObj[key] === 'string' ? value : Number(value);
       } else {
         returnParams[key] = value;
       }

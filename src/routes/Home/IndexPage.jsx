@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Redirect, Switch, Route } from 'dva/router';
+import { getCurrentAuthInfo } from 'utils/localStorage';
 import { getRoutes, assignUrlParams } from '../../utils/routerUtils';
-import { getCurrentAuthInfo } from '../../utils/localStorage';
 
 class indexPage extends React.Component {
   constructor(props) {

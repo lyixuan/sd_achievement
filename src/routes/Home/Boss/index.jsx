@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Redirect, Switch, Route, Link } from 'dva/router';
+import { Redirect, Switch, Route } from 'dva/router';
+import SelfTab from 'components/SelfTab/SelfTab';
 import { getRoutes, assignUrlParams } from '../../../utils/routerUtils';
-import styles from './boss.less';
+import styles from './index.less';
 
 class Boss extends React.Component {
   constructor(props) {
@@ -15,19 +16,35 @@ class Boss extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
+  changePage(id) {
+    const { pathname } = this.props.location;
+    const pathnameObj = {
+      1: '/indexPage/boss/pandect',
+      2: '/indexPage/boss/monthly',
+    };
+    if (pathname !== pathnameObj[id]) {
+      this.props.setRouteUrlParams(pathnameObj[id]);
+    }
+  }
+  checkSelectedTab = () => {
+    const { pathname } = this.props.location;
+    return pathname === '/indexPage/boss/pandect' ? 1 : 2;
+  };
 
   render() {
     const { routerData, match } = this.props;
-    //  待优化应使用正则进行匹配
-    // const {pathname}=this.props.location
-    // const isPandectPath=pathname==='/indexPage/boss/pandect';
-    // const isMonthoyPath=pathname==='/indexPage/boss/monthly/proportion'||pathname==='/indexPage/boss/monthly/step'
-
     return (
       <div>
-        <div className={styles.tabCOntainer}>
-          <Link to="/indexPage/boss/pandect">绩效总览</Link>
-          <Link to="/indexPage/boss/monthly">每月绩效</Link>
+        <div className={styles.tabContainer}>
+          <SelfTab
+            firstId={this.checkSelectedTab()}
+            dataSource={{ data: [{ id: 1, title: '绩效总览' }, { id: 2, title: '每月绩效' }] }}
+            callBackFun={obj => {
+              this.changePage(obj.id);
+            }}
+            commonClass={styles.pandectTab}
+            tabClass={styles.pandectSelectedTab}
+          />
         </div>
         <div>
           <Switch>

@@ -2,12 +2,10 @@ import React from 'react';
 import { connect } from 'dva';
 import { assignUrlParams } from 'utils/routerUtils';
 import { getCurrentAuthInfo } from 'utils/localStorage';
-import ProportionBar from 'components/Charts/BarCharts/ProportionBar';
-import Funnel from 'components/Charts/FunnelCharts/Funnel';
-import RosePie from 'components/Charts/PieCharts/RosePie';
 import AllGroupPandect from 'container/AllGroupPandect';
 import PerGroupPandect from 'container/PerGroupPandect';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
+
 
 import styles from './pandect.less';
 
@@ -40,21 +38,6 @@ class Boss extends React.Component {
         { val: 16, name: '2018.06', isPredicted: 1, baseMoney: 9, markMoney: 7 },
         { val: 17, name: '2018.07', isPredicted: 1, baseMoney: 10, markMoney: 7 },
       ],
-      FunnelChartData: [
-        { val: 30, type: 1 },
-        { val: 10, type: 2 },
-        { val: 10, type: 3 },
-        { val: 70, type: 4 },
-      ],
-      pieChartData: [
-        { val: 70, name: '睿博' },
-        { val: 60, name: '芝士' },
-        { val: 50, name: '自变量' },
-        { val: 40, name: 'π学院' },
-        { val: 30, name: '狐罗' },
-        { val: 20, name: '泰罗' },
-        { val: 10, name: '浩博' },
-      ],
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -69,7 +52,7 @@ class Boss extends React.Component {
   };
 
   render() {
-    const { chartData, chartZhanbi, chartMulti, FunnelChartData, pieChartData } = this.state;
+    const { chartData, chartMulti } = this.state;
     const groupList = [
       { id: 1, name: '全体总绩效' },
       { id: 2, name: '家族长绩效' },
@@ -78,7 +61,6 @@ class Boss extends React.Component {
     ];
     return (
       <div>
-        绩效总览页面,权限是:{this.checkoutUserAuth()}
         <AllGroupPandect dataSource={{ data: chartMulti, title: '集团总绩效' }}>
           <div className={styles.buttonContainer}>
             <ButtonGroup
@@ -103,15 +85,6 @@ class Boss extends React.Component {
             />
           </div>
         </PerGroupPandect>
-        <div className={styles.chart}>
-          <ProportionBar dataSource={{ data: chartZhanbi, title: '集团人均绩效' }} />
-        </div>
-        <div className={styles.chart}>
-          <Funnel dataSource={{ data: FunnelChartData, title: '集团人均绩效' }} />
-        </div>
-        <div className={styles.chart}>
-          <RosePie dataSource={{ data: pieChartData, title: '集团人均绩效' }} />
-        </div>
       </div>
     );
   }

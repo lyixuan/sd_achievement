@@ -25,6 +25,8 @@ export function setCurrentUrlParams(query = null) {
 export function setRouteUrlParams(pathname, query) {
   const { location = {} } = this;
   const lastUrlParams = parse(location.search, true).query || {};
+  const { dateTime = '' } = lastUrlParams;
+  const assignQuery = { dateTime, ...query };
   store.dispatch({
     type: 'global/changeUrlParams',
     payload: lastUrlParams,
@@ -32,9 +34,10 @@ export function setRouteUrlParams(pathname, query) {
   if (pathname) {
     this.history.push({
       pathname,
-      search: stringify(query),
+      search: stringify(assignQuery),
     });
   } else {
     console.warn('输入路径地址');
   }
 }
+export function getCurrentAuthInfo() {}

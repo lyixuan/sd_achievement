@@ -1,46 +1,119 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Redirect, Switch, Route, Link } from 'dva/router';
-import { getRoutes, assignUrlParams } from 'utils/routerUtils';
+import { assignUrlParams } from 'utils/routerUtils';
+import DatePanle from 'container/DatePanle';
+import PerformanceTab from 'components/SelfTab/PerformanceTab';
+import { getCurrentAuthInfo } from 'utils/localStorage';
+import Proportion from './proportion';
+import Step from './step';
+import styles from './index.less';
 
 class Boss extends React.Component {
   constructor(props) {
     super(props);
+    const currentAuthInfo = getCurrentAuthInfo() || {};
+    const { groupType = null } = currentAuthInfo;
     const { urlParams = {} } = props;
     const initState = {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
+      dateTime: '2018.08',
+      monthlyType: 'step', // 默认绩效分档
+      isShowTab: groupType === 'boss', // 是否显示切换分档和占比按钮
+      FunnelChartData: [
+        { val: 30, type: 1 },
+        { val: 10, type: 2 },
+        { val: 10, type: 3 },
+        { val: 70, type: 4 },
+      ],
+      pieChartData: [
+        { val: 70, name: '睿博' },
+        { val: 60, name: '芝士' },
+        { val: 50, name: '自变量' },
+        { val: 40, name: 'π学院' },
+        { val: 30, name: '狐罗' },
+        { val: 20, name: '泰罗' },
+        { val: 10, name: '浩博' },
+      ],
+      chartZhanbi: [
+        { val: 30, name: '拍学院' },
+        { val: 50, name: '自变量' },
+        { val: 70, name: '好波' },
+        { val: 10, name: '芝士' },
+        { val: 30, name: '葫芦' },
+      ],
     };
     this.state = assignUrlParams(initState, urlParams);
   }
 
-  render() {
-    const { routerData, match } = this.props;
-    //  待优化应使用正则进行匹配
-    // const {pathname}=this.props.location
-    // const isPandectPath=pathname==='/indexPage/boss/pandect';
-    // const isMonthoyPath=pathname==='/indexPage/boss/monthly/proportion'||pathname==='/indexPage/boss/monthly/step'
+  onChangeTab = id => {
+    const typeObj = {
+      1: 'step',
+      2: 'proportion',
+    };
+    const monthlyType = typeObj[id];
+    this.props.setCurrentUrlParams({ monthlyType });
+    this.setState({ monthlyType });
+  };
+  onDateChange = date => {
+    this.setState({
+      dateTime: date,
+    });
+  };
+  toLevelPage = () => {
+    this.props.setRouteUrlParams('/level');
+  };
 
+  render() {
+    // const { routerData, match } = this.props;
+    const {
+      FunnelChartData,
+      pieChartData,
+      chartZhanbi,
+      monthlyType,
+      isShowTab,
+      dateTime,
+    } = this.state;
     return (
       <div>
-        <div>
-          <Link to="/indexPage/boss/monthly/step">绩效分档</Link>
-          <Link to="/indexPage/boss/monthly/proportion">绩效占比</Link>
-        </div>
-        <Switch>
-          {getRoutes(match.path, routerData).map(item => (
-            <Route
-              key={item.key}
-              path={item.path}
-              component={item.component}
-              exact={item.exact}
-              authority={item.authority}
-              redirectPath="/exception/403"
+        <DatePanle
+          defaultDate={dateTime}
+          onChange={date => {
+            this.onDateChange(date);
+          }}
+        />
+        <p className={styles.descriptionText}>
+          *预估绩效每天与小德学分同步更新;学院打分绩效为浮动绩效,月底 根据本月工作表现确定实发绩效
+        </p>
+        {isShowTab && (
+          <PerformanceTab
+            firstId={monthlyType === 'step' ? 1 : 2}
+            callBackFun={id => {
+              this.onChangeTab(id);
+            }}
+          />
+        )}
+
+        <div className={styles.chartContent}>
+          {monthlyType === 'step' && (
+            <Step
+              FunnelChartData={FunnelChartData}
+              toLevelPage={() => {
+                this.toLevelPage();
+              }}
             />
-          ))}
-          <Redirect exact from="/indexPage/boss/monthly" to="/indexPage/boss/monthly/step" />
-        </Switch>
+          )}
+          {monthlyType === 'proportion' && (
+            <Proportion
+              chartData={pieChartData}
+              barChartData={chartZhanbi}
+              toLevelPage={() => {
+                this.toLevelPage();
+              }}
+            />
+          )}
+        </div>
       </div>
     );
   }

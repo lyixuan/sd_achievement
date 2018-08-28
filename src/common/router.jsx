@@ -93,23 +93,13 @@ export const getRouterData = app => {
       showTitle: false,
     },
     '/indexPage/boss/pandect': {
-      component: dynamicWrapper(app, [], () => import('../routes/Home/Boss/pandect')),
+      component: dynamicWrapper(app, [], () => import('../routes/Home/Boss/Pandect/pandect')),
       title: '绩效总览',
       showTitle: false,
     },
     '/indexPage/boss/monthly': {
       component: dynamicWrapper(app, [], () => import('../routes/Home/Boss/Monthly/index')),
       title: '每月绩效',
-      showTitle: false,
-    },
-    '/indexPage/boss/monthly/proportion': {
-      component: dynamicWrapper(app, [], () => import('../routes/Home/Boss/Monthly/proportion')),
-      title: '绩效占比',
-      showTitle: false,
-    },
-    '/indexPage/boss/monthly/step': {
-      component: dynamicWrapper(app, [], () => import('../routes/Home/Boss/Monthly/step')),
-      title: '绩效分档',
       showTitle: false,
     },
     '/indexPage/teacher': {

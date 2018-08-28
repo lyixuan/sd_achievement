@@ -8,6 +8,7 @@
 
 import React, { Component } from 'react';
 import { Button } from 'antd-mobile';
+import moment from 'moment';
 import Dialog from '../../components/Dialog';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import styles from './TimeSelect.less';
@@ -18,75 +19,63 @@ class TimeSelect extends Component {
     super(props);
     this.state = {
       dialogVisible: false,
-      showTime: this.props.showTime || '2018.08.01 - 2018.08.22',
+      timeText: '',
     };
   }
-
-  showModel = bol => {
-    if (bol) {
-      this.choseDateArea();
-      this.setState({ dialogVisible: bol });
-    } else {
-      this.setState({ dialogVisible: bol });
+  componentDidMount() {
+    const { defaultDate } = this.props;
+    this.dateFomate(defaultDate);
+  }
+  onGroupChange = item => {
+    const { onChange } = this.props;
+    const { name = '' } = item;
+    if (onChange) {
+      onChange(name);
     }
+    this.dateFomate(name);
+    this.showModel(false);
+  };
+  showModel = bol => {
+    this.setState({ dialogVisible: bol });
   };
 
-  choseDateArea = () => {
-    const dateArr = [
-      { id: '2018.08', name: '2018.08' },
-      { id: '2018.07', name: '2018.07' },
-      { id: '2018.06', name: '2018.06' },
-      { id: '2018.05', name: '2018.05' },
-    ];
-    return dateArr;
+  dateFomate = (dateTime = '') => {
+    const formate = 'YYYY-MM';
+    const formateDate = dateTime.replace(/\./g, '-');
+    const nowDate = moment().format(formate);
+    let timeText = null;
+    if (moment(formateDate).isSame(nowDate)) {
+      timeText = `${formateDate}.01 ~ ${moment().format('YYYY.MM.DD')}`;
+    } else {
+      timeText = formateDate;
+    }
+    timeText = timeText.replace(/-/g, '.');
+    this.setState({ timeText });
   };
 
   renderGroupList = () => {
     // 此方法用于render出groupList
-    const data = this.choseDateArea();
+    const { dateArea, defaultDate } = this.props;
     return (
       <ButtonGroup
-        dataSource={{ data }}
-        // id={selectedTime}
+        dataSource={{ data: dateArea }}
+        id={defaultDate}
         btnClass={styles.timeBtnStyle}
         btnSelectedClass={styles.timeBtnSelected}
         dataReturnFun={item => {
-          const d = new Date();
-          const first = d.getMonth() + 1;
-          const aa = first < 10 ? `0${first}` : first;
-          const testDate = `${d.getFullYear()}.${aa}`;
-          console.log(item.id, testDate, item.id < testDate);
-
-          const { onChange } = this.props;
-          if (onChange && typeof onChange === 'function') {
-            if (item.id < testDate) {
-              this.setState({
-                showTime: item.id,
-                dialogVisible: false,
-              });
-              return this.props.onChange(item);
-            } else {
-              this.setState({
-                showTime: '2018.08.01 - 2018.08.22',
-                dialogVisible: false,
-              });
-              return this.props.onChange(item);
-            }
-          } else {
-            console.warn('传入的onChange非函数或不合法，请检查！');
-          }
+          this.onGroupChange(item);
         }}
       />
     );
   };
 
   render() {
-    const { dialogVisible, showTime } = this.state;
+    const { dialogVisible, timeText } = this.state;
     return (
       <div>
         <div className={styles.m_timeContener}>
           <span className={styles.timeName}>时间:</span>
-          <span className={styles.timeDate}>{showTime}</span>
+          <span className={styles.timeDate}>{timeText}</span>
           <img
             onClick={this.showModel.bind(this, true)}
             className={styles.timeImg}
