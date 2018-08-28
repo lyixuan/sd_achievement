@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Redirect, Switch, Route } from 'dva/router';
+import DatePanle from 'container/DatePanle';
 import { getRoutes, assignUrlParams } from 'utils/routerUtils';
-import { getCurrentAuthInfo } from 'utils/localStorage';
 import styles from './index.less';
-import TimeSelect from '../../../components/TimeSelect/TimeSelect';
 import ButtonFile from './_buttonFile';
 import TableFile from './_tableFile';
 
@@ -16,35 +15,28 @@ class Boss extends React.Component {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
-      flag: 2,
-      flag2: 2,
-      defaultDate: '2018.09',
+      flag: 2, // 判断是运营长还是家族长
+      flag2: 1, // tab切换标记
+      dateTime: '2018.08',
     };
     this.state = assignUrlParams(initState, urlParams);
   }
-  checkoutUserAuth = () => {
-    const currentAuthInfo = getCurrentAuthInfo() || {};
-    const { groupType = null } = currentAuthInfo;
-    return groupType;
+  onDateChange = date => {
+    this.setState({
+      dateTime: date,
+    });
   };
   render() {
     const { routerData, match } = this.props;
-    // const groupType=this.checkoutUserAuth();
-    //  待优化应使用正则进行匹配
-    // const {pathname}=this.props.location
-    // const isPandectPath=pathname==='/indexPage/boss/pandect';
-    // const isMonthoyPath=pathname==='/indexPage/boss/monthly/proportion'||pathname==='/indexPage/boss/monthly/step'
-    const { flag, flag2, defaultDate } = this.state;
+    const { flag, flag2, dateTime } = this.state;
     return (
       <div>
-        <TimeSelect
-          style={{ marginBottom: '0.22rem' }}
-          defaultDate={defaultDate}
-          onChange={item => {
-            this.setState({ defaultDate: item.id });
+        <DatePanle
+          defaultDate={dateTime}
+          onChange={date => {
+            this.onDateChange(date);
           }}
         />
-
         <div className={styles.m_performanceContener}>
           <span className={styles.u_totalNum}>1,500,000元</span>
           <div className={styles.m_performanceMoney}>
