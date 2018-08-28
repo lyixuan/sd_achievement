@@ -236,9 +236,9 @@ class Boss extends React.Component {
         key: 1,
         data: [
           { value: '甘文斌', clsName: 'one' },
-          { value: '10，000', clsName: 'two' },
+          { value: '10,000', clsName: 'two' },
           { value: ' ', clsName: 'three' },
-          { value: '5，000', clsName: 'four' },
+          { value: '5,000', clsName: 'four' },
           { value: '', clsName: 'five' },
           { value: '5,000', clsName: 'six' },
         ],
@@ -247,9 +247,9 @@ class Boss extends React.Component {
         key: 2,
         data: [
           { value: '甘文斌', clsName: 'one' },
-          { value: '10，000', clsName: 'two' },
+          { value: '10,000', clsName: 'two' },
           { value: ' ', clsName: 'three' },
-          { value: '5，000', clsName: 'four' },
+          { value: '5,000', clsName: 'four' },
           { value: '', clsName: 'five' },
           { value: '5,000', clsName: 'six' },
         ],
@@ -258,15 +258,26 @@ class Boss extends React.Component {
         key: 3,
         data: [
           { value: '甘文斌', clsName: 'one' },
-          { value: '10，000', clsName: 'two' },
+          { value: '10,000', clsName: 'two' },
           { value: ' ', clsName: 'three' },
-          { value: '5，000', clsName: 'four' },
+          { value: '5,000', clsName: 'four' },
           { value: '', clsName: 'five' },
           { value: '5,000', clsName: 'six' },
         ],
       },
       {
         key: 4,
+        data: [
+          { value: '甘文斌', clsName: 'one' },
+          { value: '10,000', clsName: 'two' },
+          { value: ' ', clsName: 'three' },
+          { value: '5,000', clsName: 'four' },
+          { value: '', clsName: 'five' },
+          { value: '5,000', clsName: 'six' },
+        ],
+      },
+      {
+        key: 5,
         data: [
           { value: '甘文斌', clsName: 'one' },
           { value: '0', clsName: 'two' },
@@ -277,7 +288,7 @@ class Boss extends React.Component {
         ],
       },
       {
-        key: 5,
+        key: 6,
         data: [
           { value: '甘文斌', clsName: 'one' },
           { value: '0', clsName: 'two' },
@@ -314,30 +325,34 @@ class Boss extends React.Component {
 
     return (
       <div>
-        <div className={styles.m_timeContener}>
-          <TimeSelect
-            showTime={showTime}
-            onChange={item => {
-              this.setState({ showTime: item.id });
-            }}
-          />
-        </div>
+        <TimeSelect
+          style={{ marginBottom: '0.22rem' }}
+          showTime={showTime}
+          onChange={item => {
+            this.setState({ showTime: item.id });
+          }}
+        />
 
         <div className={styles.m_performanceContener}>
           <span className={styles.u_totalNum}>1,500,000元</span>
           <div className={styles.m_performanceMoney}>
             <div className={styles.u_basicMoney}>
-              <span className={styles.u_spanMoney}>1,000,000</span>
-              <br />
-              <span className={styles.u_spanBasic}>基本绩效</span>
+              <div className={styles.u_contentDiv}>
+                <span className={styles.u_spanMoney}>1,000,000</span>
+                <br />
+                <span className={styles.u_spanBasic}>基本绩效</span>
+              </div>
             </div>
-            <div className={styles.u_splitLine} />
+            <span className={styles.u_splitLine} />
             <div className={styles.u_scoreMoney}>
-              <span className={styles.u_spanMoney}>500,000</span>
-              <br />
-              <span className={styles.u_spanBasic}>打分绩效</span>
+              <div className={styles.u_contentDiv}>
+                <span className={styles.u_spanMoney}>500,000</span>
+                <br />
+                <span className={styles.u_spanBasic}>打分绩效</span>
+              </div>
             </div>
           </div>
+          <div style={{ height: '0.2rem', width: '100%' }} />
         </div>
 
         <div className={styles.m_warningP}>
@@ -415,10 +430,11 @@ class Boss extends React.Component {
               )}
               customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
             />
+            <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
           </div>
         </div>
 
-        <div style={{ width: '6.9rem', margin: '0.2rem auto' }}>
+        <div style={{ width: '6.9rem', margin: '0.3rem auto 0.2rem' }}>
           <span style={{ fontSize: '0.3rem', color: '#333' }}>班主任预测绩效</span>
         </div>
         <div className={styles.teacherList}>
@@ -428,7 +444,9 @@ class Boss extends React.Component {
             customRenderHeader={() => <TeacherHeader columnsData={teacher} />}
             customRenderItem={rowData => <TeacherItem rowData={rowData} />}
           />
+          <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
         </div>
+        <div style={{ height: '0.7rem', width: '100%' }} />
       </div>
     );
   }

@@ -8,39 +8,62 @@
   margin: 0 auto;
 }
 .u_totalNum {
-  line-height: 1.4rem;
+  line-height: 1rem;
   display: block;
   font-size: 0.48rem;
   color: #fff;
   text-align: center;
 }
+
+.m_performanceMoney {
+  width: 100%;
+  height: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .u_basicMoney {
-  display: inline-block;
+  display: flex;
   width: 3.3rem;
+  justify-content: center;
+  align-items: center;
 }
-.u_splitLine {
-  display: inline-block;
-  opacity: 0.6;
-  background: #f8fafb;
-  width: 0.02rem;
-  height: 0.8rem;
-  margin: auto 0.08rem;
-}
+
 .u_scoreMoney {
-  display: inline-block;
+  display: flex;
   width: 3.3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.u_contentDiv {
+  width: 3.3rem;
+  white-space: normal;
 }
 .u_spanMoney {
   font-size: 0.32rem;
   color: #fff;
   text-align: center;
-  line-height: 0.46rem;
+  display: inline-block;
+  width: 3.3rem;
 }
 .u_spanBasic {
   font-size: 0.22rem;
   color: #fff;
   text-align: center;
-  line-height: 0.46rem;
+  display: inline-block;
+  margin-top: 0.15rem;
+  width: 3.3rem;
+}
+
+.u_splitLine {
+  display: flex;
+  opacity: 0.6;
+  background: #f8fafb;
+  width: 0.02rem;
+  height: 0.8rem;
+  margin: auto 0.08rem;
 }
 
 .m_warningP {
@@ -89,7 +112,6 @@
 
 .m_perTable {
   margin: 0.2rem auto;
-  height: 5.94rem;
   width: 6.9rem;
   background: #fff;
   position: relative;
@@ -158,7 +180,6 @@
 
 .teacherList {
   width: 6.9rem;
-  height: 4.96rem;
   margin: 0 auto;
   background: #fff;
   border-radius: 0.12rem;
