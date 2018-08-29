@@ -1,0 +1,66 @@
+.m_floatDialog {
+  .u_iconWrap {
+    position: fixed;
+    right: 0.1rem;
+    bottom: 0.91rem;
+    z-index: 100;
+    width: 0.74rem;
+    height: 0.74rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    opacity: 0.6;
+    box-shadow: 0 0 0.19rem 0.03rem rgba(202, 202, 202, 0.5);
+    border-radius: 0.06rem;
+    .imgIcon {
+      width: 0.37rem;
+      height: 0.46rem;
+    }
+  }
+}
+.m_dialogWrap {
+  width: 5.94rem;
+  border-radius: 0.14rem;
+  box-sizing: border-box;
+  background: #fff;
+  .dialogTitle {
+    margin-top: 0.13rem;
+    font-size: 0.36rem;
+    color: #333;
+  }
+  .flexContainer {
+    margin: 0.32rem auto 0.11rem;
+    width: 2.4rem;
+    max-height: 75vh;
+    .buttonDiv {
+      .u_btnStyle {
+        display: inline-block;
+        border: 0.02rem solid #dadada;
+        border-radius: 0.04rem;
+        width: 2.4rem;
+        height: 0.64rem;
+        line-height: 0.64rem;
+        color: #999;
+        font-size: 0.26rem;
+      }
+      .u_btnStyle:not(:last-child) {
+        margin-bottom: 0.1rem;
+      }
+      .u_btnSelected {
+        border: 0.02rem solid #52c9c2;
+        color: #52c9c2;
+      }
+    }
+  }
+
+  :global(.am-modal-header) {
+    margin-bottom: 0.4rem;
+  }
+  :global(.am-modal-button-group-h .am-modal-button) {
+    font-size: 0.34rem !important;
+  }
+  :global(.am-modal-button:first-child) {
+    color: #999 !important;
+  }
+}

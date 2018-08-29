@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Redirect, Switch, Route } from 'dva/router';
 import { getCurrentAuthInfo } from 'utils/localStorage';
 import { getRoutes, assignUrlParams } from '../../utils/routerUtils';
+import SwitchDialog from '../../container/IDSwitchDialog/index';
 
 class indexPage extends React.Component {
   constructor(props) {
@@ -24,6 +25,10 @@ class indexPage extends React.Component {
       return '/indexPage/teacher';
     }
   };
+  // 切换身份，点击确定，调取接口
+  switchIdFn = val => {
+    console.log(val);
+  };
   render() {
     const { routerData, match } = this.props;
     const redirectUrl = this.checkoutUserAuth();
@@ -42,6 +47,8 @@ class indexPage extends React.Component {
           ))}
           <Redirect exact from="/indexPage" to={redirectUrl} />
         </Switch>
+        {/* boss - 切换身份 */}
+        <SwitchDialog switchIdFn={val => this.switchIdFn(val)} />
       </div>
     );
   }
