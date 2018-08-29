@@ -1,3 +1,6 @@
+/*
+ * 必穿参数：switchIdFn，function
+ * */
 import React from 'react';
 import Modal from '../../components/Modal/index';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
@@ -9,7 +12,7 @@ class SwitchDialog extends React.Component {
     super(props);
     this.state = {
       selected: 1,
-      modelflag: false,
+      modalflag: false,
     };
   }
   setListItem = () => {
@@ -52,12 +55,12 @@ class SwitchDialog extends React.Component {
   }
   showModal = () => {
     this.setState({
-      modelflag: true,
+      modalflag: true,
     });
   };
   hideModal = () => {
     this.setState({
-      modelflag: false,
+      modalflag: false,
     });
   };
   sureSwitch = () => {
@@ -65,7 +68,7 @@ class SwitchDialog extends React.Component {
     this.hideModal();
   };
   render() {
-    const { modelflag } = this.state;
+    const { modalflag } = this.state;
 
     return (
       <div className={styles.m_floatDialog}>
@@ -73,7 +76,7 @@ class SwitchDialog extends React.Component {
           <img src={idSwitch} alt="身份切换" className={styles.imgIcon} />
         </div>
         <Modal
-          visible={modelflag}
+          visible={modalflag}
           modelClass={styles.m_dialogWrap}
           footer={[
             { text: '取消', onPress: this.hideModal },
