@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Redirect, Switch, Route } from 'dva/router';
 import { getRoutes, assignUrlParams } from 'utils/routerUtils';
+import styles from './index.less';
 
 class Boss extends React.Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class Boss extends React.Component {
 
     return (
       <div>
+        <div className={styles.historyBanner} />
         <Switch>
           {getRoutes(match.path, routerData).map(item => (
             <Route

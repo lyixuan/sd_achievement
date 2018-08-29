@@ -1,5 +1,8 @@
 import React from 'react';
+import moment from 'moment';
 import TimeSelect from 'components/TimeSelect/TimeSelect';
+import styles from './index.less';
+import history from '../../assets/history.png';
 
 export default class DatePanle extends React.Component {
   constructor(props) {
@@ -13,15 +16,28 @@ export default class DatePanle extends React.Component {
       ],
     };
   }
+
   onChange = date => {
     if (this.props.onChange) {
       this.props.onChange(date);
     }
   };
-
+  isShowHistoryImage = () => {
+    const { defaultDate = '' } = this.props;
+    const formate = 'YYYY-MM';
+    const formateDate = defaultDate.replace(/\./g, '-');
+    const nowDate = moment().format(formate);
+    return !moment(formateDate).isSame(nowDate);
+  };
+  toHistoryPage = () => {
+    if (this.props.toHistoryPage) {
+      this.props.toHistoryPage();
+    }
+  };
   render() {
     const { dateArea } = this.state;
     const { defaultDate } = this.props;
+    const isShowHistoryImage = this.isShowHistoryImage();
     return (
       <div>
         <TimeSelect
@@ -31,6 +47,14 @@ export default class DatePanle extends React.Component {
             this.onChange(date);
           }}
         />
+        {isShowHistoryImage && (
+          <img
+            onClick={this.toHistoryPage}
+            src={history}
+            className={styles.fixedCotainer}
+            alt="查看历史"
+          />
+        )}
       </div>
     );
   }

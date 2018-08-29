@@ -56,13 +56,17 @@ class Boss extends React.Component {
     this.props.setCurrentUrlParams({ monthlyType });
     this.setState({ monthlyType });
   };
-  onDateChange = date => {
+  onDateChange = dateTime => {
+    this.props.setCurrentUrlParams({ dateTime });
     this.setState({
-      dateTime: date,
+      dateTime,
     });
   };
   toLevelPage = () => {
     this.props.setRouteUrlParams('/level');
+  };
+  toHistoryPage = () => {
+    this.props.setRouteUrlParams('/history');
   };
 
   render() {
@@ -79,6 +83,9 @@ class Boss extends React.Component {
       <div>
         <DatePanle
           defaultDate={dateTime}
+          toHistoryPage={() => {
+            this.toHistoryPage();
+          }}
           onChange={date => {
             this.onDateChange(date);
           }}
