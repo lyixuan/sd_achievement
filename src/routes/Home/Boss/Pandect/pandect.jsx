@@ -1,15 +1,18 @@
 import React from 'react';
 import { connect } from 'dva';
+import PropTypes from 'prop-types';
 import { assignUrlParams } from 'utils/routerUtils';
 import { getCurrentAuthInfo } from 'utils/localStorage';
 import AllGroupPandect from 'container/AllGroupPandect';
 import PerGroupPandect from 'container/PerGroupPandect';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 
-
 import styles from './pandect.less';
 
 class Boss extends React.Component {
+  static contextTypes = {
+    setTitle: PropTypes.func,
+  };
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
@@ -52,6 +55,7 @@ class Boss extends React.Component {
   };
 
   render() {
+    console.log(this.context.setTitle('haoren2222'));
     const { chartData, chartMulti } = this.state;
     const groupList = [
       { id: 1, name: '全体总绩效' },

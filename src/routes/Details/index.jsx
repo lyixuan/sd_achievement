@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { assignUrlParams } from '../../utils/routerUtils';
 import Switch from '../../components/Switch/Switch';
 import MultipHeaderList from '../../components/ListView/listView';
@@ -8,6 +9,9 @@ import FloatIcon from '../../components/FloatIcon/_floatIcon';
 import styles from './index.less';
 
 class Details extends React.Component {
+  static contextTypes = {
+    setTitle: PropTypes.func,
+  };
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
@@ -22,7 +26,9 @@ class Details extends React.Component {
 
     this.state = assignUrlParams(initState, urlParams);
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.context.setTitle('hhehhhh');
+  }
   onChange = val => {
     console.log(val);
   };
