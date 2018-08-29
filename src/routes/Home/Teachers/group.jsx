@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect } from 'dva';
+// import { connect } from 'dva';
 import styles from './index.less';
 import MultipHeaderList from '../../../components/ListView/listView';
 import TeacherHeader from '../../../components/TableItem/TeacherHeader';
 import TeacherItem from '../../../components/TableItem/TeacherItem';
 
-class Boss extends React.Component {
+class Group extends React.Component {
   render() {
     // 用户为运营长前tab切换时，table列头数据
     const teacher = [
@@ -148,4 +148,5 @@ class Boss extends React.Component {
     );
   }
 }
-export default connect(({ loading }) => ({ loading }))(Boss);
+export default Group;
+// connect(({ loading }) => ({ loading }))(Boss);

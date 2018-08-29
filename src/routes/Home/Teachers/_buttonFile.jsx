@@ -1,10 +1,9 @@
 import React from 'react';
-import { connect } from 'dva';
 import styles from './index.less';
 import multiple from '../../../assets/multiple.svg';
 import FormulaButton from '../../../components/ButtonGroup/FormulaButton';
 
-class Boss extends React.Component {
+class ButtonFile extends React.Component {
   render() {
     const { flag2 = 1, flag = 1 } = this.props;
     return (
@@ -36,4 +35,5 @@ class Boss extends React.Component {
     );
   }
 }
-export default connect(({ loading }) => ({ loading }))(Boss);
+
+export default ButtonFile;

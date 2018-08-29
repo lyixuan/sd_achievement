@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'dva';
+// import { connect } from 'dva';
 import { Redirect, Switch, Route } from 'dva/router';
 import DatePanle from 'container/DatePanle';
 import { getRoutes, assignUrlParams } from 'utils/routerUtils';
@@ -7,7 +7,7 @@ import styles from './index.less';
 import ButtonFile from './_buttonFile';
 import TableFile from './_tableFile';
 
-class Boss extends React.Component {
+class Teacher extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
@@ -96,4 +96,5 @@ class Boss extends React.Component {
     );
   }
 }
-export default connect(({ loading }) => ({ loading }))(Boss);
+export default Teacher;
+// connect(({ loading }) => ({ loading }))(Boss);

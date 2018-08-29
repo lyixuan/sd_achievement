@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'dva';
 import styles from './index.less';
 import arrow from '../../../assets/arrow.svg';
 import ImgTitle from '../../../components/ImgTitle/ImgTitle';
@@ -9,7 +8,7 @@ import MultipHeaderList from '../../../components/ListView/listView';
 import CustomRenderHeader from '../../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../../components/TableItem/TableItem';
 
-class Boss extends React.Component {
+class TableFile extends React.Component {
   render() {
     const { flag = 1, flag2 = 1 } = this.props;
 
@@ -250,4 +249,4 @@ class Boss extends React.Component {
     );
   }
 }
-export default connect(({ loading }) => ({ loading }))(Boss);
+export default TableFile;

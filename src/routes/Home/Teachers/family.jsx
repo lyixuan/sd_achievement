@@ -1,9 +1,10 @@
 import React from 'react';
-import { connect } from 'dva';
+// import { connect } from 'dva';
 
-class Boss extends React.Component {
+class Family extends React.Component {
   render() {
     return <div>test</div>;
   }
 }
-export default connect(({ loading }) => ({ loading }))(Boss);
+export default Family;
+// connect(({ loading }) => ({ loading }))(Boss);
