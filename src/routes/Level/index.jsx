@@ -94,7 +94,7 @@ class Level extends React.Component {
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
           <span>{dateTime}</span>
-          <div onClick={() => this.jumpDetail(1)}>
+          <div className={styles.greyFont} onClick={() => this.jumpDetail(1)}>
             绩效详情 <img src={arrowRight} alt="arrow" className={styles.arrowRight} />
           </div>
         </div>

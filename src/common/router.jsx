@@ -104,12 +104,12 @@ export const getRouterData = app => {
     },
     '/indexPage/teacher': {
       component: dynamicWrapper(app, [], () => import('../routes/Home/Teachers/index')),
-      title: '运行长家族长首页',
+      title: '运营长家族长首页',
       showTitle: false,
     },
-    '/indexPage/teacher/class': {
+    '/indexPage/teacher/group': {
       component: dynamicWrapper(app, [], () => import('../routes/Home/Teachers/group')),
-      title: '班主任首页',
+      title: '运营长首页',
       showTitle: false,
     },
     '/indexPage/teacher/family': {
