@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './index.less';
+import styles from './_tableFile.less';
 import arrow from '../../../assets/arrow.svg';
 import ImgTitle from '../../../components/ImgTitle/ImgTitle';
 import redtriangle from '../../../assets/redtriangle.png';
@@ -8,7 +8,6 @@ import MultipHeaderList from '../../../components/ListView/listView';
 import CustomRenderHeader from '../../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../../components/TableItem/TableItem';
 import Modal from '../../../components/Modal/index';
-import styles1 from './_tableFile.less';
 
 class TableFile extends React.Component {
   constructor(props) {
@@ -273,17 +272,17 @@ class TableFile extends React.Component {
           <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
         </div>
 
-        <div className={styles1.selfModal}>
+        <div className={styles.selfModal}>
           <Modal
             visible={modalflag}
-            modelClass={styles1.m_dialogWrap}
+            modelClass={styles.m_dialogWrap}
             footer={[{ text: '确定', onPress: this.hideModal }]}
           >
-            <p className={styles1.dialogTitle}>温馨提示</p>
-            <div className={styles1.flexContainer}>
-              <p className={styles1.WordCls}>人均在服学员数=在服学院员/老师数</p>
-              <p className={styles1.WordCls}>学员从属判定规则和老师人效判定规则请参</p>
-              <p className={styles1.WordCls}>考绩效算法说明</p>
+            <p className={styles.dialogTitle}>温馨提示</p>
+            <div className={styles.flexContainer}>
+              <p className={styles.WordCls}>人均在服学员数=在服学院员/老师数</p>
+              <p className={styles.WordCls}>学员从属判定规则和老师人效判定规则请参</p>
+              <p className={styles.WordCls}>考绩效算法说明</p>
             </div>
           </Modal>
         </div>

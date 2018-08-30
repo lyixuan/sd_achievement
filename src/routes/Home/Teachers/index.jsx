@@ -89,7 +89,7 @@ class Teacher extends React.Component {
                 redirectPath="/exception/403"
               />
             ))}
-            <Redirect exact from="/indexPage/teacher" to="/indexPage/teacher/group" />
+            <Redirect exact from="/indexPage/teacher" to="/indexPage/teacher/family" />
           </Switch>
         </div>
       </div>
