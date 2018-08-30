@@ -235,18 +235,21 @@ class TableFile extends React.Component {
           src={arrow}
           alt="箭头"
         />
-        <div className={styles.m_scoreContener} onClick={this.showModal}>
-          <ImgTitle
-            dataSource={{
-              imgSrc: flag2 === 1 ? 4 : flag2 === 2 ? 2 : 1,
-              titleValue:
-                flag2 === 1
-                  ? '日均学分'
-                  : flag2 === 2 ? '人均在服学员' : flag === 1 ? '管理规模' : '组内老师',
-              showDetail: flag === 2 && flag2 === 2 ? 'show' : 'hidden',
-            }}
-            spanFunction={() => scoreLeft()}
-          />
+        <div className={styles.m_scoreContener}>
+          <div onClick={this.showModal}>
+            <ImgTitle
+              dataSource={{
+                imgSrc: flag2 === 1 ? 4 : flag2 === 2 ? 2 : 1,
+                titleValue:
+                  flag2 === 1
+                    ? '日均学分'
+                    : flag2 === 2 ? '人均在服学员' : flag === 1 ? '管理规模' : '组内老师',
+                showDetail: flag === 2 && flag2 === 2 ? 'show' : 'hidden',
+              }}
+              spanFunction={() => scoreLeft()}
+            />
+          </div>
+
           <div className={styles.u_ySplitLine} />
           <ImgTitle
             dataSource={{
