@@ -7,8 +7,30 @@ import greentriangle from '../../../assets/greentriangle.png';
 import MultipHeaderList from '../../../components/ListView/listView';
 import CustomRenderHeader from '../../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../../components/TableItem/TableItem';
+import Modal from '../../../components/Modal/index';
+import styles1 from './_tableFile.less';
 
 class TableFile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalflag: false,
+    };
+  }
+
+  showModal = () => {
+    if (this.props.flag === 2 && this.props.flag2 === 2) {
+      this.setState({
+        modalflag: true,
+      });
+    }
+  };
+  hideModal = () => {
+    this.setState({
+      modalflag: false,
+    });
+  };
+
   render() {
     const { flag = 1, flag2 = 1 } = this.props;
 
@@ -203,6 +225,8 @@ class TableFile extends React.Component {
       </span>
     );
 
+    const { modalflag } = this.state;
+
     return (
       <div className={styles.m_perTable}>
         <img
@@ -211,7 +235,7 @@ class TableFile extends React.Component {
           src={arrow}
           alt="箭头"
         />
-        <div className={styles.m_scoreContener}>
+        <div className={styles.m_scoreContener} onClick={this.showModal}>
           <ImgTitle
             dataSource={{
               imgSrc: flag2 === 1 ? 4 : flag2 === 2 ? 2 : 1,
@@ -244,6 +268,21 @@ class TableFile extends React.Component {
             customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
           />
           <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
+        </div>
+
+        <div className={styles1.selfModal}>
+          <Modal
+            visible={modalflag}
+            modelClass={styles1.m_dialogWrap}
+            footer={[{ text: '确定', onPress: this.hideModal }]}
+          >
+            <p className={styles1.dialogTitle}>温馨提示</p>
+            <div className={styles1.flexContainer}>
+              <p className={styles1.WordCls}>人均在服学员数=在服学院员/老师数</p>
+              <p className={styles1.WordCls}>学员从属判定规则和老师人效判定规则请参</p>
+              <p className={styles1.WordCls}>考绩效算法说明</p>
+            </div>
+          </Modal>
         </div>
       </div>
     );
