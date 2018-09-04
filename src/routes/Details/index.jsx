@@ -22,77 +22,93 @@ class Details extends React.Component {
         familyType: 2,
       },
       collegeName: urlParams.collegeName,
+      isShowSwitch: false, // 是否展示右侧切换按钮
+      dataList: {
+        selfExam: [
+          {
+            groupName: '大气层',
+            arr: 'activeCS',
+            familyNum: '103123',
+            key: '0',
+          },
+          {
+            groupName: 'selfExam',
+            arr: 'activeCS',
+            familyNum: '3232',
+            key: '1',
+          },
+          {
+            groupName: 'selfExam',
+            arr: 'activeCS',
+            familyNum: '233',
+            key: '2',
+          },
+          {
+            groupName: 'selfExam',
+            arr: 'activeCS',
+            familyNum: '112',
+            key: '3',
+          },
+        ],
+        barrier: [
+          {
+            groupName: 'barrier',
+            arr: 'activeCS',
+            familyNum: '1022',
+            key: '0',
+          },
+          {
+            groupName: 'barrier',
+            arr: 'activeCS',
+            familyNum: '2',
+            key: '1',
+          },
+          {
+            groupName: 'barrier',
+            arr: 'activeCS',
+            familyNum: '2',
+            key: '2',
+          },
+          {
+            groupName: 'barrier',
+            arr: 'activeCS',
+            familyNum: '2',
+            key: '3',
+          },
+        ],
+      },
     };
 
     this.state = assignUrlParams(initState, urlParams);
   }
+
   componentDidMount() {
     this.context.setTitle('hhehhhh');
+    this.getDataListLen(this.state.dataList);
   }
   onChange = val => {
     console.log(val);
+  };
+  // 列表展示条数大于2则展示switch按钮
+  getDataListLen = data => {
+    Object.keys(data).map(item => {
+      if (data[item].length > 2) {
+        this.setState({
+          isShowSwitch: true,
+        });
+      }
+      return '';
+    });
   };
   changeCollegeName(v) {
     this.setState({
       collegeName: v,
     });
   }
+
   render() {
-    const { paramsObj, collegeName } = this.state;
-    const dataList = {
-      selfExam: [
-        {
-          groupName: '大气层',
-          arr: 'activeCS',
-          familyNum: '103123',
-          key: '0',
-        },
-        {
-          groupName: 'selfExam',
-          arr: 'activeCS',
-          familyNum: '3232',
-          key: '1',
-        },
-        {
-          groupName: 'selfExam',
-          arr: 'activeCS',
-          familyNum: '233',
-          key: '2',
-        },
-        {
-          groupName: 'selfExam',
-          arr: 'activeCS',
-          familyNum: '112',
-          key: '3',
-        },
-      ],
-      barrier: [
-        {
-          groupName: 'barrier',
-          arr: 'activeCS',
-          familyNum: '1022',
-          key: '0',
-        },
-        {
-          groupName: 'barrier',
-          arr: 'activeCS',
-          familyNum: '2',
-          key: '1',
-        },
-        {
-          groupName: 'barrier',
-          arr: 'activeCS',
-          familyNum: '2',
-          key: '2',
-        },
-        {
-          groupName: 'barrier',
-          arr: 'activeCS',
-          familyNum: '2',
-          key: '3',
-        },
-      ],
-    };
+    const { dataList, paramsObj, collegeName, isShowSwitch } = this.state;
+
     const param = [
       { groupName: 'selfExam', arr: 'activeCS' },
       { groupName: 'barrier', arr: 'activeCS' },
@@ -104,7 +120,7 @@ class Details extends React.Component {
           <span>
             {paramsObj.dateTime} - {collegeName}
           </span>
-          <Switch onChange={val => this.onChange(val)} />
+          {!isShowSwitch ? null : <Switch onChange={val => this.onChange(val)} />}
         </div>
         {/* *************** listview *************** */}
         {param.map(item => {
