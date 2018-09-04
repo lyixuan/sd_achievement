@@ -23,6 +23,7 @@ class Details extends React.Component {
       },
       collegeName: urlParams.collegeName,
       isShowSwitch: false, // 是否展示右侧切换按钮
+      pageTitle: 'family', // 家族绩效页/小组绩效页
       dataList: {
         selfExam: [
           {
@@ -83,8 +84,9 @@ class Details extends React.Component {
   }
 
   componentDidMount() {
-    this.context.setTitle('hhehhhh');
-    this.getDataListLen(this.state.dataList);
+    const { pageTitle, dataList } = this.state;
+    this.context.setTitle(pageTitle === 'family' ? '家族绩效页' : '小组绩效页');
+    this.getDataListLen(dataList);
   }
   onChange = val => {
     console.log(val);
