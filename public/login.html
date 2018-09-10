@@ -94,10 +94,10 @@
 
   var params = getUrlParams();
   if (params['userId'] && params['userType'] == 1) {
-    setItem('userInfo', params);
+    setItem('performanceUser', params);
     var urlObj = {
       pro: 'http://bi-m.ministudy.com/',
-      dev: 'http://172.16.117.64:8081/'
+      dev: 'http://172.16.117.64:8093/'
     }
     var redit_url = urlObj[params['branch']] ? urlObj[params['branch']] : './';
     var time=new Date().getTime();

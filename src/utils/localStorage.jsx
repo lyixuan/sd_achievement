@@ -47,11 +47,9 @@ export function getItem(key) {
   *
   */
 export function getCurrentAuthInfo() {
-  let store = window.localStorage.getItem('performanceUser') || null;
-  store = JSON.parse(store) || {};
-  const { value = null } = store;
-  const { performanceUser = null } = value;
-  const { currentAuthInfo } = performanceUser;
+  const store = getItem('performanceUser') || null;
+  const value = store.value || {};
+  const { currentAuthInfo = null } = value;
   // const isExpries = expries && Number(expries) > Number(new Date());
   return currentAuthInfo;
 }

@@ -23,6 +23,18 @@ class indexPage extends React.Component {
       return '/indexPage/boss';
     } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
       return '/indexPage/teacher';
+    } else {
+      console.warn(`${groupType}权限没有做处理`);
+    }
+  };
+  checkLoginSuccess = () => {
+    // 判断是否登录成功;
+    const currentAuthInfo = getCurrentAuthInfo();
+    const { groupType = null } = currentAuthInfo;
+    if (groupType) {
+      return true;
+    } else {
+      return false;
     }
   };
   // 切换身份，点击确定，调取接口
@@ -32,7 +44,8 @@ class indexPage extends React.Component {
   render() {
     const { routerData, match } = this.props;
     const redirectUrl = this.checkoutUserAuth();
-    return (
+    const isLoginSuccess = this.checkLoginSuccess();
+    return !isLoginSuccess ? null : (
       <div>
         <Switch>
           {getRoutes(match.path, routerData).map(item => (
