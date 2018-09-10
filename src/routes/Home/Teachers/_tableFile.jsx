@@ -38,19 +38,19 @@ class TableFile extends React.Component {
       {
         title: flag2 === 1 ? '小组排名' : flag2 === 2 ? '小组排名' : '组内老师',
         dataIndex: 'titleOne',
-        key: 'titleOne',
+        key: 'columnsOne',
         clsName: flag2 === 3 ? 'otherDataCls' : 'dateCls',
       },
       {
         title: flag2 === 1 ? '档位内最低分' : flag2 === 2 ? '档位内最低人均' : '运营长分批比例',
         dataIndex: 'titleTwo',
-        key: 'titleTwo',
+        key: 'columnsTwo',
         clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
       },
       {
         title: flag2 === 1 ? '系数' : flag2 === 2 ? '绩效基数' : '班主任分配比例',
         dataIndex: 'titleThree',
-        key: 'titleThree',
+        key: 'columnsThree',
         clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
       },
     ];
@@ -60,19 +60,19 @@ class TableFile extends React.Component {
       {
         title: flag2 === 1 ? '家族排名比' : '家族排名',
         dataIndex: 'titleOne',
-        key: 'titleOne',
+        key: 'columns2O333ne',
         clsName: 'dateCls',
       },
       {
         title: flag2 === 1 ? '档位内最低分' : '档位内最低人均',
         dataIndex: 'titleTwo',
-        key: 'titleTwo',
+        key: 'columns2T333wo',
         clsName: 'stuCls',
       },
       {
         title: flag2 === 1 ? '系数' : '绩效基数',
         dataIndex: 'titleThree',
-        key: 'titleThree',
+        key: 'columns2Th333ree',
         clsName: 'preValCls',
       },
     ];
@@ -81,13 +81,13 @@ class TableFile extends React.Component {
       {
         title: '区间',
         dataIndex: 'titleOne',
-        key: 'titleOne',
+        key: 'colum11ns3One',
         clsName: 'halfDatacls',
       },
       {
         title: '系数',
         dataIndex: 'titleTwo',
-        key: 'titleTwo',
+        key: 'colum11ns3Two',
         clsName: 'halfStuCls',
       },
     ];
@@ -95,20 +95,32 @@ class TableFile extends React.Component {
     // 用户为家族长最后一个tab切换，table行数据
     const tableList3 = [
       {
-        key: 1,
-        data: [{ value: '30及以上', clsName: 'familyCls' }, { value: '1.8', clsName: 'familyCls' }],
+        key: 11,
+        data: [
+          { value: '30及以上', clsName: 'familyCls', key: '1111' },
+          { value: '1.8', clsName: 'familyCls', key: '1211' },
+        ],
       },
       {
-        key: 2,
-        data: [{ value: '25 ～ 30', clsName: 'familyCls' }, { value: '1.6', clsName: 'familyCls' }],
+        key: 21,
+        data: [
+          { value: '25 ～ 30', clsName: 'familyCls', key: '2111' },
+          { value: '1.6', clsName: 'familyCls', key: '2211' },
+        ],
       },
       {
-        key: 3,
-        data: [{ value: '20 ～ 25', clsName: 'familyCls' }, { value: '1.4', clsName: 'familyCls' }],
+        key: 31,
+        data: [
+          { value: '20 ～ 25', clsName: 'familyCls', key: '3111' },
+          { value: '1.4', clsName: 'familyCls', key: '3211' },
+        ],
       },
       {
-        key: 4,
-        data: [{ value: '15 ～ 20', clsName: 'familyCls' }, { value: '1.2', clsName: 'familyCls' }],
+        key: 41,
+        data: [
+          { value: '15 ～ 20', clsName: 'familyCls', key: '4111' },
+          { value: '1.2', clsName: 'familyCls', key: '4211' },
+        ],
       },
     ];
 
@@ -120,14 +132,17 @@ class TableFile extends React.Component {
           {
             value: flag2 === 1 ? '0% ～ 5%' : flag2 === 2 ? '0% ～ 10%' : 1,
             clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
+            key: '51777',
           },
           {
             value: flag2 === 1 ? '11' : flag2 === 2 ? '1,200人' : '30%',
             clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
+            key: '52777',
           },
           {
             value: flag2 === 1 ? '2.5' : flag2 === 2 ? '10,000' : '20% 20% 40%',
             clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
+            key: '53777',
           },
         ],
       },
@@ -137,14 +152,17 @@ class TableFile extends React.Component {
           {
             value: flag2 === 1 ? '5% ～ 15%' : flag2 === 2 ? '10% ～ 40%' : 2,
             clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
+            key: '54333',
           },
           {
             value: flag2 === 1 ? '9.9' : flag2 === 2 ? '1,000人' : '40%',
             clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
+            key: '55333',
           },
           {
             value: flag2 === 1 ? '2' : flag2 === 2 ? '8,000' : '40%',
             clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
+            key: '56333',
           },
         ],
       },
@@ -154,14 +172,17 @@ class TableFile extends React.Component {
           {
             value: flag2 === 1 ? '15% ～ 60%' : flag2 === 2 ? '40% ～ 70%' : 3,
             clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
+            key: '57444',
           },
           {
             value: flag2 === 1 ? '8.5' : flag2 === 2 ? '800人' : '30%',
             clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
+            key: '58444',
           },
           {
             value: flag2 === 1 ? '1.5' : flag2 === 2 ? '6,000' : '25% 40%',
             clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
+            key: '59444',
           },
         ],
       },
@@ -171,14 +192,17 @@ class TableFile extends React.Component {
           {
             value: flag2 === 1 ? '60% ～ 100%' : flag2 === 2 ? '70% ～ 90%' : 4,
             clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
+            key: '60555',
           },
           {
             value: flag2 === 1 ? '7.7' : flag2 === 2 ? '500人' : '40%',
             clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
+            key: '61555',
           },
           {
             value: flag2 === 1 ? '0.8' : flag2 === 2 ? '4,000' : '20% 20% 40% 20% 20%',
             clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
+            key: '62555',
           },
         ],
       },
@@ -188,14 +212,17 @@ class TableFile extends React.Component {
           {
             value: flag2 === 1 ? '60% ～ 100%' : flag2 === 2 ? '70% ～ 90%' : 4,
             clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
+            key: '63666',
           },
           {
             value: flag2 === 1 ? '7.7' : flag2 === 2 ? '500人' : '40%',
             clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
+            key: '64666',
           },
           {
             value: flag2 === 1 ? '0.8' : flag2 === 2 ? '4,000' : '20% 20% 40% 20% 20%',
             clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
+            key: '65666',
           },
         ],
       },

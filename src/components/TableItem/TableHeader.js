@@ -4,7 +4,6 @@ import styles from './TableHeader.less';
 class RenderHeader extends React.Component {
   render() {
     const columns = this.props.columnsData || [];
-    console.log(columns);
     return (
       <div className={styles.normal}>
         {Object.keys(columns).map((key, i) => {
