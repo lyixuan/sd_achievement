@@ -1,8 +1,7 @@
 import React from 'react';
 // import { connect } from 'dva';
-import { Redirect, Switch, Route } from 'dva/router';
 import DatePanle from 'container/DatePanle';
-import { getRoutes, assignUrlParams } from 'utils/routerUtils';
+import { assignUrlParams } from 'utils/routerUtils';
 import styles from './index.less';
 import ButtonFile from './_buttonFile';
 import TableFile from './_tableFile';
@@ -27,7 +26,6 @@ class Teacher extends React.Component {
     });
   };
   render() {
-    const { routerData, match } = this.props;
     const { flag, flag2, dateTime } = this.state;
     return (
       <div>
@@ -77,21 +75,6 @@ class Teacher extends React.Component {
           }}
         />
         <TableFile flag2={flag2} flag={flag} />
-        <div>
-          <Switch>
-            {getRoutes(match.path, routerData).map(item => (
-              <Route
-                key={item.key}
-                path={item.path}
-                component={item.component}
-                exact={item.exact}
-                authority={item.authority}
-                redirectPath="/exception/403"
-              />
-            ))}
-            <Redirect exact from="/indexPage/teacher" to="/indexPage/teacher/family" />
-          </Switch>
-        </div>
       </div>
     );
   }
