@@ -60,19 +60,19 @@ class TableFile extends React.Component {
       {
         title: flag2 === 1 ? '家族排名比' : '家族排名',
         dataIndex: 'titleOne',
-        key: 'columns2O333ne',
+        key: 'columns2One',
         clsName: 'dateCls',
       },
       {
         title: flag2 === 1 ? '档位内最低分' : '档位内最低人均',
         dataIndex: 'titleTwo',
-        key: 'columns2T333wo',
+        key: 'columns2Two',
         clsName: 'stuCls',
       },
       {
         title: flag2 === 1 ? '系数' : '绩效基数',
         dataIndex: 'titleThree',
-        key: 'columns2Th333ree',
+        key: 'columns2Three',
         clsName: 'preValCls',
       },
     ];
@@ -81,13 +81,13 @@ class TableFile extends React.Component {
       {
         title: '区间',
         dataIndex: 'titleOne',
-        key: 'colum11ns3One',
+        key: 'columns3One',
         clsName: 'halfDatacls',
       },
       {
         title: '系数',
         dataIndex: 'titleTwo',
-        key: 'colum11ns3Two',
+        key: 'columns3Two',
         clsName: 'halfStuCls',
       },
     ];
@@ -95,31 +95,31 @@ class TableFile extends React.Component {
     // 用户为家族长最后一个tab切换，table行数据
     const tableList3 = [
       {
-        key: 11,
+        key: 1,
         data: [
-          { value: '30及以上', clsName: 'familyCls', key: '1111' },
-          { value: '1.8', clsName: 'familyCls', key: '1211' },
+          { value: '30及以上', clsName: 'familyCls', key: 1 },
+          { value: '1.8', clsName: 'familyCls', key: 2 },
         ],
       },
       {
-        key: 21,
+        key: 2,
         data: [
-          { value: '25 ～ 30', clsName: 'familyCls', key: '2111' },
-          { value: '1.6', clsName: 'familyCls', key: '2211' },
+          { value: '25 ～ 30', clsName: 'familyCls', key: 1 },
+          { value: '1.6', clsName: 'familyCls', key: 2 },
         ],
       },
       {
-        key: 31,
+        key: 3,
         data: [
-          { value: '20 ～ 25', clsName: 'familyCls', key: '3111' },
-          { value: '1.4', clsName: 'familyCls', key: '3211' },
+          { value: '20 ～ 25', clsName: 'familyCls', key: 1 },
+          { value: '1.4', clsName: 'familyCls', key: 2 },
         ],
       },
       {
-        key: 41,
+        key: 4,
         data: [
-          { value: '15 ～ 20', clsName: 'familyCls', key: '4111' },
-          { value: '1.2', clsName: 'familyCls', key: '4211' },
+          { value: '15 ～ 20', clsName: 'familyCls', key: 1 },
+          { value: '1.2', clsName: 'familyCls', key: 2 },
         ],
       },
     ];
@@ -132,17 +132,17 @@ class TableFile extends React.Component {
           {
             value: flag2 === 1 ? '0% ～ 5%' : flag2 === 2 ? '0% ～ 10%' : 1,
             clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
-            key: '51777',
+            key: 1,
           },
           {
             value: flag2 === 1 ? '11' : flag2 === 2 ? '1,200人' : '30%',
             clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: '52777',
+            key: 2,
           },
           {
             value: flag2 === 1 ? '2.5' : flag2 === 2 ? '10,000' : '20% 20% 40%',
             clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: '53777',
+            key: 3,
           },
         ],
       },
@@ -152,17 +152,17 @@ class TableFile extends React.Component {
           {
             value: flag2 === 1 ? '5% ～ 15%' : flag2 === 2 ? '10% ～ 40%' : 2,
             clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
-            key: '54333',
+            key: 1,
           },
           {
             value: flag2 === 1 ? '9.9' : flag2 === 2 ? '1,000人' : '40%',
             clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: '55333',
+            key: 2,
           },
           {
             value: flag2 === 1 ? '2' : flag2 === 2 ? '8,000' : '40%',
             clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: '56333',
+            key: 3,
           },
         ],
       },
@@ -172,17 +172,17 @@ class TableFile extends React.Component {
           {
             value: flag2 === 1 ? '15% ～ 60%' : flag2 === 2 ? '40% ～ 70%' : 3,
             clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
-            key: '57444',
+            key: 1,
           },
           {
             value: flag2 === 1 ? '8.5' : flag2 === 2 ? '800人' : '30%',
             clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: '58444',
+            key: 2,
           },
           {
             value: flag2 === 1 ? '1.5' : flag2 === 2 ? '6,000' : '25% 40%',
             clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: '59444',
+            key: 3,
           },
         ],
       },
@@ -192,17 +192,17 @@ class TableFile extends React.Component {
           {
             value: flag2 === 1 ? '60% ～ 100%' : flag2 === 2 ? '70% ～ 90%' : 4,
             clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
-            key: '60555',
+            key: 1,
           },
           {
             value: flag2 === 1 ? '7.7' : flag2 === 2 ? '500人' : '40%',
             clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: '61555',
+            key: 2,
           },
           {
             value: flag2 === 1 ? '0.8' : flag2 === 2 ? '4,000' : '20% 20% 40% 20% 20%',
             clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: '62555',
+            key: 3,
           },
         ],
       },
@@ -212,17 +212,17 @@ class TableFile extends React.Component {
           {
             value: flag2 === 1 ? '60% ～ 100%' : flag2 === 2 ? '70% ～ 90%' : 4,
             clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
-            key: '63666',
+            key: 1,
           },
           {
             value: flag2 === 1 ? '7.7' : flag2 === 2 ? '500人' : '40%',
             clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: '64666',
+            key: 2,
           },
           {
             value: flag2 === 1 ? '0.8' : flag2 === 2 ? '4,000' : '20% 20% 40% 20% 20%',
             clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: '65666',
+            key: 3,
           },
         ],
       },

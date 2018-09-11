@@ -11,44 +11,44 @@ class TeacherPer extends React.Component {
       {
         title: '老师名称',
         dataIndex: 'titleOne',
-        key: 'tit11leOne111',
+        key: 'titleOne',
         clsName: 'one',
       },
       {
         title: '总绩效',
         dataIndex: 'titleTwo',
-        key: 'titl11eTwo111',
+        key: 'titleTwo',
         clsName: 'two',
       },
       {
         title: '=',
         dataIndex: 'titleThree',
-        key: 'titl11eThree111',
+        key: 'titleThree',
         clsName: 'three',
       },
       {
         title: '基本绩效',
         dataIndex: 'titleFour',
-        key: 'title11Four111',
+        key: 'titleFour',
         clsName: 'four',
       },
       {
         title: '+',
         dataIndex: 'titleFive',
-        key: 'title11Five111',
+        key: 'titleFive',
         clsName: 'five',
       },
       {
         title: '打分绩效',
         dataIndex: 'titleSix',
-        key: 'title11Six111',
+        key: 'titleSix',
         clsName: 'six',
       },
     ];
 
     const teacherItem = [
       {
-        key: 111,
+        key: 1,
         data: [
           { value: '甘文斌', clsName: 'one', key: 't111' },
           { value: '10,000', clsName: 'two', key: 't211' },
@@ -59,7 +59,7 @@ class TeacherPer extends React.Component {
         ],
       },
       {
-        key: 211,
+        key: 2,
         data: [
           { value: '甘文斌', clsName: 'one', key: 't11' },
           { value: '10,000', clsName: 'two', key: 't12' },
@@ -70,7 +70,7 @@ class TeacherPer extends React.Component {
         ],
       },
       {
-        key: 311,
+        key: 3,
         data: [
           { value: '甘文斌', clsName: 'one', key: 't21' },
           { value: '10,000', clsName: 'two', key: 't22' },
