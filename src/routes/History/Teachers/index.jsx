@@ -43,6 +43,79 @@ class HistoryTeacher extends React.Component {
                 您{aa[0]}年{aa[1] < 10 ? aa[1].slice(1) : aa[1]}月份确定绩效为
               </p>
               <p className={styles.u_resultlCls}>{!permenMoney ? '1,000' : permenMoney}</p>
+              <div style={{ height: '0.54rem' }} />
+              <div
+                style={{
+                  width: '6.5rem',
+                  margin: 'auto',
+                  background: ' #F8FAFB',
+                  borderRadius: '0.08rem',
+                }}
+              >
+                <p
+                  style={{
+                    textAlign: 'left',
+                    fontSize: '0.26rem',
+                    color: '#333',
+                    margin: ' auto 0.3rem',
+                    paddingTop: '0.25rem',
+                    paddingBottom: '0.25rem',
+                  }}
+                >
+                  实发合计中包含以下数据
+                </p>
+
+                <div
+                  style={{ height: '0.02rem', width: '6rem', background: '#eee', margin: 'auto' }}
+                />
+                <p
+                  style={{
+                    textAlign: 'left',
+                    fontSize: '0.26rem',
+                    color: '#6D6D75',
+                    margin: '0.1rem 0.3rem',
+                  }}
+                >
+                  <span style={{ textAlign: 'left', width: '2.9rem', display: 'inline-block' }}>
+                    虚报绩效考核金额
+                  </span>
+                  <span style={{ textAlign: 'right', width: '2.8rem', display: 'inline-block' }}>
+                    10,000元
+                  </span>
+                </p>
+                <p
+                  style={{
+                    textAlign: 'left',
+                    fontSize: '0.26rem',
+                    color: '#6D6D75',
+                    margin: '0.1rem  0.3rem',
+                  }}
+                >
+                  <span style={{ textAlign: 'left', width: '2.9rem', display: 'inline-block' }}>
+                    免费学绩效金额
+                  </span>
+                  <span style={{ textAlign: 'right', width: '2.8rem', display: 'inline-block' }}>
+                    20,000元
+                  </span>
+                </p>
+                <p
+                  style={{
+                    textAlign: 'left',
+                    fontSize: '0.26rem',
+                    color: '#6D6D75',
+                    margin: '0.1rem 0.3rem',
+                  }}
+                >
+                  <span style={{ textAlign: 'left', width: '2.9rem', display: 'inline-block' }}>
+                    其他绩效
+                  </span>
+                  <span style={{ textAlign: 'right', width: '2.8rem', display: 'inline-block' }}>
+                    500元
+                  </span>
+                </p>
+                <div style={{ height: '0.5rem' }} />
+              </div>
+              <div style={{ height: '0.4rem' }} />
             </div>
           </div>
         )}
