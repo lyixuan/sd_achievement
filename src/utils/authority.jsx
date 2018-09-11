@@ -7,7 +7,7 @@ import { getItem } from './localStorage';
 export function getAuthority() {
   const store = getItem('performanceUser') || {};
   const { value = null, expries = null } = store;
-  const { userId = null } = value;
+  const { userId = null } = value || {};
   const isExpries = expries && Number(expries) > Number(new Date());
   if (userId && !isExpries) {
     return userId;
