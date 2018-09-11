@@ -5,7 +5,7 @@ import MultipHeaderList from '../../../components/ListView/listView';
 import TeacherHeader from '../../../components/TableItem/TeacherHeader';
 import TeacherItem from '../../../components/TableItem/TeacherItem';
 
-class Group extends React.Component {
+class TeacherPer extends React.Component {
   render() {
     // 用户为运营长前tab切换时，table列头数据
     const teacher = [
@@ -104,5 +104,5 @@ class Group extends React.Component {
     );
   }
 }
-export default Group;
+export default TeacherPer;
 // connect(({ loading }) => ({ loading }))(Boss);

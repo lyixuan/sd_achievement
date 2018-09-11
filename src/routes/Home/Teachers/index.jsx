@@ -7,7 +7,7 @@ import ButtonFile from './_buttonFile';
 import TableFile from './_tableFile';
 import Bitmap from '../../../assets/Bitmap.png';
 import Right from '../../../assets/right.svg';
-import TeacherPer from './group';
+import TeacherPer from './_teacherPer';
 
 class Teacher extends React.Component {
   constructor(props) {
