@@ -5,9 +5,9 @@ import { assignUrlParams } from 'utils/routerUtils';
 import styles from './index.less';
 import ButtonFile from './_buttonFile';
 import TableFile from './_tableFile';
+import TeacherPer from './_teacherPer';
 import Bitmap from '../../../assets/Bitmap.png';
 import Right from '../../../assets/right.svg';
-import TeacherPer from './_teacherPer';
 
 class Teacher extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class Teacher extends React.Component {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
-      flag: 2, // 判断是运营长还是家族长
+      flag: 1, // 判断是运营长还是家族长
       flag2: 1, // tab切换标记
       dateTime: '2018.08',
     };
@@ -70,6 +70,7 @@ class Teacher extends React.Component {
           <span className={styles.u_spanTitle}>预测绩效计算 | </span>
           <span className={styles.u_spanTitle}>英语1组</span>
         </div>
+
         <ButtonFile
           flag2={flag2}
           flag={flag}
