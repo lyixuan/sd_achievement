@@ -4,16 +4,13 @@ import TimeSelect from 'components/TimeSelect/TimeSelect';
 import styles from './index.less';
 import history from '../../assets/history.png';
 
+const formate = 'YYYY-MM';
+
 export default class DatePanle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dateArea: [
-        { id: '2018.08', name: '2018.08' },
-        { id: '2018.07', name: '2018.07' },
-        { id: '2018.06', name: '2018.06' },
-        { id: '2018.05', name: '2018.05' },
-      ],
+      flag: 1,
     };
   }
 
@@ -24,7 +21,7 @@ export default class DatePanle extends React.Component {
   };
   isShowHistoryImage = () => {
     const { defaultDate = '' } = this.props;
-    const formate = 'YYYY-MM';
+
     const formateDate = defaultDate.replace(/\./g, '-');
     const nowDate = moment().format(formate);
     return !moment(formateDate).isSame(nowDate);
@@ -34,10 +31,33 @@ export default class DatePanle extends React.Component {
       this.props.toHistoryPage();
     }
   };
+
+  dataFun = () => {
+    const minDate = moment('2018-02').format(formate);
+    const maxDate = moment('2018-10').format(formate);
+    const currentDate = moment().format(formate);
+    const valueDate = !maxDate ? currentDate : currentDate < maxDate ? currentDate : maxDate;
+    const nowDate = new Date(Date.parse(valueDate.replace(/-/g, '/')));
+    const result = [];
+    const num = this.state.flag === 1 ? 12 : 3;
+    for (let i = 0; i < num; i += 1) {
+      nowDate.setMonth(nowDate.getMonth() - 1);
+      let m = nowDate.getMonth() + 2;
+      m = m < 10 ? `0${m}` : m;
+      const insertDate = `${nowDate.getFullYear()}-${m}`;
+      if (!minDate ? true : insertDate >= minDate) {
+        result.push({ id: `${nowDate.getFullYear()}.${m}`, name: `${nowDate.getFullYear()}.${m}` });
+      }
+    }
+    return result;
+  };
+
   render() {
-    const { dateArea } = this.state;
+    const dateArea = this.dataFun();
+    console.log(dateArea);
     const { defaultDate } = this.props;
     const isShowHistoryImage = this.isShowHistoryImage();
+    console.log(moment().format(formate));
     return (
       <div>
         <TimeSelect
