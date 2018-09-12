@@ -18,15 +18,16 @@ export default {
       // eslint-disable-line
       const { pathname } = history.location;
       const userId = getAuthority() || null;
+      console.log(userId, dispatch);
       if (pathname === '/') {
-        if (userId) {
-          dispatch({
-            type: 'getUserInfo',
-            payload: { userId },
-          });
-        } else {
-          dispatch(routerRedux.push('/exception/403'));
-        }
+        // if (userId) {
+        //   dispatch({
+        //     type: 'getUserInfo',
+        //     payload: { userId },
+        //   });
+        // } else {
+        //   dispatch(routerRedux.push('/exception/403'));
+        // }
       }
     },
   },

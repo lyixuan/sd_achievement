@@ -12,7 +12,7 @@ class BaseLayout extends React.Component {
     const { loading } = this.props;
     if (!loading) {
       // 当用户进入之后多次返回页面造成的bug
-      this.getUserInfo();
+      // this.getUserInfo();
     }
   }
   getUserInfo = () => {
