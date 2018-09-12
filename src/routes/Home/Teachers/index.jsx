@@ -19,7 +19,7 @@ class Teacher extends React.Component {
       },
       flag: 1, // 判断是运营长还是家族长
       flag2: 1, // tab切换标记
-      dateTime: '2018.08',
+      dateTime: '2018.09',
     };
     this.state = assignUrlParams(initState, urlParams);
   }

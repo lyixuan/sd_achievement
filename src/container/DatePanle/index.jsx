@@ -3,6 +3,7 @@ import moment from 'moment';
 import TimeSelect from 'components/TimeSelect/TimeSelect';
 import styles from './index.less';
 import history from '../../assets/history.png';
+import { timeArea } from '../../utils/timeArea';
 
 const formate = 'YYYY-MM';
 
@@ -33,10 +34,9 @@ export default class DatePanle extends React.Component {
   };
 
   dataFun = () => {
-    const minDate = moment('2018-02').format(formate);
-    const maxDate = moment('2018-10').format(formate);
-    const currentDate = moment().format(formate);
-    const valueDate = !maxDate ? currentDate : currentDate < maxDate ? currentDate : maxDate;
+    console.log(timeArea);
+    const minDate = '2018-03';
+    const valueDate = moment().format(formate);
     const nowDate = new Date(Date.parse(valueDate.replace(/-/g, '/')));
     const result = [];
     const num = this.state.flag === 1 ? 12 : 3;
