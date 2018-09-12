@@ -24,7 +24,7 @@ class indexPage extends React.Component {
     } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
       return '/indexPage/teacher';
     } else {
-      console.warn(`${groupType}权限没有做处理`);
+      this.props.history.push('/exception/403');
     }
   };
   checkLoginSuccess = () => {

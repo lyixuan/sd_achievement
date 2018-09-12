@@ -25,3 +25,21 @@ export async function getOrgMap(params) {
     body: params,
   });
 }
+/*
+*  此接口为获取用户登录信息的接口
+*/
+export async function getUserInfo(params) {
+  return request(`${HOST}/organization/findOrgMap`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
+*此接口获取时间空间是指可选日期
+*
+*/
+export async function getDisableTime(params) {
+  return request(`${HOST}/timeManagement/list?${stringify(params)}`, {
+    method: 'GET',
+  });
+}
