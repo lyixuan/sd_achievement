@@ -3,7 +3,7 @@ import { routerRedux } from 'dva/router';
 import { parse } from 'url';
 import Toast from '../components/Message';
 import store from '../index';
-import { getItem } from './localStorage';
+import { getAuthority } from './authority';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -49,9 +49,7 @@ export default function request(url, options) {
   const defaultOptions = {
     credentials: 'include',
   };
-  const userInfo = getItem('userInfo') || {};
-  const value = userInfo.value || {};
-  const { userId = '' } = value;
+  const userId = getAuthority() || null;
 
   const newOptions = { ...defaultOptions, ...options };
   // 此区域待优化
