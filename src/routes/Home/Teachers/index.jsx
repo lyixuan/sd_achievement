@@ -24,6 +24,7 @@ class Teacher extends React.Component {
     const { urlParams = {} } = props;
     const dateVal = timeArea();
     const { valueDate } = dateVal;
+    console.log('公共参数', this.currentAuthInfo);
     const {
       groupType = 'family',
       collegeId = null,
@@ -156,7 +157,6 @@ class Teacher extends React.Component {
         // familyType = 0,
         dateTime = null,
       } = this.state;
-      console.log(val);
       const kpiLevelParams = {
         groupType,
         collegeId,
@@ -174,6 +174,14 @@ class Teacher extends React.Component {
 
   render() {
     const { flag, tabFlag, dateTime, groupType } = this.state;
+    const detailKpiData = !this.props.teacherhome.detailKpiData
+      ? []
+      : !this.props.teacherhome.detailKpiData.data ? [] : this.props.teacherhome.detailKpiData.data;
+    const kpiLevelData = !this.props.teacherhome.kpiLevelData
+      ? []
+      : !this.props.teacherhome.kpiLevelData.data ? [] : this.props.teacherhome.kpiLevelData.data;
+    console.log('render时候的数据', this.props.teacherhome, detailKpiData, kpiLevelData);
+
     return (
       <div>
         <DatePanle
@@ -216,7 +224,7 @@ class Teacher extends React.Component {
         </div>
 
         <ButtonFile flag2={tabFlag} flag={flag} changeFlag={item => this.buttonChange(item)} />
-        <TableFile flag2={tabFlag} flag={flag} />
+        <TableFile flag2={tabFlag} flag={flag} dataSource={kpiLevelData} />
 
         <div style={{ display: flag === 2 && groupType === 'group' ? 'block' : 'none' }}>
           <TeacherPer />

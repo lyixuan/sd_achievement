@@ -30,8 +30,57 @@ class TableFile extends React.Component {
     });
   };
 
+  itemList3 = val => {
+    const data = [];
+    val.map((item, index) =>
+      data.push({
+        key: index,
+        flag: false,
+        data: [
+          { value: item.range, clsName: 'familyCls', key: 1 },
+          { value: item.value, clsName: 'familyCls', key: 2 },
+        ],
+      })
+    );
+
+    return data;
+  };
+  itemList = val => {
+    const data = [];
+    const { flag2 = 1 } = this.props;
+    val.map((item, index) =>
+      data.push({
+        key: index,
+        flag: false,
+        data: [
+          {
+            value: item.range,
+            clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
+            key: 1,
+          },
+          {
+            value: item.value,
+            clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
+            key: 2,
+          },
+          {
+            value: item.minVal,
+            clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
+            key: 3,
+          },
+        ],
+      })
+    );
+
+    return data;
+  };
+
   render() {
-    const { flag = 1, flag2 = 1 } = this.props;
+    const { flag = 1, flag2 = 1, dataSource = [] } = this.props;
+    const { modalflag } = this.state;
+    const tableList = !dataSource
+      ? []
+      : flag === 1 && flag2 === 3 ? this.itemList3(dataSource) : this.itemList(dataSource);
 
     // 用户为运营长前tab切换时，table列头数据
     const columns = [
@@ -92,151 +141,6 @@ class TableFile extends React.Component {
       },
     ];
 
-    // 用户为家族长最后一个tab切换，table行数据
-    const tableList3 = [
-      {
-        key: 1,
-        flag: false,
-        data: [
-          { value: '30及以上', clsName: 'familyCls', key: 1 },
-          { value: '1.8', clsName: 'familyCls', key: 2 },
-        ],
-      },
-      {
-        key: 2,
-        flag: false,
-        data: [
-          { value: '25 ～ 30', clsName: 'familyCls', key: 1 },
-          { value: '1.6', clsName: 'familyCls', key: 2 },
-        ],
-      },
-      {
-        key: 3,
-        flag: false,
-        data: [
-          { value: '20 ～ 25', clsName: 'familyCls', key: 1 },
-          { value: '1.4', clsName: 'familyCls', key: 2 },
-        ],
-      },
-      {
-        key: 4,
-        flag: true,
-        data: [
-          { value: '15 ～ 20', clsName: 'familyCls', key: 1 },
-          { value: '1.2', clsName: 'familyCls', key: 2 },
-        ],
-      },
-    ];
-
-    // 用户为运营长全部tab切换和家族长前两个tab切换，table行数据
-    const tableList = [
-      {
-        key: 1,
-        flag: true,
-        data: [
-          {
-            value: flag2 === 1 ? '0% ～ 5%' : flag2 === 2 ? '0% ～ 10%' : 1,
-            clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
-            key: 1,
-          },
-          {
-            value: flag2 === 1 ? '11' : flag2 === 2 ? '1,200人' : '30%',
-            clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: 2,
-          },
-          {
-            value: flag2 === 1 ? '2.5' : flag2 === 2 ? '10,000' : '20% 20% 40%',
-            clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: 3,
-          },
-        ],
-      },
-      {
-        key: 2,
-        flag: false,
-        data: [
-          {
-            value: flag2 === 1 ? '5% ～ 15%' : flag2 === 2 ? '10% ～ 40%' : 2,
-            clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
-            key: 1,
-          },
-          {
-            value: flag2 === 1 ? '9.9' : flag2 === 2 ? '1,000人' : '40%',
-            clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: 2,
-          },
-          {
-            value: flag2 === 1 ? '2' : flag2 === 2 ? '8,000' : '40%',
-            clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: 3,
-          },
-        ],
-      },
-      {
-        key: 3,
-        flag: false,
-        data: [
-          {
-            value: flag2 === 1 ? '15% ～ 60%' : flag2 === 2 ? '40% ～ 70%' : 3,
-            clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
-            key: 1,
-          },
-          {
-            value: flag2 === 1 ? '8.5' : flag2 === 2 ? '800人' : '30%',
-            clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: 2,
-          },
-          {
-            value: flag2 === 1 ? '1.5' : flag2 === 2 ? '6,000' : '25% 40%',
-            clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: 3,
-          },
-        ],
-      },
-      {
-        key: 4,
-        flag: false,
-        data: [
-          {
-            value: flag2 === 1 ? '60% ～ 100%' : flag2 === 2 ? '70% ～ 90%' : 4,
-            clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
-            key: 1,
-          },
-          {
-            value: flag2 === 1 ? '7.7' : flag2 === 2 ? '500人' : '40%',
-            clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: 2,
-          },
-          {
-            value: flag2 === 1 ? '0.8' : flag2 === 2 ? '4,000' : '20% 20% 40% 20% 20%',
-            clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: 3,
-          },
-        ],
-      },
-      {
-        key: 5,
-        flag: false,
-        data: [
-          {
-            value: flag2 === 1 ? '60% ～ 100%' : flag2 === 2 ? '70% ～ 90%' : 4,
-            clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
-            key: 1,
-          },
-          {
-            value: flag2 === 1 ? '7.7' : flag2 === 2 ? '500人' : '40%',
-            clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: 2,
-          },
-          {
-            value: flag2 === 1 ? '0.8' : flag2 === 2 ? '4,000' : '20% 20% 40% 20% 20%',
-            clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: 3,
-          },
-        ],
-      },
-    ];
-
     const scoreLeft = () => (
       <span className={styles.u_numSpan}>
         {flag2 === 1 ? '9.5分' : flag2 === 2 ? '1000人' : '10人'}
@@ -259,9 +163,6 @@ class TableFile extends React.Component {
         )}
       </span>
     );
-
-    const { modalflag } = this.state;
-
     return (
       <div className={styles.m_perTable}>
         <img
@@ -297,7 +198,7 @@ class TableFile extends React.Component {
         <div className={styles.u_xSplitLine} />
         <div className={styles.testList} style={{ marginTop: '0.2rem' }}>
           <MultipHeaderList
-            dataList={flag === 1 && flag2 === 3 ? tableList3 : tableList}
+            dataList={tableList}
             customRenderHeader={() => (
               <CustomRenderHeader
                 columnsData={flag === 1 ? (flag2 === 3 ? columns3 : columns2) : columns}

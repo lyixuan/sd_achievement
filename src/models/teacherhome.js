@@ -47,13 +47,12 @@ export default {
       const { groupType } = detailKpiParams;
       let detailKpiData = null;
       if (groupType === 'family') {
-        // console.log('进入family接口请求',detailKpiParams)
+        console.log('进入family接口请求', detailKpiParams);
         detailKpiData = yield call(findFamilyDetailKpi, { ...detailKpiParams });
       } else {
         console.log('进入运营长/班主任接口请求', detailKpiParams);
         detailKpiData = yield call(findGroupDetailKpi, { ...detailKpiParams });
       }
-      // console.log('接口请求返回结果',detailKpiData)
       if (detailKpiData.code === 2000) {
         yield put({ type: 'familysave', payload: { detailKpiData, detailKpiParams } });
       } else {
@@ -62,7 +61,7 @@ export default {
     },
     *findKpiLevel({ payload }, { call, put }) {
       const { kpiLevelParams } = payload;
-      console.log('档位接口请求', kpiLevelParams);
+      console.log('进入档位接口请求', kpiLevelParams);
       const kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams });
       if (kpiLevelData.code === 2000) {
         yield put({ type: 'kpisave', payload: { kpiLevelData, kpiLevelParams } });

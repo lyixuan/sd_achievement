@@ -1,17 +1,20 @@
 import React from 'react';
 import moment from 'moment';
+import { getCurrentAuthInfo } from 'utils/decorator';
 import TimeSelect from 'components/TimeSelect/TimeSelect';
 import styles from './index.less';
 import history from '../../assets/history.png';
 import { timeArea } from '../../utils/timeArea';
 
 const formate = 'YYYY-MM';
-
+@getCurrentAuthInfo
 export default class DatePanle extends React.Component {
   constructor(props) {
     super(props);
+    const { groupType = 'family' } = this.currentAuthInfo;
+    const val = groupType === 'boss' || groupType === 'college' ? 1 : 2;
     this.state = {
-      flag: 1,
+      flag: val,
     };
   }
 
