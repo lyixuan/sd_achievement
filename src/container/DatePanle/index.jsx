@@ -34,9 +34,8 @@ export default class DatePanle extends React.Component {
   };
 
   dataFun = () => {
-    console.log(timeArea);
-    const minDate = '2018-03';
-    const valueDate = moment().format(formate);
+    const dateVal = timeArea();
+    const { minDate, valueDate } = dateVal;
     const nowDate = new Date(Date.parse(valueDate.replace(/-/g, '/')));
     const result = [];
     const num = this.state.flag === 1 ? 12 : 3;
@@ -54,10 +53,8 @@ export default class DatePanle extends React.Component {
 
   render() {
     const dateArea = this.dataFun();
-    console.log(dateArea);
     const { defaultDate } = this.props;
     const isShowHistoryImage = this.isShowHistoryImage();
-    console.log(moment().format(formate));
     return (
       <div>
         <TimeSelect

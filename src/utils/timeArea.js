@@ -8,16 +8,13 @@ import { getItem } from './localStorage';
 */
 export function timeArea() {
   const store = getItem('timeDate') || {};
-
-  // console.log(getItem('timeDate'))
   const { value = null } = store;
-  const { dataRange = null } = value || {};
-  const { beginTime = null, endTime = null } = dataRange || {};
+  const { dateRange = null } = value || {};
+  const { beginTime = null, endTime = null } = dateRange || {};
   const formate = 'YYYY-MM';
   const minDate = moment(beginTime).format(formate);
   const maxDate = moment(endTime).format(formate);
   const currentDate = moment().format(formate);
   const valueDate = !maxDate ? currentDate : currentDate < maxDate ? currentDate : maxDate;
-  // console.log(valueDate,beginTime,endTime)
   return { minDate, maxDate, valueDate };
 }

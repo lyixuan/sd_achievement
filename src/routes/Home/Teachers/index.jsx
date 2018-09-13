@@ -8,18 +8,21 @@ import TableFile from './_tableFile';
 import TeacherPer from './_teacherPer';
 import Bitmap from '../../../assets/Bitmap.png';
 import Right from '../../../assets/right.svg';
+import { timeArea } from '../../../utils/timeArea';
 
 class Teacher extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
+    const dateVal = timeArea();
+    const { valueDate } = dateVal;
     const initState = {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
       flag: 1, // 判断是运营长还是家族长
       flag2: 1, // tab切换标记
-      dateTime: '2018.09',
+      dateTime: valueDate,
     };
     this.state = assignUrlParams(initState, urlParams);
   }
