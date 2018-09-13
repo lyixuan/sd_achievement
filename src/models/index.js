@@ -36,9 +36,15 @@ export default {
       const entUserId = payload.userId;
       const response = yield call(getUserInfo, { entUserId });
       if (response.code === 2000) {
-        const { data = [], userId = null } = response.data || {};
-        const CurrentAuthInfo = { ...data[0], userId };
-        yield call(setItem, 'performanceUser', response.data);
+        const responseData = response.data || {};
+        const authList = responseData.data || [];
+        responseData.data = authList.map(item => ({
+          ...item,
+          userId: item.id,
+          loginUserId: responseData.userId,
+        }));
+        const CurrentAuthInfo = { ...responseData.data[0] };
+        yield call(setItem, 'performanceUser', responseData);
         yield call(setItem, 'performanceCurrentAuth', CurrentAuthInfo);
         const timeResponse = yield call(getDisableTime);
         if (timeResponse.code === 2000) {

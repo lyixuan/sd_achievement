@@ -53,23 +53,14 @@ class Boss extends React.Component {
   onChangeAllGroup = id => {
     console.log(id);
   };
-  getData = params => {
+  getData = (params = {}) => {
+    const userId = this.currentAuthInfo.id;
+    const { groupType } = this.currentAuthInfo;
+    const newParams = { userId, groupType, ...params };
     this.props.dispatch({
       type: 'bosshome/findGroupTotalKpi',
-      payload: {
-        collegeId: 0,
-        entUserId: 'string',
-        familyId: 0,
-        familyType: 0,
-        groupId: 0,
-        groupType: 'boss',
-        month: 'string',
-        sort: 0,
-        type: 0,
-        userId: 2,
-      },
+      payload: newParams,
     });
-    console.log(params);
   };
   checkoutUserAuth = () => {
     const { groupType = null } = this.currentAuthInfo;
