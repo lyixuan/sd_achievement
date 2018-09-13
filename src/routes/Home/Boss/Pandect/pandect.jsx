@@ -47,7 +47,7 @@ class Boss extends React.Component {
     this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {
-    console.log(this.props);
+    this.getData();
   }
 
   onChangeAllGroup = id => {
@@ -55,7 +55,19 @@ class Boss extends React.Component {
   };
   getData = params => {
     this.props.dispatch({
-      type: 'bosshome',
+      type: 'bosshome/findGroupTotalKpi',
+      payload: {
+        collegeId: 0,
+        entUserId: 'string',
+        familyId: 0,
+        familyType: 0,
+        groupId: 0,
+        groupType: 'boss',
+        month: 'string',
+        sort: 0,
+        type: 0,
+        userId: 2,
+      },
     });
     console.log(params);
   };

@@ -15,7 +15,6 @@ export default {
 
   subscriptions: {
     setup({ dispatch, history }) {
-      console.log(dispatch, history);
       // eslint-disable-line
       const { pathname } = history.location;
       const userId = getUserId() || null;
