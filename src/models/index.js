@@ -37,8 +37,7 @@ export default {
       const entUserId = payload.userId;
       const response = yield call(getUserInfo, { entUserId });
       if (response.code === 2000) {
-        const { userId = null } = response.data || {};
-        const data = response.data.data.map(item => ({ ...item, groupType: item.userType })); // 临时处理;
+        const { data = [], userId = null } = response.data || {};
         const CurrentAuthInfo = { ...data[0], userId };
         yield call(setItem, 'performanceUser', response.data);
         yield call(setItem, 'performanceCurrentAuth', CurrentAuthInfo);
