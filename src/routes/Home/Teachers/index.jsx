@@ -33,17 +33,22 @@ class Teacher extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
+
+  componentDidMount() {}
+
   onDateChange = date => {
-    this.setState({
-      dateTime: date,
-    });
+    if (this.state.dateTime !== date) {
+      this.setState({ dateTime: date });
+    }
   };
 
-  jumpDetail = param => {
-    this.props.setRouteUrlParams('/details', { collegeName: param });
+  jumpDetail = () => {
+    this.props.setRouteUrlParams('/details', { dateTime: this.state.dataTime });
   };
   buttonChange = item => {
-    this.setState({ tabFlag: item.id });
+    if (this.state.tabFlag !== item.id) {
+      this.setState({ tabFlag: item.id });
+    }
   };
 
   render() {
