@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { getCurrentAuthInfo } from 'utils/decorator';
 import DatePanle from 'container/DatePanle';
 import { assignUrlParams } from 'utils/routerUtils';
 import styles from './index.less';
@@ -10,8 +11,12 @@ import Bitmap from '../../../assets/Bitmap.png';
 import Right from '../../../assets/right.svg';
 import { timeArea } from '../../../utils/timeArea';
 import { formatMoney } from '../../../utils/utils';
-import { getCurrentAuthInfo } from '../../../utils/decorator';
 
+@connect(({ teacherhome, loading }) => ({
+  teacherhome,
+  interfaceDetail: loading.effects['teacherhome/findFamilyDetailKpi'],
+  interfaceKpi: loading.effects['teacherhome/findKpiLevel'],
+}))
 @getCurrentAuthInfo
 class Teacher extends React.Component {
   constructor(props) {
@@ -19,41 +24,156 @@ class Teacher extends React.Component {
     const { urlParams = {} } = props;
     const dateVal = timeArea();
     const { valueDate } = dateVal;
-    const commonParams = this.currentAuthInfo;
-    const userType = commonParams.userType || 'family';
-    const userFlag = userType === 'family' ? 1 : 2;
+    const {
+      groupType = 'family',
+      collegeId = null,
+      userId = null,
+      familyId = null,
+      groupId = null,
+      familyType = 0,
+    } = this.currentAuthInfo;
+    const userFlag = groupType === 'family' ? 1 : 2;
     const initState = {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
       flag: userFlag, // 判断是家族长1,运营长2
-      tabFlag: 1, // tab切换标记
+      tabFlag: 1, // tab切换标记 0 日均学分排名系数 1绩效基数 2管理规模系数 3绩效比例
       dateTime: valueDate,
-      userType, // 用户角色：family/group/class
+      groupType, // 用户角色：family/group/class
+      collegeId,
+      userId,
+      familyId,
+      groupId,
+      familyType,
     };
     this.state = assignUrlParams(initState, urlParams);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const {
+      groupType = 'family',
+      collegeId = null,
+      userId = null,
+      familyId = null,
+      groupId = null,
+      // familyType = 0,
+      dateTime = null,
+    } = this.state;
+    const detailKpiParams = {
+      groupType,
+      collegeId,
+      familyId,
+      groupId,
+      familyType: 0,
+      userId,
+      month: dateTime,
+    };
+    const kpiLevelParams = {
+      groupType,
+      collegeId,
+      familyId,
+      groupId,
+      familyType: 0,
+      userId,
+      month: this.state.dateTime,
+      type: 0,
+    };
+    this.detailKpiFetch(detailKpiParams);
+    this.kpiLevelFetch(kpiLevelParams);
+  }
 
   onDateChange = date => {
     if (this.state.dateTime !== date) {
+      const {
+        groupType = 'family',
+        collegeId = null,
+        userId = null,
+        familyId = null,
+        groupId = null,
+        // familyType = 0,
+      } = this.state;
+      const detailKpiParams = {
+        groupType,
+        collegeId,
+        familyId,
+        groupId,
+        familyType: 0,
+        userId,
+        month: date,
+      };
+      const val =
+        this.state.tabFlag === 3 ? (this.state.flag === 1 ? 2 : 3) : this.state.tabFlag - 1;
+      const kpiLevelParams = {
+        groupType,
+        collegeId,
+        familyId,
+        groupId,
+        familyType: 0,
+        userId,
+        month: date,
+        type: val,
+      };
+
+      this.detailKpiFetch(detailKpiParams);
+      this.kpiLevelFetch(kpiLevelParams);
       this.setState({ dateTime: date });
     }
   };
+  // 请求model中的detailKpi方法
+  detailKpiFetch(detailKpiParams) {
+    const sendParams = {
+      detailKpiParams,
+    };
+    this.props.dispatch({
+      type: 'teacherhome/detailKpi',
+      payload: sendParams,
+    });
+  }
+  // 请求model中的findKpiLevel方法
+  kpiLevelFetch(kpiLevelParams) {
+    const sendParams = {
+      kpiLevelParams,
+    };
+    this.props.dispatch({
+      type: 'teacherhome/findKpiLevel',
+      payload: sendParams,
+    });
+  }
 
   jumpDetail = () => {
     this.props.setRouteUrlParams('/details', { dateTime: this.state.dataTime });
   };
   buttonChange = item => {
     if (this.state.tabFlag !== item.id) {
+      const val = item.id === 3 ? (this.state.flag === 1 ? 2 : 3) : item.id - 1;
+      const {
+        groupType = 'family',
+        collegeId = null,
+        userId = null,
+        familyId = null,
+        groupId = null,
+        // familyType = 0,
+        dateTime = null,
+      } = this.state;
+      console.log(val);
+      const kpiLevelParams = {
+        groupType,
+        collegeId,
+        familyId,
+        groupId,
+        familyType: 0,
+        userId,
+        month: dateTime,
+        type: val,
+      };
+      this.kpiLevelFetch(kpiLevelParams);
       this.setState({ tabFlag: item.id });
     }
   };
 
   render() {
-    console.log(this.currentAuthInfo);
-    const { flag, tabFlag, dateTime, userType } = this.state;
+    const { flag, tabFlag, dateTime, groupType } = this.state;
     return (
       <div>
         <DatePanle
@@ -98,7 +218,7 @@ class Teacher extends React.Component {
         <ButtonFile flag2={tabFlag} flag={flag} changeFlag={item => this.buttonChange(item)} />
         <TableFile flag2={tabFlag} flag={flag} />
 
-        <div style={{ display: flag === 2 && userType === 'group' ? 'block' : 'none' }}>
+        <div style={{ display: flag === 2 && groupType === 'group' ? 'block' : 'none' }}>
           <TeacherPer />
         </div>
 
@@ -121,7 +241,4 @@ class Teacher extends React.Component {
     );
   }
 }
-export default connect(({ teacherhome, loading }) => ({
-  teacherhome,
-  loading: loading.models.teacherhome,
-}))(Teacher);
+export default Teacher;

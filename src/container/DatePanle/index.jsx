@@ -45,7 +45,7 @@ export default class DatePanle extends React.Component {
       m = m < 10 ? `0${m}` : m;
       const insertDate = `${nowDate.getFullYear()}-${m}`;
       if (!minDate ? true : insertDate >= minDate) {
-        result.push({ id: `${nowDate.getFullYear()}.${m}`, name: `${nowDate.getFullYear()}.${m}` });
+        result.push({ id: `${nowDate.getFullYear()}-${m}`, name: `${nowDate.getFullYear()}-${m}` });
       }
     }
     return result;
