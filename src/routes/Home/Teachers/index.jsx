@@ -218,11 +218,6 @@ class Teacher extends React.Component {
           </p>
         </div>
 
-        <div className={styles.m_titile}>
-          <span className={styles.u_spanTitle}>预测绩效计算 | </span>
-          <span className={styles.u_spanTitle}>英语1组</span>
-        </div>
-
         <ButtonFile
           flag2={tabFlag}
           flag={flag}
