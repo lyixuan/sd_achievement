@@ -3,29 +3,26 @@ import { connect } from 'dva';
 import { assignUrlParams } from 'utils/routerUtils';
 import DatePanle from 'container/DatePanle';
 import PerformanceTab from 'components/SelfTab/PerformanceTab';
-import { getCurrentAuthInfo } from 'utils/localStorage';
+import { getCurrentAuthInfo } from 'utils/decorator';
 import Proportion from './proportion';
 import Step from './step';
 import styles from './index.less';
 
+@getCurrentAuthInfo
 class Boss extends React.Component {
   constructor(props) {
     super(props);
-    const currentAuthInfo = getCurrentAuthInfo() || {};
-    const { groupType = null } = currentAuthInfo;
+    const { groupType = null } = this.currentAuthInfo;
     const { urlParams = {} } = props;
     const initState = {
-      paramsObj: {
-        startTime: null, // 过滤开始时间
-      },
-      dateTime: '2018.08',
+      dateTime: '2018-08',
       monthlyType: 'step', // 默认绩效分档
       isShowTab: groupType === 'boss', // 是否显示切换分档和占比按钮
       FunnelChartData: [
-        { val: 30, type: 1 },
-        { val: 10, type: 2 },
-        { val: 10, type: 3 },
-        { val: 70, type: 4 },
+        { val: 10, type: 1 },
+        { val: 20, type: 2 },
+        { val: 40, type: 3 },
+        { val: 30, type: 4 },
       ],
       pieChartData: [
         { val: 70, name: '睿博' },
@@ -46,7 +43,9 @@ class Boss extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
-
+  componentDidMount() {
+    this.getBossKpiBracket();
+  }
   onChangeTab = id => {
     const typeObj = {
       1: 'step',
@@ -54,13 +53,29 @@ class Boss extends React.Component {
     };
     const monthlyType = typeObj[id];
     this.props.setCurrentUrlParams({ monthlyType });
-    this.setState({ monthlyType });
+    this.saveParams({ monthlyType });
   };
   onDateChange = dateTime => {
-    this.props.setCurrentUrlParams({ dateTime });
-    this.setState({
-      dateTime,
+    this.saveParams({ dateTime });
+  };
+  getBossKpiBracket = (params = {}) => {
+    const { dateTime } = this.state;
+    const month = params.dateTime || dateTime;
+    const { userId, collegeId, groupType } = this.currentAuthInfo;
+    const sendParams = {
+      month,
+      userId,
+      collegeId,
+      groupType,
+    };
+    this.props.dispatch({
+      type: 'bosshome/getBossKpiBracket',
+      payload: sendParams,
     });
+  };
+  saveParams = params => {
+    this.setState({ ...params });
+    this.props.setCurrentUrlParams(params);
   };
   toLevelPage = () => {
     this.props.setRouteUrlParams('/level');
@@ -125,4 +140,6 @@ class Boss extends React.Component {
     );
   }
 }
-export default connect(({ loading }) => ({ loading }))(Boss);
+export default connect(({ loading, bosshome }) => ({ loading: loading.models.bosshome, bosshome }))(
+  Boss
+);

@@ -22,8 +22,8 @@ export default class PandectChart extends React.Component {
   render() {
     const { dataSource = {}, children = [] } = this.props;
     const { chartState } = this.state;
-    const hasData = Array.isArray(dataSource.data) && dataSource.data.length > 0;
-    return !hasData ? null : (
+    // const hasData = Array.isArray(dataSource.data) && dataSource.data.length > 0;
+    return (
       <div className={styles.container}>
         <div className={styles.content}>
           <span className={styles.chartTab}>

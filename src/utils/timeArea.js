@@ -13,8 +13,8 @@ export function timeArea() {
   const { beginTime = null, endTime = null } = dateRange || {};
   const formate = 'YYYY-MM';
   const minDate = moment(beginTime).format(formate);
-  const maxDate = moment(endTime).format(formate);
+  let maxDate = moment(endTime).format(formate);
   const currentDate = moment().format(formate);
-  const valueDate = !maxDate ? currentDate : currentDate < maxDate ? currentDate : maxDate;
-  return { minDate, maxDate, valueDate };
+  maxDate = !maxDate ? currentDate : currentDate < maxDate ? currentDate : maxDate;
+  return { minDate, maxDate };
 }

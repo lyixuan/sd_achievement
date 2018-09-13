@@ -61,6 +61,15 @@ export async function findGroupAvgKpi(params) {
   });
 }
 /*
+*此接口用于Boss/院长首页-绩效分档接口
+*/
+export async function getBossKpiBracket(params) {
+  return request(`${HOST}/bossCollegeKpi/bossKpiBracket`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
 * boss/院长家族首页
 */
 export async function collgeKpiFamilyHomePage(params) {
