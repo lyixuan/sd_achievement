@@ -78,9 +78,10 @@ class TableFile extends React.Component {
   render() {
     const { flag = 1, flag2 = 1, dataSource = [] } = this.props;
     const { modalflag } = this.state;
-    const tableList = !dataSource
-      ? []
-      : flag === 1 && flag2 === 3 ? this.itemList3(dataSource) : this.itemList(dataSource);
+    const tableList =
+      flag === 1 && flag2 === 3
+        ? this.itemList3(!dataSource ? [] : dataSource)
+        : this.itemList(!dataSource ? [] : dataSource);
 
     // 用户为运营长前tab切换时，table列头数据
     const columns = [

@@ -23,7 +23,7 @@ class Teacher extends React.Component {
     super(props);
     const { urlParams = {} } = props;
     const dateVal = timeArea();
-    const { valueDate } = dateVal;
+    const { maxDate } = dateVal;
     console.log('公共参数', this.currentAuthInfo);
     const {
       groupType = 'family',
@@ -40,7 +40,7 @@ class Teacher extends React.Component {
       },
       flag: userFlag, // 判断是家族长1,运营长2
       tabFlag: 1, // tab切换标记 0 日均学分排名系数 1绩效基数 2管理规模系数 3绩效比例
-      dateTime: valueDate,
+      dateTime: maxDate,
       groupType, // 用户角色：family/group/class
       collegeId,
       userId,
@@ -223,11 +223,16 @@ class Teacher extends React.Component {
           <span className={styles.u_spanTitle}>英语1组</span>
         </div>
 
-        <ButtonFile flag2={tabFlag} flag={flag} changeFlag={item => this.buttonChange(item)} />
+        <ButtonFile
+          flag2={tabFlag}
+          flag={flag}
+          dataSource={detailKpiData}
+          changeFlag={item => this.buttonChange(item)}
+        />
         <TableFile flag2={tabFlag} flag={flag} dataSource={kpiLevelData} />
 
         <div style={{ display: flag === 2 && groupType === 'group' ? 'block' : 'none' }}>
-          <TeacherPer />
+          <TeacherPer dataSource={detailKpiData} />
         </div>
 
         <div

@@ -38,8 +38,8 @@ export default class DatePanle extends React.Component {
 
   dataFun = () => {
     const dateVal = timeArea();
-    const { minDate, valueDate } = dateVal;
-    const nowDate = new Date(Date.parse(valueDate.replace(/-/g, '/')));
+    const { minDate, maxDate } = dateVal;
+    const nowDate = new Date(Date.parse(maxDate.replace(/-/g, '/')));
     const result = [];
     const num = this.state.flag === 1 ? 12 : 3;
     for (let i = 0; i < num; i += 1) {

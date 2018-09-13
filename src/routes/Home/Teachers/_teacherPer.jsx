@@ -5,6 +5,25 @@ import TeacherHeader from '../../../components/TableItem/TeacherHeader';
 import TeacherItem from '../../../components/TableItem/TeacherItem';
 
 class TeacherPer extends React.Component {
+  itemList = val => {
+    const data = [];
+    console.log(val);
+    val.map((item, index) =>
+      data.push({
+        key: index,
+        data: [
+          { value: item.name, clsName: 'one', key: 't21' },
+          { value: item.total, clsName: 'two', key: 't22' },
+          { value: ' ', clsName: 'three', key: 't23' },
+          { value: item.base, clsName: 'four', key: 't24' },
+          { value: '', clsName: 'five', key: 't25' },
+          { value: item.mark, clsName: 'six', key: 't26' },
+        ],
+      })
+    );
+    return data;
+  };
+
   render() {
     // 用户为运营长前tab切换时，table列头数据
     const teacher = [
@@ -46,41 +65,10 @@ class TeacherPer extends React.Component {
       },
     ];
 
-    const teacherItem = [
-      {
-        key: 1,
-        data: [
-          { value: '甘文斌', clsName: 'one', key: 't111' },
-          { value: '10,000', clsName: 'two', key: 't211' },
-          { value: ' ', clsName: 'three', key: 't311' },
-          { value: '5,000', clsName: 'four', key: 't411' },
-          { value: '', clsName: 'five', key: 't511' },
-          { value: '5,000', clsName: 'six', key: 't611' },
-        ],
-      },
-      {
-        key: 2,
-        data: [
-          { value: '甘文斌', clsName: 'one', key: 't11' },
-          { value: '10,000', clsName: 'two', key: 't12' },
-          { value: ' ', clsName: 'three', key: 't13' },
-          { value: '5,000', clsName: 'four', key: 't14' },
-          { value: '', clsName: 'five', key: 't15' },
-          { value: '5,000', clsName: 'six', key: 't16' },
-        ],
-      },
-      {
-        key: 3,
-        data: [
-          { value: '甘文斌', clsName: 'one', key: 't21' },
-          { value: '10,000', clsName: 'two', key: 't22' },
-          { value: ' ', clsName: 'three', key: 't23' },
-          { value: '5,000', clsName: 'four', key: 't24' },
-          { value: '', clsName: 'five', key: 't25' },
-          { value: '5,000', clsName: 'six', key: 't26' },
-        ],
-      },
-    ];
+    const { dataSource = [] } = this.props;
+    const teacherItem = this.itemList(
+      !dataSource ? [] : !dataSource.classKpiList ? [] : dataSource.classKpiList
+    );
 
     return (
       <div>
