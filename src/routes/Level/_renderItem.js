@@ -14,10 +14,14 @@ class RenderItem extends React.Component {
     const imgSrc = num === 0 ? yellowImg : num < 0 ? redImg : greenImg;
     return (
       <div className={`${styles.m_render} ${styles.m_itemRender} ${bgColor}`}>
-        <span className={`${styles.u_span} ${styles.performance}`}>{rowData.groupName}</span>
-        <span className={`${styles.u_span} ${styles.familyNum}`}>{rowData.familyNum}</span>
-        <span className={`${styles.u_span} ${styles.familyRatio}`}>{rowData.arr} </span>
-        <span className={`${styles.u_span} ${styles.familyRatio}`}>{rowData.arr} </span>
+        <span className={`${styles.u_span} ${styles.performance}`}>{rowData.levelValue}</span>
+        <span className={`${styles.u_span} ${styles.familyNum}`}>{rowData.levelCount}</span>
+        <span className={`${styles.u_span} ${styles.familyRatio}`}>
+          {rowData.levelCount / rowData.collegeNum}{' '}
+        </span>
+        <span className={`${styles.u_span} ${styles.familyRatio}`}>
+          {rowData.levelCompanyNum / rowData.companyNum}{' '}
+        </span>
         <span className={`${styles.u_span} ${styles.collegeGroup}`}>
           {rowData.familyNum}
           <img className={styles.triangCls} src={imgSrc} alt="" />

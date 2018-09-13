@@ -117,7 +117,7 @@ export const getRouterData = app => {
       showTitle: false,
     },
     '/details': {
-      component: dynamicWrapper(app, [], () => import('../routes/Details/index')),
+      component: dynamicWrapper(app, ['details'], () => import('../routes/Details/index')),
       title: '小组绩效',
       showTitle: true,
     },

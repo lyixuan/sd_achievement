@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'dva';
 import PropTypes from 'prop-types';
 import { assignUrlParams } from '../../utils/routerUtils';
 import Switch from '../../components/Switch/Switch';
@@ -87,9 +88,16 @@ class Details extends React.Component {
     const { pageTitle, dataList } = this.state;
     this.context.setTitle(pageTitle === 'family' ? '家族绩效页' : '小组绩效页');
     this.getDataListLen(dataList);
+    this.getListData();
   }
   onChange = val => {
     console.log(val);
+  };
+  getListData = () => {
+    this.props.dispatch({
+      type: 'details/collgeKpiFamilyDetail',
+      payload: this.state.paramsObj,
+    });
   };
   // 列表展示条数大于2则展示switch按钮
   getDataListLen = data => {
@@ -145,8 +153,7 @@ class Details extends React.Component {
     );
   }
 }
-export default Details;
-// connect(({ Details, loading }) => ({
-//   Details,
-//   isloading: loading.models.Details,
-// }))(Details);
+export default connect(({ details, loading }) => ({
+  details,
+  loading: loading.models.details,
+}))(Details);

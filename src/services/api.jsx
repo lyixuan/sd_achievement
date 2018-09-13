@@ -78,6 +78,15 @@ export async function collgeKpiGroupHomePage(params) {
     body: params,
   });
 }
+/*
+* boss/院长-家族/小组详情页
+*/
+export async function collgeKpiFamilyDetail(params) {
+  return request(`${HOST}/bossCollegeKpi/collgeKpiFamilyDetail`, {
+    method: 'POST',
+    body: params,
+  });
+}
 
 /*
 *家族长首页接口
