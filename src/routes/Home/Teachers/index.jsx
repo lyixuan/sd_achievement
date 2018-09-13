@@ -24,7 +24,7 @@ class Teacher extends React.Component {
     const { urlParams = {} } = props;
     const dateVal = timeArea();
     const { maxDate } = dateVal;
-    console.log('公共参数', this.currentAuthInfo);
+    // console.log('公共参数', this.currentAuthInfo);
     const {
       groupType = 'family',
       collegeId = null,
@@ -180,7 +180,7 @@ class Teacher extends React.Component {
     const kpiLevelData = !this.props.teacherhome.kpiLevelData
       ? []
       : !this.props.teacherhome.kpiLevelData.data ? [] : this.props.teacherhome.kpiLevelData.data;
-    console.log('render时候的数据', this.props.teacherhome, detailKpiData, kpiLevelData);
+    // console.log('render时候的数据', this.props.teacherhome, detailKpiData, kpiLevelData);
 
     return (
       <div>

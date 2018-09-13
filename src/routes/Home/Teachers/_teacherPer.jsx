@@ -7,7 +7,7 @@ import TeacherItem from '../../../components/TableItem/TeacherItem';
 class TeacherPer extends React.Component {
   itemList = val => {
     const data = [];
-    console.log(val);
+    // console.log(val);
     val.map((item, index) =>
       data.push({
         key: index,
