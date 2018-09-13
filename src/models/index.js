@@ -1,6 +1,6 @@
 import { routerRedux } from 'dva/router';
 import { setItem } from 'utils/localStorage';
-// import {getUserId} from 'utils/authority';
+import { getUserId } from 'utils/authority';
 import Message from '../components/Message';
 
 import { getUserInfo, getDisableTime } from '../services/api';
@@ -17,27 +17,31 @@ export default {
     setup({ dispatch, history }) {
       console.log(dispatch, history);
       // eslint-disable-line
-      // const { pathname } = history.location;
-      // const userId = getUserId() || null;
-      // if (pathname === '/') {
-      //   if (userId) {
-      //     dispatch({
-      //       type: 'getUserInfo',
-      //       payload: { userId },
-      //     });
-      //   } else {
-      //     dispatch(routerRedux.push('/exception/403'));
-      //   }
-      // }
+      const { pathname } = history.location;
+      const userId = getUserId() || null;
+      if (pathname === '/') {
+        if (userId) {
+          dispatch({
+            type: 'getUserInfo',
+            payload: { userId },
+          });
+        } else {
+          dispatch(routerRedux.push('/exception/403'));
+        }
+      }
     },
   },
   effects: {
     *getUserInfo({ payload }, { call, put }) {
       // eslint-disable-line
-      const response = yield call(getUserInfo, { ...payload });
+      const entUserId = payload.userId;
+      const response = yield call(getUserInfo, { entUserId });
       if (response.code === 2000) {
+        const { userId = null } = response.data || {};
+        const data = response.data.data.map(item => ({ ...item, groupType: item.userType })); // 临时处理;
+        const CurrentAuthInfo = { ...data[0], userId };
         yield call(setItem, 'performanceUser', response.data);
-        yield call(setItem, 'performanceCurrentAuth', response.data.data[0]);
+        yield call(setItem, 'performanceCurrentAuth', CurrentAuthInfo);
         const timeResponse = yield call(getDisableTime);
         if (timeResponse.code === 2000) {
           setItem('timeDate', timeResponse.data);

@@ -51,6 +51,9 @@ class Boss extends React.Component {
     console.log(id);
   };
   getData = params => {
+    this.props.dispatch({
+      type: 'bosshome',
+    });
     console.log(params);
   };
   checkoutUserAuth = () => {
@@ -96,4 +99,4 @@ class Boss extends React.Component {
     );
   }
 }
-export default connect(({ loading }) => ({ loading }))(Boss);
+export default connect(({ loading, bosshome }) => ({ loading, bosshome }))(Boss);

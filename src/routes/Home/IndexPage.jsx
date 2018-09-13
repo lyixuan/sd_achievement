@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Redirect, Switch, Route } from 'dva/router';
-import { getCurrentAuthInfo } from 'utils/localStorage';
+import { getCurrentAuthInfo } from 'utils/decorator';
 import { getRoutes, assignUrlParams } from '../../utils/routerUtils';
 import SwitchDialog from '../../container/IDSwitchDialog/index';
 
+@getCurrentAuthInfo
 class indexPage extends React.Component {
   constructor(props) {
     super(props);
@@ -17,8 +18,7 @@ class indexPage extends React.Component {
     this.state = assignUrlParams(initState, urlParams);
   }
   checkoutUserAuth = () => {
-    const currentAuthInfo = getCurrentAuthInfo() || {};
-    const { groupType = null } = currentAuthInfo;
+    const { groupType = null } = this.currentAuthInfo;
     if (groupType === 'boss' || groupType === 'college') {
       return '/indexPage/boss';
     } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {

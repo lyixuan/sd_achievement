@@ -29,9 +29,8 @@ export async function getOrgMap(params) {
 *  此接口为获取用户登录信息的接口
 */
 export async function getUserInfo(params) {
-  return request(`${HOST}/organization/findOrgMap`, {
-    method: 'POST',
-    body: params,
+  return request(`${HOST}/wechatLogin/getUserInfoByUserId?${stringify(params)}`, {
+    method: 'GET',
   });
 }
 /*
