@@ -10,21 +10,26 @@ import Bitmap from '../../../assets/Bitmap.png';
 import Right from '../../../assets/right.svg';
 import { timeArea } from '../../../utils/timeArea';
 import { formatMoney } from '../../../utils/utils';
+import { getCurrentAuthInfo } from '../../../utils/decorator';
 
+@getCurrentAuthInfo
 class Teacher extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
     const dateVal = timeArea();
     const { valueDate } = dateVal;
+    const commonParams = this.currentAuthInfo;
+    const userType = commonParams.userType || 'family';
+    const userFlag = userType === 'family' ? 1 : 2;
     const initState = {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
-      flag: 1, // 判断是家族长1,运营长2
-      flag2: 1, // tab切换标记
+      flag: userFlag, // 判断是家族长1,运营长2
+      tabFlag: 1, // tab切换标记
       dateTime: valueDate,
-      userType: 'group', // 用户角色：family/group/class
+      userType, // 用户角色：family/group/class
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -38,11 +43,12 @@ class Teacher extends React.Component {
     this.props.setRouteUrlParams('/details', { collegeName: param });
   };
   buttonChange = item => {
-    this.setState({ flag2: item.id });
+    this.setState({ tabFlag: item.id });
   };
 
   render() {
-    const { flag, flag2, dateTime, userType } = this.state;
+    console.log(this.currentAuthInfo);
+    const { flag, tabFlag, dateTime, userType } = this.state;
     return (
       <div>
         <DatePanle
@@ -84,8 +90,8 @@ class Teacher extends React.Component {
           <span className={styles.u_spanTitle}>英语1组</span>
         </div>
 
-        <ButtonFile flag2={flag2} flag={flag} changeFlag={item => this.buttonChange(item)} />
-        <TableFile flag2={flag2} flag={flag} />
+        <ButtonFile flag2={tabFlag} flag={flag} changeFlag={item => this.buttonChange(item)} />
+        <TableFile flag2={tabFlag} flag={flag} />
 
         <div style={{ display: flag === 2 && userType === 'group' ? 'block' : 'none' }}>
           <TeacherPer />
