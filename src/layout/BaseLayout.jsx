@@ -1,22 +1,25 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Redirect, Switch, Route } from 'dva/router';
+import { Redirect, Switch } from 'dva/router';
 import pathToRegexp from 'path-to-regexp';
 import DocumentTitle from 'components/DocumentTitle';
 import Loading from 'components/Loading/Loading';
-import { getAuthority } from 'utils/authority';
+import Authorized from 'utils/Authorized';
+import { getUserId } from 'utils/authority';
 import { getRoutes } from '../utils/routerUtils';
 
+const { AuthorizedRoute } = Authorized;
 class BaseLayout extends React.Component {
   componentDidMount() {
     const { loading } = this.props;
+
     if (!loading) {
       // 当用户进入之后多次返回页面造成的bug
-      this.getUserInfo();
+      // this.getUserInfo();
     }
   }
   getUserInfo = () => {
-    const userId = getAuthority() || null;
+    const userId = getUserId() || null;
     this.props.dispatch({
       type: 'index/getUserInfo',
       payload: { userId },
@@ -44,12 +47,13 @@ class BaseLayout extends React.Component {
       <DocumentTitle title={this.getPageTitle()}>
         <Switch>
           {getRoutes(match.path, routerData).map(item => (
-            <Route
+            <AuthorizedRoute
               key={item.key}
               path={item.path}
               component={item.component}
               exact={item.exact}
-              authority={item.authority}
+              // authority={getAuthority}
+              authority={() => true}
               redirectPath="/exception/403"
             />
           ))}

@@ -1,6 +1,6 @@
 import { routerRedux } from 'dva/router';
-import { getAuthority } from 'utils/authority';
 import { setItem } from 'utils/localStorage';
+// import {getUserId} from 'utils/authority';
 import Message from '../components/Message';
 
 import { getUserInfo, getDisableTime } from '../services/api';
@@ -15,19 +15,20 @@ export default {
 
   subscriptions: {
     setup({ dispatch, history }) {
+      console.log(dispatch, history);
       // eslint-disable-line
-      const { pathname } = history.location;
-      const userId = getAuthority() || null;
-      if (pathname === '/') {
-        if (userId) {
-          dispatch({
-            type: 'getUserInfo',
-            payload: { userId },
-          });
-        } else {
-          dispatch(routerRedux.push('/exception/403'));
-        }
-      }
+      // const { pathname } = history.location;
+      // const userId = getUserId() || null;
+      // if (pathname === '/') {
+      //   if (userId) {
+      //     dispatch({
+      //       type: 'getUserInfo',
+      //       payload: { userId },
+      //     });
+      //   } else {
+      //     dispatch(routerRedux.push('/exception/403'));
+      //   }
+      // }
     },
   },
   effects: {
@@ -36,6 +37,7 @@ export default {
       const response = yield call(getUserInfo, { ...payload });
       if (response.code === 2000) {
         yield call(setItem, 'performanceUser', response.data);
+        yield call(setItem, 'performanceCurrentAuth', response.data.data[0]);
         const timeResponse = yield call(getDisableTime);
         if (timeResponse.code === 2000) {
           setItem('timeDate', timeResponse.data);
