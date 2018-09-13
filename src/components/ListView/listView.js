@@ -6,7 +6,7 @@
 *
 * headerParam: 传给子组件 RenderHeader
 * renderHeader：页头
-* renderFooter：页脚
+* renderFooter：页脚 配合参数id使用
 * customRenderHeader: 组件，展示表头，默认RenderHeader
 * customRenderItem: 组件，展示数据，RenderItem
 * otherCpmponent: 在listView中扩展
@@ -32,8 +32,8 @@ class MultipHeaderList extends Component {
     if (this.props.renderHeader) return this.props.renderHeader(this.props.groupName);
   };
   // 组件底部
-  renderFooter = groupName => {
-    if (this.props.renderFooter) return this.props.renderFooter(groupName);
+  renderFooter = id => {
+    if (this.props.renderFooter) return this.props.renderFooter(id);
   };
   renderSectionWrapper = sectionID => {
     const { sectionClass = '' } = this.props;
@@ -56,19 +56,19 @@ class MultipHeaderList extends Component {
     }
   };
   render() {
-    const { dataList, groupName, initialListSize, otherCpmponent, listViewCls } = this.props;
+    const { dataList, groupName, id, initialListSize, otherCpmponent, listViewCls } = this.props;
     const dataSource = groupName
       ? this.state.dataSource.cloneWithRows(dataList[groupName])
       : this.state.dataSource.cloneWithRows(dataList);
     const newListViewCls = listViewCls ? classNames(listViewCls) : classNames(styles.listViewCls);
     return (
-      <div id={groupName} className={newListViewCls}>
+      <div id={id} className={newListViewCls}>
         <ListView
           dataSource={dataSource}
           className="am-list sticky-list"
           useBodyScroll
           renderHeader={() => this.renderHeader()}
-          renderFooter={() => this.renderFooter(groupName)}
+          renderFooter={() => this.renderFooter(id)}
           renderSectionWrapper={sectionID => this.renderSectionWrapper(sectionID)}
           renderSectionHeader={sectionData => this.renderSectionHeader(sectionData)}
           renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}

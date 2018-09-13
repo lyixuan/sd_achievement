@@ -1,11 +1,12 @@
-import { collgeKpiFamilyHomePage } from '../services/api';
+import { collgeKpiFamilyHomePage, collgeKpiGroupHomePage } from '../services/api';
 import Message from '../components/Message';
 
 export default {
   namespace: 'level',
 
   state: {
-    count: 0,
+    familyData: [],
+    groupData: [],
   },
 
   subscriptions: {
@@ -18,15 +19,24 @@ export default {
     *collgeKpiFamilyHomePage({ payload }, { call, put }) {
       const response = yield call(collgeKpiFamilyHomePage, { ...payload });
       if (response.code === 2000) {
-        console.log(response);
+        yield put({
+          type: 'save',
+          payload: { familyData: response.data },
+        });
       } else {
         Message.fail(response.msg);
-        // yield put(routerRedux.push('/exception/403'));
       }
-      yield put({
-        type: 'save',
-        payload: response,
-      });
+    },
+    *collgeKpiGroupHomePage({ payload }, { call, put }) {
+      const response = yield call(collgeKpiGroupHomePage, { ...payload });
+      if (response.code === 2000) {
+        yield put({
+          type: 'save',
+          payload: { familyData: response.data },
+        });
+      } else {
+        Message.fail(response.msg);
+      }
     },
   },
 

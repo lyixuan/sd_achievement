@@ -5,7 +5,8 @@ export default {
   namespace: 'details',
 
   state: {
-    count: 0,
+    familyData: [],
+    groupData: [],
   },
 
   subscriptions: {
@@ -18,10 +19,12 @@ export default {
     *collgeKpiFamilyDetail({ payload }, { call, put }) {
       const response = yield call(collgeKpiFamilyDetail, { ...payload });
       if (response.code === 2000) {
-        console.log(response);
+        yield put({
+          type: 'save',
+          payload: { familyData: response.data },
+        });
       } else {
         Message.fail(response.msg);
-        // yield put(routerRedux.push('/exception/403'));
       }
       yield put({
         type: 'save',

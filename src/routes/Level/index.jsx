@@ -18,24 +18,33 @@ class Level extends React.Component {
         collegeId,
         groupType: 'boss',
         month: '2018-08',
+        // userId:2
       },
     };
     this.state = Object.assign(initState, currentAuthInfo);
   }
   componentDidMount() {
-    this.getListData();
+    // this.getListData('level/collgeKpiFamilyHomePage'); // 家族分档
+    this.getListData('level/collgeKpiGroupHomePage'); // 小组分档
   }
-  getListData = () => {
+  getListData = url => {
     this.props.dispatch({
-      type: 'level/collgeKpiFamilyHomePage',
+      type: url,
       payload: this.state.paramsObj,
     });
   };
   jumpDetail = param => {
     this.props.setRouteUrlParams('/details', { collegeName: param });
   };
+  changeObj = res => {
+    const obj = {};
+    res.forEach(e => {
+      obj[e.name] = e.detailResult;
+    });
+    return obj;
+  };
   renderHeader = name => {
-    return <div className={`${styles.m_list} ${styles.m_list_header}`}>{name}</div>;
+    return <div className={`${styles.m_list} ${styles.m_list_header}`}>{name}学院</div>;
   };
   renderFooter = val => {
     return (
@@ -48,83 +57,27 @@ class Level extends React.Component {
     );
   };
   render() {
-    const dataList = {
-      selfExam: [
-        {
-          groupName: 'selfExam',
-          arr: 'activeCS',
-          familyNum: '0',
-          key: '0',
-        },
-        {
-          groupName: 'selfExam',
-          arr: 'activeCS',
-          familyNum: '2',
-          key: '1',
-        },
-        {
-          groupName: 'selfExam',
-          arr: 'activeCS',
-          familyNum: '2',
-          key: '2',
-        },
-        {
-          groupName: 'selfExam',
-          arr: 'activeCS',
-          familyNum: '2',
-          key: '3',
-        },
-      ],
-      barrier: [
-        {
-          groupName: 'barrier',
-          arr: 'activeCS',
-          familyNum: '0',
-          key: '0',
-        },
-        {
-          groupName: 'barrier',
-          arr: 'activeCS',
-          familyNum: '2',
-          key: '1',
-        },
-        {
-          groupName: 'barrier',
-          arr: 'activeCS',
-          familyNum: '-1',
-          key: '2',
-        },
-        {
-          groupName: 'barrier',
-          arr: 'activeCS',
-          familyNum: '2',
-          key: '3',
-        },
-      ],
-    };
-    const param = [
-      { groupName: 'selfExam', arr: 'activeCS' },
-      { groupName: 'barrier', arr: 'activeCS' },
-      { groupName: 'incubator', arr: 'activeCS' },
-    ];
+    const { familyData = [] } = this.props.level;
+    const dataList = this.changeObj(familyData);
     const { month } = this.state.paramsObj;
     return (
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
           <span>{month}预测绩效</span>
-          <div className={styles.greyFont} onClick={() => this.jumpDetail(1)}>
+          <div className={styles.greyFont} onClick={() => this.jumpDetail()}>
             绩效详情 <img src={arrowRight} alt="arrow" className={styles.arrowRight} />
           </div>
         </div>
         {/* *************** listview *************** */}
-        {param.map(item => {
-          const newDataList = Object.keys(dataList).filter(obj => obj === item.groupName);
+        {familyData.map(item => {
+          const newDataList = Object.keys(dataList).filter(obj => obj === item.name);
           return (
             newDataList.length > 0 && (
               <MultipHeaderList
-                key={item.groupName}
+                key={item.id}
                 dataList={dataList}
-                groupName={item.groupName}
+                groupName={item.name}
+                id={item.id}
                 renderHeader={name => this.renderHeader(name)}
                 renderFooter={val => this.renderFooter(val)}
                 customRenderHeader={() => <RenderHeader />}
