@@ -8,18 +8,23 @@ import TableFile from './_tableFile';
 import TeacherPer from './_teacherPer';
 import Bitmap from '../../../assets/Bitmap.png';
 import Right from '../../../assets/right.svg';
+import { timeArea } from '../../../utils/timeArea';
+import { formatMoney } from '../../../utils/utils';
 
 class Teacher extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
+    const dateVal = timeArea();
+    const { valueDate } = dateVal;
     const initState = {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
-      flag: 1, // 判断是运营长还是家族长
+      flag: 2, // 判断是家族长1,运营长2
       flag2: 1, // tab切换标记
-      dateTime: '2018.08',
+      dateTime: valueDate,
+      userType: 'class', // 用户角色：family/group/class
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -29,7 +34,7 @@ class Teacher extends React.Component {
     });
   };
   render() {
-    const { flag, flag2, dateTime } = this.state;
+    const { flag, flag2, dateTime, userType } = this.state;
     return (
       <div>
         <DatePanle
@@ -39,11 +44,11 @@ class Teacher extends React.Component {
           }}
         />
         <div className={styles.m_performanceContener}>
-          <span className={styles.u_totalNum}>1,500,000元</span>
+          <span className={styles.u_totalNum}>{formatMoney(1500000)}元</span>
           <div className={styles.m_performanceMoney}>
             <div className={styles.u_basicMoney}>
               <div className={styles.u_contentDiv}>
-                <span className={styles.u_spanMoney}>1,000,000</span>
+                <span className={styles.u_spanMoney}>{formatMoney(1000000)}</span>
                 <br />
                 <span className={styles.u_spanBasic}>基本绩效</span>
               </div>
@@ -51,7 +56,7 @@ class Teacher extends React.Component {
             <div className={styles.u_splitLine} />
             <div className={styles.u_scoreMoney}>
               <div className={styles.u_contentDiv}>
-                <span className={styles.u_spanMoney}>500,000</span>
+                <span className={styles.u_spanMoney}>{formatMoney(50000)}</span>
                 <br />
                 <span className={styles.u_spanBasic}>打分绩效</span>
               </div>
@@ -79,7 +84,10 @@ class Teacher extends React.Component {
           }}
         />
         <TableFile flag2={flag2} flag={flag} />
-        <TeacherPer />
+
+        <div style={{ display: flag === 2 && userType === 'group' ? 'block' : 'none' }}>
+          <TeacherPer />
+        </div>
 
         <div
           className={styles.m_familyGroup}
