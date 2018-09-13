@@ -21,10 +21,10 @@ class Teacher extends React.Component {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
-      flag: 2, // 判断是家族长1,运营长2
+      flag: 1, // 判断是家族长1,运营长2
       flag2: 1, // tab切换标记
       dateTime: valueDate,
-      userType: 'class', // 用户角色：family/group/class
+      userType: 'group', // 用户角色：family/group/class
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -33,6 +33,11 @@ class Teacher extends React.Component {
       dateTime: date,
     });
   };
+
+  jumpDetail = param => {
+    this.props.setRouteUrlParams('/details', { collegeName: param });
+  };
+
   render() {
     const { flag, flag2, dateTime, userType } = this.state;
     return (
