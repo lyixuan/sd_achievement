@@ -9,6 +9,7 @@ import TeacherPer from './_teacherPer';
 import Bitmap from '../../../assets/Bitmap.png';
 import Right from '../../../assets/right.svg';
 import { timeArea } from '../../../utils/timeArea';
+import { formatMoney } from '../../../utils/utils';
 
 class Teacher extends React.Component {
   constructor(props) {
@@ -42,11 +43,11 @@ class Teacher extends React.Component {
           }}
         />
         <div className={styles.m_performanceContener}>
-          <span className={styles.u_totalNum}>1,500,000元</span>
+          <span className={styles.u_totalNum}>{formatMoney(1500000)}元</span>
           <div className={styles.m_performanceMoney}>
             <div className={styles.u_basicMoney}>
               <div className={styles.u_contentDiv}>
-                <span className={styles.u_spanMoney}>1,000,000</span>
+                <span className={styles.u_spanMoney}>{formatMoney(1000000)}</span>
                 <br />
                 <span className={styles.u_spanBasic}>基本绩效</span>
               </div>
@@ -54,7 +55,7 @@ class Teacher extends React.Component {
             <div className={styles.u_splitLine} />
             <div className={styles.u_scoreMoney}>
               <div className={styles.u_contentDiv}>
-                <span className={styles.u_spanMoney}>500,000</span>
+                <span className={styles.u_spanMoney}>{formatMoney(50000)}</span>
                 <br />
                 <span className={styles.u_spanBasic}>打分绩效</span>
               </div>
