@@ -60,3 +60,36 @@ export async function collgeKpiGroupHomePage(params) {
     body: params,
   });
 }
+
+/*
+*家族长首页接口
+post /familyKpi/findFamilyDetailKpi
+*
+*/
+export async function findFamilyDetailKpi(params) {
+  return request(`${HOST}/familyKpi/findFamilyDetailKpi `, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
+*运营长/班主任首页接口
+*
+*/
+export async function findGroupDetailKpi(params) {
+  return request(`${HOST}/familyKpi/findGroupDetailKpi `, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+/*
+*家族长/运营长/班主任 kpi档位接口
+*
+*/
+export async function findKpiLevel(params) {
+  return request(`${HOST}/kpilevel/findKpiLevel`, {
+    method: 'POST',
+    body: params,
+  });
+}
