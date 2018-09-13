@@ -46,7 +46,7 @@ export async function getDisableTime(params) {
 *此接口用于集团总绩效列表
 */
 export async function findGroupTotalKpi(params) {
-  return request(`${HOST}/organization/findOrgMap`, {
+  return request(`${HOST}/totalKpi/findGroupTotalKpi`, {
     method: 'POST',
     body: params,
   });

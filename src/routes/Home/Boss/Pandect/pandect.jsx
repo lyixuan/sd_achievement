@@ -47,17 +47,20 @@ class Boss extends React.Component {
     this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {
-    console.log(this.props);
+    this.getData();
   }
 
   onChangeAllGroup = id => {
     console.log(id);
   };
-  getData = params => {
+  getData = (params = {}) => {
+    const userId = this.currentAuthInfo.id;
+    const { groupType } = this.currentAuthInfo;
+    const newParams = { userId, groupType, ...params };
     this.props.dispatch({
-      type: 'bosshome',
+      type: 'bosshome/findGroupTotalKpi',
+      payload: newParams,
     });
-    console.log(params);
   };
   checkoutUserAuth = () => {
     const { groupType = null } = this.currentAuthInfo;
