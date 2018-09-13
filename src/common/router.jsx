@@ -108,7 +108,7 @@ export const getRouterData = app => {
       showTitle: false,
     },
     '/level': {
-      component: dynamicWrapper(app, [], () => import('../routes/Level/index')),
+      component: dynamicWrapper(app, ['level'], () => import('../routes/Level/index')),
       title: '分档详情',
       showTitle: false,
     },

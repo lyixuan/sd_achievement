@@ -1,3 +1,6 @@
+import { collgeKpiFamilyHomePage } from '../services/api';
+import Message from '../components/Message';
+
 export default {
   namespace: 'level',
 
@@ -12,9 +15,19 @@ export default {
   },
 
   effects: {
-    // *fetch({ payload }, { call, put }) {
-    //   // eslint-disable-line
-    // },
+    *collgeKpiFamilyHomePage({ payload }, { call, put }) {
+      const response = yield call(collgeKpiFamilyHomePage, { ...payload });
+      if (response.code === 2000) {
+        console.log(response);
+      } else {
+        Message.fail(response.msg);
+        // yield put(routerRedux.push('/exception/403'));
+      }
+      yield put({
+        type: 'save',
+        payload: response,
+      });
+    },
   },
 
   reducers: {

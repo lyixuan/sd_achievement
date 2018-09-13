@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'dva';
 import arrowRight from '../../assets/right.svg';
 import MultipHeaderList from '../../components/ListView/listView';
 import RenderHeader from './_renderHeader';
@@ -12,7 +13,26 @@ class Level extends React.Component {
       dateTime: '2018年7月预测绩效',
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.getListData();
+  }
+  getListData = () => {
+    const params = {
+      collegeId: 0,
+      familyId: 0,
+      familyType: 0,
+      groupId: 0,
+      groupType: 'boss',
+      month: '2018-09',
+      sort: 0,
+      type: 0,
+      userId: 0,
+    };
+    this.props.dispatch({
+      type: 'level/collgeKpiFamilyHomePage',
+      payload: params,
+    });
+  };
   jumpDetail = param => {
     this.props.setRouteUrlParams('/details', { collegeName: param });
   };
@@ -119,8 +139,7 @@ class Level extends React.Component {
     );
   }
 }
-export default Level;
-// connect(({ Details, loading }) => ({
-//   Details,
-//   isloading: loading.models.Details,
-// }))(Level);
+export default connect(({ level, loading }) => ({
+  level,
+  loading: loading.models.level,
+}))(Level);

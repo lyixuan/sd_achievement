@@ -43,3 +43,21 @@ export async function getDisableTime(params) {
     method: 'GET',
   });
 }
+/*
+* boss/院长家族首页
+*/
+export async function collgeKpiFamilyHomePage(params) {
+  return request(`${HOST}/bossCollegeKpi/collgeKpiFamilyHomePage`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
+* boss/院长小组首页
+*/
+export async function collgeKpiGroupHomePage(params) {
+  return request(`${HOST}/bossCollegeKpi/collgeKpiGroupHomePage`, {
+    method: 'POST',
+    body: params,
+  });
+}
