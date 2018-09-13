@@ -21,9 +21,10 @@ class Teacher extends React.Component {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
-      flag: 1, // 判断是运营长还是家族长
+      flag: 2, // 判断是家族长1,运营长2
       flag2: 1, // tab切换标记
       dateTime: valueDate,
+      userType: 'class', // 用户角色：family/group/class
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -33,7 +34,7 @@ class Teacher extends React.Component {
     });
   };
   render() {
-    const { flag, flag2, dateTime } = this.state;
+    const { flag, flag2, dateTime, userType } = this.state;
     return (
       <div>
         <DatePanle
@@ -83,7 +84,10 @@ class Teacher extends React.Component {
           }}
         />
         <TableFile flag2={flag2} flag={flag} />
-        <TeacherPer />
+
+        <div style={{ display: flag === 2 && userType === 'group' ? 'block' : 'none' }}>
+          <TeacherPer />
+        </div>
 
         <div
           className={styles.m_familyGroup}
