@@ -46,6 +46,9 @@ class Boss extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
+  componentDidMount() {
+    console.log(this.props);
+  }
 
   onChangeAllGroup = id => {
     console.log(id);

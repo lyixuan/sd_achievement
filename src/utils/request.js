@@ -1,9 +1,7 @@
 import fetch from 'dva/fetch';
 import { routerRedux } from 'dva/router';
-import { parse } from 'url';
 import Toast from '../components/Message';
 import store from '../index';
-import { getUserId } from './authority';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -45,11 +43,9 @@ function parseJSON(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
-  let newUrl = url;
   const defaultOptions = {
     credentials: 'include',
   };
-  const userId = getUserId() || null;
 
   const newOptions = { ...defaultOptions, ...options };
   // 此区域待优化
@@ -60,7 +56,7 @@ export default function request(url, options) {
         'Content-Type': 'application/json; charset=utf-8',
         ...newOptions.headers,
       };
-      newOptions.body = JSON.stringify({ ...newOptions.body, userId });
+      newOptions.body = JSON.stringify({ ...newOptions.body });
     } else {
       // newOptions.body is FormData
       newOptions.headers = {
@@ -68,18 +64,8 @@ export default function request(url, options) {
         ...newOptions.headers,
       };
     }
-  } else if (newOptions.method === 'GET') {
-    // 为get接口添加userId字段
-    const { search } = parse(url);
-    if (search) {
-      const urlParams = parse(url, true).query;
-      const newSearch = urlParams.userId ? search : `${search}&userId=${userId}`;
-      newUrl = url.replace(search, newSearch);
-    } else {
-      newUrl = `${url}?userId=${userId}`;
-    }
   }
-  return fetch(newUrl, newOptions)
+  return fetch(url, newOptions)
     .then(checkStatus)
     .then(parseJSON)
     .catch(e => {

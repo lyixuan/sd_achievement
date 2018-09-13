@@ -1,8 +1,11 @@
+import { findGroupTotalKpi } from 'services/api';
+import Message from '../components/Message';
+
 export default {
   namespace: 'bosshome',
 
   state: {
-    count: 0,
+    goupTotalKpiList: [],
   },
 
   subscriptions: {
@@ -12,14 +15,23 @@ export default {
   },
 
   effects: {
-    // *fetch({ payload }, { call, put }) {
-    //   // eslint-disable-line
-    // },
+    *findGroupTotalKpi({ payload }, { call, put }) {
+      const response = yield call(findGroupTotalKpi, payload);
+      if (response.code === 2000) {
+        const goupTotalKpiList = response.data || [];
+        yield put({
+          type: 'saveGroupTotalKpiList',
+          payload: { goupTotalKpiList },
+        });
+      } else {
+        Message.fail(response.msg);
+      }
+    },
   },
 
   reducers: {
-    save(state, action) {
-      return { ...state, ...action.payload };
+    saveGroupTotalKpiList(state, { payload }) {
+      return { ...state, ...payload };
     },
   },
 };
