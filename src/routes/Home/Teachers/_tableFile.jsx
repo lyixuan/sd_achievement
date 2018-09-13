@@ -96,6 +96,7 @@ class TableFile extends React.Component {
     const tableList3 = [
       {
         key: 1,
+        flag: false,
         data: [
           { value: '30及以上', clsName: 'familyCls', key: 1 },
           { value: '1.8', clsName: 'familyCls', key: 2 },
@@ -103,6 +104,7 @@ class TableFile extends React.Component {
       },
       {
         key: 2,
+        flag: false,
         data: [
           { value: '25 ～ 30', clsName: 'familyCls', key: 1 },
           { value: '1.6', clsName: 'familyCls', key: 2 },
@@ -110,6 +112,7 @@ class TableFile extends React.Component {
       },
       {
         key: 3,
+        flag: false,
         data: [
           { value: '20 ～ 25', clsName: 'familyCls', key: 1 },
           { value: '1.4', clsName: 'familyCls', key: 2 },
@@ -117,6 +120,7 @@ class TableFile extends React.Component {
       },
       {
         key: 4,
+        flag: true,
         data: [
           { value: '15 ～ 20', clsName: 'familyCls', key: 1 },
           { value: '1.2', clsName: 'familyCls', key: 2 },
@@ -128,6 +132,7 @@ class TableFile extends React.Component {
     const tableList = [
       {
         key: 1,
+        flag: true,
         data: [
           {
             value: flag2 === 1 ? '0% ～ 5%' : flag2 === 2 ? '0% ～ 10%' : 1,
@@ -148,6 +153,7 @@ class TableFile extends React.Component {
       },
       {
         key: 2,
+        flag: false,
         data: [
           {
             value: flag2 === 1 ? '5% ～ 15%' : flag2 === 2 ? '10% ～ 40%' : 2,
@@ -168,6 +174,7 @@ class TableFile extends React.Component {
       },
       {
         key: 3,
+        flag: false,
         data: [
           {
             value: flag2 === 1 ? '15% ～ 60%' : flag2 === 2 ? '40% ～ 70%' : 3,
@@ -188,6 +195,7 @@ class TableFile extends React.Component {
       },
       {
         key: 4,
+        flag: false,
         data: [
           {
             value: flag2 === 1 ? '60% ～ 100%' : flag2 === 2 ? '70% ～ 90%' : 4,
@@ -208,6 +216,7 @@ class TableFile extends React.Component {
       },
       {
         key: 5,
+        flag: false,
         data: [
           {
             value: flag2 === 1 ? '60% ～ 100%' : flag2 === 2 ? '70% ～ 90%' : 4,

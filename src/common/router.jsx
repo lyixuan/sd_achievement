@@ -88,17 +88,21 @@ export const getRouterData = app => {
       showTitle: false,
     },
     '/indexPage/boss': {
-      component: dynamicWrapper(app, [], () => import('../routes/Home/Boss/index')),
+      component: dynamicWrapper(app, ['bosshome'], () => import('../routes/Home/Boss/index')),
       title: 'boss学院长首页',
       showTitle: false,
     },
     '/indexPage/boss/pandect': {
-      component: dynamicWrapper(app, [], () => import('../routes/Home/Boss/Pandect/pandect')),
+      component: dynamicWrapper(app, ['bosshome'], () =>
+        import('../routes/Home/Boss/Pandect/pandect')
+      ),
       title: '绩效总览',
       showTitle: false,
     },
     '/indexPage/boss/monthly': {
-      component: dynamicWrapper(app, [], () => import('../routes/Home/Boss/Monthly/index')),
+      component: dynamicWrapper(app, ['bosshome'], () =>
+        import('../routes/Home/Boss/Monthly/index')
+      ),
       title: '每月绩效',
       showTitle: false,
     },

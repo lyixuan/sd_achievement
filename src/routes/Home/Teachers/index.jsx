@@ -1,5 +1,5 @@
 import React from 'react';
-// import { connect } from 'dva';
+import { connect } from 'dva';
 import DatePanle from 'container/DatePanle';
 import { assignUrlParams } from 'utils/routerUtils';
 import styles from './index.less';
@@ -21,10 +21,10 @@ class Teacher extends React.Component {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
-      flag: 2, // 判断是家族长1,运营长2
+      flag: 1, // 判断是家族长1,运营长2
       flag2: 1, // tab切换标记
       dateTime: valueDate,
-      userType: 'class', // 用户角色：family/group/class
+      userType: 'group', // 用户角色：family/group/class
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -33,6 +33,14 @@ class Teacher extends React.Component {
       dateTime: date,
     });
   };
+
+  jumpDetail = param => {
+    this.props.setRouteUrlParams('/details', { collegeName: param });
+  };
+  buttonChange = item => {
+    this.setState({ flag2: item.id });
+  };
+
   render() {
     const { flag, flag2, dateTime, userType } = this.state;
     return (
@@ -76,13 +84,7 @@ class Teacher extends React.Component {
           <span className={styles.u_spanTitle}>英语1组</span>
         </div>
 
-        <ButtonFile
-          flag2={flag2}
-          flag={flag}
-          changeFlag={item => {
-            this.setState({ flag2: item.id });
-          }}
-        />
+        <ButtonFile flag2={flag2} flag={flag} changeFlag={item => this.buttonChange(item)} />
         <TableFile flag2={flag2} flag={flag} />
 
         <div style={{ display: flag === 2 && userType === 'group' ? 'block' : 'none' }}>
@@ -108,5 +110,7 @@ class Teacher extends React.Component {
     );
   }
 }
-export default Teacher;
-// connect(({ loading }) => ({ loading }))(Boss);
+export default connect(({ teacherhome, loading }) => ({
+  teacherhome,
+  loading: loading.models.teacherhome,
+}))(Teacher);

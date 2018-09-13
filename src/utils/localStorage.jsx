@@ -3,7 +3,8 @@
 const itemKeyDict={
   userInfo:'userInfo',      用于储存用户信息,userId,groupId,groupType,等信息(不能随意改动  bi系统用户管理);
   admin_user:               用于储存admin用户信息
-  performanceUser:         用于储存绩效管理系统用户信息,currentAuth{groupId,groupType,}
+  performanceUser:         用于储存绩效管理系统用户信息,currentAuth{groupId,groupType,};
+  performanceCurrentAuth;   用于储存绩效管理系统当前权限的用户信息;
 }
 */
 

@@ -5,9 +5,14 @@ class RenderItem extends React.Component {
   render() {
     const { rowData } = this.props || [];
     const dataList = rowData.data || [];
+
     return (
       <div className={styles.normal}>
-        <div className={rowData.key % 2 === 0 ? styles.bgGrey : styles.bgWhite}>
+        <div
+          className={
+            rowData.flag ? styles.bgPink : rowData.key % 2 === 0 ? styles.bgGrey : styles.bgWhite
+          }
+        >
           {dataList.map((key, i) => {
             const { value, clsName } = dataList[i];
             const keyNum = dataList[i].key;
