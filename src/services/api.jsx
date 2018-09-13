@@ -43,6 +43,24 @@ export async function getDisableTime(params) {
   });
 }
 /*
+*此接口用于集团总绩效列表
+*/
+export async function findGroupTotalKpi(params) {
+  return request(`${HOST}/organization/findOrgMap`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
+*此接口用于集团人均总绩效列表
+*/
+export async function findGroupAvgKpi(params) {
+  return request(`${HOST}/totalKpi/findGroupAvgKpi`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
 * boss/院长家族首页
 */
 export async function collgeKpiFamilyHomePage(params) {
