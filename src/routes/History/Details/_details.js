@@ -19,13 +19,17 @@ class RenderDetails extends React.Component {
             <dd className={styles.u_ddCls}>
               <p className={styles.greyColor}>运营长确定绩效</p>
               <div className={styles.blackColor}>
-                {[1].map(item => {
-                  return (
-                    <p key={item} className={styles.width_50}>
-                      <span className={styles.marRight}>黄蓉</span>
-                      <span>{formatMoney(rowData.familyNum)}元</span>
-                    </p>
-                  );
+                {rowData.map(item => {
+                  if (item.groupType === 'group') {
+                    return (
+                      <p key={item.name} className={styles.width_50}>
+                        <span className={styles.marRight}>{item.name}</span>
+                        <span>{formatMoney(item.achievement)}元</span>
+                      </p>
+                    );
+                  } else {
+                    return null;
+                  }
                 })}
               </div>
             </dd>
@@ -37,13 +41,17 @@ class RenderDetails extends React.Component {
             <dd className={styles.u_ddCls}>
               <p className={styles.greyColor}>班主任确定绩效</p>
               <div className={styles.blackColor}>
-                {[1, 2, 3, 4, 5].map(item => {
-                  return (
-                    <p key={item} className={styles.width_50}>
-                      <span className={styles.marRight}>黄蓉</span>
-                      <span>{formatMoney(rowData.familyNum)}元</span>
-                    </p>
-                  );
+                {rowData.map(item => {
+                  if (item.groupType === 'class') {
+                    return (
+                      <p key={item.name} className={styles.width_50}>
+                        <span className={styles.marRight}>{item.name}</span>
+                        <span>{formatMoney(item.achievement)}元</span>
+                      </p>
+                    );
+                  } else {
+                    return null;
+                  }
                 })}
               </div>
             </dd>
@@ -59,11 +67,11 @@ class RenderDetails extends React.Component {
           <dd className={styles.u_ddCls}>
             <p className={styles.greyColor}>家族长确定绩效</p>
             <div className={styles.blackColor}>
-              {[1, 3].map(item => {
+              {rowData.map(item => {
                 return (
-                  <p key={item} className={styles.width_50}>
-                    <span className={styles.marRight}>黄蓉</span>
-                    <span>{formatMoney(rowData.familyNum)}元</span>
+                  <p key={item.name} className={styles.width_50}>
+                    <span className={styles.marRight}>{item.name}</span>
+                    <span>{formatMoney(item.achievement)}元</span>
                   </p>
                 );
               })}
@@ -74,7 +82,7 @@ class RenderDetails extends React.Component {
     }
   };
   render() {
-    return <div className={styles.m_detailRender}>{this.renderFn(false)}</div>;
+    return <div className={styles.m_detailRender}>{this.renderFn(true)}</div>;
   }
 }
 export default RenderDetails;

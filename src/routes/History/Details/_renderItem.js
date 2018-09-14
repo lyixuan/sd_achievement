@@ -17,7 +17,7 @@ class RenderItem extends React.Component {
     this.setState({ isShowDetail: !isShowDetail });
   };
   render() {
-    const { rowData } = this.props;
+    const { paramsObj, rowData, groupType } = this.props;
     const { isShowDetail } = this.state;
     return (
       <div className={styles.marBottom}>
@@ -27,7 +27,7 @@ class RenderItem extends React.Component {
         >
           <span className={styles.familyName}>{rowData.name}</span>
           <div className={styles.performance}>
-            <span>{formatMoney(rowData.tatal)} 元</span>
+            <span>{formatMoney(rowData.total)} 元</span>
             <img
               src={arrowDown}
               alt=""
@@ -35,7 +35,9 @@ class RenderItem extends React.Component {
             />
           </div>
         </div>
-        {!isShowDetail ? null : <RenderDetails rowData={rowData} />}
+        {!isShowDetail ? null : (
+          <RenderDetails paramsObj={paramsObj} rowData={rowData.personKpis} groupType={groupType} />
+        )}
       </div>
     );
   }
