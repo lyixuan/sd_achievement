@@ -10,7 +10,7 @@ class RenderItem extends React.Component {
       <div className={styles.normal}>
         <div
           className={
-            rowData.flag ? styles.bgPink : rowData.key % 2 === 0 ? styles.bgGrey : styles.bgWhite
+            rowData.flag ? styles.bgPink : rowData.key % 2 !== 0 ? styles.bgGrey : styles.bgWhite
           }
         >
           {dataList.map((key, i) => {

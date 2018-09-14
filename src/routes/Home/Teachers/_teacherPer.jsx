@@ -3,6 +3,7 @@ import styles from './index.less';
 import MultipHeaderList from '../../../components/ListView/listView';
 import TeacherHeader from '../../../components/TableItem/TeacherHeader';
 import TeacherItem from '../../../components/TableItem/TeacherItem';
+import NoData from '../../../components/NoData/NoData';
 
 class TeacherPer extends React.Component {
   itemList = val => {
@@ -78,13 +79,16 @@ class TeacherPer extends React.Component {
         <div className={styles.teacherList}>
           <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
           <div className={styles.testList}>
-            <MultipHeaderList
-              dataList={teacherItem}
-              customRenderHeader={() => <TeacherHeader columnsData={teacher} />}
-              customRenderItem={rowData => <TeacherItem rowData={rowData} />}
-            />
+            {teacherItem.length === 0 ? (
+              <NoData showflag />
+            ) : (
+              <MultipHeaderList
+                dataList={teacherItem}
+                customRenderHeader={() => <TeacherHeader columnsData={teacher} />}
+                customRenderItem={rowData => <TeacherItem rowData={rowData} />}
+              />
+            )}
           </div>
-
           <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
         </div>
       </div>

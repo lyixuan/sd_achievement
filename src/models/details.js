@@ -1,12 +1,11 @@
-import { collgeKpiFamilyDetail } from '../services/api';
+import { collgeKpiFamilyDetail, findGroupDetailByFamily } from '../services/api';
 import Message from '../components/Message';
 
 export default {
   namespace: 'details',
 
   state: {
-    familyData: [],
-    groupData: [],
+    dataList: [],
   },
 
   subscriptions: {
@@ -16,12 +15,29 @@ export default {
   },
 
   effects: {
+    // boss/院长-家族/小组详情
     *collgeKpiFamilyDetail({ payload }, { call, put }) {
       const response = yield call(collgeKpiFamilyDetail, { ...payload });
       if (response.code === 2000) {
         yield put({
           type: 'save',
-          payload: { familyData: response.data },
+          payload: { dataList: response.data },
+        });
+      } else {
+        Message.fail(response.msg);
+      }
+      yield put({
+        type: 'save',
+        payload: response,
+      });
+    },
+    // 家族长-小组详情
+    *findGroupDetailByFamily({ payload }, { call, put }) {
+      const response = yield call(findGroupDetailByFamily, { ...payload });
+      if (response.code === 2000) {
+        yield put({
+          type: 'save',
+          payload: { dataList: response.data },
         });
       } else {
         Message.fail(response.msg);

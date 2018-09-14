@@ -18,7 +18,7 @@ class RenderItem extends React.Component {
     this.setState({ isShowDetail: !isShowDetail });
   };
   render() {
-    const { paramsObj, rowData } = this.props;
+    const { paramsObj, rowData, groupType } = this.props;
     const { isShowDetail } = this.state;
     return (
       <div className={styles.marBottom}>
@@ -26,12 +26,12 @@ class RenderItem extends React.Component {
           className={`${styles.m_render}  ${styles.m_itemRender}`}
           onClick={() => this.toggleClick()}
         >
-          <span className={styles.familyName}>{rowData.groupName}</span>
+          <span className={styles.familyName}>{rowData.name}</span>
           <div className={styles.performance}>
-            <span>{formatMoney(rowData.familyNum)}元</span>
+            <span>{formatMoney(rowData.total)}元</span>
             <span className={styles.remark}>
               {' '}
-              ({formatMoney(rowData.familyNum)} | {formatMoney(rowData.familyNum)})
+              ({formatMoney(rowData.base)} | {formatMoney(rowData.mark)})
             </span>
             <img
               src={arrowDown}
@@ -40,7 +40,13 @@ class RenderItem extends React.Component {
             />
           </div>
         </div>
-        {!isShowDetail ? null : <RenderDetails paramsObj={paramsObj} rowData={rowData} />}
+        {!isShowDetail ? null : (
+          <RenderDetails
+            paramsObj={paramsObj}
+            rowData={rowData.detailResult}
+            groupType={groupType}
+          />
+        )}
       </div>
     );
   }
