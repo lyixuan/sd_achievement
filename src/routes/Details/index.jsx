@@ -25,18 +25,17 @@ class Details extends React.Component {
       },
       collegeName: urlParams.collegeName,
       isShowSwitch: false, // 是否展示右侧切换按钮
+      url:
+        urlParams.groupType === 'family'
+          ? 'details/findGroupDetailByFamily'
+          : 'details/collgeKpiFamilyDetail', // 区分小组详情的身份
     };
 
     this.state = assignUrlParams(initState, urlParams);
   }
 
   componentDidMount() {
-    const { paramsObj } = this.state;
-    // 区分小组详情的身份
-    const url =
-      paramsObj.groupType === 'family'
-        ? 'details/findGroupDetailByFamily'
-        : 'details/collgeKpiFamilyDetail';
+    const { paramsObj, url } = this.state;
     const { dataList } = this.props.details;
     this.context.setTitle(Number(paramsObj.type) === 0 ? '家族绩效页' : '小组绩效页');
     this.getDataListLen(dataList);
@@ -44,7 +43,7 @@ class Details extends React.Component {
   }
   onChange = val => {
     const sort = val ? 0 : 1; // 1: 高-低，0：低-高
-    this.getListData({ sort });
+    this.getListData(this.state.url, { sort });
   };
   getListData = (url, sort) => {
     const param = Object.assign(this.state.paramsObj, sort);

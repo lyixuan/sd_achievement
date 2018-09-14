@@ -41,7 +41,7 @@ class RenderDetails extends React.Component {
     }
   };
   render() {
-    const { groupType, rowData } = this.props; // groupType===0(自考)有百分比，其他的不展示百分比
+    const { rowData } = this.props; // groupType===0(自考)有百分比，其他的不展示百分比
     const {
       dayAvgScore = {},
       manageScale = {},
@@ -79,7 +79,7 @@ class RenderDetails extends React.Component {
               <span>
                 {' '}
                 {averageStuNum.index} / {averageStuNum.size}
-                {groupType === 0 ? `（${avg !== 0 ? `${avg}%` : 0}）` : null}
+                {`（${avg !== 0 ? `${avg}%` : 0}）`}
               </span>
             </div>
           </dd>
@@ -97,7 +97,7 @@ class RenderDetails extends React.Component {
               <span>
                 {' '}
                 {dayAvgScore.index} / {dayAvgScore.size}
-                {groupType === 0 ? `（${dayAvg !== 0 ? `${dayAvg}%` : 0}）` : null}
+                {`（${dayAvg !== 0 ? `${dayAvg}%` : 0}）`}
               </span>
             </div>
           </dd>

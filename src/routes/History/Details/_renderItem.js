@@ -25,9 +25,9 @@ class RenderItem extends React.Component {
           className={`${styles.m_render}  ${styles.m_itemRender}`}
           onClick={() => this.toggleClick()}
         >
-          <span className={styles.familyName}>{rowData.groupName}</span>
+          <span className={styles.familyName}>{rowData.name}</span>
           <div className={styles.performance}>
-            <span>{formatMoney(rowData.familyNum)} 元</span>
+            <span>{formatMoney(rowData.tatal)} 元</span>
             <img
               src={arrowDown}
               alt=""

@@ -15,35 +15,35 @@ class CollegeDialog extends React.Component {
       data: [
         {
           name: '全部学院',
-          id: '1',
+          id: '',
         },
         {
           name: '皓博',
-          id: '2',
+          id: '111',
         },
         {
           name: '狐逻',
-          id: '3',
+          id: '103',
         },
         {
           name: '派学院',
-          id: '4',
+          id: '118',
         },
         {
           name: '睿博',
-          id: '5',
+          id: '112',
         },
         {
           name: '泰罗',
-          id: '6',
+          id: '108',
         },
         {
           name: '芝士',
-          id: '7',
+          id: '104',
         },
         {
           name: '自变量',
-          id: '8',
+          id: '100',
         },
       ],
     };
@@ -67,7 +67,7 @@ class CollegeDialog extends React.Component {
       selected: item.id,
     });
 
-    this.props.changeCollegeName(item.name);
+    this.props.changeCollegeName(item);
     this.props.showModel(false);
 
     // todo 接口请求

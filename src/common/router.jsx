@@ -154,7 +154,9 @@ export const getRouterData = app => {
       showTitle: true,
     },
     '/history/details': {
-      component: dynamicWrapper(app, [], () => import('../routes/History/Details/index')),
+      component: dynamicWrapper(app, ['historyDetails'], () =>
+        import('../routes/History/Details/index')
+      ),
       title: '确认绩效详情',
       showTitle: true,
     },
