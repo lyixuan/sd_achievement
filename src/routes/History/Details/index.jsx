@@ -14,16 +14,16 @@ class HistoryDetails extends React.Component {
     super(props);
     const { urlParams = {} } = props;
     const currentAuthInfo = this.currentAuthInfo || {};
-    const { groupType = '', userId = '' } = currentAuthInfo;
+    const { collegeId = '', groupType = '', userId = '' } = currentAuthInfo;
     const initState = {
       paramsObj: {
-        month: urlParams.month,
+        month: urlParams.month || '2018-08',
         groupType,
         type: urlParams.type || '1', // 0：家族，1：小组
         userId,
       },
       collegeName: urlParams.collegeName,
-      collegeId: urlParams.collegeId,
+      collegeId,
       sort: '1',
       // isShowSwitch: false, // 是否展示右侧切换按钮
       url:
@@ -98,14 +98,16 @@ class HistoryDetails extends React.Component {
                 customRenderItem={rowData => (
                   <RenderItem paramsObj={paramsObj} rowData={rowData} groupType={item.id} />
                 )}
-                // customRenderHeader={() => <RenderHeader />}
                 // customRenderItem={rowData => <RenderItem rowData={rowData} />}
               />
             )
           );
         })}
         {/* *************** floatIcon *************** */}
-        <FloatIcon changeCollegeName={val => this.changeCollegeName(val)} />
+        <FloatIcon
+          changeCollegeName={val => this.changeCollegeName(val)}
+          groupType={paramsObj.groupType}
+        />
       </div>
     );
   }

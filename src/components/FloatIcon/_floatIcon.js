@@ -1,3 +1,6 @@
+/*
+* groupType: 获得用户权限，控制搜索按钮是否展示
+* */
 import React from 'react';
 import { assignUrlParams } from '../../utils/routerUtils';
 import CollegeDialog from './CollegeDialog';
@@ -8,16 +11,10 @@ import styles from './_floatIcon.less';
 class FloatIcon extends React.Component {
   constructor(props) {
     super(props);
-    const { urlParams = {} } = props;
+    const { urlParams = {}, groupType } = props;
     const initState = {
-      paramsObj: {
-        dateTime: '2018年7月',
-        groupType: 1,
-        familyType: 2,
-        hh: urlParams.hh,
-      },
       modelflag: false,
-      searchBtnShow: true, // boss和college权限，该值为true，否则为false
+      searchBtnShow: groupType === 'boss', // boss和college权限，该值为true，否则为false
     };
 
     this.state = assignUrlParams(initState, urlParams);

@@ -18,7 +18,7 @@ class Details extends React.Component {
     super(props);
     const { urlParams = {} } = props;
     const currentAuthInfo = this.currentAuthInfo || {};
-    const { groupType = '', userId = '' } = currentAuthInfo;
+    const { collegeId, groupType = '', userId = '' } = currentAuthInfo;
     const initState = {
       paramsObj: {
         month: urlParams.month,
@@ -27,11 +27,11 @@ class Details extends React.Component {
         userId,
       },
       collegeName: urlParams.collegeName,
-      collegeId: urlParams.collegeId,
+      collegeId,
       sort: 1,
       isShowSwitch: false, // 是否展示右侧切换按钮
       url:
-        urlParams.groupType === 'family'
+        Number(urlParams.type) === 0
           ? 'details/findGroupDetailByFamily'
           : 'details/collgeKpiFamilyDetail', // 区分小组详情的身份
     };
@@ -123,7 +123,10 @@ class Details extends React.Component {
           );
         })}
         {/* *************** floatIcon *************** */}
-        <FloatIcon changeCollegeName={val => this.changeCollegeName(val)} />
+        <FloatIcon
+          changeCollegeName={val => this.changeCollegeName(val)}
+          groupType={paramsObj.groupType}
+        />
       </div>
     );
   }
