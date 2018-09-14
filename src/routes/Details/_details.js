@@ -41,12 +41,13 @@ class RenderDetails extends React.Component {
     }
   };
   render() {
+    const { groupType, rowData } = this.props; // groupType===0(自考)有百分比，其他的不展示百分比
     const {
       dayAvgScore = {},
       manageScale = {},
       averageStuNum = {},
       kpiDistribution = {},
-    } = this.props.rowData;
+    } = rowData;
     const dayAvg = dayAvgScore.index / dayAvgScore.size * 100 || 0; // 日均学分
     const avg = averageStuNum.index / averageStuNum.size * 100 || 0; // 人均服务学员数
     return (
@@ -77,7 +78,8 @@ class RenderDetails extends React.Component {
               <span className={styles.greyColor}> 排名：</span>
               <span>
                 {' '}
-                {averageStuNum.index}/{averageStuNum.size} ({avg !== 0 ? `${avg}%` : 0}){' '}
+                {averageStuNum.index} / {averageStuNum.size}
+                {groupType === 0 ? `（${avg !== 0 ? `${avg}%` : 0}）` : null}
               </span>
             </div>
           </dd>
@@ -94,7 +96,8 @@ class RenderDetails extends React.Component {
               <span className={styles.greyColor}> 排名：</span>
               <span>
                 {' '}
-                {dayAvgScore.index}/{dayAvgScore.size} ({dayAvg !== 0 ? `${dayAvg}%` : 0}){' '}
+                {dayAvgScore.index} / {dayAvgScore.size}
+                {groupType === 0 ? `（${dayAvg !== 0 ? `${dayAvg}%` : 0}）` : null}
               </span>
             </div>
           </dd>

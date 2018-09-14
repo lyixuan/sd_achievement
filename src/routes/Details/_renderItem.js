@@ -18,7 +18,7 @@ class RenderItem extends React.Component {
     this.setState({ isShowDetail: !isShowDetail });
   };
   render() {
-    const { paramsObj, rowData } = this.props;
+    const { paramsObj, rowData, groupType } = this.props;
     const { isShowDetail } = this.state;
     return (
       <div className={styles.marBottom}>
@@ -41,7 +41,11 @@ class RenderItem extends React.Component {
           </div>
         </div>
         {!isShowDetail ? null : (
-          <RenderDetails paramsObj={paramsObj} rowData={rowData.detailResult} />
+          <RenderDetails
+            paramsObj={paramsObj}
+            rowData={rowData.detailResult}
+            groupType={groupType}
+          />
         )}
       </div>
     );

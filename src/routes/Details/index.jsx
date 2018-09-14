@@ -99,7 +99,9 @@ class Details extends React.Component {
                     groupName={item.groupName}
                   />
                 )}
-                customRenderItem={rowData => <RenderItem paramsObj={paramsObj} rowData={rowData} />}
+                customRenderItem={rowData => (
+                  <RenderItem paramsObj={paramsObj} rowData={rowData} groupType={item.id} />
+                )}
               />
             )
           );
