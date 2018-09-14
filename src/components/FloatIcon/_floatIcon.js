@@ -31,7 +31,7 @@ class FloatIcon extends React.Component {
   onScroll = () => {
     const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
     const backTop = document.getElementById('backTopBtn'); // 返回顶部模块
-    console.log(t);
+
     if (backTop !== null) {
       backTop.style.display = t >= 200 ? 'block' : 'none';
     }

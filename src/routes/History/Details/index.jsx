@@ -12,16 +12,19 @@ class HistoryDetails extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
+    const currentAuthInfo = this.currentAuthInfo || {};
+    const { groupType = '', userId = '' } = currentAuthInfo;
     const initState = {
       paramsObj: {
         month: urlParams.month || '2018-07',
-        groupType: urlParams.groupType || 'all',
+        groupType,
         type: urlParams.type || '1', // 0：家族，1：小组
+        userId,
       },
-      collegeName: urlParams.collegeName || '全部学院',
-      collegeId: urlParams.collegeId || 103,
+      collegeName: urlParams.collegeName,
+      collegeId: urlParams.collegeId,
       sort: '1',
-      isShowSwitch: false, // 是否展示右侧切换按钮
+      // isShowSwitch: false, // 是否展示右侧切换按钮
       url:
         urlParams.groupType === 'family'
           ? 'historyDetails/findFamilyHistoryKpi'
@@ -36,11 +39,12 @@ class HistoryDetails extends React.Component {
     this.getListData(url, { sort: 1 }, { collegeId });
   }
   onChange = val => {
+    const { collegeId, url } = this.state;
     const sort = val ? 0 : 1; // 1: 高-低，0：低-高
     this.setState({
       sort,
     });
-    this.getListData(this.state.url, { sort });
+    this.getListData(url, { sort }, { collegeId });
   };
   getListData = (url, sort, collegeId) => {
     const param = Object.assign(this.state.paramsObj, sort, collegeId);

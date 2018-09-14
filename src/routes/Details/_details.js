@@ -48,8 +48,8 @@ class RenderDetails extends React.Component {
       averageStuNum = {},
       kpiDistribution = {},
     } = rowData;
-    const dayAvg = dayAvgScore.index / dayAvgScore.size * 100 || 0; // 日均学分
-    const avg = averageStuNum.index / averageStuNum.size * 100 || 0; // 人均服务学员数
+    const dayAvg = (dayAvgScore.index / dayAvgScore.size * 100).toFixed(2); // 日均学分
+    const avg = (averageStuNum.index / averageStuNum.size * 100).toFixed(2); // 人均服务学员数
     return (
       <div className={styles.m_detailRender}>
         {this.renderFn(kpiDistribution)}
@@ -77,9 +77,8 @@ class RenderDetails extends React.Component {
               <span className={styles.blueColor}> | </span>
               <span className={styles.greyColor}> 排名：</span>
               <span>
-                {' '}
                 {averageStuNum.index} / {averageStuNum.size}
-                {`（${avg !== 0 ? `${avg}%` : 0}）`}
+                {Number(avg) === 0 ? '（0）' : `（${avg}%）`}
               </span>
             </div>
           </dd>
@@ -95,9 +94,8 @@ class RenderDetails extends React.Component {
               <span className={styles.blueColor}> | </span>
               <span className={styles.greyColor}> 排名：</span>
               <span>
-                {' '}
                 {dayAvgScore.index} / {dayAvgScore.size}
-                {`（${dayAvg !== 0 ? `${dayAvg}%` : 0}）`}
+                {Number(dayAvg) === 0 ? '（0）' : `（${dayAvg}%）`}
               </span>
             </div>
           </dd>

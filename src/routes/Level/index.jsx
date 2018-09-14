@@ -13,20 +13,26 @@ class Level extends React.Component {
   constructor(props) {
     super(props);
     const currentAuthInfo = this.currentAuthInfo || {};
-    const { collegeId = 0, month = '2018-08' } = currentAuthInfo;
+    const { collegeId = 0, groupType = '', userId = '' } = currentAuthInfo;
+    const { urlParams = {} } = props;
+
     const initState = {
       paramsObj: {
         collegeId,
-        groupType: 'boss',
-        month,
-        // userId:2
+        groupType,
+        month: urlParams.month,
+        userId,
       },
+      familyType: urlParams.type, // 0：家族，1：小组
     };
     this.state = Object.assign(initState, currentAuthInfo);
   }
   componentDidMount() {
-    // this.getListData('level/collgeKpiFamilyHomePage'); // 家族分档
-    this.getListData('level/collgeKpiGroupHomePage'); // 小组分档
+    const { familyType } = this.state;
+    // 区分家族分档，小组分档
+    const fetchUrl =
+      Number(familyType) === 0 ? 'level/collgeKpiFamilyHomePage' : 'level/collgeKpiGroupHomePage';
+    this.getListData(fetchUrl); //
   }
   getListData = url => {
     this.props.dispatch({
@@ -59,7 +65,7 @@ class Level extends React.Component {
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
           <span>{month}预测绩效</span>
-          <div className={styles.greyFont} onClick={() => this.jumpDetail()}>
+          <div className={styles.greyFont} onClick={() => this.jumpDetail('全部学院', '')}>
             绩效详情 <img src={arrowRight} alt="arrow" className={styles.arrowRight} />
           </div>
         </div>

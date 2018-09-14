@@ -21,9 +21,10 @@ class Details extends React.Component {
         month: urlParams.month || '2018-08',
         groupType: urlParams.groupType || 'boss',
         type: urlParams.type, // 0：家族，1：小组
-        collegeId: urlParams.collegeId,
       },
       collegeName: urlParams.collegeName,
+      collegeId: urlParams.collegeId,
+      sort: 1,
       isShowSwitch: false, // 是否展示右侧切换按钮
       url:
         urlParams.groupType === 'family'
@@ -35,18 +36,22 @@ class Details extends React.Component {
   }
 
   componentDidMount() {
-    const { paramsObj, url } = this.state;
+    const { paramsObj, url, sort, collegeId } = this.state;
     const { dataList } = this.props.details;
     this.context.setTitle(Number(paramsObj.type) === 0 ? '家族绩效页' : '小组绩效页');
     this.getDataListLen(dataList);
-    this.getListData(url, { sort: 1 });
+    this.getListData(url, { sort }, { collegeId });
   }
   onChange = val => {
+    const { url, collegeId } = this.state;
     const sort = val ? 0 : 1; // 1: 高-低，0：低-高
-    this.getListData(this.state.url, { sort });
+    this.setState({
+      sort,
+    });
+    this.getListData(url, { sort }, { collegeId });
   };
-  getListData = (url, sort) => {
-    const param = Object.assign(this.state.paramsObj, sort);
+  getListData = (url, sort, collegeId) => {
+    const param = Object.assign(this.state.paramsObj, sort, collegeId);
     this.props.dispatch({
       type: url,
       payload: param,
@@ -64,9 +69,12 @@ class Details extends React.Component {
     });
   };
   changeCollegeName(v) {
+    const { url, sort } = this.state;
     this.setState({
-      collegeName: v,
+      collegeName: v.name,
+      collegeId: v.id,
     });
+    this.getListData(url, { sort }, { collegeId: v.id });
   }
 
   render() {
