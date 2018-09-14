@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './_tableFile.less';
 import arrow from '../../../assets/arrow.svg';
 import ImgTitle from '../../../components/ImgTitle/ImgTitle';
+import NoData from '../../../components/NoData/NoData';
 // import redtriangle from '../../../assets/redtriangle.png';
 // import greentriangle from '../../../assets/greentriangle.png';
 import MultipHeaderList from '../../../components/ListView/listView';
@@ -51,7 +52,7 @@ class TableFile extends React.Component {
     val.map((item, index) =>
       data.push({
         key: index,
-        flag: false,
+        flag: item.flag,
         data: [
           {
             value: item.range,
@@ -222,15 +223,19 @@ class TableFile extends React.Component {
         </div>
         <div className={styles.u_xSplitLine} />
         <div className={styles.testList} style={{ marginTop: '0.2rem' }}>
-          <MultipHeaderList
-            dataList={tableList}
-            customRenderHeader={() => (
-              <CustomRenderHeader
-                columnsData={flag === 1 ? (flag2 === 3 ? columns3 : columns2) : columns}
-              />
-            )}
-            customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
-          />
+          {tableList.length === 0 ? (
+            <NoData showflag />
+          ) : (
+            <MultipHeaderList
+              dataList={tableList}
+              customRenderHeader={() => (
+                <CustomRenderHeader
+                  columnsData={flag === 1 ? (flag2 === 3 ? columns3 : columns2) : columns}
+                />
+              )}
+              customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
+            />
+          )}
           <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
         </div>
 
