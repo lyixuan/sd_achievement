@@ -35,15 +35,17 @@ class Details extends React.Component {
     const { dataList } = this.props.details;
     this.context.setTitle(Number(paramsObj.type) === 0 ? '家族绩效页' : '小组绩效页');
     this.getDataListLen(dataList);
-    this.getListData();
+    this.getListData({ sort: 1 });
   }
   onChange = val => {
-    console.log(val);
+    const sort = val ? 0 : 1; // 1: 高-低，0：低-高
+    this.getListData({ sort });
   };
-  getListData = () => {
+  getListData = sort => {
+    const param = Object.assign(this.state.paramsObj, sort);
     this.props.dispatch({
       type: 'details/collgeKpiFamilyDetail',
-      payload: this.state.paramsObj,
+      payload: param,
     });
   };
   // 列表展示条数大于2则展示switch按钮
