@@ -21,9 +21,28 @@ class Boss extends React.Component {
     const { groupType = null } = currentAuthInfo;
     return groupType;
   };
+  calculateNumber = (data = []) => {
+    // 如果集团总绩效为0的话,不进行展示数据
+    return data
+      .map(item => {
+        let val =
+          item.levelCount && item.total ? Number(item.levelCount) / Number(item.total) * 100 : 0;
+        val = val.toFixed(2);
+        return {
+          ...item,
+          val,
+          name: item.levelValue || '',
+        };
+      })
+      .sort((a, b) => b.val - a.val);
+  };
 
   render() {
-    const { FunnelChartData, toLevelPage } = this.props;
+    const { chartData, toLevelPage } = this.props;
+    let familyData = chartData.familyData || [];
+    familyData = this.calculateNumber(familyData);
+    let groupData = chartData.groupData || [];
+    groupData = this.calculateNumber(groupData);
     return (
       <div>
         <MonthlyChart
@@ -31,14 +50,14 @@ class Boss extends React.Component {
             toLevelPage();
           }}
         >
-          <Funnel dataSource={{ data: FunnelChartData, title: '预测绩效分档（家族）' }} />
+          <Funnel dataSource={{ data: familyData, title: '预测绩效分档（家族）' }} />
         </MonthlyChart>
         <MonthlyChart
           toLevelPage={() => {
             toLevelPage();
           }}
         >
-          <Funnel dataSource={{ data: FunnelChartData, title: '预测绩效分档（小组）' }} />
+          <Funnel dataSource={{ data: groupData, title: '预测绩效分档（小组）' }} />
         </MonthlyChart>
       </div>
     );

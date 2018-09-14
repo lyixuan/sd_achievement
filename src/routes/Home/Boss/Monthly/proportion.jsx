@@ -22,9 +22,33 @@ class Boss extends React.Component {
     const { groupType = null } = currentAuthInfo;
     return groupType;
   };
+  calculateNumber = (data = []) => {
+    // 如果集团总绩效为0的话,不进行展示数据
+    if (data.length > 0 && data[0].companyAchievement) {
+      return data
+        .map(item => {
+          let val =
+            item.companyAchievement && item.collegeAchievement
+              ? Number(item.collegeAchievement) / Number(item.companyAchievement) * 100
+              : 0;
+          val = val.toFixed(2);
+          return {
+            ...item,
+            val,
+          };
+        })
+        .sort((a, b) => b.val - a.val);
+    } else {
+      return [];
+    }
+  };
 
   render() {
-    const { chartData, barChartData, toLevelPage } = this.props;
+    const { chartData, toLevelPage } = this.props;
+    let familyData = chartData.familyData || [];
+    let groupData = chartData.groupData || [];
+    familyData = this.calculateNumber(familyData);
+    groupData = this.calculateNumber(groupData);
     return (
       <div>
         <MonthlyChart
@@ -32,14 +56,14 @@ class Boss extends React.Component {
             toLevelPage();
           }}
         >
-          <RosePie dataSource={{ data: chartData, title: '学院占比（家族预测绩效）' }} />
+          <RosePie dataSource={{ data: familyData, title: '学院占比（家族预测绩效）' }} />
         </MonthlyChart>
         <MonthlyChart
           toLevelPage={() => {
             toLevelPage();
           }}
         >
-          <ProportionBar dataSource={{ data: barChartData, title: '学院占比（小组预测绩效）' }} />
+          <ProportionBar dataSource={{ data: groupData, title: '学院占比（小组预测绩效）' }} />
         </MonthlyChart>
       </div>
     );

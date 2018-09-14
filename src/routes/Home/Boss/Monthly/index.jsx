@@ -3,48 +3,30 @@ import { connect } from 'dva';
 import { assignUrlParams } from 'utils/routerUtils';
 import DatePanle from 'container/DatePanle';
 import PerformanceTab from 'components/SelfTab/PerformanceTab';
+import Loading from 'components/Loading/Loading';
 import { getCurrentAuthInfo } from 'utils/decorator';
+import { timeArea } from 'utils/timeArea';
 import Proportion from './proportion';
 import Step from './step';
 import styles from './index.less';
 
 @getCurrentAuthInfo
-class Boss extends React.Component {
+class BossMothly extends React.Component {
   constructor(props) {
     super(props);
     const { groupType = null } = this.currentAuthInfo;
+    const { maxDate } = timeArea();
     const { urlParams = {} } = props;
     const initState = {
-      dateTime: '2018-08',
+      // dateTime: maxDate,
+      month: maxDate,
       monthlyType: 'step', // 默认绩效分档
       isShowTab: groupType === 'boss', // 是否显示切换分档和占比按钮
-      FunnelChartData: [
-        { val: 10, type: 1 },
-        { val: 20, type: 2 },
-        { val: 40, type: 3 },
-        { val: 30, type: 4 },
-      ],
-      pieChartData: [
-        { val: 70, name: '睿博' },
-        { val: 60, name: '芝士' },
-        { val: 50, name: '自变量' },
-        { val: 40, name: 'π学院' },
-        { val: 30, name: '狐罗' },
-        { val: 20, name: '泰罗' },
-        { val: 10, name: '浩博' },
-      ],
-      chartZhanbi: [
-        { val: 30, name: '拍学院' },
-        { val: 50, name: '自变量' },
-        { val: 70, name: '好波' },
-        { val: 10, name: '芝士' },
-        { val: 30, name: '葫芦' },
-      ],
     };
     this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {
-    this.getBossKpiBracket();
+    this.getData();
   }
   onChangeTab = id => {
     const typeObj = {
@@ -52,15 +34,17 @@ class Boss extends React.Component {
       2: 'proportion',
     };
     const monthlyType = typeObj[id];
-    this.props.setCurrentUrlParams({ monthlyType });
     this.saveParams({ monthlyType });
+    this.getData({ monthlyType });
   };
-  onDateChange = dateTime => {
-    this.saveParams({ dateTime });
+  onDateChange = month => {
+    this.saveParams({ month });
+    this.getData({ month });
   };
-  getBossKpiBracket = (params = {}) => {
-    const { dateTime } = this.state;
-    const month = params.dateTime || dateTime;
+  getData = (params = {}) => {
+    const monthlyType = params.monthlyType || this.state.monthlyType;
+    let { month } = this.state;
+    month = params.month || month;
     const { userId, collegeId, groupType } = this.currentAuthInfo;
     const sendParams = {
       month,
@@ -68,36 +52,49 @@ class Boss extends React.Component {
       collegeId,
       groupType,
     };
+
+    if (monthlyType === 'step') {
+      this.getBossKpiBracket(sendParams);
+    } else {
+      this.getBossKpiPercent(sendParams);
+    }
+  };
+  getBossKpiBracket = (params = {}) => {
     this.props.dispatch({
       type: 'bosshome/getBossKpiBracket',
-      payload: sendParams,
+      payload: params,
     });
   };
-  saveParams = params => {
-    this.setState({ ...params });
+  getBossKpiPercent = (params = {}) => {
+    const { month, groupType } = params;
+    this.props.dispatch({
+      type: 'bosshome/getBossKpiPercent',
+      payload: { month, groupType },
+    });
+  };
+  saveParams = (params = {}) => {
+    this.setState(params);
     this.props.setCurrentUrlParams(params);
   };
   toLevelPage = () => {
-    this.props.setRouteUrlParams('/level');
+    const { month } = this.state;
+    this.props.setRouteUrlParams('/level', { month });
   };
   toHistoryPage = () => {
-    this.props.setRouteUrlParams('/history');
+    const { month } = this.state;
+    this.props.setRouteUrlParams('/history', { month });
   };
 
   render() {
-    // const { routerData, match } = this.props;
-    const {
-      FunnelChartData,
-      pieChartData,
-      chartZhanbi,
-      monthlyType,
-      isShowTab,
-      dateTime,
-    } = this.state;
+    const { bosshome = {}, loading } = this.props;
+    const bossKpiBracketObj = bosshome.bossKpiBracketObj || {};
+    const bossKpiPercentObj = bosshome.bossKpiPercentObj || {};
+    const { monthlyType, isShowTab, month } = this.state;
+
     return (
       <div>
         <DatePanle
-          defaultDate={dateTime}
+          defaultDate={month}
           toHistoryPage={() => {
             this.toHistoryPage();
           }}
@@ -120,7 +117,7 @@ class Boss extends React.Component {
         <div className={styles.chartContent}>
           {monthlyType === 'step' && (
             <Step
-              FunnelChartData={FunnelChartData}
+              chartData={bossKpiBracketObj}
               toLevelPage={() => {
                 this.toLevelPage();
               }}
@@ -128,18 +125,19 @@ class Boss extends React.Component {
           )}
           {monthlyType === 'proportion' && (
             <Proportion
-              chartData={pieChartData}
-              barChartData={chartZhanbi}
+              chartData={bossKpiPercentObj}
+              // barChartData={chartZhanbi}
               toLevelPage={() => {
                 this.toLevelPage();
               }}
             />
           )}
         </div>
+        {loading && <Loading />}
       </div>
     );
   }
 }
 export default connect(({ loading, bosshome }) => ({ loading: loading.models.bosshome, bosshome }))(
-  Boss
+  BossMothly
 );

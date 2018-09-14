@@ -25,8 +25,8 @@ export function setCurrentUrlParams(query = null) {
 export function setRouteUrlParams(pathname, query) {
   const { location = {} } = this;
   const lastUrlParams = parse(location.search, true).query || {};
-  const { dateTime = '' } = lastUrlParams;
-  const assignQuery = { dateTime, ...query };
+  const { month = '' } = lastUrlParams;
+  const assignQuery = { month, ...query };
   store.dispatch({
     type: 'global/changeUrlParams',
     payload: lastUrlParams,

@@ -14,9 +14,12 @@ export class BarClass extends ChartBase {
     };
   }
   tooltipFormate = params => {
-    const { name } = params;
+    const { name, data = {} } = params;
+    const { selfLabel = '' } = data;
+    const item =
+      this.chartData.find(list => list.name.toLowerCase() === selfLabel.toLowerCase()) || {};
     const str = `${name}\n`;
-    const demation = `{a|家族数: 3个  占比:42.9%}`;
+    const demation = `{a|家族数: ${item.levelCount || 0}个  占比:${item.val}%}`;
     return str + demation;
   };
   setLabel = () => {

@@ -72,7 +72,6 @@ class Boss extends React.Component {
   render() {
     const { TotalKpigroupType, groupAvgKpiGroupType, groupList } = this.state;
     const { bosshome = {}, loading } = this.props;
-    console.log(loading);
     const groupTotalKpiList = bosshome.groupTotalKpiList || [];
     const groupAvgKpiList = bosshome.groupAvgKpiList || [];
     return (

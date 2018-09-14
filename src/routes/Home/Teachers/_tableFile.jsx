@@ -2,8 +2,9 @@ import React from 'react';
 import styles from './_tableFile.less';
 import arrow from '../../../assets/arrow.svg';
 import ImgTitle from '../../../components/ImgTitle/ImgTitle';
-import redtriangle from '../../../assets/redtriangle.png';
-import greentriangle from '../../../assets/greentriangle.png';
+import NoData from '../../../components/NoData/NoData';
+// import redtriangle from '../../../assets/redtriangle.png';
+// import greentriangle from '../../../assets/greentriangle.png';
 import MultipHeaderList from '../../../components/ListView/listView';
 import CustomRenderHeader from '../../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../../components/TableItem/TableItem';
@@ -51,7 +52,7 @@ class TableFile extends React.Component {
     val.map((item, index) =>
       data.push({
         key: index,
-        flag: false,
+        flag: item.flag,
         data: [
           {
             value: item.range,
@@ -76,7 +77,7 @@ class TableFile extends React.Component {
   };
 
   render() {
-    const { flag = 1, flag2 = 1, dataSource = [] } = this.props;
+    const { flag = 1, flag2 = 1, dataSource = [], titleData = null } = this.props;
     const { modalflag } = this.state;
     const tableList =
       flag === 1 && flag2 === 3
@@ -142,24 +143,48 @@ class TableFile extends React.Component {
       },
     ];
 
+    const buttonData = !titleData ? null : titleData;
+    const dailyCredit = !buttonData
+      ? null
+      : !buttonData.dailyCredit ? null : buttonData.dailyCredit;
+    const baseKpi = !buttonData ? null : !buttonData.baseKpi ? null : buttonData.baseKpi;
+    const manageScale = !buttonData
+      ? null
+      : !buttonData.manageScale ? null : buttonData.manageScale;
     const scoreLeft = () => (
       <span className={styles.u_numSpan}>
-        {flag2 === 1 ? '9.5分' : flag2 === 2 ? '1000人' : '10人'}
+        {flag2 === 1
+          ? !dailyCredit
+            ? 777
+            : !dailyCredit.value && dailyCredit.value !== 0 ? 888 : dailyCredit.value
+          : flag2 === 2
+            ? !baseKpi ? 777 : !baseKpi.value && baseKpi.value !== 0 ? 888 : baseKpi.value
+            : !manageScale
+              ? 777
+              : !manageScale.manageNum && manageScale.manageNum !== 0 ? 888 : manageScale.manageNum}
       </span>
     );
+    const classNum = !manageScale
+      ? 1
+      : !manageScale.classNum && manageScale.classNum !== 0 ? 1 : manageScale.classNum || 1;
+    const index =
+      flag2 === 1
+        ? !dailyCredit
+          ? 1
+          : !dailyCredit.index && dailyCredit.index !== 0 ? 2 : dailyCredit.index || 1
+        : !baseKpi ? 2 : !baseKpi.index && baseKpi.index !== 0 ? 2 : baseKpi.index || 1;
+    const size =
+      flag2 === 1
+        ? !dailyCredit ? 3 : !dailyCredit.size && dailyCredit.size !== 0 ? 3 : dailyCredit.size
+        : (!baseKpi ? 3 : !baseKpi.size && baseKpi.size !== 0 ? 3 : baseKpi.size) || 1;
+    const perSize = (index / size * 100).toFixed(2);
     const scoreRight = () => (
       <span className={styles.u_numSpan}>
         {flag2 === 3 ? (
-          '1000人'
+          classNum
         ) : (
           <span>
-            {2}
-            <img
-              src={flag2 === 1 ? redtriangle : greentriangle}
-              alt="均分图标"
-              className={styles.u_triangleImg}
-            />
-            /{50} ({'20%'})
+            {index}/{size} ({`${perSize}%`})
           </span>
         )}
       </span>
@@ -198,15 +223,19 @@ class TableFile extends React.Component {
         </div>
         <div className={styles.u_xSplitLine} />
         <div className={styles.testList} style={{ marginTop: '0.2rem' }}>
-          <MultipHeaderList
-            dataList={tableList}
-            customRenderHeader={() => (
-              <CustomRenderHeader
-                columnsData={flag === 1 ? (flag2 === 3 ? columns3 : columns2) : columns}
-              />
-            )}
-            customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
-          />
+          {tableList.length === 0 ? (
+            <NoData showflag />
+          ) : (
+            <MultipHeaderList
+              dataList={tableList}
+              customRenderHeader={() => (
+                <CustomRenderHeader
+                  columnsData={flag === 1 ? (flag2 === 3 ? columns3 : columns2) : columns}
+                />
+              )}
+              customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
+            />
+          )}
           <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
         </div>
 

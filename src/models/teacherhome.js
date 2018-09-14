@@ -43,7 +43,7 @@ export default {
 
   effects: {
     *detailKpi({ payload }, { call, put }) {
-      const { detailKpiParams } = payload;
+      const { detailKpiParams, flagVal, kpiLevelParams } = payload;
       const { groupType } = detailKpiParams;
       let detailKpiData = null;
       if (groupType === 'family') {
@@ -55,6 +55,39 @@ export default {
       }
       if (detailKpiData.code === 2000) {
         yield put({ type: 'familysave', payload: { detailKpiData, detailKpiParams } });
+        let kpiLevelData = null;
+        let levelVal = 1;
+        if (flagVal === 0) {
+          levelVal = !detailKpiData
+            ? 1
+            : !detailKpiData.data
+              ? 1
+              : !detailKpiData.data.dailyCredit
+                ? 1
+                : !detailKpiData.data.dailyCredit ? 1 : detailKpiData.data.dailyCredit.ratio;
+        } else if (flagVal === 1) {
+          levelVal = !detailKpiData
+            ? 1
+            : !detailKpiData.data
+              ? 1
+              : !detailKpiData.data.baseKpi
+                ? 1
+                : !detailKpiData.data.baseKpi ? 1 : detailKpiData.data.baseKpi.personNumAvg;
+        } else {
+          levelVal = !detailKpiData
+            ? 1
+            : !detailKpiData.data
+              ? 1
+              : !detailKpiData.data.manageScale
+                ? 1
+                : !detailKpiData.data.manageScale ? 1 : detailKpiData.data.manageScale.manageNum;
+        }
+        kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams, levelVal });
+        if (kpiLevelData.code === 2000) {
+          yield put({ type: 'kpisave', payload: { kpiLevelData, kpiLevelParams } });
+        } else {
+          Message.error(kpiLevelData.msg);
+        }
       } else {
         Message.error(detailKpiData.msg);
       }
