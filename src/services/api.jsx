@@ -96,6 +96,15 @@ export async function collgeKpiFamilyDetail(params) {
     body: params,
   });
 }
+/*
+* 家族长 小组详情页
+*/
+export async function findGroupDetailByFamily(params) {
+  return request(`${HOST}/familyKpi/findGroupDetailByFamily`, {
+    method: 'POST',
+    body: params,
+  });
+}
 
 /*
 *家族长首页接口

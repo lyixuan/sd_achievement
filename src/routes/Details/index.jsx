@@ -18,8 +18,8 @@ class Details extends React.Component {
     const { urlParams = {} } = props;
     const initState = {
       paramsObj: {
-        month: '2018-08',
-        groupType: 'boss',
+        month: urlParams.month || '2018-08',
+        groupType: urlParams.groupType || 'boss',
         type: urlParams.type, // 0：家族，1：小组
         collegeId: urlParams.collegeId,
       },
@@ -32,19 +32,24 @@ class Details extends React.Component {
 
   componentDidMount() {
     const { paramsObj } = this.state;
+    // 区分小组详情的身份
+    const url =
+      paramsObj.groupType === 'family'
+        ? 'details/findGroupDetailByFamily'
+        : 'details/collgeKpiFamilyDetail';
     const { dataList } = this.props.details;
     this.context.setTitle(Number(paramsObj.type) === 0 ? '家族绩效页' : '小组绩效页');
     this.getDataListLen(dataList);
-    this.getListData({ sort: 1 });
+    this.getListData(url, { sort: 1 });
   }
   onChange = val => {
     const sort = val ? 0 : 1; // 1: 高-低，0：低-高
     this.getListData({ sort });
   };
-  getListData = sort => {
+  getListData = (url, sort) => {
     const param = Object.assign(this.state.paramsObj, sort);
     this.props.dispatch({
-      type: 'details/collgeKpiFamilyDetail',
+      type: url,
       payload: param,
     });
   };
