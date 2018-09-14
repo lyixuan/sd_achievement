@@ -23,15 +23,15 @@ class Level extends React.Component {
         month: urlParams.month,
         userId,
       },
-      familyType: urlParams.type, // 0：家族，1：小组
+      type: urlParams.type, // 0：家族，1：小组
     };
     this.state = Object.assign(initState, currentAuthInfo);
   }
   componentDidMount() {
-    const { familyType } = this.state;
+    const { type } = this.state;
     // 区分家族分档，小组分档
     const fetchUrl =
-      Number(familyType) === 0 ? 'level/collgeKpiFamilyHomePage' : 'level/collgeKpiGroupHomePage';
+      Number(type) === 0 ? 'level/collgeKpiFamilyHomePage' : 'level/collgeKpiGroupHomePage';
     this.getListData(fetchUrl); //
   }
   getListData = url => {
@@ -41,7 +41,8 @@ class Level extends React.Component {
     });
   };
   jumpDetail = (name, id) => {
-    this.props.setRouteUrlParams('/details', { collegeName: name, collegeId: id, type: 0 });
+    const { type } = this.state;
+    this.props.setRouteUrlParams('/details', { collegeName: name, collegeId: id, type });
   };
 
   renderHeader = name => {
