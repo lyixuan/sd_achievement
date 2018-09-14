@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import PropTypes from 'prop-types';
+import { formatDate } from '../../utils/utils';
 import { assignUrlParams } from '../../utils/routerUtils';
 import Switch from '../../components/Switch/Switch';
 import MultipHeaderList from '../../components/ListView/listView';
@@ -16,11 +17,14 @@ class Details extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
+    const currentAuthInfo = this.currentAuthInfo || {};
+    const { groupType = '', userId = '' } = currentAuthInfo;
     const initState = {
       paramsObj: {
-        month: urlParams.month || '2018-08',
-        groupType: urlParams.groupType || 'boss',
+        month: urlParams.month,
+        groupType,
         type: urlParams.type, // 0：家族，1：小组
+        userId,
       },
       collegeName: urlParams.collegeName,
       collegeId: urlParams.collegeId,
@@ -90,7 +94,7 @@ class Details extends React.Component {
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
           <span>
-            {paramsObj.month}预测绩效 - {collegeName}
+            {formatDate(paramsObj.month)}预测绩效 - {collegeName}
           </span>
           {!isShowSwitch ? null : <Switch onChange={val => this.onChange(val)} />}
         </div>

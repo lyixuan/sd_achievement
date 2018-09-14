@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { getCurrentAuthInfo } from 'utils/decorator';
-import { changeObj } from '../../utils/utils';
+import { changeObj, formatDate } from '../../utils/utils';
 import arrowRight from '../../assets/right.svg';
 import MultipHeaderList from '../../components/ListView/listView';
 import RenderHeader from './_renderHeader';
@@ -64,7 +64,7 @@ class Level extends React.Component {
     return (
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
-          <span>{month}预测绩效</span>
+          <span>{formatDate(month)}预测绩效</span>
           <div className={styles.greyFont} onClick={() => this.jumpDetail('全部学院', '')}>
             绩效详情 <img src={arrowRight} alt="arrow" className={styles.arrowRight} />
           </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { formatDate } from '../../../utils/utils';
 import Switch from '../../../components/Switch/Switch';
 import MultipHeaderList from '../../../components/ListView/listView';
 import RenderHeader from './_renderHeader';
@@ -16,7 +17,7 @@ class HistoryDetails extends React.Component {
     const { groupType = '', userId = '' } = currentAuthInfo;
     const initState = {
       paramsObj: {
-        month: urlParams.month || '2018-07',
+        month: urlParams.month,
         groupType,
         type: urlParams.type || '1', // 0：家族，1：小组
         userId,
@@ -74,7 +75,7 @@ class HistoryDetails extends React.Component {
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
           <span>
-            {paramsObj.month}实发绩效 - {collegeName}
+            {formatDate(paramsObj.month)}实发绩效 - {collegeName}
           </span>
           <Switch onChange={val => this.onChange(val)} />
         </div>
