@@ -1,4 +1,9 @@
-import { findGroupTotalKpi, findGroupAvgKpi, getBossKpiBracket } from 'services/api';
+import {
+  findGroupTotalKpi,
+  findGroupAvgKpi,
+  getBossKpiBracket,
+  getBossKpiPercent,
+} from 'services/api';
 import Message from '../components/Message';
 
 export default {
@@ -7,7 +12,8 @@ export default {
   state: {
     groupTotalKpiList: [],
     groupAvgKpiList: [],
-    bossKpiBracketList: [],
+    bossKpiBracketObj: {},
+    bossKpiPercentObj: {},
   },
 
   subscriptions: {
@@ -44,10 +50,22 @@ export default {
     *getBossKpiBracket({ payload }, { call, put }) {
       const response = yield call(getBossKpiBracket, payload);
       if (response.code === 2000) {
-        const bossKpiBracketList = response.data || [];
+        const bossKpiBracketObj = response.data || {};
         yield put({
           type: 'saveBossKpiBracket',
-          payload: { bossKpiBracketList },
+          payload: { bossKpiBracketObj },
+        });
+      } else {
+        Message.fail(response.msg);
+      }
+    },
+    *getBossKpiPercent({ payload }, { call, put }) {
+      const response = yield call(getBossKpiPercent, payload);
+      if (response.code === 2000) {
+        const bossKpiPercentObj = response.data || {};
+        yield put({
+          type: 'saveBossKpiBracket',
+          payload: { bossKpiPercentObj },
         });
       } else {
         Message.fail(response.msg);
@@ -59,8 +77,8 @@ export default {
     saveGroupTotalKpiList(state, { payload }) {
       return { ...state, ...payload };
     },
-  },
-  saveBossKpiBracket(state, { payload }) {
-    return { ...state, ...payload };
+    saveBossKpiBracket(state, { payload }) {
+      return { ...state, ...payload };
+    },
   },
 };

@@ -70,6 +70,15 @@ export async function getBossKpiBracket(params) {
   });
 }
 /*
+*此接口用于Boss-绩效占比接口
+*/
+export async function getBossKpiPercent(params) {
+  return request(`${HOST}/bossCollegeKpi/bossKpiPercent`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
 * boss/院长家族首页
 */
 export async function collgeKpiFamilyHomePage(params) {

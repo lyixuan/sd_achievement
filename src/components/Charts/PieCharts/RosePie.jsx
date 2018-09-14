@@ -40,6 +40,7 @@ export default class SingleBar extends React.Component {
     const chartData = dataSource.map((item, index) => ({
       value: item.val,
       name: item.name,
+      id: item.id,
       itemStyle: {
         color: colorArr[index],
       },
@@ -48,14 +49,18 @@ export default class SingleBar extends React.Component {
   };
   handleData = () => {
     const { dataSource } = this.props;
-    this.tooltipInstance = new BarClass({ dataSource });
+    if (!this.tooltipInstance) {
+      this.tooltipInstance = new BarClass({ dataSource });
+    }
     let { chartData } = this.tooltipInstance;
     chartData = this.handlePieStyle(chartData);
     return this.setChartsOps({ chartData });
   };
 
   render() {
-    const dataSource = this.handleData();
-    return dataSource ? <Bar dataSource={dataSource} width="6.9rem" height="6.5rem" /> : null;
+    const { dataSource = {} } = this.props;
+    const data = dataSource.data || [];
+    const chartData = data.length > 0 ? this.handleData() : {};
+    return data.length > 0 ? <Bar dataSource={chartData} width="6.9rem" height="6.5rem" /> : null;
   }
 }
