@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { getCurrentAuthInfo } from 'utils/decorator';
 import DatePanle from 'container/DatePanle';
+import Loading from 'components/Loading/Loading';
 import { assignUrlParams } from 'utils/routerUtils';
 import styles from './index.less';
 import ButtonFile from './_buttonFile';
@@ -31,7 +32,7 @@ class Teacher extends React.Component {
       userId = null,
       familyId = null,
       groupId = null,
-      familyType = 0,
+      familyType = 1,
     } = this.currentAuthInfo;
     const userFlag = groupType === 'family' ? 1 : 2;
     const initState = {
@@ -80,8 +81,7 @@ class Teacher extends React.Component {
       month: this.state.dateTime,
       type: 0,
     };
-    this.detailKpiFetch(detailKpiParams);
-    this.kpiLevelFetch(kpiLevelParams);
+    this.detailKpiFetch(detailKpiParams, 0, kpiLevelParams);
   }
 
   onDateChange = date => {
@@ -116,15 +116,16 @@ class Teacher extends React.Component {
         type: val,
       };
 
-      this.detailKpiFetch(detailKpiParams);
-      this.kpiLevelFetch(kpiLevelParams);
+      this.detailKpiFetch(detailKpiParams, val, kpiLevelParams);
       this.setState({ dateTime: date });
     }
   };
   // 请求model中的detailKpi方法
-  detailKpiFetch(detailKpiParams) {
+  detailKpiFetch(detailKpiParams, flagVal, kpiLevelParams) {
     const sendParams = {
       detailKpiParams,
+      flagVal,
+      kpiLevelParams,
     };
     this.props.dispatch({
       type: 'teacherhome/detailKpi',
@@ -143,9 +144,19 @@ class Teacher extends React.Component {
   }
 
   jumpDetail = () => {
-    this.props.setRouteUrlParams('/details', { dateTime: this.state.dataTime });
+    const { month = null, groupType = 'family' } = this.state;
+    this.props.setRouteUrlParams('/details', {
+      month,
+      groupType,
+      type: 1,
+    });
   };
   buttonChange = item => {
+    let aa = item.score;
+    if (typeof aa === 'string' && aa.indexOf('%') !== -1) {
+      aa = aa.replace('%', '');
+    }
+
     if (this.state.tabFlag !== item.id) {
       const val = item.id === 3 ? (this.state.flag === 1 ? 2 : 3) : item.id - 1;
       const {
@@ -166,6 +177,7 @@ class Teacher extends React.Component {
         userId,
         month: dateTime,
         type: val,
+        levelVal: Number(aa),
       };
       this.kpiLevelFetch(kpiLevelParams);
       this.setState({ tabFlag: item.id });
@@ -180,7 +192,9 @@ class Teacher extends React.Component {
     const kpiLevelData = !this.props.teacherhome.kpiLevelData
       ? []
       : !this.props.teacherhome.kpiLevelData.data ? [] : this.props.teacherhome.kpiLevelData.data;
-    // console.log('render时候的数据', this.props.teacherhome, detailKpiData, kpiLevelData);
+
+    const { base = 0, mark = 0, total = 0 } = !detailKpiData ? {} : detailKpiData;
+    const { interfaceDetail, interfaceKpi } = this.props;
 
     return (
       <div>
@@ -190,12 +204,13 @@ class Teacher extends React.Component {
             this.onDateChange(date);
           }}
         />
+        {interfaceDetail && interfaceKpi && <Loading />}
         <div className={styles.m_performanceContener}>
-          <span className={styles.u_totalNum}>{formatMoney(1500000)}元</span>
+          <span className={styles.u_totalNum}>{formatMoney(total || 0)}元</span>
           <div className={styles.m_performanceMoney}>
             <div className={styles.u_basicMoney}>
               <div className={styles.u_contentDiv}>
-                <span className={styles.u_spanMoney}>{formatMoney(1000000)}</span>
+                <span className={styles.u_spanMoney}>{formatMoney(base || 0)}</span>
                 <br />
                 <span className={styles.u_spanBasic}>基本绩效</span>
               </div>
@@ -203,7 +218,7 @@ class Teacher extends React.Component {
             <div className={styles.u_splitLine} />
             <div className={styles.u_scoreMoney}>
               <div className={styles.u_contentDiv}>
-                <span className={styles.u_spanMoney}>{formatMoney(50000)}</span>
+                <span className={styles.u_spanMoney}>{formatMoney(mark || 0)}</span>
                 <br />
                 <span className={styles.u_spanBasic}>打分绩效</span>
               </div>
@@ -224,7 +239,12 @@ class Teacher extends React.Component {
           dataSource={detailKpiData}
           changeFlag={item => this.buttonChange(item)}
         />
-        <TableFile flag2={tabFlag} flag={flag} dataSource={kpiLevelData} />
+        <TableFile
+          flag2={tabFlag}
+          flag={flag}
+          dataSource={kpiLevelData}
+          titleData={detailKpiData}
+        />
 
         <div style={{ display: flag === 2 && groupType === 'group' ? 'block' : 'none' }}>
           <TeacherPer dataSource={detailKpiData} />
