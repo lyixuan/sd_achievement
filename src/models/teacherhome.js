@@ -35,11 +35,7 @@ export default {
     kpiLevelData: null,
   },
 
-  subscriptions: {
-    // setup({ dispatch, history }) {
-    //   // eslint-disable-line
-    // },
-  },
+  subscriptions: {},
 
   effects: {
     *detailKpi({ payload }, { call, put }) {
@@ -47,40 +43,33 @@ export default {
       const { groupType } = detailKpiParams;
       let detailKpiData = null;
       if (groupType === 'family') {
-        // console.log('进入family接口请求', detailKpiParams);
         detailKpiData = yield call(findFamilyDetailKpi, { ...detailKpiParams });
       } else {
-        // console.log('进入运营长/班主任接口请求', detailKpiParams);
         detailKpiData = yield call(findGroupDetailKpi, { ...detailKpiParams });
       }
       if (detailKpiData.code === 2000) {
         yield put({ type: 'familysave', payload: { detailKpiData, detailKpiParams } });
         let kpiLevelData = null;
+        const dataList = !detailKpiData ? null : !detailKpiData.data ? null : detailKpiData.data;
         let levelVal = 1;
         if (flagVal === 0) {
-          levelVal = !detailKpiData
+          levelVal = !dataList
             ? 1
-            : !detailKpiData.data
+            : !dataList.dailyCredit
               ? 1
-              : !detailKpiData.data.dailyCredit
-                ? 1
-                : !detailKpiData.data.dailyCredit ? 1 : detailKpiData.data.dailyCredit.ratio;
+              : !dataList.dailyCredit.ratio ? 1 : dataList.dailyCredit.ratio;
         } else if (flagVal === 1) {
-          levelVal = !detailKpiData
+          levelVal = !dataList
             ? 1
-            : !detailKpiData.data
+            : !dataList.baseKpi
               ? 1
-              : !detailKpiData.data.baseKpi
-                ? 1
-                : !detailKpiData.data.baseKpi ? 1 : detailKpiData.data.baseKpi.personNumAvg;
+              : !dataList.baseKpi.personNumAvg ? 1 : dataList.baseKpi.personNumAvg;
         } else {
-          levelVal = !detailKpiData
+          levelVal = !dataList
             ? 1
-            : !detailKpiData.data
+            : !dataList.manageScale
               ? 1
-              : !detailKpiData.data.manageScale
-                ? 1
-                : !detailKpiData.data.manageScale ? 1 : detailKpiData.data.manageScale.manageNum;
+              : !dataList.manageScale.manageNum ? 1 : detailKpiData.data.manageScale.manageNum;
         }
         kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams, levelVal });
         if (kpiLevelData.code === 2000) {
@@ -94,7 +83,6 @@ export default {
     },
     *findKpiLevel({ payload }, { call, put }) {
       const { kpiLevelParams } = payload;
-      // console.log('进入档位接口请求', kpiLevelParams);
       const kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams });
       if (kpiLevelData.code === 2000) {
         yield put({ type: 'kpisave', payload: { kpiLevelData, kpiLevelParams } });
