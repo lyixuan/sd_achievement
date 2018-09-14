@@ -22,28 +22,6 @@ class BossMothly extends React.Component {
       month: maxDate,
       monthlyType: 'step', // 默认绩效分档
       isShowTab: groupType === 'boss', // 是否显示切换分档和占比按钮
-      FunnelChartData: [
-        { val: 10, type: 1 },
-        { val: 20, type: 2 },
-        { val: 40, type: 3 },
-        { val: 30, type: 4 },
-      ],
-      pieChartData: [
-        { val: 70, name: '睿博' },
-        { val: 60, name: '芝士' },
-        { val: 50, name: '自变量' },
-        { val: 40, name: 'π学院' },
-        { val: 30, name: '狐罗' },
-        { val: 20, name: '泰罗' },
-        { val: 10, name: '浩博' },
-      ],
-      chartZhanbi: [
-        { val: 30, name: '拍学院' },
-        { val: 50, name: '自变量' },
-        { val: 70, name: '好波' },
-        { val: 10, name: '芝士' },
-        { val: 30, name: '葫芦' },
-      ],
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -99,10 +77,12 @@ class BossMothly extends React.Component {
     this.props.setCurrentUrlParams(params);
   };
   toLevelPage = () => {
-    this.props.setRouteUrlParams('/level');
+    const { month } = this.state;
+    this.props.setRouteUrlParams('/level', { month });
   };
   toHistoryPage = () => {
-    this.props.setRouteUrlParams('/history');
+    const { month } = this.state;
+    this.props.setRouteUrlParams('/history', { month });
   };
 
   render() {
