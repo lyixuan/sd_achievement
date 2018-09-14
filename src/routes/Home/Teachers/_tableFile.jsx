@@ -60,12 +60,42 @@ class TableFile extends React.Component {
             key: 1,
           },
           {
-            value: item.value,
+            value: item.minVal,
             clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
             key: 2,
           },
           {
+            value: item.value,
+            clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
+            key: 3,
+          },
+        ],
+      })
+    );
+
+    return data;
+  };
+
+  itemList2 = val => {
+    const data = [];
+    const { flag2 = 1 } = this.props;
+    val.map((item, index) =>
+      data.push({
+        key: index,
+        flag: item.flag,
+        data: [
+          {
+            value: item.value,
+            clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
+            key: 1,
+          },
+          {
             value: item.minVal,
+            clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
+            key: 2,
+          },
+          {
+            value: item.range,
             clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
             key: 3,
           },
@@ -82,7 +112,9 @@ class TableFile extends React.Component {
     const tableList =
       flag === 1 && flag2 === 3
         ? this.itemList3(!dataSource ? [] : dataSource)
-        : this.itemList(!dataSource ? [] : dataSource);
+        : flag === 2 && flag2 === 3
+          ? this.itemList2(!dataSource ? [] : dataSource)
+          : this.itemList(!dataSource ? [] : dataSource);
 
     // 用户为运营长前tab切换时，table列头数据
     const columns = [

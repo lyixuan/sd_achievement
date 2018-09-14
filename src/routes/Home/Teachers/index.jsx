@@ -143,11 +143,12 @@ class Teacher extends React.Component {
     });
   }
 
-  jumpDetail = () => {
+  jumpDetail = name => {
     const { month = null, groupType = 'family' } = this.state;
     this.props.setRouteUrlParams('/details', {
       month,
       groupType,
+      collegeName: name,
       type: 1,
     });
   };
@@ -196,6 +197,7 @@ class Teacher extends React.Component {
     const { base = 0, mark = 0, total = 0 } = !detailKpiData ? {} : detailKpiData;
     const { interfaceDetail, interfaceKpi } = this.props;
 
+    const { name = null } = !detailKpiData ? {} : detailKpiData;
     return (
       <div>
         <DatePanle
@@ -253,7 +255,7 @@ class Teacher extends React.Component {
         <div
           className={styles.m_familyGroup}
           style={{ display: flag === 1 ? 'block' : 'none' }}
-          onClick={() => this.jumpDetail(1)}
+          onClick={() => this.jumpDetail(name)}
         >
           <div className={styles.u_pRight}>
             <img src={Bitmap} alt="logo" className={styles.u_imgLogo} />
