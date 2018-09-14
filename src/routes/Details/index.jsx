@@ -18,75 +18,22 @@ class Details extends React.Component {
     const { urlParams = {} } = props;
     const initState = {
       paramsObj: {
-        dateTime: '2018年7月预测绩效',
-        groupType: 1,
-        familyType: 2,
+        month: '2018-08',
+        groupType: 'boss',
+        type: urlParams.type, // 0：家族，1：小组
+        collegeId: urlParams.collegeId,
       },
       collegeName: urlParams.collegeName,
       isShowSwitch: false, // 是否展示右侧切换按钮
-      pageTitle: 'family', // 家族绩效页/小组绩效页
-      dataList: {
-        selfExam: [
-          {
-            groupName: '大气层',
-            arr: 'activeCS',
-            familyNum: '103123',
-            key: '0',
-          },
-          {
-            groupName: 'selfExam',
-            arr: 'activeCS',
-            familyNum: '3232',
-            key: '1',
-          },
-          {
-            groupName: 'selfExam',
-            arr: 'activeCS',
-            familyNum: '233',
-            key: '2',
-          },
-          {
-            groupName: 'selfExam',
-            arr: 'activeCS',
-            familyNum: '112',
-            key: '3',
-          },
-        ],
-        barrier: [
-          {
-            groupName: 'barrier',
-            arr: 'activeCS',
-            familyNum: '1022',
-            key: '0',
-          },
-          {
-            groupName: 'barrier',
-            arr: 'activeCS',
-            familyNum: '2',
-            key: '1',
-          },
-          {
-            groupName: 'barrier',
-            arr: 'activeCS',
-            familyNum: '2',
-            key: '2',
-          },
-          {
-            groupName: 'barrier',
-            arr: 'activeCS',
-            familyNum: '2',
-            key: '3',
-          },
-        ],
-      },
     };
 
     this.state = assignUrlParams(initState, urlParams);
   }
 
   componentDidMount() {
-    const { pageTitle, dataList } = this.state;
-    this.context.setTitle(pageTitle === 'family' ? '家族绩效页' : '小组绩效页');
+    const { paramsObj } = this.state;
+    const { dataList } = this.props.details;
+    this.context.setTitle(Number(paramsObj.type) === 0 ? '家族绩效页' : '小组绩效页');
     this.getDataListLen(dataList);
     this.getListData();
   }
@@ -117,31 +64,39 @@ class Details extends React.Component {
   }
 
   render() {
-    const { dataList, paramsObj, collegeName, isShowSwitch } = this.state;
+    const { paramsObj, collegeName, isShowSwitch } = this.state;
+    const { dataList } = this.props.details;
 
     const param = [
-      { groupName: 'selfExam', arr: 'activeCS' },
-      { groupName: 'barrier', arr: 'activeCS' },
-      { groupName: 'incubator', arr: 'activeCS' },
+      { groupName: '（自考）', id: 0 },
+      { groupName: '（壁垒）', id: 1 },
+      { groupName: '（孵化器）', id: 2 },
     ];
     return (
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
           <span>
-            {paramsObj.dateTime} - {collegeName}
+            {paramsObj.month}预测绩效 - {collegeName}
           </span>
           {!isShowSwitch ? null : <Switch onChange={val => this.onChange(val)} />}
         </div>
         {/* *************** listview *************** */}
         {param.map(item => {
-          const newDataList = Object.keys(dataList).filter(obj => obj === item.groupName);
+          const newDataList = Object.keys(dataList).filter(obj => Number(obj) === item.id);
+
           return (
             newDataList.length > 0 && (
               <MultipHeaderList
-                key={item.groupName}
+                key={item.id}
                 dataList={dataList}
-                groupName={item.groupName}
-                customRenderHeader={sectionData => <RenderHeader sectionData={sectionData} />}
+                groupName={item.id}
+                customRenderHeader={sectionData => (
+                  <RenderHeader
+                    sectionData={sectionData}
+                    type={paramsObj.type}
+                    groupName={item.groupName}
+                  />
+                )}
                 customRenderItem={rowData => <RenderItem paramsObj={paramsObj} rowData={rowData} />}
               />
             )

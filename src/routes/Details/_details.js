@@ -9,9 +9,9 @@ import styles from './_render.less';
 class RenderDetails extends React.Component {
   componentDidMount() {}
 
-  renderFn = isShow => {
-    const { rowData } = this.props;
-    if (isShow) {
+  renderFn = kpiDistribution => {
+    if (kpiDistribution) {
+      const { groupKpi = {}, classKpi = {} } = kpiDistribution;
       return (
         <dl className={`${styles.u_dlCls} ${styles.distribute}`}>
           <dt>
@@ -21,17 +21,17 @@ class RenderDetails extends React.Component {
             <p className={styles.greyColor}>绩效分配</p>
             <div style={{ margin: '.07rem 0' }}>
               <span className={styles.blackColor}>运营长绩效 </span>
-              <span className={styles.blackColor}> {formatMoney(rowData.familyNum)}元 </span>
-              <span className={styles.greyColor}> ({formatMoney(rowData.familyNum)} </span>
+              <span className={styles.blackColor}> {formatMoney(groupKpi.total)}元 </span>
+              <span className={styles.greyColor}> ({formatMoney(groupKpi.base)} </span>
               <span className={styles.blueColor}> | </span>
-              <span className={styles.greyColor}> {formatMoney(rowData.familyNum)}) </span>
+              <span className={styles.greyColor}> {formatMoney(groupKpi.mark)}) </span>
             </div>
             <div>
               <span className={styles.blackColor}>每个班主任 </span>
-              <span className={styles.blackColor}> {formatMoney(rowData.familyNum)}元 </span>
-              <span className={styles.greyColor}> ({formatMoney(rowData.familyNum)} </span>
+              <span className={styles.blackColor}> {formatMoney(classKpi.total)}元 </span>
+              <span className={styles.greyColor}> ({formatMoney(classKpi.base)} </span>
               <span className={styles.blueColor}> | </span>
-              <span className={styles.greyColor}> {formatMoney(rowData.familyNum)}) </span>
+              <span className={styles.greyColor}> {formatMoney(classKpi.mark)}) </span>
             </div>
           </dd>
         </dl>
@@ -41,10 +41,17 @@ class RenderDetails extends React.Component {
     }
   };
   render() {
-    const { paramsObj } = this.props;
+    const {
+      dayAvgScore = {},
+      manageScale = {},
+      averageStuNum = {},
+      kpiDistribution = {},
+    } = this.props.rowData;
+    const dayAvg = dayAvgScore.index / dayAvgScore.size * 100 || 0; // 日均学分
+    const avg = averageStuNum.index / averageStuNum.size * 100 || 0; // 人均服务学员数
     return (
       <div className={styles.m_detailRender}>
-        {this.renderFn(paramsObj.hh === 'barrier')}
+        {this.renderFn(kpiDistribution)}
         <dl className={`${styles.u_dlCls} ${styles.scale}`}>
           <dt>
             <img className={styles.iconCls} src={scale} alt="管理规模" />
@@ -52,9 +59,9 @@ class RenderDetails extends React.Component {
           <dd className={styles.u_ddCls}>
             <div className={styles.blackColor}>
               <span className={styles.greyColor}>管理规模：</span> 在服学员
-              <span> 10000 </span> 人
+              <span> {manageScale.serviceCount} </span> 人
               <span className={styles.blueColor}> | </span> 老师
-              <span> 5 </span> 人
+              <span> {manageScale.classNum} </span> 人
             </div>
           </dd>
         </dl>
@@ -65,10 +72,13 @@ class RenderDetails extends React.Component {
           <dd className={styles.u_ddCls}>
             <div className={styles.blackColor}>
               <span className={styles.greyColor}>人均服务学员数：</span>
-              <span> 20000 </span> 人
+              <span> {averageStuNum.num} </span> 人
               <span className={styles.blueColor}> | </span>
               <span className={styles.greyColor}> 排名：</span>
-              <span> 1/5 (20%) </span>
+              <span>
+                {' '}
+                {averageStuNum.index}/{averageStuNum.size} ({avg !== 0 ? `${avg}%` : 0}){' '}
+              </span>
             </div>
           </dd>
         </dl>
@@ -79,10 +89,13 @@ class RenderDetails extends React.Component {
           <dd className={styles.u_ddCls}>
             <div className={styles.blackColor}>
               <span className={styles.greyColor}>日均学分：</span>
-              <span> 5 </span> 分
+              <span> {dayAvgScore.score} </span> 分
               <span className={styles.blueColor}> | </span>
               <span className={styles.greyColor}> 排名：</span>
-              <span> 1/5 (20%) </span>
+              <span>
+                {' '}
+                {dayAvgScore.index}/{dayAvgScore.size} ({dayAvg !== 0 ? `${dayAvg}%` : 0}){' '}
+              </span>
             </div>
           </dd>
         </dl>

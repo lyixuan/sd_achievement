@@ -5,11 +5,13 @@ class RenderHeader extends React.Component {
   componentDidMount() {}
 
   render() {
-    const { sectionData } = this.props;
+    const { type, groupName } = this.props;
+    const groupType = Number(type) === 0 ? '家族' : '小组';
     return (
       <div className={`${styles.m_render} ${styles.m_hdRender}`}>
         <span className={styles.familyName}>
-          {sectionData[0].groupName}（{sectionData[0].arr}）
+          {groupType}
+          {groupName}
         </span>
         <span className={styles.performance}>总绩效=基本绩效+打分绩效</span>
       </div>

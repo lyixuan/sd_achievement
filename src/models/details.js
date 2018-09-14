@@ -5,8 +5,7 @@ export default {
   namespace: 'details',
 
   state: {
-    familyData: [],
-    groupData: [],
+    dataList: [],
   },
 
   subscriptions: {
@@ -21,7 +20,7 @@ export default {
       if (response.code === 2000) {
         yield put({
           type: 'save',
-          payload: { familyData: response.data },
+          payload: { dataList: response.data },
         });
       } else {
         Message.fail(response.msg);
