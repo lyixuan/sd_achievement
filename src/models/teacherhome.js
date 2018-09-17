@@ -51,25 +51,16 @@ export default {
         yield put({ type: 'familysave', payload: { detailKpiData, detailKpiParams } });
         let kpiLevelData = null;
         const dataList = !detailKpiData ? null : !detailKpiData.data ? null : detailKpiData.data;
+        const dailyCredit = !dataList ? null : !dataList.dailyCredit ? null : dataList.dailyCredit;
+        const baseKpi = !dataList ? null : !dataList.baseKpi ? null : dataList.baseKpi;
+        const manageScale = !dataList ? null : !dataList.manageScale ? null : dataList.manageScale;
         let levelVal = 1;
         if (flagVal === 0) {
-          levelVal = !dataList
-            ? 1
-            : !dataList.dailyCredit
-              ? 1
-              : !dataList.dailyCredit.ratio ? 1 : dataList.dailyCredit.ratio;
+          levelVal = !dailyCredit.ratio ? 1 : dailyCredit.ratio;
         } else if (flagVal === 1) {
-          levelVal = !dataList
-            ? 1
-            : !dataList.baseKpi
-              ? 1
-              : !dataList.baseKpi.personNumAvg ? 1 : dataList.baseKpi.personNumAvg;
+          levelVal = !baseKpi.personNumAvg ? 1 : baseKpi.personNumAvg;
         } else {
-          levelVal = !dataList
-            ? 1
-            : !dataList.manageScale
-              ? 1
-              : !dataList.manageScale.manageNum ? 1 : detailKpiData.data.manageScale.manageNum;
+          levelVal = !manageScale.manageNum ? 1 : manageScale.manageNum;
         }
         kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams, levelVal });
         if (kpiLevelData.code === 2000) {
