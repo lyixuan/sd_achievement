@@ -71,7 +71,8 @@ class HistoryTeacher extends React.Component {
     };
   };
   toDetailsPage = () => {
-    this.props.setRouteUrlParams('/history/details', { type: 0 });
+    const month = this.formateDate();
+    this.props.setRouteUrlParams('/history/details', { type: 1, month });
   };
   render() {
     const { loading } = this.props;
