@@ -143,7 +143,7 @@ export async function findFamilyHistoryKpi(params) {
   });
 }
 /*
-* 历史绩效：boss/院长-小组历史绩效
+* 历史绩效：boss/院长/家族长-小组历史绩效
 */
 export async function findGroupHistoryKpi(params) {
   return request(`${HOST}/historyKpi/findGroupHistoryKpi`, {
