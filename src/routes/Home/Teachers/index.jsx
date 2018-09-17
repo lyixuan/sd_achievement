@@ -59,7 +59,8 @@ class Teacher extends React.Component {
   }
 
   componentDidMount() {
-    this.getData({ type: 0, interfaceFlag: 1 });
+    const val = this.state.tabFlag === 3 ? (this.state.flag === 1 ? 2 : 3) : this.state.tabFlag - 1;
+    this.getData({ type: val, interfaceFlag: 1 });
   }
 
   onDateChange = date => {
@@ -105,7 +106,7 @@ class Teacher extends React.Component {
     };
     if (interfaceFlag === 1) {
       // console.log('interfaceFlag为1时候请求两个接口',detailKpiParams,kpiLevelParams,flag)
-      this.detailKpiFetch(detailKpiParams, flag, 0, kpiLevelParams);
+      this.detailKpiFetch(detailKpiParams, flag, type, kpiLevelParams);
     } else {
       // console.log('interfaceFlag为2时候请求档位一个接口',kpiLevelParams)
       this.kpiLevelFetch(kpiLevelParams);
@@ -186,7 +187,7 @@ class Teacher extends React.Component {
     const { isloading } = this.props;
     const aa = !manageScale
       ? 0
-      : !manageScale.manageNum && manageScale.manageNum !== 0 ? 0 : manageScale.manageNum;
+      : !manageScale.classNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
 
     const { name = null } = !detailKpiData ? {} : detailKpiData;
     return (

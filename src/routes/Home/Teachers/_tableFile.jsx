@@ -3,6 +3,7 @@ import styles from './_tableFile.less';
 import arrow from '../../../assets/arrow.svg';
 import ImgTitle from '../../../components/ImgTitle/ImgTitle';
 import NoData from '../../../components/NoData/NoData';
+import { formatMoney } from '../../../utils/utils';
 // import redtriangle from '../../../assets/redtriangle.png';
 // import greentriangle from '../../../assets/greentriangle.png';
 import MultipHeaderList from '../../../components/ListView/listView';
@@ -44,7 +45,7 @@ class TableFile extends React.Component {
             key: 1,
           },
           {
-            value: item.value,
+            value: formatMoney(item.value || 0),
             clsName: 'familyCls',
             key: 2,
           },
@@ -125,15 +126,19 @@ class TableFile extends React.Component {
             ? 777
             : !dailyCredit.value && dailyCredit.value !== 0 ? 888 : dailyCredit.value
           : flag2 === 2
-            ? !baseKpi ? 777 : !baseKpi.value && baseKpi.value !== 0 ? 888 : baseKpi.value
+            ? !baseKpi
+              ? 777
+              : !baseKpi.value && baseKpi.value !== 0 ? 888 : `${formatMoney(baseKpi.value || 0)}人`
             : !manageScale
               ? 777
-              : !manageScale.manageNum && manageScale.manageNum !== 0 ? 888 : manageScale.manageNum}
+              : !manageScale.manageNum && manageScale.classNum !== 0
+                ? 888
+                : `${formatMoney(manageScale.classNum || 0)}人`}
       </span>
     );
     const classNum = !manageScale
       ? 1
-      : !manageScale.classNum && manageScale.classNum !== 0 ? 1 : manageScale.classNum || 1;
+      : !manageScale.manageNum && manageScale.manageNum !== 0 ? 1 : manageScale.manageNum || 1;
     const index =
       flag2 === 1
         ? !dailyCredit
@@ -148,7 +153,7 @@ class TableFile extends React.Component {
     const scoreRight = () => (
       <span className={styles.u_numSpan}>
         {flag2 === 3 ? (
-          classNum
+          `${formatMoney(classNum || 0)}人`
         ) : (
           <span>
             {index}/{size} ({`${perSize}%`})

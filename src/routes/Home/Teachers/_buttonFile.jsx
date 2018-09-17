@@ -11,7 +11,7 @@ class ButtonFile extends React.Component {
       : dataSource;
     const ratio = !dailyCredit ? 0 : !dailyCredit.ratio ? 0 : dailyCredit.ratio;
     const personNumAvg = !baseKpi ? 0 : !baseKpi.personNumAvg ? 0 : baseKpi.personNumAvg;
-    const manageNum = !manageScale ? 0 : !manageScale.manageNum ? 0 : manageScale.manageNum;
+    const manageNum = !manageScale ? 0 : !manageScale.value ? 0 : manageScale.value;
     return (
       <div className={styles.m_btnContainer}>
         <div className={styles.m_titile}>
