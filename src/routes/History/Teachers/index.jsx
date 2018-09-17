@@ -4,6 +4,8 @@ import moment from 'moment';
 import { getCurrentAuthInfo } from 'utils/decorator';
 import { assignUrlParams } from 'utils/routerUtils';
 import Loading from 'components/Loading/Loading';
+import HistoryFamily from './family';
+import HistoryGroup from './group';
 import styles from './index.less';
 import common from '../index.less';
 import SurePer from '../../../assets/surePer.png';
@@ -24,11 +26,39 @@ class HistoryTeacher extends React.Component {
     this.getData();
   }
   getData = () => {
-    const { loginUserId } = this.currentAuthInfo;
+    const { loginUserId, groupType } = this.currentAuthInfo;
     const { month } = this.state;
     this.props.dispatch({
       type: 'historyhome/findIndividualHistoryKPI',
       payload: { entUserId: loginUserId, month },
+    });
+    if (groupType === 'group') {
+      this.getGroupHistoryBarData();
+    }
+  };
+  getGroupHistoryBarData = () => {
+    const {
+      loginUserId,
+      groupType,
+      collegeId,
+      familyId,
+      groupId,
+      userId,
+      familyType,
+    } = this.currentAuthInfo;
+    const { month } = this.state;
+    this.props.dispatch({
+      type: 'historyhome/findClassKpiList',
+      payload: {
+        entUserId: loginUserId,
+        month,
+        groupType,
+        collegeId,
+        familyId,
+        groupId,
+        userId,
+        familyType,
+      },
     });
   };
   formateDate = () => {
@@ -40,11 +70,15 @@ class HistoryTeacher extends React.Component {
       month: newMonth + 1 >= 10 ? newMonth : `0${newMonth + 1}`,
     };
   };
+  toDetailsPage = () => {
+    this.props.setRouteUrlParams('/history/details', { type: 0 });
+  };
   render() {
     const { loading } = this.props;
     const historyhome = this.props.historyhome || {};
     const { teacherKpiObj = {} } = historyhome;
     const timeDateObj = this.formateDate();
+    const { groupType = null } = this.currentAuthInfo;
     return (
       <div>
         <div className={common.historyBanner} />
@@ -135,6 +169,10 @@ class HistoryTeacher extends React.Component {
 
         <div className={styles.m_innercontener}>
           <span className={styles.u_spanWorld}>* 实发金额以财务部税后实发为准</span>
+        </div>
+        <div>
+          {groupType === 'family' && <HistoryFamily toDetailsPage={this.toDetailsPage} />}
+          {groupType === 'group' && <HistoryGroup />}
         </div>
         {loading && <Loading />}
       </div>

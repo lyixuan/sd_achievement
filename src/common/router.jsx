@@ -140,21 +140,6 @@ export const getRouterData = app => {
       title: '运营确认绩效',
       showTitle: true,
     },
-    '/history/teacher/class': {
-      component: dynamicWrapper(app, [], () => import('../routes/History/Teachers/class')),
-      title: '班主任确认绩效',
-      showTitle: true,
-    },
-    '/history/teacher/family': {
-      component: dynamicWrapper(app, [], () => import('../routes/History/Teachers/family')),
-      title: '家族长确认绩效',
-      showTitle: true,
-    },
-    '/history/teacher/group': {
-      component: dynamicWrapper(app, [], () => import('../routes/History/Teachers/group')),
-      title: '运营长确认绩效',
-      showTitle: true,
-    },
     '/history/details': {
       component: dynamicWrapper(app, ['historyDetails'], () =>
         import('../routes/History/Details/index')

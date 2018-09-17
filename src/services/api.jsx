@@ -132,7 +132,15 @@ export async function findIndividualHistoryKPI(params) {
     body: params,
   });
 }
-
+/*
+* 历史绩效：班主任历史绩效列表
+*/
+export async function findClassKpiList(params) {
+  return request(`${HOST}/historyKpi/findClassKpiList`, {
+    method: 'POST',
+    body: params,
+  });
+}
 /*
 * 历史绩效：boss/院长-家族历史绩效
 */
