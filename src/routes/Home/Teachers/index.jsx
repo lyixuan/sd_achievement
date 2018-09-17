@@ -25,7 +25,6 @@ class Teacher extends React.Component {
     const { urlParams = {} } = props;
     const dateVal = timeArea();
     const { maxDate } = dateVal;
-    // console.log('公共参数', this.currentAuthInfo);
     const {
       groupType = 'family',
       collegeId = null,
@@ -35,19 +34,20 @@ class Teacher extends React.Component {
       familyType = 1,
     } = this.currentAuthInfo;
     const userFlag = groupType === 'family' ? 1 : 2;
+    console.log('公共参数', this.currentAuthInfo, maxDate, familyId, familyType);
     const initState = {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
       flag: userFlag, // 判断是家族长1,运营长2
       tabFlag: 1, // tab切换标记 0 日均学分排名系数 1绩效基数 2管理规模系数 3绩效比例
-      dateTime: maxDate,
+      dateTime: '2018-07',
       groupType, // 用户角色：family/group/class
       collegeId,
       userId,
-      familyId,
+      familyId: 297,
       groupId,
-      familyType,
+      familyType: 1,
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -59,7 +59,7 @@ class Teacher extends React.Component {
       userId = null,
       familyId = null,
       groupId = null,
-      // familyType = 0,
+      familyType = null,
       dateTime = null,
     } = this.state;
     const detailKpiParams = {
@@ -67,7 +67,7 @@ class Teacher extends React.Component {
       collegeId,
       familyId,
       groupId,
-      familyType: 0,
+      familyType,
       userId,
       month: dateTime,
     };
@@ -76,9 +76,9 @@ class Teacher extends React.Component {
       collegeId,
       familyId,
       groupId,
-      familyType: 0,
+      familyType,
       userId,
-      month: this.state.dateTime,
+      month: dateTime,
       type: 0,
     };
     this.detailKpiFetch(detailKpiParams, 0, kpiLevelParams);
@@ -92,14 +92,14 @@ class Teacher extends React.Component {
         userId = null,
         familyId = null,
         groupId = null,
-        // familyType = 0,
+        familyType = null,
       } = this.state;
       const detailKpiParams = {
         groupType,
         collegeId,
         familyId,
         groupId,
-        familyType: 0,
+        familyType,
         userId,
         month: date,
       };
@@ -110,7 +110,7 @@ class Teacher extends React.Component {
         collegeId,
         familyId,
         groupId,
-        familyType: 0,
+        familyType,
         userId,
         month: date,
         type: val,
@@ -144,9 +144,10 @@ class Teacher extends React.Component {
   }
 
   jumpDetail = name => {
-    const { month = null, groupType = 'family' } = this.state;
+    const { dateTime = null, groupType = 'family' } = this.state;
+    console.log('跳转传参', name, dateTime, groupType);
     this.props.setRouteUrlParams('/details', {
-      month,
+      month: dateTime,
       groupType,
       collegeName: name,
       type: 1,
