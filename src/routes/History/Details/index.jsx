@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'dva';
-import { formatDate } from '../../../utils/utils';
-import Switch from '../../../components/Switch/Switch';
-import MultipHeaderList from '../../../components/ListView/listView';
+import { formatDate } from 'utils/utils';
+import { assignUrlParams } from 'utils/routerUtils';
+import Switch from 'components/Switch/Switch';
+import MultipHeaderList from 'components/ListView/listView';
+import Loading from 'components/Loading/Loading';
+import NoData from 'components/NoData/NoData';
+import FloatIcon from 'components/FloatIcon/_floatIcon';
 import RenderHeader from './_renderHeader';
 import RenderItem from './_renderItem';
-import FloatIcon from '../../../components/FloatIcon/_floatIcon';
 import styles from './index.less';
-import { assignUrlParams } from '../../../utils/routerUtils';
 
 class HistoryDetails extends React.Component {
   constructor(props) {
@@ -79,30 +81,35 @@ class HistoryDetails extends React.Component {
           </span>
           <Switch onChange={val => this.onChange(val)} />
         </div>
+        {this.props.loading && <Loading />}
         {/* *************** listview *************** */}
-        {param.map(item => {
-          const newDataList = Object.keys(dataList).filter(obj => Number(obj) === item.id);
-          return (
-            newDataList.length > 0 && (
-              <MultipHeaderList
-                key={item.id}
-                dataList={dataList}
-                groupName={item.id}
-                customRenderHeader={sectionData => (
-                  <RenderHeader
-                    sectionData={sectionData}
-                    type={paramsObj.type}
-                    groupName={item.groupName}
-                  />
-                )}
-                customRenderItem={rowData => (
-                  <RenderItem paramsObj={paramsObj} rowData={rowData} groupType={item.id} />
-                )}
-                // customRenderItem={rowData => <RenderItem rowData={rowData} />}
-              />
-            )
-          );
-        })}
+        {!dataList ? (
+          <NoData showflag />
+        ) : (
+          param.map(item => {
+            const newDataList = Object.keys(dataList).filter(obj => Number(obj) === item.id);
+            return (
+              newDataList.length > 0 && (
+                <MultipHeaderList
+                  key={item.id}
+                  dataList={dataList}
+                  groupName={item.id}
+                  customRenderHeader={sectionData => (
+                    <RenderHeader
+                      sectionData={sectionData}
+                      type={paramsObj.type}
+                      groupName={item.groupName}
+                    />
+                  )}
+                  customRenderItem={rowData => (
+                    <RenderItem paramsObj={paramsObj} rowData={rowData} groupType={item.id} />
+                  )}
+                  // customRenderItem={rowData => <RenderItem rowData={rowData} />}
+                />
+              )
+            );
+          })
+        )}
         {/* *************** floatIcon *************** */}
         <FloatIcon
           changeCollegeName={val => this.changeCollegeName(val)}

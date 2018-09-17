@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'dva';
 import { getCurrentAuthInfo } from 'utils/decorator';
-import { changeObj, formatDate } from '../../utils/utils';
+import { changeObj, formatDate } from 'utils/utils';
+import MultipHeaderList from 'components/ListView/listView';
+import Loading from 'components/Loading/Loading';
+import NoData from 'components/NoData/NoData';
 import arrowRight from '../../assets/right.svg';
-import MultipHeaderList from '../../components/ListView/listView';
 import RenderHeader from './_renderHeader';
 import RenderItem from './_renderItem';
 import styles from './index.less';
@@ -70,24 +72,30 @@ class Level extends React.Component {
             绩效详情 <img src={arrowRight} alt="arrow" className={styles.arrowRight} />
           </div>
         </div>
+
+        {this.props.loading && <Loading />}
         {/* *************** listview *************** */}
-        {familyData.map(item => {
-          const newDataList = Object.keys(dataList).filter(obj => obj === item.name);
-          return (
-            newDataList.length > 0 && (
-              <MultipHeaderList
-                key={item.id}
-                dataList={dataList}
-                groupName={item.name}
-                id={item.id}
-                renderHeader={name => this.renderHeader(name)}
-                renderFooter={(name, id) => this.renderFooter(name, id)}
-                customRenderHeader={() => <RenderHeader />}
-                customRenderItem={rowData => <RenderItem rowData={rowData} />}
-              />
-            )
-          );
-        })}
+        {!dataList ? (
+          <NoData showflag />
+        ) : (
+          familyData.map(item => {
+            const newDataList = Object.keys(dataList).filter(obj => obj === item.name);
+            return (
+              newDataList.length > 0 && (
+                <MultipHeaderList
+                  key={item.id}
+                  dataList={dataList}
+                  groupName={item.name}
+                  id={item.id}
+                  renderHeader={name => this.renderHeader(name)}
+                  renderFooter={(name, id) => this.renderFooter(name, id)}
+                  customRenderHeader={() => <RenderHeader />}
+                  customRenderItem={rowData => <RenderItem rowData={rowData} />}
+                />
+              )
+            );
+          })
+        )}
       </div>
     );
   }

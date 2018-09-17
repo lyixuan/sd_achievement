@@ -1,15 +1,19 @@
 import React from 'react';
 import { connect } from 'dva';
 import PropTypes from 'prop-types';
-import { formatDate } from '../../utils/utils';
-import { assignUrlParams } from '../../utils/routerUtils';
-import Switch from '../../components/Switch/Switch';
-import MultipHeaderList from '../../components/ListView/listView';
+import { formatDate } from 'utils/utils';
+import { getCurrentAuthInfo } from 'utils/decorator';
+import { assignUrlParams } from 'utils/routerUtils';
+import NoData from 'components/NoData/NoData';
+import Loading from 'components/Loading/Loading';
+import Switch from 'components/Switch/Switch';
+import MultipHeaderList from 'components/ListView/listView';
+import FloatIcon from 'components/FloatIcon/_floatIcon';
 import RenderHeader from './_renderHeader';
 import RenderItem from './_renderItem';
-import FloatIcon from '../../components/FloatIcon/_floatIcon';
 import styles from './index.less';
 
+@getCurrentAuthInfo
 class Details extends React.Component {
   static contextTypes = {
     setTitle: PropTypes.func,
@@ -17,23 +21,30 @@ class Details extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
-    const currentAuthInfo = this.currentAuthInfo || {};
-    const { collegeId, groupType = '', userId = '' } = currentAuthInfo;
+    console.log(this.currentAuthInfo);
+    const {
+      collegeId = null,
+      groupType = '',
+      familyId = '',
+      userId = '',
+      name = null,
+    } = this.currentAuthInfo;
     const initState = {
       paramsObj: {
         month: urlParams.month,
         groupType,
+        familyId,
         type: urlParams.type, // 0：家族，1：小组
         userId,
       },
-      collegeName: urlParams.collegeName,
+      collegeName: name || '全部学院',
       collegeId,
       sort: 1,
       isShowSwitch: false, // 是否展示右侧切换按钮
       url:
-        Number(urlParams.type) === 0
-          ? 'details/findGroupDetailByFamily'
-          : 'details/collgeKpiFamilyDetail', // 区分小组详情的身份
+        groupType === 'family'
+          ? 'details/findGroupDetailByFamily' // 家族长-小组详情
+          : 'details/collgeKpiFamilyDetail', // boss/院长-小组详情
     };
 
     this.state = assignUrlParams(initState, urlParams);
@@ -45,6 +56,11 @@ class Details extends React.Component {
     this.context.setTitle(Number(paramsObj.type) === 0 ? '家族绩效页' : '小组绩效页');
     this.getDataListLen(dataList);
     this.getListData(url, { sort }, { collegeId });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.details.dataList && nextProps.details.dataList !== this.props.details.dataList) {
+      this.getDataListLen(nextProps.details.dataList);
+    }
   }
   onChange = val => {
     const { url, collegeId } = this.state;
@@ -61,12 +77,18 @@ class Details extends React.Component {
       payload: param,
     });
   };
-  // 列表展示条数大于2则展示switch按钮
+  // 列表展示条数大于3则展示switch按钮
   getDataListLen = data => {
+    let len = 0;
     Object.keys(data).map(item => {
-      if (data[item].length > 2) {
+      if (data[item]) len += data[item].length;
+      if (len > 3) {
         this.setState({
           isShowSwitch: true,
+        });
+      } else {
+        this.setState({
+          isShowSwitch: false,
         });
       }
       return '';
@@ -83,7 +105,7 @@ class Details extends React.Component {
 
   render() {
     const { paramsObj, collegeName, isShowSwitch } = this.state;
-    const { dataList } = this.props.details;
+    const { dataList = {} } = this.props.details;
 
     const param = [
       { groupName: '（自考）', id: 0 },
@@ -98,30 +120,41 @@ class Details extends React.Component {
           </span>
           {!isShowSwitch ? null : <Switch onChange={val => this.onChange(val)} />}
         </div>
+        {this.props.loading && <Loading />}
         {/* *************** listview *************** */}
-        {param.map(item => {
-          const newDataList = Object.keys(dataList).filter(obj => Number(obj) === item.id);
+        {!dataList ? (
+          <NoData showflag />
+        ) : (
+          param.map(item => {
+            const newDataList = Object.keys(dataList).filter(obj => {
+              if (dataList[obj]) {
+                return Number(obj) === item.id;
+              } else {
+                return '';
+              }
+            });
 
-          return (
-            newDataList.length > 0 && (
-              <MultipHeaderList
-                key={item.id}
-                dataList={dataList}
-                groupName={item.id}
-                customRenderHeader={sectionData => (
-                  <RenderHeader
-                    sectionData={sectionData}
-                    type={paramsObj.type}
-                    groupName={item.groupName}
-                  />
-                )}
-                customRenderItem={rowData => (
-                  <RenderItem paramsObj={paramsObj} rowData={rowData} groupType={item.id} />
-                )}
-              />
-            )
-          );
-        })}
+            return (
+              newDataList.length > 0 && (
+                <MultipHeaderList
+                  key={item.id}
+                  dataList={dataList}
+                  groupName={item.id}
+                  customRenderHeader={sectionData => (
+                    <RenderHeader
+                      sectionData={sectionData}
+                      type={paramsObj.type}
+                      groupName={item.groupName}
+                    />
+                  )}
+                  customRenderItem={rowData => (
+                    <RenderItem paramsObj={paramsObj} rowData={rowData} groupType={item.id} />
+                  )}
+                />
+              )
+            );
+          })
+        )}
         {/* *************** floatIcon *************** */}
         <FloatIcon
           changeCollegeName={val => this.changeCollegeName(val)}
