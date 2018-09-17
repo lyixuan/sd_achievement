@@ -6,6 +6,7 @@ export default {
 
   state: {
     bossKpiBracketObj: {},
+    teacherKpiObj: {},
   },
   effects: {
     *findHistoryKpiBracket({ payload }, { call, put }) {
@@ -24,10 +25,10 @@ export default {
     *findIndividualHistoryKPI({ payload }, { call, put }) {
       const response = yield call(findIndividualHistoryKPI, payload);
       if (response.code === 2000) {
-        const bossKpiBracketObj = response.data || [];
+        const teacherKpiObj = response.data || [];
         yield put({
           type: 'saveHistoryKpiBracket',
-          payload: { bossKpiBracketObj },
+          payload: { teacherKpiObj },
         });
       } else {
         Message.fail(response.msg);
