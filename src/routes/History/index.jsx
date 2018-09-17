@@ -2,9 +2,12 @@ import React from 'react';
 import { connect } from 'dva';
 import { Redirect, Switch, Route } from 'dva/router';
 import { getRoutes, assignUrlParams } from 'utils/routerUtils';
+import { getCurrentAuthInfo } from 'utils/decorator';
+import { stringify } from 'qs';
 import styles from './index.less';
 
-class Boss extends React.Component {
+@getCurrentAuthInfo
+class HistoryIndex extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
@@ -15,13 +18,20 @@ class Boss extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
-
+  checkoutUserAuth = () => {
+    const { groupType = null } = this.currentAuthInfo;
+    const { urlParams } = this.props;
+    if (groupType === 'boss' || groupType === 'college') {
+      return `/history/boss?${stringify(urlParams)}`;
+    } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
+      return `/history/teacher?${stringify(urlParams)}`;
+    } else {
+      this.props.history.push('/exception/403');
+    }
+  };
   render() {
     const { routerData, match } = this.props;
-    //  待优化应使用正则进行匹配
-    // const {pathname}=this.props.location
-    // const isPandectPath=pathname==='/indexPage/boss/pandect';
-    // const isMonthoyPath=pathname==='/indexPage/boss/monthly/proportion'||pathname==='/indexPage/boss/monthly/step'
+    const redirectUrl = this.checkoutUserAuth();
 
     return (
       <div>
@@ -37,10 +47,10 @@ class Boss extends React.Component {
               redirectPath="/exception/403"
             />
           ))}
-          <Redirect exact from="/history" to="/history/boss" />
+          <Redirect exact from="/history" to={redirectUrl} />
         </Switch>
       </div>
     );
   }
 }
-export default connect(({ loading }) => ({ loading }))(Boss);
+export default connect(({ loading }) => ({ loading }))(HistoryIndex);

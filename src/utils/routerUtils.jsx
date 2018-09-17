@@ -60,7 +60,10 @@ export function assignUrlParams(paramsObj = {}, urlParams = {}) {
     if (item !== null && typeof item === 'object' && isNaN(item.length)) {
       returnParams[key] = assignUrlParams(item, urlParams);
     } else {
-      const value = urlParams[key] || paramsObj[key] || null;
+      const value =
+        urlParams[key] === undefined
+          ? paramsObj[key] === undefined ? null : paramsObj[key]
+          : urlParams[key];
       if (typeof value !== 'object' && !isNaN(Number(value))) {
         returnParams[key] = typeof paramsObj[key] === 'string' ? value : Number(value);
       } else {
