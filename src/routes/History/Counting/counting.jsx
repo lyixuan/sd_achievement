@@ -1,9 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import { getCurrentAuthInfo } from 'utils/decorator';
-import styles from 'Teacher/index.less';
-import common from './index.less';
-import SurePer from '../../assets/surePer.png';
+import styles from '../Teachers/index.less';
+import common from '../index.less';
+import SurePer from '../../../assets/surePer.png';
 
 @getCurrentAuthInfo
 class Counting extends React.Component {
