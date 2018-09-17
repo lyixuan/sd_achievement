@@ -4,6 +4,7 @@ import MultipHeaderList from '../../../components/ListView/listView';
 import TeacherHeader from '../../../components/TableItem/TeacherHeader';
 import TeacherItem from '../../../components/TableItem/TeacherItem';
 import NoData from '../../../components/NoData/NoData';
+import { formatMoney } from '../../../utils/utils';
 
 class TeacherPer extends React.Component {
   itemList = val => {
@@ -14,11 +15,11 @@ class TeacherPer extends React.Component {
         key: index,
         data: [
           { value: item.name, clsName: 'one', key: 't21' },
-          { value: item.total, clsName: 'two', key: 't22' },
+          { value: formatMoney(item.total || 0), clsName: 'two', key: 't22' },
           { value: ' ', clsName: 'three', key: 't23' },
-          { value: item.base, clsName: 'four', key: 't24' },
+          { value: formatMoney(item.base || 0), clsName: 'four', key: 't24' },
           { value: '', clsName: 'five', key: 't25' },
-          { value: item.mark, clsName: 'six', key: 't26' },
+          { value: formatMoney(item.mark || 0), clsName: 'six', key: 't26' },
         ],
       })
     );
@@ -77,8 +78,8 @@ class TeacherPer extends React.Component {
           <span style={{ fontSize: '0.3rem', color: '#333' }}>班主任预测绩效</span>
         </div>
         <div className={styles.teacherList}>
-          <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
-          <div className={styles.testList}>
+          <div style={{ height: '0.1rem', width: '100%', borderRadius: '0.12rem' }} />
+          <div style={{ margin: '0.1rem auto' }} className={styles.testList}>
             {teacherItem.length === 0 ? (
               <NoData showflag />
             ) : (

@@ -56,14 +56,15 @@ export default {
         const manageScale = !dataList ? null : !dataList.manageScale ? null : dataList.manageScale;
         const selfNum = !manageScale
           ? 0
-          : !manageScale.manageNum && manageScale.manageNum !== 0 ? 0 : manageScale.manageNum;
+          : !manageScale.classNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
         let levelVal = 1;
+        console.log('type的值为', flagVal, '角色为', userFlag);
         if (flagVal === 0) {
           levelVal = !dailyCredit.ratio ? 1 : dailyCredit.ratio;
         } else if (flagVal === 1) {
           levelVal = !baseKpi.personNumAvg ? 1 : baseKpi.personNumAvg;
         } else {
-          levelVal = userFlag === 2 ? selfNum : !manageScale.manageNum ? 1 : manageScale.manageNum;
+          levelVal = userFlag === 2 ? selfNum : !manageScale.value ? 1 : manageScale.value;
         }
         // console.log('同时请求两个接口时候档位上送的参数',{ ...kpiLevelParams, levelVal })
         kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams, levelVal });
