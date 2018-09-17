@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './index.less';
 import multiple from '../../../assets/multiple.svg';
 import FormulaButton from '../../../components/ButtonGroup/FormulaButton';
+import { formatMoney } from '../../../utils/utils';
 
 class ButtonFile extends React.Component {
   render() {
@@ -28,7 +29,7 @@ class ButtonFile extends React.Component {
         />
         <img className={styles.u_buttonLineStyle} src={multiple} alt="乘号" />
         <FormulaButton
-          dataSource={{ id: 2, name: '绩效基数', score: personNumAvg }}
+          dataSource={{ id: 2, name: '绩效基数', score: formatMoney(personNumAvg) }}
           dataReturnFun={item => {
             this.props.changeFlag(item);
           }}

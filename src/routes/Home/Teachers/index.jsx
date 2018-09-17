@@ -154,13 +154,19 @@ class Teacher extends React.Component {
     });
   };
   // button切换调用的档位接口
-  buttonChange = (item, num) => {
+  buttonChange = (item, manageScale, baseKpi) => {
     if (this.state.tabFlag !== item.id) {
+      const num1 = !manageScale
+        ? 0
+        : !manageScale.classNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
+      const num2 = !baseKpi
+        ? 0
+        : !baseKpi.personNumAvg && baseKpi.personNumAvg !== 0 ? 0 : baseKpi.personNumAvg;
       let aa = item.score;
       if (typeof aa === 'string' && aa.indexOf('%') !== -1) {
         aa = aa.replace('%', '');
       }
-      const levelVal = this.state.flag === 2 && item.id === 3 ? num : aa;
+      const levelVal = item.id === 2 ? num2 : this.state.flag === 2 && item.id === 3 ? num1 : aa;
       const val = item.id === 3 ? (this.state.flag === 1 ? 2 : 3) : item.id - 1;
       this.getData({ type: val, levelVal, interfaceFlag: 2 });
       this.saveParams({ tabFlag: item.id });
@@ -181,14 +187,10 @@ class Teacher extends React.Component {
       ? []
       : !this.props.teacherhome.kpiLevelData.data ? [] : this.props.teacherhome.kpiLevelData.data;
 
-    const { base = 0, mark = 0, total = 0, manageScale = null } = !detailKpiData
+    const { base = 0, mark = 0, total = 0, manageScale = null, baseKpi = null } = !detailKpiData
       ? {}
       : detailKpiData;
     const { isloading } = this.props;
-    const aa = !manageScale
-      ? 0
-      : !manageScale.classNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
-
     const { name = null } = !detailKpiData ? {} : detailKpiData;
     return (
       <div>
@@ -234,7 +236,7 @@ class Teacher extends React.Component {
           flag2={tabFlag}
           flag={flag}
           dataSource={detailKpiData}
-          changeFlag={item => this.buttonChange(item, aa)}
+          changeFlag={item => this.buttonChange(item, manageScale, baseKpi)}
         />
         <TableFile
           flag2={tabFlag}

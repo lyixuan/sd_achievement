@@ -58,7 +58,6 @@ export default {
           ? 0
           : !manageScale.classNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
         let levelVal = 1;
-        console.log('type的值为', flagVal, '角色为', userFlag);
         if (flagVal === 0) {
           levelVal = !dailyCredit.ratio ? 1 : dailyCredit.ratio;
         } else if (flagVal === 1) {
