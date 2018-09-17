@@ -168,7 +168,10 @@ export default class SingleBar extends React.Component {
   };
   handleData = () => {
     const { dataSource } = this.props;
-    this.tooltipInstance = new Proportion({ dataSource });
+    if (!this.tooltipInstance) {
+      this.tooltipInstance = new Proportion();
+    }
+    this.tooltipInstance.setData(dataSource);
     const { chartData } = this.tooltipInstance;
     const xAxisData = this.setXAxis(chartData);
     const allMoney = this.setServiesItem(chartData);

@@ -98,8 +98,9 @@ export default class SingleBar extends React.Component {
   handleData = () => {
     const { dataSource } = this.props;
     if (!this.tooltipInstance) {
-      this.tooltipInstance = new BarClass({ dataSource });
+      this.tooltipInstance = new BarClass();
     }
+    this.tooltipInstance.setData(dataSource);
     const { chartData } = this.tooltipInstance;
     const seriesData = this.handleLayout(chartData);
     const chartStyle = this.handleChartStyle(chartData);

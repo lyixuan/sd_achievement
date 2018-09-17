@@ -76,7 +76,7 @@ class HistoryTeacher extends React.Component {
   render() {
     const { loading } = this.props;
     const historyhome = this.props.historyhome || {};
-    const { teacherKpiObj = {} } = historyhome;
+    const { teacherKpiObj = {}, classKpiList = [] } = historyhome;
     const timeDateObj = this.formateDate();
     const { groupType = null } = this.currentAuthInfo;
     return (
@@ -90,7 +90,7 @@ class HistoryTeacher extends React.Component {
             <p>亲爱的甘文斌</p>
             <p>辛苦啦，感谢您在{timeDateObj.month}月份努力的付出！</p>
             <p className={styles.u_timeCls}>您{timeDateObj.month}月份确定绩效为</p>
-            <p className={styles.u_resultlCls}>{teacherKpiObj.actual_kpi}</p>
+            <p className={styles.u_resultlCls}>{teacherKpiObj.actual_kpi}元</p>
             <div style={{ height: '0.54rem' }} />
             <div
               style={{
@@ -172,7 +172,7 @@ class HistoryTeacher extends React.Component {
         </div>
         <div>
           {groupType === 'family' && <HistoryFamily toDetailsPage={this.toDetailsPage} />}
-          {groupType === 'group' && <HistoryGroup />}
+          {groupType === 'group' && <HistoryGroup dataSource={classKpiList} />}
         </div>
         {loading && <Loading />}
       </div>

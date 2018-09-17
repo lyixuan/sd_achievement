@@ -2,15 +2,15 @@
 import React from 'react';
 import { fontSizeAuto } from 'utils/chartUtils';
 import Bar from '../BaseChart/bar';
-import { Proportion } from './multi';
+import { Proportion } from './historyGroup';
 
 export default class SingleBar extends React.Component {
   constructor(props) {
     super(props);
-    this.tooltipInstance = null;
+    this.tooltipInstance = new Proportion();
   }
   setChartsOps = dataSource => {
-    const { allMoney, xAxisData } = dataSource;
+    const { seriesData, xAxisData } = dataSource;
     const title = this.tooltipInstance.chartTitle();
     const grid = this.tooltipInstance.chartGrid();
     const chartOps = {
@@ -24,10 +24,14 @@ export default class SingleBar extends React.Component {
         top: fontSizeAuto(115),
       },
       // legend: {
-      //   ...this.tooltipInstance.legendStyle,
+      //   left: fontSizeAuto(279),
+      //   top: fontSizeAuto(80),
+      //   selectedMode: true, // 禁止点击图例
+      //   itemWidth: fontSizeAuto(10),
+      //   itemHeight: fontSizeAuto(10),
       //   data: [
       //     {
-      //       name: `全体总绩效`,
+      //       name: `人均绩效`,
       //       icon: 'circle',
       //       textStyle: {
       //         color: '#999999',
@@ -36,7 +40,7 @@ export default class SingleBar extends React.Component {
       //     },
       //   ],
       // },
-      color: '#52C9C2', // 设置图例远点颜色,可跟数组
+      color: '#4A90E2', // 设置图例远点颜色,可跟数组
       xAxis: {
         ...xAxisData,
       },
@@ -63,24 +67,18 @@ export default class SingleBar extends React.Component {
         },
       },
       series: {
-        name: '全体总绩效',
-        type: 'line',
-        symbol: 'circle', // 拐点样式 圆
-        symbolSize: fontSizeAuto(8), // 拐点大小
-        itemStyle: {
-          color: '#52C9C2',
-        },
-        // 线段
         lineStyle: {
-          color: '#52C9C2',
-          width: 1,
+          color: '#4A90E2',
         },
-        data: allMoney,
+        name: '人均绩效',
+        type: 'bar',
+        barWidth: fontSizeAuto(20),
+        data: seriesData,
       },
     };
     return chartOps;
   };
-  setXAxis = () => {
+  setXAxis = dataSource => {
     return {
       type: 'category',
       axisTick: {
@@ -90,7 +88,8 @@ export default class SingleBar extends React.Component {
       axisLabel: {
         interval: 0,
         color: '#999999',
-        formatter: this.tooltipInstance.isPredictedStr,
+        rotate: 45,
+        // formatter: this.tooltipInstance.isPredictedStr,
         rich: {
           a: {
             color: '#50E3C2',
@@ -105,49 +104,36 @@ export default class SingleBar extends React.Component {
           color: '#52C9C2',
         },
       },
-      data: this.tooltipInstance.chartData.map(item => item.name),
+      data: dataSource.map(item => item.name),
     };
   };
-  setServiesItem = data => {
-    return data.map(item => ({
-      value: item.val,
-      itemStyle: {
-        color: '#52C9C2',
-        barBorderRadius: [2, 2, 0, 0], // 处理数据正副职圆角的问题
-      },
-    }));
-  };
-  //   setBaseMoney = data => {
-  //     return data.map(item => ({
-  //       value: item.baseMoney,
-  //       itemStyle: {
-  //         color: '#B68CFF',
-  //         barBorderRadius: [2, 2, 0, 0], // 处理数据正副职圆角的问题
-  //       },
-  //     }));
-  //   };
-  //   setMarkMoney = data => {
-  //     return data.map(item => ({
-  //       value: item.markMoney,
-  //       itemStyle: {
-  //         color: '#FDBF41',
-  //         barBorderRadius: [2, 2, 0, 0], // 处理数据正副职圆角的问题
-  //       },
-  //     }));
-  //   };
   handleData = () => {
     const { dataSource } = this.props;
     if (!this.tooltipInstance) {
       this.tooltipInstance = new Proportion();
     }
     this.tooltipInstance.setData(dataSource);
-    const { chartData } = this.tooltipInstance;
-
+    const { chartData = [] } = this.tooltipInstance || {};
+    const seriesData = [];
+    chartData.forEach(item => {
+      const opsXobj = {
+        value: item.val,
+        itemStyle: {
+          color: '#52C9C2',
+          barBorderRadius: [2, 2, 0, 0], // 处理数据正副职圆角的问题
+        },
+        label: {
+          show: true,
+          color: '#333333',
+          position: 'top',
+          fontSize: fontSizeAuto(16),
+          formatter: this.tooltipInstance.seriesLaber,
+        },
+      };
+      seriesData.push(opsXobj);
+    });
     const xAxisData = this.setXAxis(chartData);
-    const allMoney = this.setServiesItem(chartData);
-    // const baseMoney = this.setBaseMoney(dataSource);
-    // const markMoney = this.setMarkMoney(dataSource);
-    return this.setChartsOps({ allMoney, xAxisData });
+    return this.setChartsOps({ seriesData, xAxisData });
   };
 
   render() {

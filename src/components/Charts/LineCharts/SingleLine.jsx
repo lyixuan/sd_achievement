@@ -109,7 +109,10 @@ export default class SingleBar extends React.Component {
   };
   handleData = () => {
     const { dataSource } = this.props;
-    this.tooltipInstance = new BarClass({ dataSource });
+    if (!this.tooltipInstance) {
+      this.tooltipInstance = new BarClass();
+    }
+    this.tooltipInstance.setData(dataSource);
     const seriesData = [];
     this.tooltipInstance.chartData.forEach(item => {
       const opsXobj = {

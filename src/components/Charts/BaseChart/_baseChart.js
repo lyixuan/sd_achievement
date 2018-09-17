@@ -3,11 +3,15 @@ import { fontSizeAuto } from 'utils/chartUtils';
 
 export class ChartBase {
   // 数据源 [{name:'2018.08',val:10,isPredicted:0}}],   // 基类不可直接使用
-  constructor(props) {
-    this.chartData = props.dataSource.data;
-    this.title = props.dataSource.title;
+  constructor() {
+    this.chartData = [];
+    this.title = '';
     this.baseBunber = 100000; // 基础定义类
   }
+  setData = dataSource => {
+    this.chartData = dataSource.data;
+    this.title = dataSource.title;
+  };
   chartTitle = () => {
     return {
       top: fontSizeAuto(20),
