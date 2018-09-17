@@ -77,7 +77,6 @@ class BossMothly extends React.Component {
     this.props.setCurrentUrlParams(params);
   };
   toLevelPage = type => {
-    console.log(type);
     const { month } = this.state;
     this.props.setRouteUrlParams('/level', { month, type });
   };

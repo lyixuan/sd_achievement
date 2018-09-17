@@ -19,7 +19,7 @@ export class BarClass extends ChartBase {
     const item =
       this.chartData.find(list => list.name.toLowerCase() === selfLabel.toLowerCase()) || {};
     const str = `${name}\n`;
-    const demation = `{a|家族数: ${item.levelCount || 0}个  占比:${item.val}%}`;
+    const demation = `{a|家族数: ${item.levelCount || 0}个  占比:${item.val || 0}%}`;
     return str + demation;
   };
   setLabel = () => {

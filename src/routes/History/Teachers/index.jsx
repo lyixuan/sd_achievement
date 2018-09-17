@@ -1,7 +1,11 @@
 import React from 'react';
+import { connect } from 'dva';
+import { getCurrentAuthInfo } from 'utils/decorator';
 import styles from './index.less';
+import common from '../index.less';
 import SurePer from '../../../assets/surePer.png';
 
+@getCurrentAuthInfo
 class HistoryTeacher extends React.Component {
   constructor(props) {
     super(props);
@@ -11,12 +15,23 @@ class HistoryTeacher extends React.Component {
       flag: 2,
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.getData();
+  }
+  getData = () => {
+    const { userId, collegeId, groupType } = this.currentAuthInfo;
+    const { month } = this.state;
+    this.props.dispatch({
+      type: 'historyhome/findIndividualHistoryKPI',
+      payload: { userId, collegeId, groupType, month },
+    });
+  };
   render() {
     const { timeVal, permenMoney, flag } = this.state;
     const aa = timeVal.split('.');
     return (
       <div>
+        <div className={common.historyBanner} />
         {flag === 1 ? (
           <div className={styles.m_wrapcontener}>
             <div className={styles.m_imgDiv}>
@@ -127,4 +142,7 @@ class HistoryTeacher extends React.Component {
     );
   }
 }
-export default HistoryTeacher;
+export default connect(({ loading, historyhome }) => ({
+  loading: loading.models.historyhome,
+  historyhome,
+}))(HistoryTeacher);

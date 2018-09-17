@@ -4,18 +4,13 @@ import { Redirect, Switch, Route } from 'dva/router';
 import { getRoutes, assignUrlParams } from 'utils/routerUtils';
 import { getCurrentAuthInfo } from 'utils/decorator';
 import { stringify } from 'qs';
-import styles from './index.less';
 
 @getCurrentAuthInfo
 class HistoryIndex extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
-    const initState = {
-      paramsObj: {
-        startTime: null, // 过滤开始时间
-      },
-    };
+    const initState = {};
     this.state = assignUrlParams(initState, urlParams);
   }
   checkoutUserAuth = () => {
@@ -35,7 +30,6 @@ class HistoryIndex extends React.Component {
 
     return (
       <div>
-        <div className={styles.historyBanner} />
         <Switch>
           {getRoutes(match.path, routerData).map(item => (
             <Route

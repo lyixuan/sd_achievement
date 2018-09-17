@@ -115,6 +115,25 @@ export async function findGroupDetailByFamily(params) {
   });
 }
 /*
+* 历史绩效：boss/院长-绩效分档
+*/
+export async function findHistoryKpiBracket(params) {
+  return request(`${HOST}/historyKpi/findHistoryKpiBracket`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
+* 历史绩效：家族小组-绩效首页
+*/
+export async function findIndividualHistoryKPI(params) {
+  return request(`${HOST}/historyKpi/findIndividualHistoryKPI`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+/*
 * 历史绩效：boss/院长-家族历史绩效
 */
 export async function findFamilyHistoryKpi(params) {

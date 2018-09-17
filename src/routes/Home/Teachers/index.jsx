@@ -204,6 +204,10 @@ class Teacher extends React.Component {
       this.setState({ tabFlag: item.id });
     }
   };
+  toHistoryPage = () => {
+    const { dateTime } = this.state;
+    this.props.setRouteUrlParams('/history', { month: dateTime });
+  };
 
   render() {
     const { flag, tabFlag, dateTime, groupType } = this.state;
@@ -227,6 +231,9 @@ class Teacher extends React.Component {
       <div>
         <DatePanle
           defaultDate={dateTime}
+          toHistoryPage={() => {
+            this.toHistoryPage();
+          }}
           onChange={date => {
             this.onDateChange(date);
           }}
