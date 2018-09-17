@@ -13,11 +13,11 @@ import Right from '../../../assets/right.svg';
 import { timeArea } from '../../../utils/timeArea';
 import { formatMoney } from '../../../utils/utils';
 
-@connect(({ teacherhome, loading }) => ({
-  teacherhome,
-  interfaceDetail: loading.effects['teacherhome/findFamilyDetailKpi'],
-  interfaceKpi: loading.effects['teacherhome/findKpiLevel'],
-}))
+// @connect(({ teacherhome, loading }) => ({
+//   teacherhome,
+//   interfaceDetail: loading.effects['teacherhome/findFamilyDetailKpi'],
+//   interfaceKpi: loading.effects['teacherhome/findKpiLevel'],
+// }))
 @getCurrentAuthInfo
 class Teacher extends React.Component {
   constructor(props) {
@@ -72,6 +72,7 @@ class Teacher extends React.Component {
       groupId = null,
       familyType = 0,
       dateTime = null,
+      flag = null,
     } = this.state;
     const detailKpiParams = {
       groupType,
@@ -92,7 +93,7 @@ class Teacher extends React.Component {
       month: dateTime,
       type: 0,
     };
-    this.detailKpiFetch(detailKpiParams, 0, kpiLevelParams);
+    this.detailKpiFetch(detailKpiParams, flag, 0, kpiLevelParams);
   }
 
   onDateChange = date => {
@@ -104,6 +105,7 @@ class Teacher extends React.Component {
         familyId = null,
         groupId = null,
         familyType = null,
+        flag = null,
       } = this.state;
       const detailKpiParams = {
         groupType,
@@ -127,16 +129,17 @@ class Teacher extends React.Component {
         type: val,
       };
 
-      this.detailKpiFetch(detailKpiParams, val, kpiLevelParams);
+      this.detailKpiFetch(detailKpiParams, flag, val, kpiLevelParams);
       this.setState({ dateTime: date });
     }
   };
   // 请求model中的detailKpi方法
-  detailKpiFetch(detailKpiParams, flagVal, kpiLevelParams) {
+  detailKpiFetch(detailKpiParams, userFlag, flagVal, kpiLevelParams) {
     const sendParams = {
       detailKpiParams,
       flagVal,
       kpiLevelParams,
+      userFlag,
     };
     this.props.dispatch({
       type: 'teacherhome/detailKpi',
@@ -214,7 +217,7 @@ class Teacher extends React.Component {
     const { base = 0, mark = 0, total = 0, manageScale = null } = !detailKpiData
       ? {}
       : detailKpiData;
-    const { interfaceDetail, interfaceKpi } = this.props;
+    const { isloading } = this.props;
     const aa = !manageScale
       ? 0
       : !manageScale.manageNum && manageScale.manageNum !== 0 ? 0 : manageScale.manageNum;
@@ -228,7 +231,7 @@ class Teacher extends React.Component {
             this.onDateChange(date);
           }}
         />
-        {interfaceDetail && interfaceKpi && <Loading />}
+        {isloading && <Loading />}
         <div className={styles.m_performanceContener}>
           <span className={styles.u_totalNum}>{formatMoney(total || 0)}元</span>
           <div className={styles.m_performanceMoney}>
@@ -293,4 +296,7 @@ class Teacher extends React.Component {
     );
   }
 }
-export default Teacher;
+export default connect(({ teacherhome, loading }) => ({
+  teacherhome,
+  isloading: loading.models.teacherhome,
+}))(Teacher);

@@ -39,7 +39,7 @@ export default {
 
   effects: {
     *detailKpi({ payload }, { call, put }) {
-      const { detailKpiParams, flagVal, kpiLevelParams } = payload;
+      const { detailKpiParams, userFlag, flagVal, kpiLevelParams } = payload;
       const { groupType } = detailKpiParams;
       let detailKpiData = null;
       if (groupType === 'family') {
@@ -54,13 +54,16 @@ export default {
         const dailyCredit = !dataList ? null : !dataList.dailyCredit ? null : dataList.dailyCredit;
         const baseKpi = !dataList ? null : !dataList.baseKpi ? null : dataList.baseKpi;
         const manageScale = !dataList ? null : !dataList.manageScale ? null : dataList.manageScale;
+        const selfNum = !manageScale
+          ? 0
+          : !manageScale.manageNum && manageScale.manageNum !== 0 ? 0 : manageScale.manageNum;
         let levelVal = 1;
         if (flagVal === 0) {
           levelVal = !dailyCredit.ratio ? 1 : dailyCredit.ratio;
         } else if (flagVal === 1) {
           levelVal = !baseKpi.personNumAvg ? 1 : baseKpi.personNumAvg;
         } else {
-          levelVal = !manageScale.manageNum ? 1 : manageScale.manageNum;
+          levelVal = userFlag === 2 ? selfNum : !manageScale.manageNum ? 1 : manageScale.manageNum;
         }
         kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams, levelVal });
         if (kpiLevelData.code === 2000) {
