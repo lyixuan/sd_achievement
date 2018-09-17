@@ -13,11 +13,6 @@ import Right from '../../../assets/right.svg';
 import { timeArea } from '../../../utils/timeArea';
 import { formatMoney } from '../../../utils/utils';
 
-// @connect(({ teacherhome, loading }) => ({
-//   teacherhome,
-//   interfaceDetail: loading.effects['teacherhome/findFamilyDetailKpi'],
-//   interfaceKpi: loading.effects['teacherhome/findKpiLevel'],
-// }))
 @getCurrentAuthInfo
 class Teacher extends React.Component {
   constructor(props) {
@@ -64,6 +59,20 @@ class Teacher extends React.Component {
   }
 
   componentDidMount() {
+    this.getData({ type: 0, interfaceFlag: 1 });
+  }
+
+  onDateChange = date => {
+    if (this.state.dateTime !== date) {
+      const val =
+        this.state.tabFlag === 3 ? (this.state.flag === 1 ? 2 : 3) : this.state.tabFlag - 1;
+      this.getData({ type: val, dateTime: date, interfaceFlag: 1 });
+      this.saveParams({ dateTime: date });
+    }
+  };
+
+  getData = (params = {}) => {
+    const dateTime = params.dateTime || this.state.dateTime;
     const {
       groupType = 'family',
       collegeId = null,
@@ -71,9 +80,10 @@ class Teacher extends React.Component {
       familyId = null,
       groupId = null,
       familyType = 0,
-      dateTime = null,
       flag = null,
     } = this.state;
+    const { type = 0, interfaceFlag = 1, levelVal = 0 } = params;
+
     const detailKpiParams = {
       groupType,
       collegeId,
@@ -91,48 +101,18 @@ class Teacher extends React.Component {
       familyType,
       userId,
       month: dateTime,
-      type: 0,
+      type,
+      levelVal,
     };
-    this.detailKpiFetch(detailKpiParams, flag, 0, kpiLevelParams);
-  }
-
-  onDateChange = date => {
-    if (this.state.dateTime !== date) {
-      const {
-        groupType = 'family',
-        collegeId = null,
-        userId = null,
-        familyId = null,
-        groupId = null,
-        familyType = null,
-        flag = null,
-      } = this.state;
-      const detailKpiParams = {
-        groupType,
-        collegeId,
-        familyId,
-        groupId,
-        familyType,
-        userId,
-        month: date,
-      };
-      const val =
-        this.state.tabFlag === 3 ? (this.state.flag === 1 ? 2 : 3) : this.state.tabFlag - 1;
-      const kpiLevelParams = {
-        groupType,
-        collegeId,
-        familyId,
-        groupId,
-        familyType,
-        userId,
-        month: date,
-        type: val,
-      };
-
-      this.detailKpiFetch(detailKpiParams, flag, val, kpiLevelParams);
-      this.setState({ dateTime: date });
+    if (interfaceFlag === 1) {
+      // console.log('interfaceFlag为1时候请求两个接口',detailKpiParams,kpiLevelParams,flag)
+      this.detailKpiFetch(detailKpiParams, flag, 0, kpiLevelParams);
+    } else {
+      // console.log('interfaceFlag为2时候请求档位一个接口',kpiLevelParams)
+      this.kpiLevelFetch(kpiLevelParams);
     }
   };
+
   // 请求model中的detailKpi方法
   detailKpiFetch(detailKpiParams, userFlag, flagVal, kpiLevelParams) {
     const sendParams = {
@@ -156,14 +136,14 @@ class Teacher extends React.Component {
       payload: sendParams,
     });
   }
-  // saveParams=(params)=>{
-  //   this.setState(params);
-  //   this.props.setCurrentUrlParams()
-  // }
+
+  saveParams = (params = {}) => {
+    this.setState(params);
+    this.props.setCurrentUrlParams(params);
+  };
 
   jumpDetail = name => {
     const { dateTime = null, groupType = 'family' } = this.state;
-    console.log('跳转传参', name, dateTime, groupType);
     this.props.setRouteUrlParams('/details', {
       month: dateTime,
       groupType,
@@ -172,41 +152,20 @@ class Teacher extends React.Component {
     });
   };
   buttonChange = (item, num) => {
-    let aa = item.score;
-    if (typeof aa === 'string' && aa.indexOf('%') !== -1) {
-      aa = aa.replace('%', '');
-    }
-
     if (this.state.tabFlag !== item.id) {
-      const val =
-        item.id === 3 ? (this.state.flag === 2 ? num : this.state.flag === 1 ? 2 : 3) : item.id - 1;
-      const {
-        groupType = 'family',
-        collegeId = null,
-        userId = null,
-        familyId = null,
-        groupId = null,
-        // familyType = 0,
-        dateTime = null,
-      } = this.state;
-      const kpiLevelParams = {
-        groupType,
-        collegeId,
-        familyId,
-        groupId,
-        familyType: 0,
-        userId,
-        month: dateTime,
-        type: val,
-        levelVal: Number(aa),
-      };
-      this.kpiLevelFetch(kpiLevelParams);
-      this.setState({ tabFlag: item.id });
+      let aa = item.score;
+      if (typeof aa === 'string' && aa.indexOf('%') !== -1) {
+        aa = aa.replace('%', '');
+      }
+      const levelVal = this.state.flag === 2 && item.id === 3 ? num : aa;
+      const val = item.id === 3 ? (this.state.flag === 1 ? 2 : 3) : item.id - 1;
+      this.getData({ type: val, levelVal, interfaceFlag: 2 });
+      this.saveParams({ tabFlag: item.id });
     }
   };
   toHistoryPage = () => {
     const { dateTime } = this.state;
-    this.props.setRouteUrlParams('/history', { month: dateTime });
+    this.props.setRouteUrlParams('/history', { month: dateTime, type: 1 });
   };
 
   render() {

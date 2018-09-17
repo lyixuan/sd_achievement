@@ -65,6 +65,7 @@ export default {
         } else {
           levelVal = userFlag === 2 ? selfNum : !manageScale.manageNum ? 1 : manageScale.manageNum;
         }
+        // console.log('同时请求两个接口时候档位上送的参数',{ ...kpiLevelParams, levelVal })
         kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams, levelVal });
         if (kpiLevelData.code === 2000) {
           yield put({ type: 'kpisave', payload: { kpiLevelData, kpiLevelParams } });
@@ -77,6 +78,7 @@ export default {
     },
     *findKpiLevel({ payload }, { call, put }) {
       const { kpiLevelParams } = payload;
+      // console.log('只请求档位上送的参数',kpiLevelParams)
       const kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams });
       if (kpiLevelData.code === 2000) {
         yield put({ type: 'kpisave', payload: { kpiLevelData, kpiLevelParams } });
