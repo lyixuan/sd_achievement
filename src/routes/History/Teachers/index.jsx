@@ -168,7 +168,9 @@ class HistoryTeacher extends React.Component {
         </div>
 
         <div className={styles.m_innercontener}>
-          <span className={styles.u_spanWorld}>* 实发金额以财务部税后实发为准</span>
+          <div style={{ height: '0.12rem' }} />
+          <p className={styles.u_spanWorld}>* 实发金额以财务部税后实发为准</p>
+          <div style={{ height: '0.12rem' }} />
         </div>
         <div>
           {groupType === 'family' && <HistoryFamily toDetailsPage={this.toDetailsPage} />}
