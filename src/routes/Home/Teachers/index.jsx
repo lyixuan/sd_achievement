@@ -31,25 +31,36 @@ class Teacher extends React.Component {
       userId = null,
       familyId = null,
       groupId = null,
-      familyType = 1,
+      familyType = 0,
     } = this.currentAuthInfo;
     const userFlag = groupType === 'family' ? 1 : 2;
-    console.log('公共参数', this.currentAuthInfo, maxDate, familyId, familyType);
     const initState = {
       paramsObj: {
         startTime: null, // 过滤开始时间
       },
+      familyType: 0, // 自考还是壁垒
       flag: userFlag, // 判断是家族长1,运营长2
       tabFlag: 1, // tab切换标记 0 日均学分排名系数 1绩效基数 2管理规模系数 3绩效比例
-      dateTime: '2018-07',
-      groupType, // 用户角色：family/group/class
-      collegeId,
-      userId,
+      dateTime: '2018-08',
+      groupType: 'group', // 用户角色：family/group/class
+      collegeId: 118,
+      userId: 315,
       familyId: 297,
-      groupId,
-      familyType: 1,
+      groupId: 187,
     };
     this.state = assignUrlParams(initState, urlParams);
+    console.log(
+      '公共参数',
+      urlParams,
+      this.state,
+      collegeId,
+      maxDate,
+      familyId,
+      groupId,
+      familyType,
+      userId,
+      this.currentAuthInfo
+    );
   }
 
   componentDidMount() {
@@ -59,7 +70,7 @@ class Teacher extends React.Component {
       userId = null,
       familyId = null,
       groupId = null,
-      familyType = null,
+      familyType = 0,
       dateTime = null,
     } = this.state;
     const detailKpiParams = {
@@ -142,6 +153,10 @@ class Teacher extends React.Component {
       payload: sendParams,
     });
   }
+  // saveParams=(params)=>{
+  //   this.setState(params);
+  //   this.props.setCurrentUrlParams()
+  // }
 
   jumpDetail = name => {
     const { dateTime = null, groupType = 'family' } = this.state;
@@ -153,14 +168,15 @@ class Teacher extends React.Component {
       type: 1,
     });
   };
-  buttonChange = item => {
+  buttonChange = (item, num) => {
     let aa = item.score;
     if (typeof aa === 'string' && aa.indexOf('%') !== -1) {
       aa = aa.replace('%', '');
     }
 
     if (this.state.tabFlag !== item.id) {
-      const val = item.id === 3 ? (this.state.flag === 1 ? 2 : 3) : item.id - 1;
+      const val =
+        item.id === 3 ? (this.state.flag === 2 ? num : this.state.flag === 1 ? 2 : 3) : item.id - 1;
       const {
         groupType = 'family',
         collegeId = null,
@@ -195,8 +211,13 @@ class Teacher extends React.Component {
       ? []
       : !this.props.teacherhome.kpiLevelData.data ? [] : this.props.teacherhome.kpiLevelData.data;
 
-    const { base = 0, mark = 0, total = 0 } = !detailKpiData ? {} : detailKpiData;
+    const { base = 0, mark = 0, total = 0, manageScale = null } = !detailKpiData
+      ? {}
+      : detailKpiData;
     const { interfaceDetail, interfaceKpi } = this.props;
+    const aa = !manageScale
+      ? 0
+      : !manageScale.manageNum && manageScale.manageNum !== 0 ? 0 : manageScale.manageNum;
 
     const { name = null } = !detailKpiData ? {} : detailKpiData;
     return (
@@ -240,7 +261,7 @@ class Teacher extends React.Component {
           flag2={tabFlag}
           flag={flag}
           dataSource={detailKpiData}
-          changeFlag={item => this.buttonChange(item)}
+          changeFlag={item => this.buttonChange(item, aa)}
         />
         <TableFile
           flag2={tabFlag}

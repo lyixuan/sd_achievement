@@ -31,24 +31,8 @@ class TableFile extends React.Component {
     });
   };
 
-  itemList3 = val => {
-    const data = [];
-    val.map((item, index) =>
-      data.push({
-        key: index,
-        flag: false,
-        data: [
-          { value: item.range, clsName: 'familyCls', key: 1 },
-          { value: item.value, clsName: 'familyCls', key: 2 },
-        ],
-      })
-    );
-
-    return data;
-  };
   itemList = val => {
     const data = [];
-    const { flag2 = 1 } = this.props;
     val.map((item, index) =>
       data.push({
         key: index,
@@ -56,49 +40,29 @@ class TableFile extends React.Component {
         data: [
           {
             value: item.range,
-            clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
+            clsName: 'familyCls',
             key: 1,
           },
           {
-            value: item.minVal,
-            clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: 2,
-          },
-          {
             value: item.value,
-            clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: 3,
+            clsName: 'familyCls',
+            key: 2,
           },
         ],
       })
     );
-
     return data;
   };
 
   itemList2 = val => {
     const data = [];
-    const { flag2 = 1 } = this.props;
     val.map((item, index) =>
       data.push({
         key: index,
         flag: item.flag,
         data: [
-          {
-            value: item.value,
-            clsName: flag2 === 3 ? 'otherDateCls' : 'dateCls',
-            key: 1,
-          },
-          {
-            value: item.minVal,
-            clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
-            key: 2,
-          },
-          {
-            value: item.range,
-            clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
-            key: 3,
-          },
+          { value: item.value, clsName: 'familyCls', key: 1 },
+          { value: item.range, clsName: 'familyCls', key: 2 },
         ],
       })
     );
@@ -110,65 +74,36 @@ class TableFile extends React.Component {
     const { flag = 1, flag2 = 1, dataSource = [], titleData = null } = this.props;
     const { modalflag } = this.state;
     const tableList =
-      flag === 1 && flag2 === 3
-        ? this.itemList3(!dataSource ? [] : dataSource)
-        : flag === 2 && flag2 === 3
-          ? this.itemList2(!dataSource ? [] : dataSource)
-          : this.itemList(!dataSource ? [] : dataSource);
+      flag === 2 && flag2 === 3
+        ? this.itemList2(!dataSource ? [] : dataSource)
+        : this.itemList(!dataSource ? [] : dataSource);
 
     // 用户为运营长前tab切换时，table列头数据
     const columns = [
       {
-        title: flag2 === 1 ? '小组排名' : flag2 === 2 ? '小组排名' : '组内老师',
+        title: flag2 === 3 ? '组内老师' : '小组排名',
         dataIndex: 'titleOne',
         key: 'columnsOne',
-        clsName: flag2 === 3 ? 'otherDataCls' : 'dateCls',
-      },
-      {
-        title: flag2 === 1 ? '档位内最低分' : flag2 === 2 ? '档位内最低人均' : '运营长分批比例',
-        dataIndex: 'titleTwo',
-        key: 'columnsTwo',
-        clsName: flag2 === 3 ? 'otherStuCls' : 'stuCls',
+        clsName: 'halfDatacls',
       },
       {
         title: flag2 === 1 ? '系数' : flag2 === 2 ? '绩效基数' : '班主任分配比例',
         dataIndex: 'titleThree',
         key: 'columnsThree',
-        clsName: flag2 === 3 ? 'otherPreValCls' : 'preValCls',
+        clsName: 'halfStuCls',
       },
     ];
 
-    // 用户为家族长前两个tab切换时，table列头数据
+    // 用户为家族长tab切换时table列头数据
     const columns2 = [
       {
-        title: flag2 === 1 ? '家族排名比' : '家族排名',
-        dataIndex: 'titleOne',
-        key: 'columns2One',
-        clsName: 'dateCls',
-      },
-      {
-        title: flag2 === 1 ? '档位内最低分' : '档位内最低人均',
-        dataIndex: 'titleTwo',
-        key: 'columns2Two',
-        clsName: 'stuCls',
-      },
-      {
-        title: flag2 === 1 ? '系数' : '绩效基数',
-        dataIndex: 'titleThree',
-        key: 'columns2Three',
-        clsName: 'preValCls',
-      },
-    ];
-    // 用户为家族长最后一个tab切换时table列头数据
-    const columns3 = [
-      {
-        title: '区间',
+        title: flag2 === 1 ? '家族排名比' : flag2 === 2 ? '家族排名' : '区间',
         dataIndex: 'titleOne',
         key: 'columns3One',
         clsName: 'halfDatacls',
       },
       {
-        title: '系数',
+        title: flag2 === 2 ? '绩效基数' : '系数',
         dataIndex: 'titleTwo',
         key: 'columns3Two',
         clsName: 'halfStuCls',
@@ -261,9 +196,7 @@ class TableFile extends React.Component {
             <MultipHeaderList
               dataList={tableList}
               customRenderHeader={() => (
-                <CustomRenderHeader
-                  columnsData={flag === 1 ? (flag2 === 3 ? columns3 : columns2) : columns}
-                />
+                <CustomRenderHeader columnsData={flag === 1 ? columns2 : columns} />
               )}
               customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
             />
