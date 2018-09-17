@@ -53,14 +53,14 @@ class Boss extends React.Component {
       <div>
         <MonthlyChart
           toLevelPage={() => {
-            toLevelPage();
+            toLevelPage(0);
           }}
         >
           <RosePie dataSource={{ data: familyData, title: '学院占比（家族预测绩效）' }} />
         </MonthlyChart>
         <MonthlyChart
           toLevelPage={() => {
-            toLevelPage();
+            toLevelPage(1);
           }}
         >
           <ProportionBar dataSource={{ data: groupData, title: '学院占比（小组预测绩效）' }} />

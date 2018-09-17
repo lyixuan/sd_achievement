@@ -17,6 +17,9 @@ class indexPage extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
+  // componentDidMount(){
+  //   this.getAuthList();
+  // }
   checkoutUserAuth = () => {
     const { groupType = null } = this.currentAuthInfo;
     if (groupType === 'boss' || groupType === 'college') {
@@ -38,8 +41,8 @@ class indexPage extends React.Component {
     }
   };
   // 切换身份，点击确定，调取接口
-  switchIdFn = val => {
-    console.log(val);
+  toIndexPage = () => {
+    this.props.setRouteUrlParams('/', {});
   };
   render() {
     const { routerData, match } = this.props;
@@ -61,7 +64,7 @@ class indexPage extends React.Component {
           <Redirect exact from="/indexPage" to={redirectUrl} />
         </Switch>
         {/* boss - 切换身份 */}
-        <SwitchDialog switchIdFn={val => this.switchIdFn(val)} />
+        {<SwitchDialog toIndexPage={this.toIndexPage} />}
       </div>
     );
   }

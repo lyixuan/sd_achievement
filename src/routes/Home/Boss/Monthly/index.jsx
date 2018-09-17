@@ -76,9 +76,10 @@ class BossMothly extends React.Component {
     this.setState(params);
     this.props.setCurrentUrlParams(params);
   };
-  toLevelPage = () => {
+  toLevelPage = type => {
+    console.log(type);
     const { month } = this.state;
-    this.props.setRouteUrlParams('/level', { month });
+    this.props.setRouteUrlParams('/level', { month, type });
   };
   toHistoryPage = () => {
     const { month } = this.state;
@@ -118,8 +119,8 @@ class BossMothly extends React.Component {
           {monthlyType === 'step' && (
             <Step
               chartData={bossKpiBracketObj}
-              toLevelPage={() => {
-                this.toLevelPage();
+              toLevelPage={type => {
+                this.toLevelPage(type);
               }}
             />
           )}
@@ -127,8 +128,8 @@ class BossMothly extends React.Component {
             <Proportion
               chartData={bossKpiPercentObj}
               // barChartData={chartZhanbi}
-              toLevelPage={() => {
-                this.toLevelPage();
+              toLevelPage={type => {
+                this.toLevelPage(type);
               }}
             />
           )}

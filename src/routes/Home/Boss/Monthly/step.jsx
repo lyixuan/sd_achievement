@@ -47,14 +47,14 @@ class Boss extends React.Component {
       <div>
         <MonthlyChart
           toLevelPage={() => {
-            toLevelPage();
+            toLevelPage(0);
           }}
         >
           <Funnel dataSource={{ data: familyData, title: '预测绩效分档（家族）' }} />
         </MonthlyChart>
         <MonthlyChart
           toLevelPage={() => {
-            toLevelPage();
+            toLevelPage(1);
           }}
         >
           <Funnel dataSource={{ data: groupData, title: '预测绩效分档（小组）' }} />

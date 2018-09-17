@@ -2,60 +2,67 @@
  * 必穿参数：switchIdFn，function
  * */
 import React from 'react';
+import { getItem, setItem } from 'utils/localStorage';
+import { getCurrentAuthInfo } from 'utils/decorator';
 import Modal from '../../components/Modal/index';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import idSwitch from '../../assets/switch.svg';
 import styles from './SwitchDialog.less';
 
+const groupTypeList = {
+  boss: '管理层',
+  admin: '管理员',
+  college: '院长',
+  family: '家族',
+  group: '运营',
+  class: '班主任',
+};
+@getCurrentAuthInfo
 class SwitchDialog extends React.Component {
   constructor(props) {
     super(props);
+    const selected = this.currentAuthInfo.id || '';
     this.state = {
-      selected: 1,
+      selected,
       modalflag: false,
+      dataSource: [],
     };
   }
-  setListItem = () => {
-    const res = {
-      data: [
-        {
-          name: '家族 - 皓博',
-          id: '2',
-        },
-        {
-          name: '家族 - 狐逻',
-          id: '3',
-        },
-        {
-          name: '家族 - 派学院',
-          id: '4',
-        },
-      ],
-    };
-    return (
-      <div className={styles.buttonDiv}>
-        <ButtonGroup
-          dataSource={res}
-          dataReturnFun={item => {
-            this.selectGroup(item);
-          }}
-          id={this.state.selected}
-          btnClass={styles.u_btnStyle}
-          btnSelectedClass={`${styles.u_btnStyle} ${styles.u_btnSelected}`}
-        />
-      </div>
-    );
+  getAuthList = () => {
+    const authData = getItem('performanceUser').value || {};
+    return authData.data || [];
   };
-
   selectGroup(item) {
+    this.saveSelectedAuth(item.id);
     this.setState({
       selected: item.id,
-      val: item.name,
     });
   }
   showModal = () => {
+    const authAdta = this.getAuthList();
+    const dataSource = this.handleGroupList(authAdta);
     this.setState({
       modalflag: true,
+      dataSource,
+    });
+  };
+  handleGroupList = (data = []) => {
+    return data.map(item => {
+      let buttonName = null;
+      if (
+        item.groupType === 'class' ||
+        item.groupType === 'group' ||
+        item.groupType === 'family' ||
+        item.groupType === 'college'
+      ) {
+        buttonName = `${groupTypeList[item.groupType]} - ${item.name}`;
+      } else {
+        buttonName = `${groupTypeList[item.groupType]}`;
+      }
+      return {
+        id: item.id,
+        name: buttonName,
+      };
     });
   };
   hideModal = () => {
@@ -64,13 +71,26 @@ class SwitchDialog extends React.Component {
     });
   };
   sureSwitch = () => {
-    this.props.switchIdFn(this.state.val);
     this.hideModal();
   };
-  render() {
-    const { modalflag } = this.state;
+  saveSelectedAuth = id => {
+    const currentId = this.currentAuthInfo.id;
+    const authData = this.getAuthList() || [];
+    const selectedAuth = authData.find(item => item.id === id);
+    if (id !== currentId && selectedAuth) {
+      setItem('performanceCurrentAuth', selectedAuth);
+      if (this.props.toIndexPage) {
+        this.props.toIndexPage();
+      }
+    } else {
+      console.warn('添加失败');
+    }
+  };
 
-    return (
+  render() {
+    const { modalflag, dataSource = [] } = this.state;
+    const authData = this.getAuthList() || [];
+    return authData.length <= 0 ? null : (
       <div className={styles.m_floatDialog}>
         <div className={styles.u_iconWrap} onClick={this.showModal}>
           <img src={idSwitch} alt="身份切换" className={styles.imgIcon} />
@@ -84,7 +104,19 @@ class SwitchDialog extends React.Component {
           ]}
         >
           <p className={styles.dialogTitle}>请选择想要查看的绩效</p>
-          <div className={styles.flexContainer}>{this.setListItem()}</div>
+          <div className={styles.flexContainer}>
+            <div className={styles.buttonDiv}>
+              <ButtonGroup
+                dataSource={{ data: dataSource }}
+                dataReturnFun={item => {
+                  this.selectGroup(item);
+                }}
+                id={this.state.selected}
+                btnClass={styles.u_btnStyle}
+                btnSelectedClass={`${styles.u_btnStyle} ${styles.u_btnSelected}`}
+              />
+            </div>
+          </div>
         </Modal>
       </div>
     );
