@@ -2,28 +2,30 @@ import React from 'react';
 import { connect } from 'dva';
 import { Redirect, Switch, Route } from 'dva/router';
 import SelfTab from 'components/SelfTab/SelfTab';
+import { timeArea } from 'utils/timeArea';
 import { getRoutes, assignUrlParams } from '../../../utils/routerUtils';
 import styles from './index.less';
 
 class Boss extends React.Component {
   constructor(props) {
     super(props);
+    const { maxDate } = timeArea();
     const { urlParams = {} } = props;
     const initState = {
-      paramsObj: {
-        startTime: null, // 过滤开始时间
-      },
+      month: maxDate,
     };
     this.state = assignUrlParams(initState, urlParams);
   }
+
   changePage(id) {
     const { pathname } = this.props.location;
+    const urlParams = this.props.getUrlParams();
     const pathnameObj = {
       1: '/indexPage/boss/pandect',
       2: '/indexPage/boss/monthly',
     };
     if (pathname !== pathnameObj[id]) {
-      this.props.setRouteUrlParams(pathnameObj[id]);
+      this.props.setRouteUrlParams(pathnameObj[id], urlParams);
     }
   }
   checkSelectedTab = () => {
@@ -32,6 +34,7 @@ class Boss extends React.Component {
   };
 
   render() {
+    const { month } = this.state;
     const { routerData, match } = this.props;
     return (
       <div>
@@ -58,7 +61,7 @@ class Boss extends React.Component {
                 redirectPath="/exception/403"
               />
             ))}
-            <Redirect exact from="/indexPage/boss" to="/indexPage/boss/pandect" />
+            <Redirect exact from="/indexPage/boss" to={`/indexPage/boss/pandect?month=${month}`} />
           </Switch>
         </div>
       </div>

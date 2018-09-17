@@ -57,7 +57,7 @@ class Details extends React.Component {
     this.getDataListLen(dataList);
     this.getListData(url, { sort }, { collegeId });
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.details.dataList && nextProps.details.dataList !== this.props.details.dataList) {
       this.getDataListLen(nextProps.details.dataList);
     }
