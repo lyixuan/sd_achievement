@@ -73,6 +73,7 @@ class Teacher extends React.Component {
 
   getData = (params = {}) => {
     const dateTime = params.dateTime || this.state.dateTime;
+    const { type = 0, interfaceFlag = 1, levelVal = 0 } = params;
     const {
       groupType = 'family',
       collegeId = null,
@@ -82,8 +83,6 @@ class Teacher extends React.Component {
       familyType = 0,
       flag = null,
     } = this.state;
-    const { type = 0, interfaceFlag = 1, levelVal = 0 } = params;
-
     const detailKpiParams = {
       groupType,
       collegeId,
@@ -137,11 +136,13 @@ class Teacher extends React.Component {
     });
   }
 
+  // 修改的数据进行state存储以及url参数的更新
   saveParams = (params = {}) => {
     this.setState(params);
     this.props.setCurrentUrlParams(params);
   };
 
+  // 家族长角色跳到小组详情
   jumpDetail = name => {
     const { dateTime = null, groupType = 'family' } = this.state;
     this.props.setRouteUrlParams('/details', {
@@ -151,6 +152,7 @@ class Teacher extends React.Component {
       type: 1,
     });
   };
+  // button切换调用的档位接口
   buttonChange = (item, num) => {
     if (this.state.tabFlag !== item.id) {
       let aa = item.score;
@@ -163,6 +165,7 @@ class Teacher extends React.Component {
       this.saveParams({ tabFlag: item.id });
     }
   };
+  // 跳转到历史绩效
   toHistoryPage = () => {
     const { dateTime } = this.state;
     this.props.setRouteUrlParams('/history', { month: dateTime, type: 1 });
