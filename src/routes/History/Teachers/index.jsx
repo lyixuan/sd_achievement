@@ -174,8 +174,10 @@ class HistoryTeacher extends React.Component {
 
         <div className={styles.m_innercontener}>
           <div style={{ height: '0.12rem' }} />
-          <p className={styles.u_spanWorld}>* 实发金额以财务部税后实发为准</p>
-          <div style={{ height: '0.12rem' }} />
+          <p className={styles.u_spanWorld}>* 确定绩效为本月整月的总绩效</p>
+          <p className={styles.u_spanWorld}>
+            * 满足税额后，总部人力会进行预扣税再发放，实发金额请以实际到账为准
+          </p>
         </div>
         <div>
           {groupType === 'family' && <HistoryFamily toDetailsPage={this.toDetailsPage} />}
