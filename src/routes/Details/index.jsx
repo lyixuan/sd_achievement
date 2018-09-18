@@ -22,13 +22,7 @@ class Details extends React.Component {
     super(props);
     const { urlParams = {} } = props;
     console.log(this.currentAuthInfo);
-    const {
-      collegeId = null,
-      groupType = '',
-      familyId = '',
-      userId = '',
-      department = null,
-    } = this.currentAuthInfo;
+    const { groupType = '', familyId = '', userId = '', department = null } = this.currentAuthInfo;
     const initState = {
       paramsObj: {
         month: urlParams.month,
@@ -38,7 +32,7 @@ class Details extends React.Component {
         userId,
       },
       collegeName: urlParams.collegeName ? urlParams.collegeName : department,
-      collegeId,
+      collegeId: urlParams.collegeId,
       sort: 1,
       isShowSwitch: false, // 是否展示右侧切换按钮
       url:
