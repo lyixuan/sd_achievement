@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import PropTypes from 'prop-types';
 import { getCurrentAuthInfo } from 'utils/decorator';
 import { changeObj, formatDate } from 'utils/utils';
 import MultipHeaderList from 'components/ListView/listView';
@@ -12,6 +13,9 @@ import styles from './index.less';
 
 @getCurrentAuthInfo
 class Level extends React.Component {
+  static contextTypes = {
+    setTitle: PropTypes.func,
+  };
   constructor(props) {
     super(props);
     const currentAuthInfo = this.currentAuthInfo || {};
@@ -31,6 +35,7 @@ class Level extends React.Component {
   }
   componentDidMount() {
     const { type } = this.state;
+    this.context.setTitle(Number(type) === 0 ? '家族绩效分档' : '小组绩效分档');
     // 区分家族分档，小组分档
     const fetchUrl =
       Number(type) === 0 ? 'level/collgeKpiFamilyHomePage' : 'level/collgeKpiGroupHomePage';

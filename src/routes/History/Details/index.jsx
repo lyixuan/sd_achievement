@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import PropTypes from 'prop-types';
 import { formatDate } from 'utils/utils';
 import { assignUrlParams } from 'utils/routerUtils';
 import Switch from 'components/Switch/Switch';
@@ -12,22 +13,26 @@ import RenderItem from './_renderItem';
 import styles from './index.less';
 
 class HistoryDetails extends React.Component {
+  static contextTypes = {
+    setTitle: PropTypes.func,
+  };
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
     const currentAuthInfo = this.currentAuthInfo || {};
+    console.log(currentAuthInfo);
     const { collegeId = '', groupType = '', userId = '' } = currentAuthInfo;
     const initState = {
       paramsObj: {
         month: urlParams.month || '2018-08',
         groupType,
-        type: urlParams.type || '1', // 0：家族，1：小组
+        type: urlParams.type, // 0：家族，1：小组
         userId,
       },
       collegeName: urlParams.collegeName,
       collegeId,
       sort: '1',
-      // isShowSwitch: false, // 是否展示右侧切换按钮
+      isShowSwitch: false, // 是否展示右侧切换按钮
       url:
         urlParams.groupType === 'family'
           ? 'historyDetails/findFamilyHistoryKpi'
@@ -37,9 +42,16 @@ class HistoryDetails extends React.Component {
     this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {
-    const { url, collegeId } = this.state;
-
+    const { url, collegeId, paramsObj } = this.state;
+    const { dataList } = this.props.historyDetails;
+    this.getDataListLen(dataList);
     this.getListData(url, { sort: 1 }, { collegeId });
+    this.context.setTitle(Number(paramsObj.type) === 0 ? '家族确定绩效' : '小组确定绩效');
+  }
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps.historyDetails.dataList !== this.props.historyDetails.dataList) {
+      this.getDataListLen(nextProps.historyDetails.dataList);
+    }
   }
   onChange = val => {
     const { collegeId, url } = this.state;
@@ -55,6 +67,29 @@ class HistoryDetails extends React.Component {
       type: url,
       payload: param,
     });
+  };
+  // 列表展示条数大于3则展示switch按钮
+  getDataListLen = data => {
+    let len = 0;
+    if (data) {
+      Object.keys(data).map(item => {
+        if (data[item]) len += data[item].length;
+        if (len > 3) {
+          this.setState({
+            isShowSwitch: true,
+          });
+        } else {
+          this.setState({
+            isShowSwitch: false,
+          });
+        }
+        return '';
+      });
+    } else {
+      this.setState({
+        isShowSwitch: false,
+      });
+    }
   };
   changeCollegeName = v => {
     const { sort, url } = this.state;
@@ -72,14 +107,14 @@ class HistoryDetails extends React.Component {
       { groupName: '（孵化器）', id: 2 },
     ];
 
-    const { paramsObj, collegeName } = this.state;
+    const { paramsObj, collegeName, isShowSwitch } = this.state;
     return (
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
           <span>
             {formatDate(paramsObj.month)}实发绩效 - {collegeName}
           </span>
-          <Switch onChange={val => this.onChange(val)} />
+          {!isShowSwitch ? null : <Switch onChange={val => this.onChange(val)} />}
         </div>
         {this.props.loading && <Loading />}
         {/* *************** listview *************** */}

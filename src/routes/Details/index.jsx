@@ -53,12 +53,12 @@ class Details extends React.Component {
   componentDidMount() {
     const { paramsObj, url, sort, collegeId } = this.state;
     const { dataList } = this.props.details;
-    this.context.setTitle(Number(paramsObj.type) === 0 ? '家族绩效页' : '小组绩效页');
+    this.context.setTitle(Number(paramsObj.type) === 0 ? '家族绩效' : '小组绩效');
     this.getDataListLen(dataList);
     this.getListData(url, { sort }, { collegeId });
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.details.dataList && nextProps.details.dataList !== this.props.details.dataList) {
+    if (nextProps.details.dataList !== this.props.details.dataList) {
       this.getDataListLen(nextProps.details.dataList);
     }
   }
@@ -80,19 +80,25 @@ class Details extends React.Component {
   // 列表展示条数大于3则展示switch按钮
   getDataListLen = data => {
     let len = 0;
-    Object.keys(data).map(item => {
-      if (data[item]) len += data[item].length;
-      if (len > 3) {
-        this.setState({
-          isShowSwitch: true,
-        });
-      } else {
-        this.setState({
-          isShowSwitch: false,
-        });
-      }
-      return '';
-    });
+    if (data) {
+      Object.keys(data).map(item => {
+        if (data[item]) len += data[item].length;
+        if (len > 3) {
+          this.setState({
+            isShowSwitch: true,
+          });
+        } else {
+          this.setState({
+            isShowSwitch: false,
+          });
+        }
+        return '';
+      });
+    } else {
+      this.setState({
+        isShowSwitch: false,
+      });
+    }
   };
   changeCollegeName(v) {
     const { url, sort } = this.state;
