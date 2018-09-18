@@ -18,34 +18,36 @@
     -ms-flex-align: center;
     align-items: center;
     padding: 0 !important;
-    border-radius: .24rem;
     background-clip: padding-box;
     color: #fff !important;
-    background-color: rgba(41,42,50, 0.7) !important;
-    width: 2.4rem;
-    height: 2.4rem;
-  
+
+    box-shadow: 0 0 .28rem 1px rgba(218,218,218,0.40);
+    border-radius: 0.08rem;
+    background-color: #fff !important;
+    width: 2rem;
+    height: 2rem;
+
   }
-  :global(.am-activity-indicator-spinner-lg ){
-    width: 2rem !important;
-    height: 2rem !important;
+  :global(.am-activity-indicator-spinner-lg){
+    width: 1.5rem !important;
+    height: 1.5rem !important;
   }
-  
-  
+
+
   :global(.am-activity-indicator-toast){
-    width:2.24rem ;
-    font-family: PingFangSC-Regular;
-    font-size: .28rem;
-    color: #FFFFFF;
+    width:2rem ;
+    font-size: .20rem;
+    color: #999;
     letter-spacing: 0;
     text-align: center;
   }
-  
-  
-  
+
+  :global(.am-activity-indicator.am-activity-indicator-toast .am-activity-indicator-toast) {
+    top: 0 !important;
+  }
+
   :global(.am-activity-indicator-spinner){
     -webkit-animation: unset !important;
     animation: unset !important;
-    background-image:url(http://bi-m.ministudy.com/staticFile/load.gif) !important;
+    background-image:url("../../assets/performance.gif") !important;
   }
-  
