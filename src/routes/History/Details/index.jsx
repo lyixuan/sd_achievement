@@ -158,5 +158,5 @@ class HistoryDetails extends React.Component {
 }
 export default connect(({ historyDetails, loading }) => ({
   historyDetails,
-  isloading: loading.models.historyDetails,
+  loading: loading.models.historyDetails,
 }))(HistoryDetails);

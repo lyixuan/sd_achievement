@@ -2,7 +2,8 @@
 html, body, :global(#root) {
   height: 100%;
   background-color: #F4F4F6;
-  font-family: PingFangSC;
+  font-family: PingFangSC-Regular;
+
 }
 
 dl,dt,dd,p{
