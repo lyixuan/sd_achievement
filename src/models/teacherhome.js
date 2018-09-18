@@ -6,32 +6,7 @@ export default {
 
   state: {
     count: 0,
-    detailKpiParams: {
-      collegeId: 0,
-      entUserId: null,
-      familyId: 0,
-      familyType: 0,
-      groupId: 0,
-      groupType: null,
-      month: null,
-      sort: 0,
-      type: 0,
-      userId: 0,
-    },
     detailKpiData: null,
-
-    kpiLevelParams: {
-      collegeId: 0,
-      entUserId: null,
-      familyId: 0,
-      familyType: 0,
-      groupId: 0,
-      groupType: null,
-      month: null,
-      sort: 0,
-      type: 0,
-      userId: 0,
-    },
     kpiLevelData: null,
   },
 
