@@ -6,9 +6,9 @@ class Error403 extends React.Component {
   render() {
     const desc = (
       <ul className={styles.desc}>
-        <li className={styles.authInfo}>你没有权限访问此页面，或权限设置有误。</li>
-        <li className={styles.authItem}>请联系：运营中心-产研一部</li>
-        <li className={styles.authItem}>jiangli@sunlands.com</li>
+        <li className={styles.authInfo}>没有查到你的访问权限</li>
+        <li className={styles.authItem}>如有疑问请联系：后端运营中心-产研一部</li>
+        <li className={styles.authItem}>ganwenbin@sunlands.com</li>
       </ul>
     );
     return (
