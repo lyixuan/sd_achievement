@@ -8,14 +8,17 @@ import Loading from 'components/Loading/Loading';
 import Funnel from 'components/Charts/FunnelCharts/Funnel';
 import styles from './index.less';
 import common from '../index.less';
+import { timeArea } from '../../../utils/timeArea';
 
 @getCurrentAuthInfo
 class HistoryBoss extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
+    const dateVal = timeArea();
+    const { maxDate } = dateVal;
     const initState = {
-      month: '',
+      month: maxDate,
     };
     this.state = assignUrlParams(initState, urlParams);
   }

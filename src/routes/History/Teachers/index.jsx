@@ -9,15 +9,17 @@ import HistoryGroup from './group';
 import styles from './index.less';
 import common from '../index.less';
 import SurePer from '../../../assets/surePer.png';
+import { timeArea } from '../../../utils/timeArea';
 
 @getCurrentAuthInfo
 class HistoryTeacher extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
+    const dateVal = timeArea();
+    const { maxDate } = dateVal;
     const initState = {
-      flag: 2,
-      month: '',
+      month: maxDate,
     };
     this.state = assignUrlParams(initState, urlParams);
   }

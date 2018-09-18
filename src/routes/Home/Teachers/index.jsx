@@ -26,36 +26,21 @@ class Teacher extends React.Component {
       userId = null,
       familyId = null,
       groupId = null,
-      familyType = 0,
+      familyType = null,
     } = this.currentAuthInfo;
     const userFlag = groupType === 'family' ? 1 : 2;
     const initState = {
-      paramsObj: {
-        startTime: null, // 过滤开始时间
-      },
-      familyType: 0, // 自考还是壁垒
+      familyType, // 自考还是壁垒
       flag: userFlag, // 判断是家族长1,运营长2
       tabFlag: 1, // tab切换标记 0 日均学分排名系数 1绩效基数 2管理规模系数 3绩效比例
-      dateTime: '2018-08',
-      groupType: 'group', // 用户角色：family/group/class
-      collegeId: 118,
-      userId: 315,
-      familyId: 297,
-      groupId: 187,
-    };
-    this.state = assignUrlParams(initState, urlParams);
-    console.log(
-      '公共参数',
-      urlParams,
-      this.state,
+      dateTime: maxDate,
+      groupType, // 用户角色：family/group/class
       collegeId,
-      maxDate,
+      userId,
       familyId,
       groupId,
-      familyType,
-      userId,
-      this.currentAuthInfo
-    );
+    };
+    this.state = assignUrlParams(initState, urlParams);
   }
 
   componentDidMount() {
@@ -81,7 +66,7 @@ class Teacher extends React.Component {
       userId = null,
       familyId = null,
       groupId = null,
-      familyType = 0,
+      familyType = null,
       flag = null,
     } = this.state;
     const detailKpiParams = {
@@ -105,10 +90,8 @@ class Teacher extends React.Component {
       levelVal,
     };
     if (interfaceFlag === 1) {
-      // console.log('interfaceFlag为1时候请求两个接口',detailKpiParams,kpiLevelParams,flag)
       this.detailKpiFetch(detailKpiParams, flag, type, kpiLevelParams);
     } else {
-      // console.log('interfaceFlag为2时候请求档位一个接口',kpiLevelParams)
       this.kpiLevelFetch(kpiLevelParams);
     }
   };

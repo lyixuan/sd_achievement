@@ -5,14 +5,17 @@ import { assignUrlParams } from 'utils/routerUtils';
 import styles from '../Teachers/index.less';
 import common from '../index.less';
 import SurePer from '../../../assets/surePer.png';
+import { timeArea } from '../../../utils/timeArea';
 
 @getCurrentAuthInfo
 class Counting extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
+    const dateVal = timeArea();
+    const { maxDate } = dateVal;
     const initState = {
-      month: '',
+      month: maxDate,
     };
     this.state = assignUrlParams(initState, urlParams);
   }
