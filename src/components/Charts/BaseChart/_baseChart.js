@@ -31,7 +31,7 @@ export class ChartBase {
       top: fontSizeAuto(155),
       right: fontSizeAuto(30),
       bottom: fontSizeAuto(30),
-      left: fontSizeAuto(10),
+      left: fontSizeAuto(-10),
     };
   };
   tooltipNumUnit = () => {
@@ -45,6 +45,29 @@ export class ChartBase {
     //   return `${(newNum/10000).toFixed(2)}W`
     // }
   };
+  formaterNum = num => {
+    const newNum = Number(num);
+    if (isNaN(newNum)) {
+      console.warn('为传入数字');
+      return;
+    }
+    let handleValue = newNum;
+    switch (true) {
+      case newNum <= 1000:
+        handleValue = this.breakNumComma(newNum);
+        break;
+      case newNum > 1000 && newNum <= 1000000:
+        handleValue = `${this.breakNumComma((newNum / 1000).toFixed(2))}k`;
+        break;
+      case newNum > 1000000:
+        handleValue = `${this.breakNumComma((newNum / 10000).toFixed(2))}w`;
+        break;
+      default:
+        break;
+    }
+    return handleValue;
+  };
+
   breakNumComma = num => {
     return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
   };

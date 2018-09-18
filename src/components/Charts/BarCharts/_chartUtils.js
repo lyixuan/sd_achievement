@@ -56,6 +56,6 @@ export class BarClass extends ChartBase {
     return isPredicted ? `{a|${name}\n预测}` : `${name}\n实发`;
   };
   axisLabel = value => {
-    return `${value}K`;
+    return this.formaterNum(value);
   };
 }

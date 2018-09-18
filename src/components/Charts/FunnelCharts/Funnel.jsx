@@ -41,7 +41,6 @@ export default class SingleBar extends React.Component {
     const item2 = this.findData(data, '10k~20k');
     const item3 = this.findData(data, '5k~10k');
     const item4 = this.findData(data, '5k以下');
-
     return {
       level1: {
         value: item1 ? item1.val : 0,
@@ -73,13 +72,14 @@ export default class SingleBar extends React.Component {
     return data.find(item => item.name === val);
   };
   handleChartStyle = seriesData => {
+    const newSeriesData = this.handleLayout(seriesData);
     const width = parseInt(fontSizeAuto(251), 10); // 设置图标的宽度
     const height = parseInt(fontSizeAuto(146), 10);
     const left = parseInt(fontSizeAuto(115), 10);
 
     const maxNum = Math.max.apply(null, seriesData.map(item => item.val));
-    const topMax = Math.max.apply(null, seriesData.map((item, index) => index < 2 && item.val));
-    const bottomMax = Math.max.apply(null, seriesData.map((item, index) => index >= 2 && item.val));
+    const topMax = Math.max(newSeriesData.level1.value, newSeriesData.level2.value);
+    const bottomMax = Math.max(newSeriesData.level3.value, newSeriesData.level4.value);
     return {
       top: {
         height,
