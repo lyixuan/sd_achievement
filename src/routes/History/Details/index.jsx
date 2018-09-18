@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import PropTypes from 'prop-types';
 import { formatDate } from 'utils/utils';
+import { getCurrentAuthInfo } from 'utils/decorator';
 import { assignUrlParams } from 'utils/routerUtils';
 import Switch from 'components/Switch/Switch';
 import MultipHeaderList from 'components/ListView/listView';
@@ -12,6 +13,7 @@ import RenderHeader from './_renderHeader';
 import RenderItem from './_renderItem';
 import styles from './index.less';
 
+@getCurrentAuthInfo
 class HistoryDetails extends React.Component {
   static contextTypes = {
     setTitle: PropTypes.func,
