@@ -8,7 +8,7 @@ class RenderItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowDetail: this.props.rowData.isCheck || false,
+      isShowDetail: false,
     };
   }
   componentDidMount() {}

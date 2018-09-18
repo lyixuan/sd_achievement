@@ -6,7 +6,6 @@ export default {
 
   state: {
     familyData: [],
-    groupData: [],
   },
 
   subscriptions: {
@@ -42,6 +41,14 @@ export default {
 
   reducers: {
     save(state, action) {
+      const { familyData } = action.payload;
+      familyData.forEach(item => {
+        const data = item.detailResult;
+        Object.keys(data).map((key, index) => {
+          data[key].key = index;
+          return familyData;
+        });
+      });
       return { ...state, ...action.payload };
     },
   },
