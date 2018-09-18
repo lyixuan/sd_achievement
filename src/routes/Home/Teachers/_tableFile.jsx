@@ -122,17 +122,15 @@ class TableFile extends React.Component {
     const scoreLeft = () => (
       <span className={styles.u_numSpan}>
         {flag2 === 1
-          ? !dailyCredit
-            ? 777
-            : !dailyCredit.value && dailyCredit.value !== 0 ? 888 : dailyCredit.value
+          ? !dailyCredit ? 0 : !dailyCredit.value && dailyCredit.value !== 0 ? 0 : dailyCredit.value
           : flag2 === 2
             ? !baseKpi
-              ? 777
-              : !baseKpi.value && baseKpi.value !== 0 ? 888 : `${formatMoney(baseKpi.value || 0)}人`
+              ? 0
+              : !baseKpi.value && baseKpi.value !== 0 ? 0 : `${formatMoney(baseKpi.value || 0)}人`
             : !manageScale
-              ? 777
+              ? 0
               : !manageScale.manageNum && manageScale.classNum !== 0
-                ? 888
+                ? 0
                 : `${formatMoney(manageScale.classNum || 0)}人`}
       </span>
     );
