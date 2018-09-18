@@ -49,5 +49,5 @@
   :global(.am-activity-indicator-spinner){
     -webkit-animation: unset !important;
     animation: unset !important;
-    background-image:url("../../assets/performance.gif") !important;
+    background-image:url("http://bi-m.ministudy.com/staticFile/performance.gif") !important;
   }

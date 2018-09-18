@@ -21,7 +21,10 @@ class indexPage extends React.Component {
   //   this.getAuthList();
   // }
   checkoutUserAuth = () => {
-    const { groupType = null } = this.currentAuthInfo;
+    const { groupType = null, isKpi } = this.currentAuthInfo;
+    if (isKpi) {
+      this.props.history.push('/exception/403');
+    }
     if (groupType === 'boss' || groupType === 'college') {
       return '/indexPage/boss';
     } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {

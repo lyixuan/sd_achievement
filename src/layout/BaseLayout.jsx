@@ -5,7 +5,7 @@ import pathToRegexp from 'path-to-regexp';
 import DocumentTitle from 'components/DocumentTitle';
 import Loading from 'components/Loading/Loading';
 import Authorized from 'utils/Authorized';
-import { getUserId } from 'utils/authority';
+import { getUserId, getAuthority } from 'utils/authority';
 import { getRoutes } from '../utils/routerUtils';
 
 const { AuthorizedRoute } = Authorized;
@@ -52,8 +52,7 @@ class BaseLayout extends React.Component {
               path={item.path}
               component={item.component}
               exact={item.exact}
-              // authority={getAuthority}
-              authority={() => true}
+              authority={getAuthority}
               redirectPath="/exception/403"
             />
           ))}
