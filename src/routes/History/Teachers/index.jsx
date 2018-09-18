@@ -10,6 +10,7 @@ import styles from './index.less';
 import common from '../index.less';
 import SurePer from '../../../assets/surePer.png';
 import { timeArea } from '../../../utils/timeArea';
+import { formatMoney } from '../../../utils/utils';
 
 @getCurrentAuthInfo
 class HistoryTeacher extends React.Component {
@@ -95,7 +96,7 @@ class HistoryTeacher extends React.Component {
             <p>亲爱的甘文斌</p>
             <p>辛苦啦，感谢您在{timeDateObj.month}月份努力的付出！</p>
             <p className={styles.u_timeCls}>您{timeDateObj.month}月份确定绩效为</p>
-            <p className={styles.u_resultlCls}>{teacherKpiObj.actual_kpi}元</p>
+            <p className={styles.u_resultlCls}>{formatMoney(teacherKpiObj.actual_kpi || 0)}元</p>
             <div style={{ height: '0.54rem' }} />
             <div
               style={{
@@ -133,7 +134,7 @@ class HistoryTeacher extends React.Component {
                   虚报绩效考核金额
                 </span>
                 <span style={{ textAlign: 'right', width: '2.8rem', display: 'inline-block' }}>
-                  {teacherKpiObj.keep_kpi}元
+                  {formatMoney(teacherKpiObj.keep_kpi || 0)}元
                 </span>
               </p>
               <p
@@ -148,7 +149,7 @@ class HistoryTeacher extends React.Component {
                   免费学绩效金额
                 </span>
                 <span style={{ textAlign: 'right', width: '2.8rem', display: 'inline-block' }}>
-                  {teacherKpiObj.free_kpi}元
+                  {formatMoney(teacherKpiObj.free_kpi || 0)}元
                 </span>
               </p>
               <p
@@ -163,10 +164,10 @@ class HistoryTeacher extends React.Component {
                   其他绩效
                 </span>
                 <span style={{ textAlign: 'right', width: '2.8rem', display: 'inline-block' }}>
-                  {teacherKpiObj.other_kpi}元
+                  {formatMoney(teacherKpiObj.other_kpi || 0)}元
                 </span>
               </p>
-              <div style={{ height: '0.5rem' }} />
+              <div style={{ height: '0.3rem' }} />
             </div>
             <div style={{ height: '0.4rem' }} />
           </div>
