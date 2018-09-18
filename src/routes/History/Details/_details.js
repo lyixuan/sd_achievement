@@ -9,6 +9,7 @@ class RenderDetails extends React.Component {
 
   renderFn = isShow => {
     const { rowData } = this.props;
+    let index = 0;
     if (isShow) {
       return (
         <div>
@@ -20,9 +21,10 @@ class RenderDetails extends React.Component {
               <p className={styles.greyColor}>运营长确定绩效</p>
               <div className={styles.blackColor}>
                 {rowData.map(item => {
+                  index += 1;
                   if (item.groupType === 'group') {
                     return (
-                      <p key={item.name} className={styles.width_50}>
+                      <p key={index} className={styles.width_50}>
                         <span className={styles.marRight}>{item.name}</span>
                         <span>{formatMoney(item.achievement)}元</span>
                       </p>
@@ -42,9 +44,10 @@ class RenderDetails extends React.Component {
               <p className={styles.greyColor}>班主任确定绩效</p>
               <div className={styles.blackColor}>
                 {rowData.map(item => {
+                  index += 1;
                   if (item.groupType === 'class') {
                     return (
-                      <p key={item.name} className={styles.width_50}>
+                      <p key={index} className={styles.width_50}>
                         <span className={styles.marRight}>{item.name}</span>
                         <span>{formatMoney(item.achievement)}元</span>
                       </p>
