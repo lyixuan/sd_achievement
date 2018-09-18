@@ -46,25 +46,25 @@ export default class SingleBar extends React.Component {
         value: item1 ? item1.val : 0,
         name: '20K以上',
         selfLabel: item1 ? item1.name : '20k以上',
-        itemStyle: { color: '#B68CFF' },
+        itemStyle: { color: '#B68CFF', borderColor: '#B68CFF' },
       },
       level2: {
         value: item2 ? item2.val : 0,
         name: '10k ~ 20k',
         selfLabel: item2 ? item2.name : '10k~20k',
-        itemStyle: { color: '#FDBF41' },
+        itemStyle: { color: '#FDBF41', borderColor: '#FDBF41' },
       },
       level3: {
         value: item3 ? item3.val : 0,
         name: '5k ~ 10k',
         selfLabel: item3 ? item3.name : '5k~10k',
-        itemStyle: { color: '#52C9C2' },
+        itemStyle: { color: '#52C9C2', borderColor: '#52C9C2' },
       },
       level4: {
         value: item4 ? item4.val : 0,
         name: '5k一下',
         selfLabel: item4 ? item4.name : '5k以下',
-        itemStyle: { color: '#3389FF' },
+        itemStyle: { color: '#3389FF', borderColor: '#3389FF' },
       },
     };
   };
