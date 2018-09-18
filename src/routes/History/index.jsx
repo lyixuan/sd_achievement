@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Redirect, Switch, Route } from 'dva/router';
+import { Redirect, Switch } from 'dva/router';
 import { getRoutes, assignUrlParams } from 'utils/routerUtils';
 import { getCurrentAuthInfo } from 'utils/decorator';
 import { stringify } from 'qs';
+import Authorized from 'utils/Authorized';
 
+const { AuthorizedRoute } = Authorized;
 @getCurrentAuthInfo
 class HistoryIndex extends React.Component {
   constructor(props) {
@@ -13,6 +15,20 @@ class HistoryIndex extends React.Component {
     const initState = {};
     this.state = assignUrlParams(initState, urlParams);
   }
+  componentDidMount() {
+    const { historyhome } = this.props;
+    const { isRequestShowApi } = historyhome;
+    if (!isRequestShowApi) {
+      this.getShowDataState();
+    }
+  }
+  getShowDataState = () => {
+    const { month } = this.props.urlParams;
+    this.props.dispatch({
+      type: 'historyhome/findKpiEffectMonthByMonth',
+      payload: { month },
+    });
+  };
   checkoutUserAuth = () => {
     const { groupType = null } = this.currentAuthInfo;
     const { urlParams } = this.props;
@@ -25,20 +41,21 @@ class HistoryIndex extends React.Component {
     }
   };
   render() {
-    const { routerData, match } = this.props;
+    const { routerData, match, historyhome } = this.props;
+    const { isRequestShowApi, isShowHistoryData } = historyhome;
     const redirectUrl = this.checkoutUserAuth();
-
-    return (
+    const { month } = this.props.urlParams;
+    return !isRequestShowApi ? null : (
       <div>
         <Switch>
           {getRoutes(match.path, routerData).map(item => (
-            <Route
+            <AuthorizedRoute
               key={item.key}
               path={item.path}
               component={item.component}
               exact={item.exact}
-              authority={item.authority}
-              redirectPath="/exception/403"
+              authority={isShowHistoryData}
+              redirectPath={`/counting/${month}`}
             />
           ))}
           <Redirect exact from="/history" to={redirectUrl} />
@@ -47,4 +64,7 @@ class HistoryIndex extends React.Component {
     );
   }
 }
-export default connect(({ loading }) => ({ loading }))(HistoryIndex);
+export default connect(({ historyhome, loading }) => ({
+  loading: loading.models.historyhome,
+  historyhome,
+}))(HistoryIndex);

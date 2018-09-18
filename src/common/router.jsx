@@ -125,7 +125,7 @@ export const getRouterData = app => {
       showTitle: true,
     },
     '/history': {
-      component: dynamicWrapper(app, [], () => import('../routes/History')),
+      component: dynamicWrapper(app, ['historyhome'], () => import('../routes/History')),
       title: '历史绩效',
       showTitle: true,
     },
@@ -147,6 +147,11 @@ export const getRouterData = app => {
       ),
       title: '确认绩效详情',
       showTitle: true,
+    },
+    '/counting/:month': {
+      component: dynamicWrapper(app, [], () => import('../routes/Counting/index')),
+      title: '绩效核算中',
+      showTitle: false,
     },
     '/user': {
       component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),

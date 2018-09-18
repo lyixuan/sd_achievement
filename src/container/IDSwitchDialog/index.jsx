@@ -90,7 +90,7 @@ class SwitchDialog extends React.Component {
   render() {
     const { modalflag, dataSource = [] } = this.state;
     const authData = this.getAuthList() || [];
-    return authData.length <= 0 ? null : (
+    return authData.length <= 1 ? null : (
       <div className={styles.m_floatDialog}>
         <div className={styles.u_iconWrap} onClick={this.showModal}>
           <img src={idSwitch} alt="身份切换" className={styles.imgIcon} />

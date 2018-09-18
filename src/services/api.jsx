@@ -115,6 +115,14 @@ export async function findGroupDetailByFamily(params) {
   });
 }
 /*
+* 历史绩效：查看当前月份是否可查看
+*/
+export async function findKpiEffectMonthByMonth(params) {
+  return request(`${HOST}/historyKpi/findKpiEffectMonthByMonth?${stringify(params)}`, {
+    method: 'GET',
+  });
+}
+/*
 * 历史绩效：boss/院长-绩效分档
 */
 export async function findHistoryKpiBracket(params) {

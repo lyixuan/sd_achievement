@@ -1,4 +1,9 @@
-import { findHistoryKpiBracket, findIndividualHistoryKPI, findClassKpiList } from 'services/api';
+import {
+  findHistoryKpiBracket,
+  findIndividualHistoryKPI,
+  findClassKpiList,
+  findKpiEffectMonthByMonth,
+} from 'services/api';
 import Message from '../components/Message';
 
 export default {
@@ -8,6 +13,8 @@ export default {
     bossKpiBracketObj: {},
     teacherKpiObj: {},
     classKpiList: [],
+    isRequestShowApi: false,
+    isShowHistoryData: null, // 是否可查看数据
   },
   effects: {
     *findHistoryKpiBracket({ payload }, { call, put }) {
@@ -47,6 +54,20 @@ export default {
         Message.fail(response.msg);
       }
     },
+    *findKpiEffectMonthByMonth({ payload }, { call, put }) {
+      const response = yield call(findKpiEffectMonthByMonth, payload);
+      if (response.code === 2000) {
+        const data = response.data || {};
+        const isShowHistoryData = data.isShow === 0;
+        const isRequestShowApi = true;
+        yield put({
+          type: 'saveShowHistoryState',
+          payload: { isShowHistoryData, isRequestShowApi },
+        });
+      } else {
+        Message.fail(response.msg);
+      }
+    },
   },
 
   reducers: {
@@ -54,6 +75,9 @@ export default {
       return { ...state, ...payload };
     },
     saveClassKpiList(state, { payload }) {
+      return { ...state, ...payload };
+    },
+    saveShowHistoryState(state, { payload }) {
       return { ...state, ...payload };
     },
   },
