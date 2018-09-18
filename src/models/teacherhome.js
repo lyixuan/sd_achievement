@@ -47,30 +47,27 @@ export default {
       } else {
         detailKpiData = yield call(findGroupDetailKpi, { ...detailKpiParams });
       }
+      detailKpiData = detailKpiData || {};
       if (detailKpiData.code === 2000) {
         yield put({ type: 'familysave', payload: { detailKpiData, detailKpiParams } });
-        let kpiLevelData = null;
-        const dataList = !detailKpiData ? null : !detailKpiData.data ? null : detailKpiData.data;
-        const dailyCredit = !dataList ? null : !dataList.dailyCredit ? null : dataList.dailyCredit;
-        const baseKpi = !dataList ? null : !dataList.baseKpi ? null : dataList.baseKpi;
-        const manageScale = !dataList ? null : !dataList.manageScale ? null : dataList.manageScale;
-        const selfNum = !manageScale
-          ? 0
-          : !manageScale.classNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
-        let levelVal = 1;
-        if (flagVal === 0) {
-          levelVal = !dailyCredit.ratio ? 1 : dailyCredit.ratio;
-        } else if (flagVal === 1) {
-          levelVal = !baseKpi.personNumAvg ? 1 : baseKpi.personNumAvg;
-        } else {
-          levelVal = userFlag === 2 ? selfNum : !manageScale.value ? 1 : manageScale.value;
-        }
-        // console.log('同时请求两个接口时候档位上送的参数',{ ...kpiLevelParams, levelVal })
-        kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams, levelVal });
-        if (kpiLevelData.code === 2000) {
-          yield put({ type: 'kpisave', payload: { kpiLevelData, kpiLevelParams } });
-        } else {
-          Message.error(kpiLevelData.msg);
+        if (detailKpiData.data) {
+          const { dailyCredit = {}, baseKpi = {}, manageScale = {} } = detailKpiData.data || {};
+          const selfNum = manageScale.classNum || 0;
+          let levelVal = null;
+          if (flagVal === 0) {
+            levelVal = dailyCredit.ratio || 1;
+          } else if (flagVal === 1) {
+            levelVal = baseKpi.personNumAvg || 1;
+          } else {
+            levelVal = userFlag === 2 ? selfNum : manageScale.value || 1;
+          }
+          // console.log('同时请求两个接口时候档位上送的参数',{ ...kpiLevelParams, levelVal })
+          const kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams, levelVal });
+          if (kpiLevelData.code === 2000) {
+            yield put({ type: 'kpisave', payload: { kpiLevelData, kpiLevelParams } });
+          } else {
+            Message.error(kpiLevelData.msg);
+          }
         }
       } else {
         Message.error(detailKpiData.msg);
