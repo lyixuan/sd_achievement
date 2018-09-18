@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { getCurrentAuthInfo } from 'utils/decorator';
+import { assignUrlParams } from 'utils/routerUtils';
 import styles from '../Teachers/index.less';
 import common from '../index.less';
 import SurePer from '../../../assets/surePer.png';
@@ -9,12 +10,14 @@ import SurePer from '../../../assets/surePer.png';
 class Counting extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      timeVal: '2018-07',
+    const { urlParams = {} } = props;
+    const initState = {
+      month: '',
     };
+    this.state = assignUrlParams(initState, urlParams);
   }
   formateDate = () => {
-    const month = this.state.timeVal || new Date();
+    const month = this.state.month || new Date();
     const year = moment(month).year();
     const newMonth = moment(month).month();
     return {

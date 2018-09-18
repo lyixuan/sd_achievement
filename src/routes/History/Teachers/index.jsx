@@ -16,7 +16,6 @@ class HistoryTeacher extends React.Component {
     super(props);
     const { urlParams = {} } = props;
     const initState = {
-      timeVal: '2018.07',
       flag: 2,
       month: '',
     };
@@ -71,8 +70,11 @@ class HistoryTeacher extends React.Component {
     };
   };
   toDetailsPage = () => {
-    const month = this.formateDate();
-    this.props.setRouteUrlParams('/history/details', { type: 1, month });
+    const month = this.state.month || new Date();
+    const year = moment(month).year();
+    const newMonth = moment(month).month();
+    const monthData = `${year}-${newMonth}`;
+    this.props.setRouteUrlParams('/history/details', { type: 1, month: monthData });
   };
   render() {
     const { loading } = this.props;
