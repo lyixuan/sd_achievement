@@ -39,9 +39,10 @@ export default class DatePanle extends React.Component {
   dataFun = () => {
     const dateVal = timeArea();
     const { maxDate, minDate } = dateVal;
-    const nowDate = new Date(Date.parse(maxDate.replace(/-/g, '/')));
+    const aa = maxDate.replace(/\s/g, 'T').replace(/\//g, '-');
+    const nowDate = new Date(aa);
     const result = [];
-    const num = this.state.flag === 1 ? 12 : 3;
+    const num = this.state.flag === 1 ? 13 : 4;
     for (let i = 0; i < num; i += 1) {
       nowDate.setMonth(nowDate.getMonth() - 1);
       let m = nowDate.getMonth() + 2;
