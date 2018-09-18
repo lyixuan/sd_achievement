@@ -31,7 +31,7 @@ class HistoryDetails extends React.Component {
         type: urlParams.type, // 0：家族，1：小组
         userId,
       },
-      collegeName: department || '全部学院',
+      collegeName: groupType === 'boss' ? '全部学院' : department,
       collegeId,
       sort: '1',
       isShowSwitch: false, // 是否展示右侧切换按钮

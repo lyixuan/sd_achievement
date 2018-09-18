@@ -68,14 +68,16 @@ class Level extends React.Component {
   render() {
     const { familyData = [] } = this.props.level;
     const dataList = changeObj(familyData);
-    const { month } = this.state.paramsObj;
+    const { month, groupType } = this.state.paramsObj;
     return (
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
           <span>{formatDate(month)}预测绩效</span>
-          <div className={styles.greyFont} onClick={() => this.jumpDetail('全部学院', '')}>
-            绩效详情 <img src={arrowRight} alt="arrow" className={styles.arrowRight} />
-          </div>
+          {groupType === 'boss' ? (
+            <div className={styles.greyFont} onClick={() => this.jumpDetail('全部学院', '')}>
+              绩效详情 <img src={arrowRight} alt="arrow" className={styles.arrowRight} />
+            </div>
+          ) : null}
         </div>
 
         {this.props.loading && <Loading />}
