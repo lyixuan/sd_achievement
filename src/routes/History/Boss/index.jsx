@@ -26,7 +26,7 @@ class HistoryBoss extends React.Component {
     this.getData();
   }
   getData = () => {
-    const { userId, collegeId, groupType } = this.currentAuthInfo;
+    const { userId, collegeId, groupType } = this.currentAuthInfo();
     const { month } = this.state;
     this.props.dispatch({
       type: 'historyhome/findHistoryKpiBracket',
