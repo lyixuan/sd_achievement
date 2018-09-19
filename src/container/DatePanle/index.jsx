@@ -3,7 +3,7 @@ import moment from 'moment';
 import { getCurrentAuthInfo } from 'utils/decorator';
 import TimeSelect from 'components/TimeSelect/TimeSelect';
 import styles from './index.less';
-import history from '../../assets/history.png';
+import history from '../../assets/history.gif';
 import { timeArea } from '../../utils/timeArea';
 
 const formate = 'YYYY-MM';

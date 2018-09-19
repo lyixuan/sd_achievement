@@ -18,7 +18,6 @@ class Counting extends React.Component {
 
   render() {
     const timeDateObj = this.formateDate();
-    const { department } = this.currentAuthInfo;
     return (
       <div>
         <div className={styles.historyBanner} />
@@ -27,10 +26,8 @@ class Counting extends React.Component {
             <img src={SurePer} alt="logo" className={styles.u_imgCls} />
           </div>
           <div className={styles.m_wordContent}>
-            <p>亲爱的{department}</p>
-            <p>辛苦啦，感谢您在{timeDateObj.month}月份努力的付出！</p>
             <p className={styles.u_timeCls}>
-              您{timeDateObj.year}年{timeDateObj.month}月份确定绩效为
+              {timeDateObj.year}年{timeDateObj.month}月份确定绩效为
             </p>
             <p className={styles.u_resultlCls}>核算中...</p>
           </div>

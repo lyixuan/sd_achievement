@@ -86,7 +86,7 @@ class HistoryTeacher extends React.Component {
     const timeDateObj = this.formateDate();
     const { groupType = null } = this.currentAuthInfo;
     return (
-      <div>
+      <div style={{ background: '#EDF0F3' }}>
         <div className={common.historyBanner} />
         <div className={styles.m_wrapcontener}>
           <div className={styles.m_imgDiv}>
