@@ -19,7 +19,8 @@ export class BarClass extends ChartBase {
     const item = this.chartData.find(list => list.id === id) || {};
 
     const str = `{b|${name} : ${item.val}%\n}`;
-    const demation = `{a|${item.num}个家族\n${this.breakNumComma(item.companyAchievement)}元}\n`;
+    const demation = `{a|${item.num || 0}个家族\n${this.breakNumComma(item.collegeAchievement) ||
+      0}元}\n`;
     return str + demation;
   };
   setLabel = () => {
