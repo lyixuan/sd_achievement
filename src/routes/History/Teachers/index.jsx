@@ -96,7 +96,9 @@ class HistoryTeacher extends React.Component {
             <p>亲爱的{name}</p>
             <p>辛苦啦，感谢您在{timeDateObj.month}月份努力的付出！</p>
             <p className={styles.u_timeCls}>您{timeDateObj.month}月份确定绩效为</p>
-            <p className={styles.u_resultlCls}>{formatMoney(teacherKpiObj.actual_kpi || 0)}元</p>
+            <p className={styles.u_selfresultlCls}>
+              {formatMoney(teacherKpiObj.actual_kpi || 0)}元
+            </p>
             <div style={{ height: '0.54rem' }} />
             <div className={styles.m_performenceContent}>
               <p className={styles.u_pWrapContent}>实发合计中包含以下数据</p>
