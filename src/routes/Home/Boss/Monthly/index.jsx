@@ -14,7 +14,7 @@ import styles from './index.less';
 class BossMothly extends React.Component {
   constructor(props) {
     super(props);
-    const { groupType = null } = this.currentAuthInfo;
+    const { groupType = null } = this.currentAuthInfo();
     const { maxDate } = timeArea();
     const { urlParams = {} } = props;
     const initState = {
@@ -45,7 +45,7 @@ class BossMothly extends React.Component {
     const monthlyType = params.monthlyType || this.state.monthlyType;
     let { month } = this.state;
     month = params.month || month;
-    const { userId, collegeId, groupType } = this.currentAuthInfo;
+    const { userId, collegeId, groupType } = this.currentAuthInfo();
     const sendParams = {
       month,
       userId,

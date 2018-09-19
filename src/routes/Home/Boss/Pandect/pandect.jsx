@@ -46,7 +46,7 @@ class Boss extends React.Component {
   };
   getGroupTotalKpiData = (params = {}) => {
     const { TotalKpigroupType } = this.state;
-    const { userId } = this.currentAuthInfo;
+    const { userId } = this.currentAuthInfo();
     const groupType = params.TotalKpigroupType || TotalKpigroupType;
     const newParams = { userId, groupType };
     this.props.dispatch({
@@ -56,7 +56,7 @@ class Boss extends React.Component {
   };
   getGroupAvgKpiData = (params = {}) => {
     const { groupAvgKpiGroupType } = this.state;
-    const { userId } = this.currentAuthInfo;
+    const { userId } = this.currentAuthInfo();
     const groupType = params.groupAvgKpiGroupType || groupAvgKpiGroupType;
     const newParams = { userId, groupType };
     this.props.dispatch({
@@ -65,7 +65,7 @@ class Boss extends React.Component {
     });
   };
   checkoutUserAuth = () => {
-    const { groupType = null } = this.currentAuthInfo;
+    const { groupType = null } = this.currentAuthInfo();
     return groupType;
   };
 

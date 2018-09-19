@@ -22,7 +22,6 @@ class indexPage extends React.Component {
   // }
   checkoutUserAuth = () => {
     const { groupType = null, isKpi } = this.currentAuthInfo();
-    console.log(groupType);
     if (isKpi) {
       this.props.history.push('/exception/403');
     }
