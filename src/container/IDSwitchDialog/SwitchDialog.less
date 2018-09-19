@@ -31,21 +31,21 @@
   }
   .flexContainer {
     margin: 0.32rem auto 0.11rem;
-    width: 2.4rem;
+    width: 2.96rem;
     max-height: 75vh;
     .buttonDiv {
       .u_btnStyle {
         display: inline-block;
         border: 0.02rem solid #dadada;
         border-radius: 0.04rem;
-        width: 2.4rem;
+        width: 2.96rem;
         height: 0.64rem;
         line-height: 0.64rem;
         color: #999;
         font-size: 0.26rem;
       }
       .u_btnStyle:not(:last-child) {
-        margin-bottom: 0.1rem;
+        margin-bottom: 0.2rem;
       }
       .u_btnSelected {
         border: 0.02rem solid #52c9c2;
@@ -56,6 +56,9 @@
 
   :global(.am-modal-header) {
     margin-bottom: 0.4rem;
+  }
+  :global(.am-modal-body) {
+    line-height: 1 !important;
   }
   :global(.am-modal-button-group-h .am-modal-button) {
     font-size: 0.34rem !important;
