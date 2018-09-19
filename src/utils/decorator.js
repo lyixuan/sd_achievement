@@ -4,10 +4,12 @@ import { getItem } from './localStorage';
 export function getCurrentAuthInfo(target) {
   const store = getItem('performanceCurrentAuth') || null;
   const value = store.value || {};
-  const currentAuthInfo = value || {};
+  const currentAuthInfo = () => {
+    return getItem('performanceCurrentAuth').value || {};
+  };
   if (target && typeof target === 'function') {
     Object.assign(target.prototype, { currentAuthInfo });
   } else {
-    return currentAuthInfo;
+    return value || {};
   }
 }

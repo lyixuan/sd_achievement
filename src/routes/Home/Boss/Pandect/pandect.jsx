@@ -74,9 +74,15 @@ class Boss extends React.Component {
     const { bosshome = {}, loading } = this.props;
     const groupTotalKpiList = bosshome.groupTotalKpiList || [];
     const groupAvgKpiList = bosshome.groupAvgKpiList || [];
+    const groupType = this.checkoutUserAuth();
     return (
       <div>
-        <AllGroupPandect dataSource={{ data: groupTotalKpiList || [], title: '集团总绩效' }}>
+        <AllGroupPandect
+          dataSource={{
+            data: groupTotalKpiList || [],
+            title: `${groupType === 'boss' ? '集团总绩效' : '学院总绩效'}`,
+          }}
+        >
           <div className={styles.buttonContainer}>
             <ButtonGroup
               id={TotalKpigroupType}
@@ -89,7 +95,12 @@ class Boss extends React.Component {
             />
           </div>
         </AllGroupPandect>
-        <PerGroupPandect dataSource={{ data: groupAvgKpiList, title: '集团人均绩效' }}>
+        <PerGroupPandect
+          dataSource={{
+            data: groupAvgKpiList,
+            title: `${groupType === 'boss' ? '集团人均绩效' : '学院人均绩效'}`,
+          }}
+        >
           <div className={styles.buttonContainer}>
             <ButtonGroup
               id={groupAvgKpiGroupType}

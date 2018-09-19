@@ -21,7 +21,7 @@ const groupTypeList = {
 class SwitchDialog extends React.Component {
   constructor(props) {
     super(props);
-    const selected = this.currentAuthInfo.id || '';
+    const selected = this.currentAuthInfo().id || '';
     this.state = {
       selected,
       modalflag: false,
@@ -74,17 +74,20 @@ class SwitchDialog extends React.Component {
     this.hideModal();
   };
   saveSelectedAuth = id => {
-    const currentId = this.currentAuthInfo.id;
+    const currentId = this.currentAuthInfo().id;
     const authData = this.getAuthList() || [];
     const selectedAuth = authData.find(item => item.id === id);
     if (id !== currentId && selectedAuth) {
       setItem('performanceCurrentAuth', selectedAuth);
       if (this.props.toIndexPage) {
-        this.props.toIndexPage();
+        setTimeout(() => {
+          this.props.toIndexPage();
+        }, 100);
       }
     } else {
       console.warn('添加失败');
     }
+    this.hideModal();
   };
 
   render() {
