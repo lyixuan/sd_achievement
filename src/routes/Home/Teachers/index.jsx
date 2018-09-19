@@ -185,7 +185,10 @@ class Teacher extends React.Component {
         />
         {isloading && <Loading />}
         <div className={styles.m_performanceContener}>
-          <span className={styles.u_totalNum}>{formatMoney(total || 0)}元</span>
+          <span className={styles.u_totalNum}>
+            {formatMoney(total || 0)}
+            <span className={styles.u_selfWord}>元</span>
+          </span>
           <div className={styles.m_performanceMoney}>
             <div className={styles.u_basicMoney}>
               <div className={styles.u_contentDiv}>
