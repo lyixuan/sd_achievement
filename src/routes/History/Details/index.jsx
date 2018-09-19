@@ -23,7 +23,12 @@ class HistoryDetails extends React.Component {
     const { urlParams = {} } = props;
     const currentAuthInfo = this.currentAuthInfo() || {};
     console.log(currentAuthInfo);
-    const { collegeId = '', groupType = '', userId = '', department = null } = currentAuthInfo;
+    const {
+      collegeId = '',
+      groupType = '',
+      userId = '',
+      currentGroupName = null,
+    } = currentAuthInfo;
     const initState = {
       paramsObj: {
         month: urlParams.month || '2018-08',
@@ -31,7 +36,7 @@ class HistoryDetails extends React.Component {
         type: urlParams.type, // 0：家族，1：小组
         userId,
       },
-      collegeName: groupType === 'boss' ? '全部学院' : department,
+      collegeName: groupType === 'boss' ? '全部学院' : currentGroupName,
       collegeId,
       sort: '1',
       isShowSwitch: false, // 是否展示右侧切换按钮

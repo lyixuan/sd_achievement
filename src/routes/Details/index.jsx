@@ -26,7 +26,7 @@ class Details extends React.Component {
       groupType = '',
       familyId = '',
       userId = '',
-      department = null,
+      currentGroupName = null,
     } = this.currentAuthInfo();
     const initState = {
       paramsObj: {
@@ -36,7 +36,7 @@ class Details extends React.Component {
         type: urlParams.type, // 0：家族，1：小组
         userId,
       },
-      collegeName: urlParams.collegeName ? urlParams.collegeName : department,
+      collegeName: urlParams.collegeName ? urlParams.collegeName : currentGroupName,
       collegeId: urlParams.collegeId,
       sort: 1,
       isShowSwitch: false, // 是否展示右侧切换按钮
