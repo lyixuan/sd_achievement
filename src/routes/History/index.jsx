@@ -28,7 +28,7 @@ class HistoryIndex extends React.Component {
   };
 
   checkoutUserAuth = () => {
-    const { groupType = null } = this.currentAuthInfo;
+    const { groupType = null } = this.currentAuthInfo();
     const { urlParams } = this.props;
     if (groupType === 'boss' || groupType === 'college') {
       return `/history/boss?${stringify(urlParams)}`;

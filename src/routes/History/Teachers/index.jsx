@@ -84,7 +84,7 @@ class HistoryTeacher extends React.Component {
     const historyhome = this.props.historyhome || {};
     const { teacherKpiObj = {}, classKpiList = [] } = historyhome;
     const timeDateObj = this.formateDate();
-    const { groupType = null } = this.currentAuthInfo();
+    const { groupType = null, name } = this.currentAuthInfo();
     return (
       <div style={{ background: '#EDF0F3' }}>
         <div className={common.historyBanner} />
@@ -93,7 +93,7 @@ class HistoryTeacher extends React.Component {
             <img src={SurePer} alt="logo" className={styles.u_imgCls} />
           </div>
           <div className={styles.m_wordContent}>
-            <p>亲爱的甘文斌</p>
+            <p>亲爱的{name}</p>
             <p>辛苦啦，感谢您在{timeDateObj.month}月份努力的付出！</p>
             <p className={styles.u_timeCls}>您{timeDateObj.month}月份确定绩效为</p>
             <p className={styles.u_resultlCls}>{formatMoney(teacherKpiObj.actual_kpi || 0)}元</p>
