@@ -11,7 +11,7 @@ const formate = 'YYYY-MM';
 export default class DatePanle extends React.Component {
   constructor(props) {
     super(props);
-    const { groupType = 'family' } = this.currentAuthInfo;
+    const { groupType = 'family' } = this.currentAuthInfo();
     const val = groupType === 'boss' || groupType === 'college' ? 1 : 2;
     this.state = {
       flag: val,

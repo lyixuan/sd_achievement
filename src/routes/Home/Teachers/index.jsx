@@ -27,7 +27,7 @@ class Teacher extends React.Component {
       familyId = null,
       groupId = null,
       familyType = null,
-    } = this.currentAuthInfo;
+    } = this.currentAuthInfo();
     const userFlag = groupType === 'family' ? 1 : 2;
     const initState = {
       familyType, // 自考还是壁垒

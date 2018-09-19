@@ -28,7 +28,7 @@ class HistoryTeacher extends React.Component {
     this.getData();
   }
   getData = () => {
-    const { loginUserId, groupType } = this.currentAuthInfo;
+    const { loginUserId, groupType } = this.currentAuthInfo();
     const { month } = this.state;
     this.props.dispatch({
       type: 'historyhome/findIndividualHistoryKPI',
@@ -47,7 +47,7 @@ class HistoryTeacher extends React.Component {
       groupId,
       userId,
       familyType,
-    } = this.currentAuthInfo;
+    } = this.currentAuthInfo();
     const { month } = this.state;
     this.props.dispatch({
       type: 'historyhome/findClassKpiList',
@@ -84,7 +84,7 @@ class HistoryTeacher extends React.Component {
     const historyhome = this.props.historyhome || {};
     const { teacherKpiObj = {}, classKpiList = [] } = historyhome;
     const timeDateObj = this.formateDate();
-    const { groupType = null } = this.currentAuthInfo;
+    const { groupType = null } = this.currentAuthInfo();
     return (
       <div style={{ background: '#EDF0F3' }}>
         <div className={common.historyBanner} />
