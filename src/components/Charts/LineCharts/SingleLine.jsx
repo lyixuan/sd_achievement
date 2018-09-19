@@ -9,7 +9,7 @@ export default class SingleBar extends React.Component {
     this.tooltipInstance = null;
   }
   setChartsOps = dataSource => {
-    const { seriesData, xAxisData } = dataSource;
+    const { allMoney, xAxisData } = dataSource;
     const title = this.tooltipInstance.chartTitle();
     const grid = this.tooltipInstance.chartGrid();
     const chartOps = {
@@ -74,7 +74,7 @@ export default class SingleBar extends React.Component {
           color: '#3389FF',
           width: 1,
         },
-        data: seriesData,
+        data: allMoney,
       },
     };
     return chartOps;
@@ -107,25 +107,26 @@ export default class SingleBar extends React.Component {
       data: this.tooltipInstance.chartData.map(item => item.name),
     };
   };
+  setServiesItem = data => {
+    return data.map(item => ({
+      value: item.val,
+      itemStyle: {
+        color: '#3389FF',
+        barBorderRadius: [2, 2, 0, 0], // 处理数据正副职圆角的问题
+      },
+    }));
+  };
   handleData = () => {
     const { dataSource } = this.props;
     if (!this.tooltipInstance) {
       this.tooltipInstance = new BarClass();
     }
     this.tooltipInstance.setData(dataSource);
-    const seriesData = [];
-    this.tooltipInstance.chartData.forEach(item => {
-      const opsXobj = {
-        value: item.val,
-        itemStyle: {
-          color: '#3389FF',
-          barBorderRadius: [2, 2, 0, 0], // 处理数据正副职圆角的问题
-        },
-      };
-      seriesData.push(opsXobj);
-    });
-    const xAxisData = this.setXAxis(dataSource);
-    return this.setChartsOps({ seriesData, xAxisData });
+    const { chartData } = this.tooltipInstance;
+
+    const xAxisData = this.setXAxis(chartData);
+    const allMoney = this.setServiesItem(chartData);
+    return this.setChartsOps({ allMoney, xAxisData });
   };
 
   render() {

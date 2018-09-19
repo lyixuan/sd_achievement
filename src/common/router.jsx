@@ -163,11 +163,11 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('../layout/StaticLayout')),
     },
     '/static/usercourse': {
-      component: dynamicWrapper(app, [], () => import('../routes/Static')),
+      component: dynamicWrapper(app, [], () => import('../routes/Static/UserCourse')),
       isAuth: true, //  静态页面需要权限
     },
     '/static/algorithmdescription': {
-      component: dynamicWrapper(app, [], () => import('../layout/StaticLayout')),
+      component: dynamicWrapper(app, [], () => import('../routes/Static/AlgorithmDescription')),
       isAuth: true,
     },
     '/exception': {
