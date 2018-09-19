@@ -5,6 +5,8 @@ import React from 'react';
 import { assignUrlParams } from '../../utils/routerUtils';
 import CollegeDialog from './CollegeDialog';
 import top from '../../assets/top.svg';
+import count from '../../assets/count.svg';
+import dashboard from '../../assets/dashboard.svg';
 import search from '../../assets/search.svg';
 import styles from './_floatIcon.less';
 
@@ -71,6 +73,24 @@ class FloatIcon extends React.Component {
           id="backTopBtn"
         >
           <img src={top} className={styles.imgTop} alt="回到顶部" />
+        </div>
+        {/* *************** 档位说明 *************** */}
+        <div
+          className={`${styles.floatIcon} ${styles.dashBordCls}`}
+          onClick={() => {
+            this.props.setRouteUrlParams('/UserCourse');
+          }}
+        >
+          <img src={dashboard} className={styles.imgDash} alt="档位说明" />
+        </div>
+        {/* *************** 算法说明 *************** */}
+        <div
+          className={`${styles.floatIcon} ${styles.countCls}`}
+          onClick={() => {
+            this.props.setRouteUrlParams('/AlgorithmDescription');
+          }}
+        >
+          <img src={count} className={styles.imgCount} alt="算法说明" />
         </div>
 
         {/* *************** 搜索按钮 *************** */}

@@ -184,6 +184,7 @@ class Details extends React.Component {
         <FloatIcon
           changeCollegeName={val => this.changeCollegeName(val)}
           groupType={paramsObj.groupType}
+          setRouteUrlParams={url => this.props.setRouteUrlParams(url)}
         />
         <div style={{ paddingBottom: '.63rem', fontSize: 0 }}> 0</div>
       </div>
