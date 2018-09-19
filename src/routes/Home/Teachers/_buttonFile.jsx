@@ -40,7 +40,7 @@ class ButtonFile extends React.Component {
           dataSource={{
             id: 3,
             name: flag === 1 ? '管理规模系数' : '绩效比例',
-            score: `${manageNum}%`,
+            score: flag === 1 ? manageNum : `${manageNum * 100}%`,
           }}
           dataReturnFun={item => {
             this.props.changeFlag(item);
