@@ -11,7 +11,16 @@ class RenderItem extends React.Component {
       isShowDetail: false,
     };
   }
-  componentDidMount() {}
+  UNSAFE_componentWillReceiveProps(nextprops) {
+    if (nextprops.paramCom) {
+      const { collegeId, sort, nextCollegeId, nextSort } = nextprops.paramCom;
+      if (collegeId !== nextCollegeId || sort !== nextSort) {
+        this.setState({
+          isShowDetail: false,
+        });
+      }
+    }
+  }
 
   toggleClick = () => {
     const { isShowDetail } = this.state;

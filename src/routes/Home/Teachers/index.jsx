@@ -247,6 +247,7 @@ class Teacher extends React.Component {
             <img src={Right} alt="rightArrow" className={styles.u_rightArrow} />
           </div>
         </div>
+        <div style={{ height: '0.7rem', width: '100%' }} />
       </div>
     );
   }

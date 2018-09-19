@@ -51,9 +51,18 @@ class Details extends React.Component {
     this.getDataListLen(dataList);
     this.getListData(url, { sort }, { collegeId });
   }
+
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.details.dataList !== this.props.details.dataList) {
       this.getDataListLen(nextProps.details.dataList);
+    }
+    if (nextProps.details && this.props.details) {
+      this.paramCom = {
+        collegeId: this.props.details.collegeId,
+        sort: this.props.details.sort,
+        nextCollegeId: nextProps.details.collegeId,
+        nextSort: nextProps.details.sort,
+      };
     }
   }
   onChange = val => {
@@ -69,6 +78,10 @@ class Details extends React.Component {
     this.props.dispatch({
       type: url,
       payload: param,
+    });
+    this.props.dispatch({
+      type: 'details/saveStatus',
+      payload: { collegeId, sort },
     });
   };
   // 列表展示条数大于3则展示switch按钮
@@ -94,6 +107,7 @@ class Details extends React.Component {
       });
     }
   };
+  paramCom = {}; // 存储过滤器参数
   changeCollegeName(v) {
     const { url, sort } = this.state;
     this.setState({
@@ -148,7 +162,12 @@ class Details extends React.Component {
                     />
                   )}
                   customRenderItem={rowData => (
-                    <RenderItem paramsObj={paramsObj} rowData={rowData} groupType={item.id} />
+                    <RenderItem
+                      paramsObj={paramsObj}
+                      rowData={rowData}
+                      groupType={item.id}
+                      paramCom={this.paramCom}
+                    />
                   )}
                 />
               )
