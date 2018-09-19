@@ -162,6 +162,14 @@ export const getRouterData = app => {
     '/static': {
       component: dynamicWrapper(app, [], () => import('../layout/StaticLayout')),
     },
+    '/static/usercourse': {
+      component: dynamicWrapper(app, [], () => import('../layout/StaticLayout')),
+      isAuth: true, //  静态页面需要权限
+    },
+    '/static/algorithmdescription': {
+      component: dynamicWrapper(app, [], () => import('../layout/StaticLayout')),
+      isAuth: true,
+    },
     '/exception': {
       component: dynamicWrapper(app, [], () => import('../layout/Exception')),
     },
