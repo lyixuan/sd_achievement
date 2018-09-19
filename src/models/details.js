@@ -6,12 +6,8 @@ export default {
 
   state: {
     dataList: [],
-  },
-
-  subscriptions: {
-    // setup({ dispatch, history }) {
-    //   // eslint-disable-line
-    // },
+    sort: null,
+    collegeId: null,
   },
 
   effects: {
@@ -52,6 +48,9 @@ export default {
   reducers: {
     save(state, action) {
       return { ...state, ...action.payload };
+    },
+    saveStatus(state, { payload }) {
+      return { ...state, ...payload };
     },
   },
 };
