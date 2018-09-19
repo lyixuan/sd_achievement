@@ -6,12 +6,11 @@ export class Proportion extends BarClass {
     const { name } = params[0];
     const { isPredicted } = this.checkoutIsPredicted(name);
     const str = `<div><span class="chart-tooltip-dateTime">${name}${
-      isPredicted ? '预测' : '实发'
+      !isPredicted ? '预测' : '实发'
     }</span><br />`;
-    const row1 = isPredicted ? rowItem(params[0]) : '';
+    const row1 = !isPredicted ? rowItem(params[0]) : '';
     const row2 = rowItem(params[1]);
-    const row3 = isPredicted ? rowItem(params[2]) : '';
-
+    const row3 = !isPredicted ? rowItem(params[2]) : '';
     function rowItem(row) {
       const { seriesName, value } = row;
       const numUnit = that.breakNumComma(value);
