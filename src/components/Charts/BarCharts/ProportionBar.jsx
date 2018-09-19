@@ -117,6 +117,7 @@ export default class SingleBar extends React.Component {
     const seriesData = [];
     chartData.forEach(item => {
       const opsXobj = {
+        id: item.id,
         value: item.val,
         itemStyle: {
           color: '#52C9C2',

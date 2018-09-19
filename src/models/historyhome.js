@@ -58,7 +58,7 @@ export default {
       const response = yield call(findKpiEffectMonthByMonth, payload);
       if (response.code === 2000) {
         const data = response.data || {};
-        const isShowHistoryData = data.isShow === 0;
+        const isShowHistoryData = data.isShow === 1;
         const isRequestShowApi = true;
         yield put({
           type: 'saveShowHistoryState',

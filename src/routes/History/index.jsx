@@ -35,7 +35,7 @@ class HistoryIndex extends React.Component {
     } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
       return `/history/teacher?${stringify(urlParams)}`;
     } else {
-      this.props.history.push('/exception/403');
+      return '/exception/403';
     }
   };
   render() {

@@ -7,6 +7,7 @@ import Loading from 'components/Loading/Loading';
 import Authorized from 'utils/Authorized';
 import { getUserId, getAuthority } from 'utils/authority';
 import { getRoutes } from '../utils/routerUtils';
+// import styles from './common.less';
 
 const { AuthorizedRoute } = Authorized;
 class BaseLayout extends React.Component {
@@ -36,7 +37,7 @@ class BaseLayout extends React.Component {
       }
     });
     if (currRouterData && currRouterData.title) {
-      title = `${currRouterData.title}`;
+      title = currRouterData.showTitle ? `${currRouterData.title}` : '';
     }
     return title;
   };
@@ -58,7 +59,7 @@ class BaseLayout extends React.Component {
           ))}
           <Redirect exact from="/" to="/indexPage" />
         </Switch>
-        {/* <div className={}></div> */}
+        {/* <div className={styles.footer}> </div> */}
       </DocumentTitle>
     ) : (
       <Loading />

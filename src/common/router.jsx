@@ -85,72 +85,72 @@ export const getRouterData = app => {
     },
     '/indexPage': {
       component: dynamicWrapper(app, [], () => import('../routes/Home/IndexPage')),
-      title: '首页',
+      title: '',
       showTitle: false,
     },
     '/indexPage/boss': {
       component: dynamicWrapper(app, ['bosshome'], () => import('../routes/Home/Boss/index')),
-      title: 'boss学院长首页',
+      title: '',
       showTitle: false,
     },
     '/indexPage/boss/pandect': {
       component: dynamicWrapper(app, ['bosshome'], () =>
         import('../routes/Home/Boss/Pandect/pandect')
       ),
-      title: '绩效总览',
+      title: '',
       showTitle: false,
     },
     '/indexPage/boss/monthly': {
       component: dynamicWrapper(app, ['bosshome'], () =>
         import('../routes/Home/Boss/Monthly/index')
       ),
-      title: '每月绩效',
+      title: '',
       showTitle: false,
     },
     '/indexPage/teacher': {
       component: dynamicWrapper(app, ['teacherhome'], () =>
         import('../routes/Home/Teachers/index')
       ),
-      title: '运营长家族长首页',
-      showTitle: false,
+      title: '我的绩效',
+      showTitle: true,
     },
     '/level': {
       component: dynamicWrapper(app, ['level'], () => import('../routes/Level/index')),
-      title: '分档详情',
+      title: '',
       showTitle: false,
     },
     '/details': {
       component: dynamicWrapper(app, ['details'], () => import('../routes/Details/index')),
-      title: '小组绩效',
-      showTitle: true,
+      title: '',
+      showTitle: false,
     },
     '/history': {
       component: dynamicWrapper(app, ['historyhome'], () => import('../routes/History')),
-      title: '历史绩效',
-      showTitle: true,
+      title: '',
+      showTitle: false,
     },
     '/history/boss': {
       component: dynamicWrapper(app, ['historyhome'], () => import('../routes/History/Boss/index')),
-      title: 'boss院长确认绩效',
-      showTitle: true,
+      title: '',
+      showTitle: false,
     },
     '/history/teacher': {
       component: dynamicWrapper(app, ['historyhome'], () =>
         import('../routes/History/Teachers/index')
       ),
-      title: '运营确认绩效',
-      showTitle: true,
+      title: '',
+      showTitle: false,
     },
     '/history/details': {
       component: dynamicWrapper(app, ['historyDetails'], () =>
         import('../routes/History/Details/index')
       ),
-      title: '确认绩效详情',
-      showTitle: true,
+      title: '',
+      showTitle: false,
     },
     '/counting/:month': {
       component: dynamicWrapper(app, [], () => import('../routes/Counting/index')),
-      title: '绩效核算中',
+      title: '',
       showTitle: false,
     },
     '/user': {

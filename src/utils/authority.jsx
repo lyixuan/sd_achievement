@@ -9,7 +9,7 @@ export function getAuthority() {
   const { value = null, expries = null } = store;
   const { userId = null, isLogin } = value || {};
   const isExpries = expries && Number(expries) > Number(new Date());
-  if (userId && !isExpries && !isLogin) {
+  if (userId && !isExpries && isLogin) {
     return userId;
   } else {
     return null;
