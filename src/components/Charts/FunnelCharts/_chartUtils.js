@@ -12,6 +12,7 @@ export class BarClass extends ChartBase {
       itemWidth: fontSizeAuto(10),
       itemHeight: fontSizeAuto(10),
     };
+    console.log(this);
   }
   tooltipFormate = params => {
     const { name, data = {} } = params;
@@ -19,7 +20,8 @@ export class BarClass extends ChartBase {
     const item =
       this.chartData.find(list => list.name.toLowerCase() === selfLabel.toLowerCase()) || {};
     const str = `${name}\n`;
-    const demation = `{a|家族数: ${item.levelCount || 0}个  占比:${item.val || 0}%}`;
+    const demation = `{a|${/家族/g.test(this.title) ? '家族数' : '小组数'}: ${item.levelCount ||
+      0}个  占比:${item.val || 0}%}`;
     return str + demation;
   };
   setLabel = () => {

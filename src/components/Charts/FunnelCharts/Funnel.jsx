@@ -62,7 +62,7 @@ export default class SingleBar extends React.Component {
       },
       level4: {
         value: item4 ? item4.val : 0,
-        name: '5k一下',
+        name: '5k以下',
         selfLabel: item4 ? item4.name : '5k以下',
         itemStyle: { color: '#3389FF', borderColor: '#3389FF' },
       },

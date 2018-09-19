@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Redirect, Switch, Route } from 'dva/router';
+import { Redirect, Switch } from 'dva/router';
 import { getCurrentAuthInfo } from 'utils/decorator';
+import Authorized from 'utils/Authorized';
 import { getRoutes, assignUrlParams } from '../../utils/routerUtils';
 import SwitchDialog from '../../container/IDSwitchDialog/index';
 
+const { AuthorizedRoute } = Authorized;
 @getCurrentAuthInfo
 class indexPage extends React.Component {
   constructor(props) {
@@ -23,14 +25,14 @@ class indexPage extends React.Component {
   checkoutUserAuth = () => {
     const { groupType = null, isKpi } = this.currentAuthInfo();
     if (isKpi) {
-      this.props.history.push('/exception/403');
+      return '/exception/403';
     }
     if (groupType === 'boss' || groupType === 'college') {
       return '/indexPage/boss';
     } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
       return '/indexPage/teacher';
     } else {
-      this.props.history.push('/exception/403');
+      return '/exception/403';
     }
   };
   checkLoginSuccess = () => {
@@ -55,7 +57,7 @@ class indexPage extends React.Component {
       <div>
         <Switch>
           {getRoutes(match.path, routerData).map(item => (
-            <Route
+            <AuthorizedRoute
               key={item.key}
               path={item.path}
               component={item.component}

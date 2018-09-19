@@ -1,7 +1,7 @@
 // 占比柱状图
 import React from 'react';
 import { fontSizeAuto } from 'utils/chartUtils';
-import Bar from '../BaseChart/bar';
+import Line from '../BaseChart/line';
 import { Proportion } from './multi';
 
 export default class SingleBar extends React.Component {
@@ -23,19 +23,6 @@ export default class SingleBar extends React.Component {
         ...grid,
         top: fontSizeAuto(115),
       },
-      // legend: {
-      //   ...this.tooltipInstance.legendStyle,
-      //   data: [
-      //     {
-      //       name: `全体总绩效`,
-      //       icon: 'circle',
-      //       textStyle: {
-      //         color: '#999999',
-      //         fontSize: fontSizeAuto(18),
-      //       },
-      //     },
-      //   ],
-      // },
       color: '#52C9C2', // 设置图例远点颜色,可跟数组
       xAxis: {
         ...xAxisData,
@@ -63,7 +50,7 @@ export default class SingleBar extends React.Component {
         },
       },
       series: {
-        name: '全体总绩效',
+        name: '总绩效',
         type: 'line',
         symbol: 'circle', // 拐点样式 圆
         symbolSize: fontSizeAuto(8), // 拐点大小
@@ -152,6 +139,8 @@ export default class SingleBar extends React.Component {
 
   render() {
     const dataSource = this.handleData();
-    return dataSource ? <Bar dataSource={dataSource} width="6.9rem" height="6.8rem" /> : null;
+    return dataSource ? (
+      <Line dataSource={dataSource} showDefaultTip width="6.9rem" height="6.8rem" />
+    ) : null;
   }
 }

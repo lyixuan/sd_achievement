@@ -30,6 +30,7 @@ export default class DocumentTitle extends React.Component {
 
   render() {
     const children = React.Children.only(this.props.children);
-    return { ...children };
+    const isArray = Array.isArray(children);
+    return isArray ? [...children] : { ...children };
   }
 }

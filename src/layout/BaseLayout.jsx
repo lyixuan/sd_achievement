@@ -58,6 +58,7 @@ class BaseLayout extends React.Component {
           ))}
           <Redirect exact from="/" to="/indexPage" />
         </Switch>
+        {/* <div className={}></div> */}
       </DocumentTitle>
     ) : (
       <Loading />

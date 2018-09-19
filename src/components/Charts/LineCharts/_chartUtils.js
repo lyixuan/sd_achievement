@@ -37,7 +37,7 @@ export class BarClass extends ChartBase {
     const { name } = params[0];
     const { isPredicted } = this.checkoutIsPredicted(name);
     let str = `<div><span class="chart-tooltip-dateTime">${name}${
-      isPredicted ? '预测' : '实发'
+      !isPredicted ? '预测' : '实发'
     }</span><br />`;
     for (let i = 0; i < params.length; i += 1) {
       // 图表title名称
@@ -51,7 +51,7 @@ export class BarClass extends ChartBase {
   };
   isPredictedStr = name => {
     const { isPredicted } = this.checkoutIsPredicted(name);
-    return isPredicted ? `{a|${name}\n预测}` : `${name}\n实发`;
+    return !isPredicted ? `{a|${name}\n预测}` : `${name}\n实发`;
   };
   axisLabel = value => {
     return this.formaterNum(value);

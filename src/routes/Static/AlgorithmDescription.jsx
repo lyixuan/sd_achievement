@@ -55,23 +55,43 @@ class AlgorithmDescription extends Component {
           <img src={Top} className={styles.imgTop} alt="回到顶部" />
         </div>
 
+        <div className={styles.u_button1} onClick={() => this.scrollToAnchor('test3')}>
+          a
+        </div>
+        <div className={styles.u_button2} onClick={() => this.scrollToAnchor('test6')}>
+          a
+        </div>
+        <div className={styles.u_button3} onClick={() => this.scrollToAnchor('test9')}>
+          a
+        </div>
+        <div className={styles.u_button4} onClick={() => this.scrollToAnchor('test10')}>
+          a
+        </div>
+        <div className={styles.u_button5} onClick={() => this.scrollToAnchor('test11')}>
+          a
+        </div>
+        <div className={styles.u_button6} onClick={() => this.scrollToAnchor('test14')}>
+          a
+        </div>
+        <div className={styles.u_button7} onClick={() => this.scrollToAnchor('test15')}>
+          a
+        </div>
+
         <img src={formula1} alt="formula1" />
-        <a className={styles.aTest} onClick={() => this.scrollToAnchor('test')}>
-          <img className="testclass" id="smootha" src={formula2} alt="formula2" />
-        </a>
-        <img src={formula3} alt="formula3" />
+        <img src={formula2} alt="formula2" />
+        <img id="test3" src={formula3} alt="formula3" />
         <img src={formula4} alt="formula4" />
-        <img id="test" src={formula5} alt="formula5" />
-        <img src={formula6} alt="formula6" />
+        <img src={formula5} alt="formula5" />
+        <img id="test6" src={formula6} alt="formula6" />
         <img src={formula7} alt="formula7" />
         <img src={formula8} alt="formula8" />
-        <img src={formula9} alt="formula9" />
-        <img src={formula10} alt="formula10" />
-        <img src={formula11} alt="formula11" />
+        <img id="test9" src={formula9} alt="formula9" />
+        <img id="test10" src={formula10} alt="formula10" />
+        <img id="test11" src={formula11} alt="formula11" />
         <img src={formula12} alt="formula12" />
         <img src={formula13} alt="formula13" />
-        <img src={formula14} alt="formula14" />
-        <img src={formula15} alt="formula15" />
+        <img id="test14" src={formula14} alt="formula14" />
+        <img id="test15" src={formula15} alt="formula15" />
       </div>
     );
   }

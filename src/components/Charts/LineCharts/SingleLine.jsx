@@ -22,19 +22,6 @@ export default class SingleBar extends React.Component {
         ...grid,
         top: fontSizeAuto(115),
       },
-      // legend: {
-      //   ...this.tooltipInstance.legendStyle,
-      //   data: [
-      //     {
-      //       name: `人均绩效`,
-      //       icon: 'circle',
-      //       textStyle: {
-      //         color: '#999999',
-      //         fontSize: fontSizeAuto(18),
-      //       },
-      //     },
-      //   ],
-      // },
       color: '#4A90E2', // 设置图例远点颜色,可跟数组
       xAxis: {
         ...xAxisData,
@@ -131,6 +118,8 @@ export default class SingleBar extends React.Component {
 
   render() {
     const dataSource = this.handleData();
-    return dataSource ? <Line dataSource={dataSource} width="6.9rem" height="6.8rem" /> : null;
+    return dataSource ? (
+      <Line dataSource={dataSource} showDefaultTip width="6.9rem" height="6.8rem" />
+    ) : null;
   }
 }

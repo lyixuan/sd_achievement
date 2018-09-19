@@ -32,6 +32,24 @@ export default class Bar extends React.Component {
       this.initChart();
     }
     this.myChart.clear();
+
+    const data = Array.isArray(dataSource.series)
+      ? dataSource.series[0].data
+      : dataSource.series.data;
+    if (this.props.showDefaultTip && data && data.length > 0) {
+      const len = data.length;
+      setTimeout(() => {
+        this.myChart.dispatchAction({
+          type: 'highlight',
+          dataIndex: len - 1,
+        });
+        this.myChart.dispatchAction({
+          type: 'showTip',
+          seriesIndex: 0,
+          dataIndex: len - 1,
+        });
+      }, 10);
+    }
     this.myChart.setOption(dataSource);
     this.myChart.resize();
   }
