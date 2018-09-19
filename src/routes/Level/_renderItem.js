@@ -16,7 +16,7 @@ class RenderItem extends React.Component {
     const imgSrc = num === 0 ? yellowImg : num < 0 ? redImg : greenImg;
     return (
       <div className={`${styles.m_render} ${styles.m_itemRender} ${bgColor}`}>
-        <span className={`${styles.u_span} ${styles.performance}`}>{rowData.levelValue}</span>
+        <span className={`${styles.u_span} ${styles.performance}`}>{rowData.levelName}</span>
         <span className={`${styles.u_span} ${styles.familyNum}`}>{rowData.levelCount}</span>
         <span className={`${styles.u_span} ${styles.familyRatio}`}>{collegePer}%</span>
         <span className={`${styles.u_span} ${styles.familyRatio}`}>{companyPer}%</span>
