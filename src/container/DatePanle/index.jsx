@@ -42,7 +42,7 @@ export default class DatePanle extends React.Component {
     const aa = maxDate.replace(/\s/g, 'T').replace(/\//g, '-');
     const nowDate = new Date(aa);
     const result = [];
-    const num = this.state.flag === 1 ? 13 : 4;
+    const num = this.state.flag === 1 ? 12 : 3;
     result.push({ id: maxDate, name: maxDate });
     for (let i = 0; i < num; i += 1) {
       nowDate.setMonth(nowDate.getMonth() - 1);
