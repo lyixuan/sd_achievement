@@ -127,12 +127,10 @@ class Teacher extends React.Component {
   };
 
   // 家族长角色跳到小组详情
-  jumpDetail = name => {
-    const { dateTime = null, groupType = 'family' } = this.state;
+  jumpDetail = () => {
+    const { dateTime = null } = this.state;
     this.props.setRouteUrlParams('/details', {
       month: dateTime,
-      groupType,
-      collegeName: name,
       type: 1,
     });
   };
@@ -174,7 +172,6 @@ class Teacher extends React.Component {
       ? {}
       : detailKpiData;
     const { isloading } = this.props;
-    const { name = null } = !detailKpiData ? {} : detailKpiData;
     return (
       <div>
         <DatePanle
@@ -235,7 +232,7 @@ class Teacher extends React.Component {
         <div
           className={styles.m_familyGroup}
           style={{ display: flag === 1 ? 'block' : 'none' }}
-          onClick={() => this.jumpDetail(name)}
+          onClick={() => this.jumpDetail()}
         >
           <div className={styles.u_pRight}>
             <img src={Bitmap} alt="logo" className={styles.u_imgLogo} />
