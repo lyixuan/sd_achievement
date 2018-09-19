@@ -21,8 +21,13 @@ class Details extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
-    console.log(this.currentAuthInfo);
-    const { groupType = '', familyId = '', userId = '', department = null } = this.currentAuthInfo;
+    console.log(this.currentAuthInfo());
+    const {
+      groupType = '',
+      familyId = '',
+      userId = '',
+      department = null,
+    } = this.currentAuthInfo();
     const initState = {
       paramsObj: {
         month: urlParams.month,
@@ -179,6 +184,7 @@ class Details extends React.Component {
           changeCollegeName={val => this.changeCollegeName(val)}
           groupType={paramsObj.groupType}
         />
+        <div style={{ paddingBottom: '.63rem', fontSize: 0 }}> 0</div>
       </div>
     );
   }

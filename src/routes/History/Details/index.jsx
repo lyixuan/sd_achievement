@@ -21,7 +21,7 @@ class HistoryDetails extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
-    const currentAuthInfo = this.currentAuthInfo || {};
+    const currentAuthInfo = this.currentAuthInfo() || {};
     console.log(currentAuthInfo);
     const { collegeId = '', groupType = '', userId = '', department = null } = currentAuthInfo;
     const initState = {
@@ -141,7 +141,6 @@ class HistoryDetails extends React.Component {
                   customRenderItem={rowData => (
                     <RenderItem paramsObj={paramsObj} rowData={rowData} groupType={item.id} />
                   )}
-                  // customRenderItem={rowData => <RenderItem rowData={rowData} />}
                 />
               )
             );
@@ -152,6 +151,7 @@ class HistoryDetails extends React.Component {
           changeCollegeName={val => this.changeCollegeName(val)}
           groupType={paramsObj.groupType}
         />
+        <div style={{ paddingBottom: '.7rem', fontSize: 0 }}> 1</div>
       </div>
     );
   }

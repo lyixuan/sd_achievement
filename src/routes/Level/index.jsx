@@ -18,7 +18,7 @@ class Level extends React.Component {
   };
   constructor(props) {
     super(props);
-    const currentAuthInfo = this.currentAuthInfo || {};
+    const currentAuthInfo = this.currentAuthInfo() || {};
     const { collegeId = 0, groupType = '', userId = '' } = currentAuthInfo;
     const { urlParams = {} } = props;
 
@@ -103,6 +103,7 @@ class Level extends React.Component {
             );
           })
         )}
+        <div style={{ paddingBottom: '.37rem', fontSize: 0 }}>1</div>
       </div>
     );
   }
