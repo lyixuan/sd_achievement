@@ -103,7 +103,6 @@ class Level extends React.Component {
             );
           })
         )}
-        <div style={{ paddingBottom: '.37rem', fontSize: 0 }}>1</div>
       </div>
     );
   }

@@ -7,7 +7,7 @@ import Loading from 'components/Loading/Loading';
 import Authorized from 'utils/Authorized';
 import { getUserId, getAuthority } from 'utils/authority';
 import { getRoutes } from '../utils/routerUtils';
-// import styles from './common.less';
+import styles from './common.less';
 
 const { AuthorizedRoute } = Authorized;
 class BaseLayout extends React.Component {
@@ -46,20 +46,21 @@ class BaseLayout extends React.Component {
     const { routerData, match } = this.props;
     return !loading ? (
       <DocumentTitle title={this.getPageTitle()}>
-        <Switch>
-          {getRoutes(match.path, routerData).map(item => (
-            <AuthorizedRoute
-              key={item.key}
-              path={item.path}
-              component={item.component}
-              exact={item.exact}
-              authority={getAuthority}
-              redirectPath="/exception/403"
-            />
-          ))}
-          <Redirect exact from="/" to="/indexPage" />
-        </Switch>
-        {/* <div className={styles.footer}> </div> */}
+        <div className={styles.container}>
+          <Switch>
+            {getRoutes(match.path, routerData).map(item => (
+              <AuthorizedRoute
+                key={item.key}
+                path={item.path}
+                component={item.component}
+                exact={item.exact}
+                authority={getAuthority}
+                redirectPath="/exception/403"
+              />
+            ))}
+            <Redirect exact from="/" to="/indexPage" />
+          </Switch>
+        </div>
       </DocumentTitle>
     ) : (
       <Loading />

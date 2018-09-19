@@ -156,7 +156,6 @@ class HistoryDetails extends React.Component {
           changeCollegeName={val => this.changeCollegeName(val)}
           groupType={paramsObj.groupType}
         />
-        <div style={{ paddingBottom: '.7rem', fontSize: 0 }}> 1</div>
       </div>
     );
   }
