@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './staticPage.less';
+import Top from '../../assets/top.svg';
 import formula1 from '../../assets/formula1.png';
 import formula2 from '../../assets/formula2.png';
 import formula3 from '../../assets/formula3.png';
@@ -17,6 +18,20 @@ import formula14 from '../../assets/formula14.png';
 import formula15 from '../../assets/formula15.png';
 
 class AlgorithmDescription extends Component {
+  componentDidMount() {
+    window.addEventListener('scroll', this.onScroll);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+  onScroll = () => {
+    const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
+    const backTop = document.getElementById('backTopBtn'); // 返回顶部模块
+
+    if (backTop !== null) {
+      backTop.style.display = t >= 200 ? 'block' : 'none';
+    }
+  };
   scrollToAnchor = anchorName => {
     if (anchorName) {
       // 找到锚点
@@ -27,10 +42,19 @@ class AlgorithmDescription extends Component {
       }
     }
   };
-
   render() {
     return (
       <div className={styles.usercourse}>
+        <div
+          className={`${styles.floatIcon} ${styles.goTopCls}`}
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+          id="backTopBtn"
+        >
+          <img src={Top} className={styles.imgTop} alt="回到顶部" />
+        </div>
+
         <img src={formula1} alt="formula1" />
         <a className={styles.aTest} onClick={() => this.scrollToAnchor('test')}>
           <img className="testclass" id="smootha" src={formula2} alt="formula2" />

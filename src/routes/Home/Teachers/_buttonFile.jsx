@@ -11,7 +11,7 @@ class ButtonFile extends React.Component {
       ? {}
       : dataSource;
     const ratio = !dailyCredit ? 0 : !dailyCredit.ratio ? 0 : dailyCredit.ratio;
-    const personNumAvg = !baseKpi ? 0 : !baseKpi.personNumAvg ? 0 : baseKpi.personNumAvg;
+    const value = !baseKpi ? 0 : !baseKpi.value ? 0 : baseKpi.value;
     const manageNum = !manageScale ? 0 : !manageScale.value ? 0 : manageScale.value;
     return (
       <div className={styles.m_btnContainer}>
@@ -29,7 +29,7 @@ class ButtonFile extends React.Component {
         />
         <img className={styles.u_buttonLineStyle} src={multiple} alt="乘号" />
         <FormulaButton
-          dataSource={{ id: 2, name: '绩效基数', score: formatMoney(personNumAvg) }}
+          dataSource={{ id: 2, name: '绩效基数', score: formatMoney(value) }}
           dataReturnFun={item => {
             this.props.changeFlag(item);
           }}

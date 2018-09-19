@@ -126,7 +126,9 @@ class TableFile extends React.Component {
           : flag2 === 2
             ? !baseKpi
               ? 0
-              : !baseKpi.value && baseKpi.value !== 0 ? 0 : `${formatMoney(baseKpi.value || 0)}人`
+              : !baseKpi.personNumAvg && baseKpi.personNumAvg !== 0
+                ? 0
+                : `${formatMoney(baseKpi.personNumAvg || 0)}人`
             : !manageScale
               ? 0
               : !manageScale.manageNum && manageScale.classNum !== 0
