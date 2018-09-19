@@ -30,11 +30,17 @@ class PerformanceTab extends Component {
     const { firstId = 1 } = this.props;
     return (
       <div className={styles.segmentCls}>
-        <span onClick={() => this.selectTab(1)} className={firstId === 1 ? styles.selectSpan1 : ''}>
+        <span
+          onClick={() => this.selectTab(1)}
+          className={firstId === 1 ? styles.selectSpan1 : styles.unSelect}
+        >
           <i className={styles.text}>绩效分档</i>
           <img className={styles.iconImg} src={firstId === 1 ? path2 : path} alt="" />
         </span>
-        <span onClick={() => this.selectTab(2)} className={firstId === 2 ? styles.selectSpan2 : ''}>
+        <span
+          onClick={() => this.selectTab(2)}
+          className={firstId === 2 ? styles.selectSpan2 : styles.unSelect}
+        >
           <i className={styles.text}>绩效占比</i>
           <img className={styles.iconImg} src={firstId === 2 ? bracket2 : bracket} alt="" />
         </span>

@@ -3,6 +3,6 @@ export default {
   // NODE_ENV: 'pro',     //线上环境
   DEBUGGER: true, // 调试环境
   performanceUser: {
-    userId: 'liukebin',
+    userId: 'ManZhenHua1111',
   },
 };
