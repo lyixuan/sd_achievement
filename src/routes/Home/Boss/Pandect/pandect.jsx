@@ -28,6 +28,12 @@ class Boss extends React.Component {
         { id: 'group', name: '运营长绩效' },
         { id: 'class', name: '班主任绩效' },
       ],
+      teacherGroupList: [
+        { id: 'all', name: '所有老师' },
+        { id: 'family', name: '家族长' },
+        { id: 'group', name: '运营长' },
+        { id: 'class', name: '班主任' },
+      ],
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -70,7 +76,7 @@ class Boss extends React.Component {
   };
 
   render() {
-    const { TotalKpigroupType, groupAvgKpiGroupType, groupList } = this.state;
+    const { TotalKpigroupType, groupAvgKpiGroupType, groupList, teacherGroupList } = this.state;
     const { bosshome = {}, loading } = this.props;
     const groupTotalKpiList = bosshome.groupTotalKpiList || [];
     const groupAvgKpiList = bosshome.groupAvgKpiList || [];
@@ -104,7 +110,7 @@ class Boss extends React.Component {
           <div className={styles.buttonContainer}>
             <ButtonGroup
               id={groupAvgKpiGroupType}
-              dataSource={{ data: groupList }}
+              dataSource={{ data: teacherGroupList }}
               dataReturnFun={params => {
                 this.onChangeGroupAvgKpi(params.id);
               }}
