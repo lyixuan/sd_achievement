@@ -98,38 +98,12 @@ class HistoryTeacher extends React.Component {
             <p className={styles.u_timeCls}>您{timeDateObj.month}月份确定绩效为</p>
             <p className={styles.u_resultlCls}>{formatMoney(teacherKpiObj.actual_kpi || 0)}元</p>
             <div style={{ height: '0.54rem' }} />
-            <div
-              style={{
-                width: '6.5rem',
-                margin: 'auto',
-                background: ' #F8FAFB',
-                borderRadius: '0.08rem',
-              }}
-            >
-              <p
-                style={{
-                  textAlign: 'left',
-                  fontSize: '0.26rem',
-                  color: '#333',
-                  margin: ' auto 0.3rem',
-                  paddingTop: '0.25rem',
-                  paddingBottom: '0.25rem',
-                }}
-              >
-                实发合计中包含以下数据
-              </p>
-
+            <div className={styles.m_performenceContent}>
+              <p className={styles.u_pWrapContent}>实发合计中包含以下数据</p>
               <div
                 style={{ height: '0.02rem', width: '6rem', background: '#eee', margin: 'auto' }}
               />
-              <p
-                style={{
-                  textAlign: 'left',
-                  fontSize: '0.26rem',
-                  color: '#6D6D75',
-                  margin: '0.1rem 0.3rem',
-                }}
-              >
+              <p className={styles.u_pContentWord}>
                 <span style={{ textAlign: 'left', width: '2.9rem', display: 'inline-block' }}>
                   虚报绩效考核金额
                 </span>
@@ -137,14 +111,7 @@ class HistoryTeacher extends React.Component {
                   {formatMoney(teacherKpiObj.keep_kpi || 0)}元
                 </span>
               </p>
-              <p
-                style={{
-                  textAlign: 'left',
-                  fontSize: '0.26rem',
-                  color: '#6D6D75',
-                  margin: '0.1rem  0.3rem',
-                }}
-              >
+              <p className={styles.u_pContentWord}>
                 <span style={{ textAlign: 'left', width: '2.9rem', display: 'inline-block' }}>
                   免费学绩效金额
                 </span>
@@ -152,14 +119,7 @@ class HistoryTeacher extends React.Component {
                   {formatMoney(teacherKpiObj.free_kpi || 0)}元
                 </span>
               </p>
-              <p
-                style={{
-                  textAlign: 'left',
-                  fontSize: '0.26rem',
-                  color: '#6D6D75',
-                  margin: '0.1rem 0.3rem',
-                }}
-              >
+              <p className={styles.u_pContentWord}>
                 <span style={{ textAlign: 'left', width: '2.9rem', display: 'inline-block' }}>
                   其他绩效
                 </span>
