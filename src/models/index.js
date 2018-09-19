@@ -5,6 +5,10 @@ import Message from '../components/Message';
 
 import { getUserInfo, getDisableTime } from '../services/api';
 
+function splitDepartment(str = '') {
+  const newStr = str || '';
+  return newStr.split('-') || [];
+}
 export default {
   namespace: 'index',
 
@@ -42,6 +46,8 @@ export default {
           ...item,
           userId: item.id,
           loginUserId: responseData.userId,
+          groupNameArr: splitDepartment(item.department) || [],
+          currentGroupName: (splitDepartment(item.department) || []).slice(-1)[0] || null,
         }));
         const CurrentAuthInfo = { ...responseData.data[0] };
         yield call(setItem, 'performanceUser', responseData);
