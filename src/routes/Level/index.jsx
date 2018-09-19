@@ -96,7 +96,7 @@ class Level extends React.Component {
                   id={item.id}
                   renderHeader={name => this.renderHeader(name)}
                   renderFooter={(name, id) => this.renderFooter(name, id)}
-                  customRenderHeader={() => <RenderHeader />}
+                  customRenderHeader={() => <RenderHeader type={this.state.type} />}
                   customRenderItem={rowData => <RenderItem rowData={rowData} />}
                 />
               )

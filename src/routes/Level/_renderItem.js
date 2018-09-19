@@ -21,8 +21,7 @@ class RenderItem extends React.Component {
         <span className={`${styles.u_span} ${styles.familyRatio}`}>{collegePer}%</span>
         <span className={`${styles.u_span} ${styles.familyRatio}`}>{companyPer}%</span>
         <span className={`${styles.u_span} ${styles.collegeGroup}`}>
-          {num}
-          <img className={styles.triangCls} src={imgSrc} alt="" />
+          {num}%<img className={styles.triangCls} src={imgSrc} alt="" />
         </span>
       </div>
     );
