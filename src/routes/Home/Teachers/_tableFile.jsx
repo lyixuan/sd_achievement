@@ -219,7 +219,7 @@ class TableFile extends React.Component {
             <div className={styles.flexContainer}>
               <p className={styles.WordCls}>人均在服学员数=在服学员数/老师数</p>
               <p className={styles.WordCls}>学员从属判定规则和老师人效判定规则请参</p>
-              <p className={styles.WordCls}>考绩效算法说明</p>
+              <p className={styles.WordCls}>考{`"绩效算法说明"`}</p>
             </div>
           </Modal>
         </div>
