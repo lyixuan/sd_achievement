@@ -11,7 +11,7 @@ class RenderDetails extends React.Component {
 
   renderFn = kpiDistribution => {
     if (kpiDistribution) {
-      const { groupKpi = {}, classKpi = {} } = kpiDistribution;
+      const { groupKpi = null, classKpi = null } = kpiDistribution;
       return (
         <dl className={`${styles.u_dlCls} ${styles.distribute}`}>
           <dt>
@@ -19,20 +19,24 @@ class RenderDetails extends React.Component {
           </dt>
           <dd className={styles.u_ddCls}>
             <p className={styles.greyColor}>绩效分配</p>
-            <div style={{ margin: '.07rem 0' }}>
-              <span className={styles.blackColor}>运营长绩效 </span>
-              <span className={styles.blackColor}> {formatMoney(groupKpi.total)}元 </span>
-              <span className={styles.greyColor}> ({formatMoney(groupKpi.base)} </span>
-              <span className={styles.blueColor}> | </span>
-              <span className={styles.greyColor}> {formatMoney(groupKpi.mark)}) </span>
-            </div>
-            <div>
-              <span className={styles.blackColor}>每个班主任 </span>
-              <span className={styles.blackColor}> {formatMoney(classKpi.total)}元 </span>
-              <span className={styles.greyColor}> ({formatMoney(classKpi.base)} </span>
-              <span className={styles.blueColor}> | </span>
-              <span className={styles.greyColor}> {formatMoney(classKpi.mark)}) </span>
-            </div>
+            {!groupKpi ? null : (
+              <div style={{ margin: '.07rem 0' }}>
+                <span className={styles.blackColor}>运营长绩效 </span>
+                <span className={styles.blackColor}> {formatMoney(groupKpi.total)}元 </span>
+                <span className={styles.greyColor}> ({formatMoney(groupKpi.base)} </span>
+                <span className={styles.blueColor}> | </span>
+                <span className={styles.greyColor}> {formatMoney(groupKpi.mark)}) </span>
+              </div>
+            )}
+            {!classKpi ? null : (
+              <div>
+                <span className={styles.blackColor}>每个班主任 </span>
+                <span className={styles.blackColor}> {formatMoney(classKpi.total)}元 </span>
+                <span className={styles.greyColor}> ({formatMoney(classKpi.base)} </span>
+                <span className={styles.blueColor}> | </span>
+                <span className={styles.greyColor}> {formatMoney(classKpi.mark)}) </span>
+              </div>
+            )}
           </dd>
         </dl>
       );
