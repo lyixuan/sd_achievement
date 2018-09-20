@@ -1,7 +1,7 @@
 // 占比柱状图
 import React from 'react';
 import { fontSizeAuto } from 'utils/chartUtils';
-import Bar from '../BaseChart/bar';
+import Bar from '../BaseChart/historyBar';
 import { Proportion } from './historyGroup';
 
 export default class SingleBar extends React.Component {
