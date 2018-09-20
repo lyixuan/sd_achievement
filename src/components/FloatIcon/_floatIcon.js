@@ -78,7 +78,7 @@ class FloatIcon extends React.Component {
         <div
           className={`${styles.floatIcon} ${styles.dashBordCls}`}
           onClick={() => {
-            this.props.setRouteUrlParams('/UserCourse');
+            this.props.setRouteUrlParams('/static/usercourse');
           }}
         >
           <img src={dashboard} className={styles.imgDash} alt="档位说明" />
@@ -87,7 +87,7 @@ class FloatIcon extends React.Component {
         <div
           className={`${styles.floatIcon} ${styles.countCls}`}
           onClick={() => {
-            this.props.setRouteUrlParams('/AlgorithmDescription');
+            this.props.setRouteUrlParams('/static/algorithmdescription');
           }}
         >
           <img src={count} className={styles.imgCount} alt="算法说明" />
