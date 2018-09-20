@@ -48,7 +48,7 @@ class RenderDetails extends React.Component {
     const { rowData } = this.props; // groupType===0(自考)有百分比，其他的不展示百分比
     const {
       dayAvgScore = {},
-      manageScale = {},
+      managerScale = {},
       averageStuNum = {},
       kpiDistribution = {},
     } = rowData;
@@ -64,9 +64,9 @@ class RenderDetails extends React.Component {
           <dd className={styles.u_ddCls}>
             <div className={styles.blackColor}>
               <span className={styles.greyColor}>管理规模：</span> 在服学员
-              <span> {manageScale.serviceCount} </span> 人
+              <span> {managerScale.serviceCount} </span> 人
               <span className={styles.blueColor}> | </span> 老师
-              <span> {manageScale.classNum} </span> 人
+              <span> {managerScale.classNum} </span> 人
             </div>
           </dd>
         </dl>
