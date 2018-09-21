@@ -16,7 +16,7 @@ class HistoryFamily extends React.Component {
           <img src={Bitmap} alt="logo" className={styles.u_imgLogo} />
         </div>
         <div className={styles.u_warpCls}>
-          <span className={styles.u_pCls}>小组绩效</span>
+          <span className={styles.u_pCls}>小组确定绩效</span>
         </div>
         <div className={styles.u_pLast}>
           <img src={Right} alt="rightArrow" className={styles.u_rightArrow} />

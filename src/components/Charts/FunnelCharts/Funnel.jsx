@@ -1,6 +1,6 @@
 import React from 'react';
 import { fontSizeAuto } from 'utils/chartUtils';
-import Bar from '../BaseChart/bar';
+import Bar from '../BaseChart/funnel';
 import { BarClass } from './_chartUtils';
 
 export default class SingleBar extends React.Component {
@@ -15,24 +15,29 @@ export default class SingleBar extends React.Component {
     const chartOps = {
       title,
       calculable: true,
-      series: [
-        {
-          name: 'top',
-          type: 'funnel',
-          ...chartStyle.top,
-          sort: seriesData.level1.value >= seriesData.level2.value ? 'descending' : 'ascending',
-          label,
-          data: [seriesData.level1, seriesData.level2],
-        },
-        {
-          name: 'bottom',
-          type: 'funnel',
-          sort: seriesData.level3.value >= seriesData.level4.value ? 'descending' : 'ascending',
-          ...chartStyle.bottom,
-          label,
-          data: [seriesData.level3, seriesData.level4],
-        },
-      ],
+      series:
+        !seriesData.length > 0
+          ? []
+          : [
+              {
+                name: 'top',
+                type: 'funnel',
+                ...chartStyle.top,
+                sort:
+                  seriesData.level1.value >= seriesData.level2.value ? 'descending' : 'ascending',
+                label,
+                data: [seriesData.level1, seriesData.level2],
+              },
+              {
+                name: 'bottom',
+                type: 'funnel',
+                sort:
+                  seriesData.level3.value >= seriesData.level4.value ? 'descending' : 'ascending',
+                ...chartStyle.bottom,
+                label,
+                data: [seriesData.level3, seriesData.level4],
+              },
+            ],
     };
     return chartOps;
   };
@@ -99,6 +104,10 @@ export default class SingleBar extends React.Component {
       },
     };
   };
+  checkoutEmptyData = data => {
+    const newData = data.filter(item => item.levelCount === 0) || [];
+    return newData.length === data.length;
+  };
   handleData = () => {
     const { dataSource } = this.props;
     if (!this.tooltipInstance) {
@@ -106,7 +115,7 @@ export default class SingleBar extends React.Component {
     }
     this.tooltipInstance.setData(dataSource);
     const { chartData } = this.tooltipInstance;
-    const seriesData = this.handleLayout(chartData);
+    const seriesData = this.checkoutEmptyData ? [] : this.handleLayout(chartData);
     const chartStyle = this.handleChartStyle(chartData);
     return this.setChartsOps({ seriesData, chartStyle });
   };
