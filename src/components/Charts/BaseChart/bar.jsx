@@ -32,7 +32,6 @@ export default class Bar extends React.Component {
       this.initChart();
     }
     this.myChart.clear();
-
     const data = Array.isArray(dataSource.series)
       ? dataSource.series[0].data
       : dataSource.series.data;

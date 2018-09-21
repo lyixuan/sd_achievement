@@ -1,5 +1,6 @@
 // 根据root节点的宽度进行动态设置字体的样式
 import { fontSizeAuto } from 'utils/chartUtils';
+import { formatMoney } from 'utils/utils';
 
 export class ChartBase {
   // 数据源 [{name:'2018.08',val:10,isPredicted:0}}],   // 基类不可直接使用
@@ -69,6 +70,6 @@ export class ChartBase {
   };
 
   breakNumComma = num => {
-    return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+    return formatMoney(num);
   };
 }

@@ -1,6 +1,7 @@
 // 金钱格式化成三个一逗号
 export function formatMoney(val) {
-  return parseFloat(val).toLocaleString();
+  const newValue = parseFloat(parseFloat(val || 0).toFixed(2));
+  return newValue.toLocaleString();
 }
 // 数组转成对象格式
 export function changeObj(res) {
