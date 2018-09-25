@@ -91,7 +91,10 @@ class HistoryBoss extends React.Component {
               this.toLevelPage(1);
             }}
           >
-            <Funnel dataSource={{ data: groupData, title: '预测绩效分档（小组）' }} />
+            <Funnel
+              dataSource={{ data: groupData, title: '预测绩效分档（小组）' }}
+              isLoading={loading}
+            />
           </MonthlyChart>
         </div>
         {loading && <Loading />}

@@ -1,5 +1,6 @@
 import React from 'react';
 import echarts from 'echarts';
+import noData from '../../../assets/nodata.png';
 import styles from './common.less';
 
 export default class Bar extends React.Component {
@@ -60,8 +61,21 @@ export default class Bar extends React.Component {
       this.clientWidth = document.documentElement.clientWidth;
     }
   };
+  checkoutHasData = () => {
+    const { dataSource } = this.props;
+    const data = Array.isArray(dataSource.series)
+      ? dataSource.series[0].data
+      : dataSource.series.data;
+    return data.length;
+  };
   render() {
     const { width, height } = this.props;
-    return <div ref={this.createRef} style={{ width, height }} className={styles.chartContainer} />;
+    const len = this.checkoutHasData();
+    return (
+      <div className={styles.chartContainer}>
+        <div ref={this.createRef} style={{ width, height }} />
+        {len === 0 && <img src={noData} alt="nodata" className={styles.noData} />}
+      </div>
+    );
   }
 }

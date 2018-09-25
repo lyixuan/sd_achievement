@@ -1,6 +1,7 @@
 import React from 'react';
 import echarts from 'echarts';
 import styles from './common.less';
+import noData from '../../../assets/nodata.png';
 
 export default class Bar extends React.Component {
   componentDidMount() {
@@ -43,8 +44,22 @@ export default class Bar extends React.Component {
       this.clientWidth = document.documentElement.clientWidth;
     }
   };
+  checkoutHasData = () => {
+    const { dataSource } = this.props;
+    const series = dataSource.series || [];
+    if (!Array.isArray(series)) {
+      console.warn('数据类型错误');
+    }
+    return series.length;
+  };
   render() {
-    const { width, height } = this.props;
-    return <div ref={this.createRef} style={{ width, height }} className={styles.chartContainer} />;
+    const { width, height, isLoading = false } = this.props;
+    const len = this.checkoutHasData();
+    return (
+      <div className={styles.chartContainer}>
+        <div ref={this.createRef} style={{ width, height }} />
+        {len === 0 && !isLoading && <img src={noData} alt="nodata" className={styles.noData} />}
+      </div>
+    );
   }
 }

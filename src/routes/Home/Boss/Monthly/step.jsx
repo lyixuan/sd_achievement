@@ -38,7 +38,7 @@ class Boss extends React.Component {
   };
 
   render() {
-    const { chartData, toLevelPage } = this.props;
+    const { chartData, toLevelPage, loading } = this.props;
     let familyData = chartData.familyData || [];
     familyData = this.calculateNumber(familyData);
     let groupData = chartData.groupData || [];
@@ -50,17 +50,23 @@ class Boss extends React.Component {
             toLevelPage(0);
           }}
         >
-          <Funnel dataSource={{ data: familyData, title: '预测绩效分档（家族）' }} />
+          <Funnel
+            dataSource={{ data: familyData, title: '预测绩效分档（家族）' }}
+            isLoading={loading}
+          />
         </MonthlyChart>
         <MonthlyChart
           toLevelPage={() => {
             toLevelPage(1);
           }}
         >
-          <Funnel dataSource={{ data: groupData, title: '预测绩效分档（小组）' }} />
+          <Funnel
+            dataSource={{ data: groupData, title: '预测绩效分档（小组）' }}
+            isLoading={loading}
+          />
         </MonthlyChart>
       </div>
     );
   }
 }
-export default connect(({ loading }) => ({ loading }))(Boss);
+export default connect(({ loading }) => ({ loading: loading.models.bosshome }))(Boss);

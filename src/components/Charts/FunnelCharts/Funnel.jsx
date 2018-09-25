@@ -16,7 +16,7 @@ export default class SingleBar extends React.Component {
       title,
       calculable: true,
       series:
-        !seriesData.length > 0
+        JSON.stringify(seriesData) === '{}'
           ? []
           : [
               {
@@ -115,16 +115,16 @@ export default class SingleBar extends React.Component {
     }
     this.tooltipInstance.setData(dataSource);
     const { chartData } = this.tooltipInstance;
-    const seriesData = this.checkoutEmptyData ? [] : this.handleLayout(chartData);
+
+    const seriesData = this.checkoutEmptyData(chartData) ? {} : this.handleLayout(chartData);
     const chartStyle = this.handleChartStyle(chartData);
     return this.setChartsOps({ seriesData, chartStyle });
   };
 
   render() {
-    const { dataSource = {} } = this.props;
+    const { dataSource = {}, isLoading = false } = this.props;
     const data = dataSource.data || [];
     const chartData = data.length > 0 ? this.handleData() : {};
-
-    return data.length > 0 ? <Bar dataSource={chartData} width="6.9rem" height="4.5rem" /> : null;
+    return <Bar dataSource={chartData} isLoading={isLoading} width="6.9rem" height="4.5rem" />;
   }
 }
