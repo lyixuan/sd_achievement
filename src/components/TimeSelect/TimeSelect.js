@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import { Button } from 'antd-mobile';
 import moment from 'moment';
+import { getItem } from 'utils/localStorage';
 import Dialog from '../../components/Dialog';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import styles from './TimeSelect.less';
@@ -38,14 +39,23 @@ class TimeSelect extends Component {
   showModel = bol => {
     this.setState({ dialogVisible: bol });
   };
+  timeArea = () => {
+    const store = getItem('timeDate') || {};
+    const { value = null } = store;
+    const { dateRange = null } = value || {};
+    const { endTime = new Date.valueOf() } = dateRange || {};
+    return endTime;
+  };
 
   dateFomate = (dateTime = '') => {
+    const storEndTime = this.timeArea();
     const formate = 'YYYY-MM';
     const formateDate = dateTime.replace(/\./g, '-');
     const nowDate = moment().format(formate);
     let timeText = null;
     if (moment(formateDate).isSame(nowDate)) {
-      timeText = `${formateDate}.01 ~ ${moment().format('YYYY.MM.DD')}`;
+      const MaxDateTime = storEndTime >= new Date().valueOf() ? new Date().valueOf() : storEndTime;
+      timeText = `${formateDate}.01 ~ ${moment(MaxDateTime).format('YYYY.MM.DD')}`;
     } else {
       timeText = formateDate;
     }
