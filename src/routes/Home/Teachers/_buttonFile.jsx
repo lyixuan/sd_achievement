@@ -17,7 +17,7 @@ class ButtonFile extends React.Component {
       <div className={styles.m_btnContainer}>
         <div className={styles.m_titile}>
           <span className={styles.u_spanTitle}>预测绩效计算 | </span>
-          <span className={styles.u_spanTitle}>{name || '英语1组'}</span>
+          <span className={styles.u_spanTitle}>{name}</span>
         </div>
 
         <FormulaButton

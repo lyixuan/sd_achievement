@@ -72,6 +72,11 @@ class TableFile extends React.Component {
     return data;
   };
 
+  numFixed = val => {
+    const y = String(val).indexOf('.') + 1;
+    return y > 0 ? val : `${val}.00`;
+  };
+
   render() {
     const { flag = 1, flag2 = 1, dataSource = [], titleData = null } = this.props;
     const { modalflag } = this.state;
@@ -146,7 +151,9 @@ class TableFile extends React.Component {
         {flag2 === 1
           ? !dailyCredit
             ? 0
-            : !dailyCredit.value && dailyCredit.value !== 0 ? 0 : dailyCredit.value.toFixed(2)
+            : !dailyCredit.value && dailyCredit.value !== 0
+              ? 0
+              : this.numFixed(dailyCredit.value).toFixed(2)
           : flag2 === 2
             ? !baseKpi
               ? 0
@@ -173,7 +180,7 @@ class TableFile extends React.Component {
       flag2 === 1
         ? !dailyCredit ? 3 : !dailyCredit.size && dailyCredit.size !== 0 ? 3 : dailyCredit.size
         : (!baseKpi ? 3 : !baseKpi.size && baseKpi.size !== 0 ? 3 : baseKpi.size) || 1;
-    const perSize = (index / size * 100).toFixed(2);
+    const perSize = this.numFixed(index / size * 100).toFixed(2);
     const scoreRight = () => (
       <span className={styles.u_numSpan}>
         {flag2 === 3 ? (
