@@ -62,8 +62,9 @@ class TableFile extends React.Component {
         key: index,
         flag: item.flag,
         data: [
-          { value: item.value, clsName: 'familyCls', key: 1 },
-          { value: item.range, clsName: 'familyCls', key: 2 },
+          { value: item.value, clsName: 'otherDateCls', key: 1 },
+          { value: `${item.minVal * 100}%`, clsName: 'otherStuCls', key: 2 },
+          { value: item.range, clsName: 'otherPreValCls', key: 3 },
         ],
       })
     );
@@ -79,16 +80,16 @@ class TableFile extends React.Component {
         ? this.itemList2(!dataSource ? [] : dataSource)
         : this.itemList(!dataSource ? [] : dataSource);
 
-    // 用户为运营长前tab切换时，table列头数据
+    // 用户为运营长前2个tab切换时，table列头数据
     const columns = [
       {
-        title: flag2 === 3 ? '组内老师' : '小组排名',
+        title: '小组排名',
         dataIndex: 'titleOne',
         key: 'columnsOne',
         clsName: 'halfDatacls',
       },
       {
-        title: flag2 === 1 ? '系数' : flag2 === 2 ? '绩效基数' : '班主任分配比例',
+        title: flag2 === 1 ? '系数' : '绩效基数',
         dataIndex: 'titleThree',
         key: 'columnsThree',
         clsName: 'halfStuCls',
@@ -108,6 +109,27 @@ class TableFile extends React.Component {
         dataIndex: 'titleTwo',
         key: 'columns3Two',
         clsName: 'halfStuCls',
+      },
+    ];
+    // 用户为运营长最后一个tab切换时，table列头数据
+    const columns3 = [
+      {
+        title: '组内老师',
+        dataIndex: 'titleOne',
+        key: 'columns3One',
+        clsName: 'otherDataCls',
+      },
+      {
+        title: '运营长分配比例',
+        dataIndex: 'titleTwo',
+        key: 'columns3Two',
+        clsName: 'otherStuCls',
+      },
+      {
+        title: '班主任分配比例',
+        dataIndex: 'titleTwo',
+        key: 'columns3Three',
+        clsName: 'otherPreValCls',
       },
     ];
 
@@ -201,7 +223,9 @@ class TableFile extends React.Component {
             <MultipHeaderList
               dataList={tableList}
               customRenderHeader={() => (
-                <CustomRenderHeader columnsData={flag === 1 ? columns2 : columns} />
+                <CustomRenderHeader
+                  columnsData={flag === 1 ? columns2 : flag2 === 3 ? columns3 : columns}
+                />
               )}
               customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
             />
