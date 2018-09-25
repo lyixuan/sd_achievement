@@ -140,9 +140,7 @@ class Teacher extends React.Component {
       const num1 = !manageScale
         ? 0
         : !manageScale.classNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
-      const num2 = !baseKpi
-        ? 0
-        : !baseKpi.personNumAvg && baseKpi.personNumAvg !== 0 ? 0 : baseKpi.personNumAvg;
+      const num2 = !baseKpi ? 0 : !baseKpi.value && baseKpi.value !== 0 ? 0 : baseKpi.value;
       let aa = item.score;
       if (typeof aa === 'string' && aa.indexOf('%') !== -1) {
         aa = aa.replace('%', '');
