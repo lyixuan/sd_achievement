@@ -169,6 +169,7 @@ class Teacher extends React.Component {
     const { base = 0, mark = 0, total = 0, manageScale = null, baseKpi = null } = !detailKpiData
       ? {}
       : detailKpiData;
+
     const { isloading } = this.props;
     return (
       <div>

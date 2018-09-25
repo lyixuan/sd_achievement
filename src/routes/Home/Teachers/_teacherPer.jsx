@@ -66,12 +66,8 @@ class TeacherPer extends React.Component {
         clsName: 'six',
       },
     ];
-
-    const { dataSource = [] } = this.props;
-    const teacherItem = this.itemList(
-      !dataSource ? [] : !dataSource.classKpiList ? [] : dataSource.classKpiList
-    );
-
+    const dataSource = this.props.dataSource || {};
+    const teacherItem = this.itemList(dataSource.classKpiList || []);
     return (
       <div>
         <div style={{ width: '6.9rem', margin: '0.3rem auto 0.2rem' }}>
