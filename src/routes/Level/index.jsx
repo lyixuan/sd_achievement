@@ -47,19 +47,19 @@ class Level extends React.Component {
       payload: this.state.paramsObj,
     });
   };
-  jumpDetail = (name, id) => {
+  jumpDetail = (name, id, month) => {
     const { type } = this.state;
-    this.props.setRouteUrlParams('/details', { collegeName: name, collegeId: id, type });
+    this.props.setRouteUrlParams('/details', { month, collegeName: name, collegeId: id, type });
   };
 
   renderHeader = name => {
     return <div className={`${styles.m_list} ${styles.m_list_header}`}>{name}学院</div>;
   };
-  renderFooter = (name, id) => {
+  renderFooter = (name, id, month) => {
     return (
       <div
         className={`${styles.m_list} ${styles.m_list_footer}`}
-        onClick={() => this.jumpDetail(name, id)}
+        onClick={() => this.jumpDetail(name, id, month)}
       >
         查看详情
       </div>
@@ -74,7 +74,7 @@ class Level extends React.Component {
         <div className={styles.detailBtn}>
           <span>{formatDate(month)}预测绩效</span>
           {groupType === 'boss' ? (
-            <div className={styles.greyFont} onClick={() => this.jumpDetail('全部学院', '')}>
+            <div className={styles.greyFont} onClick={() => this.jumpDetail('全部学院', '', month)}>
               绩效详情 <img src={arrowRight} alt="arrow" className={styles.arrowRight} />
             </div>
           ) : null}
@@ -95,7 +95,7 @@ class Level extends React.Component {
                   groupName={item.id}
                   collegeName={item.name}
                   renderHeader={name => this.renderHeader(name)}
-                  renderFooter={(name, id) => this.renderFooter(name, id)}
+                  renderFooter={(name, id) => this.renderFooter(name, id, month)}
                   customRenderHeader={() => <RenderHeader type={this.state.type} />}
                   customRenderItem={rowData => <RenderItem rowData={rowData} />}
                 />
