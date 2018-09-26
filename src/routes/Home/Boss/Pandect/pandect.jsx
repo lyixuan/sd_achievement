@@ -40,7 +40,6 @@ class Boss extends React.Component {
   }
   componentDidMount() {
     const pathname = this.checkoutUserAuthPathName(); // 检测用户权限,如果该权限不能调转到该页面的话则跳转到指定页面
-    console.log(pathname);
     if (pathname === '/indexPage/boss') {
       this.getGroupTotalKpiData();
       this.getGroupAvgKpiData();

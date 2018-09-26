@@ -35,7 +35,8 @@ class HistoryBoss extends React.Component {
   };
 
   toLevelPage = type => {
-    this.props.setRouteUrlParams('/history/details', { type });
+    const { month } = this.state;
+    this.props.setRouteUrlParams('/history/details', { type, month });
   };
   formateDate = () => {
     const month = this.state.month || new Date();
