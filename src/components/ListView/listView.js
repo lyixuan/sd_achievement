@@ -29,7 +29,7 @@ class MultipHeaderList extends Component {
 
   // 组件头部
   renderHeader = () => {
-    if (this.props.renderHeader) return this.props.renderHeader(this.props.groupName);
+    if (this.props.renderHeader) return this.props.renderHeader(this.props.collegeName);
   };
   // 组件底部
   renderFooter = (name, id) => {
@@ -56,20 +56,28 @@ class MultipHeaderList extends Component {
     }
   };
   render() {
-    const { dataList, groupName, id, initialListSize, otherCpmponent, listViewCls } = this.props;
+    const {
+      dataList,
+      groupName,
+      collegeName,
+      initialListSize,
+      otherCpmponent,
+      listViewCls,
+    } = this.props;
+
     const dataSource =
       groupName || groupName === 0
         ? this.state.dataSource.cloneWithRows(dataList[groupName])
         : this.state.dataSource.cloneWithRows(dataList);
     const newListViewCls = listViewCls ? classNames(listViewCls) : classNames(styles.listViewCls);
     return (
-      <div id={id} className={newListViewCls}>
+      <div id={groupName} className={newListViewCls}>
         <ListView
           dataSource={dataSource}
           className="am-list sticky-list"
           useBodyScroll
           renderHeader={() => this.renderHeader()}
-          renderFooter={() => this.renderFooter(groupName, id)}
+          renderFooter={() => this.renderFooter(collegeName, groupName)}
           renderSectionWrapper={sectionID => this.renderSectionWrapper(sectionID)}
           renderSectionHeader={sectionData => this.renderSectionHeader(sectionData)}
           renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}

@@ -7,7 +7,7 @@ export function formatMoney(val) {
 export function changeObj(res) {
   const obj = {};
   res.forEach(e => {
-    obj[e.name] = e.detailResult;
+    obj[e.id] = e.detailResult;
   });
   return obj;
 }

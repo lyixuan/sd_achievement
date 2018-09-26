@@ -86,14 +86,14 @@ class Level extends React.Component {
           <NoData showflag />
         ) : (
           familyData.map(item => {
-            const newDataList = Object.keys(dataList).filter(obj => obj === item.name);
+            const newDataList = Object.keys(dataList).filter(obj => Number(obj) === item.id);
             return (
               newDataList.length > 0 && (
                 <MultipHeaderList
                   key={item.id}
                   dataList={dataList}
-                  groupName={item.name}
-                  id={item.id}
+                  groupName={item.id}
+                  collegeName={item.name}
                   renderHeader={name => this.renderHeader(name)}
                   renderFooter={(name, id) => this.renderFooter(name, id)}
                   customRenderHeader={() => <RenderHeader type={this.state.type} />}
