@@ -161,18 +161,18 @@ class TableFile extends React.Component {
       </span>
     );
     const classNum = !manageScale
-      ? 1
-      : !manageScale.manageNum && manageScale.manageNum !== 0 ? 1 : manageScale.manageNum || 1;
+      ? 0
+      : !manageScale.manageNum && manageScale.manageNum !== 0 ? 0 : manageScale.manageNum || 0;
     const index =
       flag2 === 1
         ? !dailyCredit
-          ? 1
-          : !dailyCredit.index && dailyCredit.index !== 0 ? 2 : dailyCredit.index || 1
-        : !baseKpi ? 2 : !baseKpi.index && baseKpi.index !== 0 ? 2 : baseKpi.index || 1;
+          ? 0
+          : !dailyCredit.index && dailyCredit.index !== 0 ? 0 : dailyCredit.index || 0
+        : !baseKpi ? 0 : !baseKpi.index && baseKpi.index !== 0 ? 0 : baseKpi.index || 0;
     const size =
       flag2 === 1
-        ? !dailyCredit ? 3 : !dailyCredit.size && dailyCredit.size !== 0 ? 3 : dailyCredit.size
-        : (!baseKpi ? 3 : !baseKpi.size && baseKpi.size !== 0 ? 3 : baseKpi.size) || 1;
+        ? !dailyCredit ? 1 : !dailyCredit.size && dailyCredit.size !== 0 ? 1 : dailyCredit.size
+        : (!baseKpi ? 1 : !baseKpi.size && baseKpi.size !== 0 ? 1 : baseKpi.size) || 1;
     const perSize = (index / size * 100).toFixed(2);
     const scoreRight = () => (
       <span className={styles.u_numSpan}>
