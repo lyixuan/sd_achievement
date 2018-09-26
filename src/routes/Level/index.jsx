@@ -69,7 +69,6 @@ class Level extends React.Component {
     const { familyData = [] } = this.props.level;
     const dataList = changeObj(familyData);
     const { month, groupType } = this.state.paramsObj;
-    console.log(!dataList);
     return (
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>

@@ -22,7 +22,7 @@ class Details extends React.Component {
     super(props);
     const { urlParams = {} } = props;
     const { collegeName = null, month = '2018-08', type = null, collegeId = null } = urlParams;
-    console.log(this.currentAuthInfo());
+
     const {
       groupType = '',
       familyId = '',
