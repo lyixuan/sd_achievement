@@ -10,8 +10,8 @@ export class ChartBase {
     this.baseBunber = 100000; // 基础定义类
   }
   setData = dataSource => {
-    this.chartData = dataSource.data;
-    this.title = dataSource.title;
+    this.chartData = dataSource.data || [];
+    this.title = dataSource.title || '';
   };
   chartTitle = () => {
     return {

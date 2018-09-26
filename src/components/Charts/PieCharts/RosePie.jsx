@@ -1,6 +1,6 @@
 import React from 'react';
 // import { fontSizeAuto } from 'utils/chartUtils';
-import Bar from '../BaseChart/bar';
+import Bar from '../BaseChart/pie';
 import { BarClass } from './_chartUtils';
 
 export default class SingleBar extends React.Component {
@@ -59,9 +59,7 @@ export default class SingleBar extends React.Component {
   };
 
   render() {
-    const { dataSource = {} } = this.props;
-    const data = dataSource.data || [];
-    const chartData = data.length > 0 ? this.handleData() : {};
-    return data.length > 0 ? <Bar dataSource={chartData} width="6.9rem" height="6.5rem" /> : null;
+    const chartData = this.handleData();
+    return <Bar dataSource={chartData} width="6.9rem" height="6.5rem" />;
   }
 }
