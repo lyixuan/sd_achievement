@@ -36,8 +36,8 @@ class BaseLayout extends React.Component {
         currRouterData = routerData[key];
       }
     });
-    if (currRouterData && currRouterData.title) {
-      title = currRouterData.showTitle ? `${currRouterData.title}` : '';
+    if (currRouterData && currRouterData.showTitle) {
+      title = currRouterData.title || '';
     }
     return title;
   };

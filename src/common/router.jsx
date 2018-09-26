@@ -86,26 +86,26 @@ export const getRouterData = app => {
     '/indexPage': {
       component: dynamicWrapper(app, [], () => import('../routes/Home/IndexPage')),
       title: '',
-      showTitle: false,
+      showTitle: true,
     },
     '/indexPage/boss': {
       component: dynamicWrapper(app, ['bosshome'], () => import('../routes/Home/Boss/index')),
       title: '',
-      showTitle: false,
+      showTitle: true,
     },
     '/indexPage/boss/pandect': {
       component: dynamicWrapper(app, ['bosshome'], () =>
         import('../routes/Home/Boss/Pandect/pandect')
       ),
       title: '',
-      showTitle: false,
+      showTitle: true,
     },
     '/indexPage/boss/monthly': {
       component: dynamicWrapper(app, ['bosshome'], () =>
         import('../routes/Home/Boss/Monthly/index')
       ),
       title: '',
-      showTitle: false,
+      showTitle: true,
     },
     '/indexPage/teacher': {
       component: dynamicWrapper(app, ['teacherhome'], () =>
@@ -117,41 +117,41 @@ export const getRouterData = app => {
     '/level': {
       component: dynamicWrapper(app, ['level'], () => import('../routes/Level/index')),
       title: '',
-      showTitle: false,
+      showTitle: true,
     },
     '/details': {
       component: dynamicWrapper(app, ['details'], () => import('../routes/Details/index')),
       title: '',
-      showTitle: false,
+      showTitle: true,
     },
     '/history': {
       component: dynamicWrapper(app, ['historyhome'], () => import('../routes/History')),
       title: '',
-      showTitle: false,
+      showTitle: true,
     },
     '/history/boss': {
       component: dynamicWrapper(app, ['historyhome'], () => import('../routes/History/Boss/index')),
       title: '',
-      showTitle: false,
+      showTitle: true,
     },
     '/history/teacher': {
       component: dynamicWrapper(app, ['historyhome'], () =>
         import('../routes/History/Teachers/index')
       ),
       title: '',
-      showTitle: false,
+      showTitle: true,
     },
     '/history/details': {
       component: dynamicWrapper(app, ['historyDetails'], () =>
         import('../routes/History/Details/index')
       ),
       title: '',
-      showTitle: false,
+      showTitle: true,
     },
     '/counting/:month': {
       component: dynamicWrapper(app, [], () => import('../routes/Counting/index')),
       title: '',
-      showTitle: false,
+      showTitle: true,
     },
     '/user': {
       component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),
