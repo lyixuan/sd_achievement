@@ -1,7 +1,45 @@
 .fixedCotainer {
   position: fixed;
-  top: 4.35rem;
+  top: 4rem;
   right: -0.06rem;
   width: 1.42rem;
   z-index: 4;
+  display: block;
+  cursor: pointer;
+  animation: tada 5s linear infinite backwards;
+}
+@keyframes tada {
+  5% {
+    -webkit-transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, -10deg);
+    -moz-transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, -10deg);
+    -ms-transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, -10deg);
+    -o-transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, -10deg);
+    transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, -10deg);
+  }
+  6%,
+  8%,
+  10%,
+  12% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 10deg);
+    -moz-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 10deg);
+    -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 10deg);
+    -o-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 10deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 10deg);
+  }
+  7%,
+  9%,
+  11% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -10deg);
+    -moz-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -10deg);
+    -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -10deg);
+    -o-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -10deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -10deg);
+  }
+  13% {
+    -webkit-transform: scale3d(1, 1, 1);
+    -moz-transform: scale3d(1, 1, 1);
+    -ms-transform: scale3d(1, 1, 1);
+    -o-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
 }
