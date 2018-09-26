@@ -125,7 +125,7 @@ class HistoryDetails extends React.Component {
         </div>
         {this.props.loading && <Loading />}
         {/* *************** listview *************** */}
-        {!dataList ? (
+        {!dataList || Object.keys(dataList).length === 0 ? (
           <NoData showflag />
         ) : (
           param.map(item => {
