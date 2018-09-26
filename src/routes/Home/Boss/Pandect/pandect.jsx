@@ -52,9 +52,9 @@ class Boss extends React.Component {
   };
   getGroupTotalKpiData = (params = {}) => {
     const { TotalKpigroupType } = this.state;
-    const { userId } = this.currentAuthInfo();
+    const { userId, collegeId } = this.currentAuthInfo();
     const groupType = params.TotalKpigroupType || TotalKpigroupType;
-    const newParams = { userId, groupType };
+    const newParams = { userId, groupType, collegeId };
     this.props.dispatch({
       type: 'bosshome/findGroupTotalKpi',
       payload: newParams,
@@ -62,9 +62,9 @@ class Boss extends React.Component {
   };
   getGroupAvgKpiData = (params = {}) => {
     const { groupAvgKpiGroupType } = this.state;
-    const { userId } = this.currentAuthInfo();
+    const { userId, collegeId } = this.currentAuthInfo();
     const groupType = params.groupAvgKpiGroupType || groupAvgKpiGroupType;
-    const newParams = { userId, groupType };
+    const newParams = { userId, groupType, collegeId };
     this.props.dispatch({
       type: 'bosshome/findGroupAvgKpi',
       payload: newParams,

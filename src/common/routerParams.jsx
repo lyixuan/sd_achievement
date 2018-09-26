@@ -32,6 +32,7 @@ export function setRouteUrlParams(pathname, query) {
   const lastUrlParams = parse(location.search, true).query || {};
   const { month = '' } = lastUrlParams;
   const assignQuery = { month, ...query };
+
   store.dispatch({
     type: 'global/changeUrlParams',
     payload: lastUrlParams,
@@ -44,5 +45,10 @@ export function setRouteUrlParams(pathname, query) {
   } else {
     console.warn('输入路径地址');
   }
+  // 跳转页面使页面置顶
+  scollerTop();
+}
+function scollerTop() {
+  window.scrollTo(0, 0);
 }
 export function getCurrentAuthInfo() {}
