@@ -4,13 +4,14 @@ import { assignUrlParams } from 'utils/routerUtils';
 import DatePanle from 'container/DatePanle';
 import PerformanceTab from 'components/SelfTab/PerformanceTab';
 import Loading from 'components/Loading/Loading';
-import { getCurrentAuthInfo } from 'utils/decorator';
+import { getCurrentAuthInfo, currentPathName } from 'utils/decorator';
 import { timeArea } from 'utils/timeArea';
 import Proportion from './proportion';
 import Step from './step';
 import styles from './index.less';
 
 @getCurrentAuthInfo
+@currentPathName
 class BossMothly extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +27,13 @@ class BossMothly extends React.Component {
     this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {
-    this.getData();
+    const pathname = this.checkoutUserAuthPathName(); // 检测用户权限,如果该权限不能调转到该页面的话则跳转到指定页面
+
+    if (pathname === '/indexPage/boss') {
+      this.getData();
+    } else {
+      this.props.setRouteUrlParams(pathname, {});
+    }
   }
   onChangeTab = id => {
     const typeObj = {

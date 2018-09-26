@@ -5,12 +5,13 @@ import { assignUrlParams } from 'utils/routerUtils';
 import AllGroupPandect from 'container/AllGroupPandect';
 import PerGroupPandect from 'container/PerGroupPandect';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
-import { getCurrentAuthInfo } from 'utils/decorator';
+import { getCurrentAuthInfo, currentPathName } from 'utils/decorator';
 import Loading from 'components/Loading/Loading';
 
 import styles from './pandect.less';
 
 @getCurrentAuthInfo
+@currentPathName
 class Boss extends React.Component {
   static contextTypes = {
     setTitle: PropTypes.func,
@@ -38,8 +39,14 @@ class Boss extends React.Component {
     this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {
-    this.getGroupTotalKpiData();
-    this.getGroupAvgKpiData();
+    const pathname = this.checkoutUserAuthPathName(); // 检测用户权限,如果该权限不能调转到该页面的话则跳转到指定页面
+    console.log(pathname);
+    if (pathname === '/indexPage/boss') {
+      this.getGroupTotalKpiData();
+      this.getGroupAvgKpiData();
+    } else {
+      this.props.setRouteUrlParams(pathname, {});
+    }
   }
 
   onChangeGroupAvgKpi = groupAvgKpiGroupType => {

@@ -13,3 +13,21 @@ export function getCurrentAuthInfo(target) {
     return value || {};
   }
 }
+export function currentPathName(target) {
+  const checkoutUserAuthPathName = () => {
+    const { groupType = null, isKpi } = getCurrentAuthInfo();
+    if (!isKpi) {
+      return '/exception/403';
+    }
+    if (groupType === 'boss' || groupType === 'college') {
+      return '/indexPage/boss';
+    } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
+      return '/indexPage/teacher';
+    } else {
+      return '/exception/403';
+    }
+  };
+  if (target && typeof target === 'function') {
+    Object.assign(target.prototype, { checkoutUserAuthPathName });
+  }
+}

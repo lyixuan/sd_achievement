@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { getCurrentAuthInfo } from 'utils/decorator';
+import { getCurrentAuthInfo, currentPathName } from 'utils/decorator';
 import DatePanle from 'container/DatePanle';
 import Loading from 'components/Loading/Loading';
 import { assignUrlParams } from 'utils/routerUtils';
@@ -14,6 +14,7 @@ import { timeArea } from '../../../utils/timeArea';
 import { formatMoney } from '../../../utils/utils';
 
 @getCurrentAuthInfo
+@currentPathName
 class Teacher extends React.Component {
   constructor(props) {
     super(props);
@@ -44,10 +45,15 @@ class Teacher extends React.Component {
   }
 
   componentDidMount() {
-    const val = this.state.tabFlag === 3 ? (this.state.flag === 1 ? 2 : 3) : this.state.tabFlag - 1;
-    this.getData({ type: val, interfaceFlag: 1 });
+    const pathname = this.checkoutUserAuthPathName(); // 检测用户权限,如果该权限不能调转到该页面的话则跳转到指定页面
+    if (pathname === '/indexPage/teacher') {
+      const val =
+        this.state.tabFlag === 3 ? (this.state.flag === 1 ? 2 : 3) : this.state.tabFlag - 1;
+      this.getData({ type: val, interfaceFlag: 1 });
+    } else {
+      this.props.setRouteUrlParams(pathname, {});
+    }
   }
-
   onDateChange = date => {
     if (this.state.dateTime !== date) {
       const val =

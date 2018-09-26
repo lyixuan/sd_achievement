@@ -16,7 +16,6 @@ class Boss extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
-
   changePage(id) {
     const { pathname } = this.props.location;
     const urlParams = this.props.getUrlParams();
