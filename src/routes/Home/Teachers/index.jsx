@@ -170,6 +170,10 @@ class Teacher extends React.Component {
       ? {}
       : detailKpiData;
 
+    const classNum = !manageScale
+      ? 0
+      : !manageScale.manageNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
+
     const { isloading } = this.props;
     return (
       <div>
@@ -209,9 +213,7 @@ class Teacher extends React.Component {
         </div>
 
         <div className={styles.m_warningP}>
-          <p className={styles.u_pContent}>
-            *预估绩效每天与小德学分同步更新；学院打分绩效为浮动绩效，月底根据本月工作表现确定实发绩效
-          </p>
+          <p className={styles.u_pContent}>*预估绩效每天与小德学分同步更新</p>
         </div>
 
         <ButtonFile
@@ -229,6 +231,14 @@ class Teacher extends React.Component {
 
         <div style={{ display: flag === 2 && groupType === 'group' ? 'block' : 'none' }}>
           <TeacherPer dataSource={detailKpiData} />
+          <div
+            className={styles.m_warningP}
+            style={{ display: Number(classNum) >= 6 ? 'block' : 'none' }}
+          >
+            <p className={styles.u_pContent}>
+              本月在岗老师≥6人，随机取4人展示绩效，供参考。各班主任实发以最终调整后绩效为准
+            </p>
+          </div>
         </div>
 
         <div

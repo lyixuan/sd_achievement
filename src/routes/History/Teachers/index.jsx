@@ -92,19 +92,21 @@ class HistoryTeacher extends React.Component {
           <div className={styles.m_wordContent}>
             <p>亲爱的{name}</p>
             <p>辛苦啦，感谢您在{timeDateObj.month}月份努力的付出！</p>
-            <p className={styles.u_timeCls}>您{timeDateObj.month}月份确定绩效为</p>
+            <p className={styles.u_timeCls}>
+              您{timeDateObj.year}年{timeDateObj.month}月份确定绩效为
+            </p>
             <p className={styles.u_selfresultlCls}>
               {formatMoney(teacherKpiObj.actual_kpi || 0)}元
             </p>
             <div style={{ height: '0.54rem' }} />
             <div className={styles.m_performenceContent}>
-              <p className={styles.u_pWrapContent}>实发合计中包含以下数据</p>
+              <p className={styles.u_pWrapContent}>实发合计中包含以下绩效</p>
               <div
                 style={{ height: '0.02rem', width: '6rem', background: '#eee', margin: 'auto' }}
               />
               <p className={styles.u_pContentWord}>
                 <span style={{ textAlign: 'left', width: '2.9rem', display: 'inline-block' }}>
-                  虚报绩效考核金额
+                  续报绩效考核金额
                 </span>
                 <span style={{ textAlign: 'right', width: '2.8rem', display: 'inline-block' }}>
                   {formatMoney(teacherKpiObj.keep_kpi || 0)}元

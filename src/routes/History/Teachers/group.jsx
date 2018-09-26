@@ -6,8 +6,8 @@ class HistoryGroup extends React.Component {
     let { dataSource = [] } = this.props;
     dataSource = dataSource.map(item => ({ ...item, name: item.key }));
     return (
-      <div>
-        <HistoryGroupBar dataSource={{ data: dataSource, title: '班主任确认绩效' }} />
+      <div style={{ marginTop: '0.4rem' }}>
+        <HistoryGroupBar dataSource={{ data: dataSource, title: '班主任确定绩效' }} />
       </div>
     );
   }
