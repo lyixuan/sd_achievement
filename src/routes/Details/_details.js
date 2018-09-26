@@ -94,7 +94,7 @@ class RenderDetails extends React.Component {
           <dd className={styles.u_ddCls}>
             <div className={styles.blackColor}>
               <span className={styles.greyColor}>日均学分：</span>
-              <span> {dayAvgScore.score} </span> 分
+              <span> {dayAvgScore.score.toFixed(2)} </span> 分
               <span className={styles.blueColor}> | </span>
               <span className={styles.greyColor}> 排名：</span>
               <span>
