@@ -24,7 +24,9 @@ export default class SingleBar extends React.Component {
                 type: 'funnel',
                 ...chartStyle.top,
                 sort:
-                  seriesData.level1.value >= seriesData.level2.value ? 'descending' : 'ascending',
+                  Number(seriesData.level1.value) >= Number(seriesData.level2.value)
+                    ? 'descending'
+                    : 'ascending',
                 label,
                 data: [seriesData.level1, seriesData.level2],
               },
@@ -32,7 +34,9 @@ export default class SingleBar extends React.Component {
                 name: 'bottom',
                 type: 'funnel',
                 sort:
-                  seriesData.level3.value >= seriesData.level4.value ? 'descending' : 'ascending',
+                  Number(seriesData.level3.value) >= Number(seriesData.level4.value)
+                    ? 'descending'
+                    : 'ascending',
                 ...chartStyle.bottom,
                 label,
                 data: [seriesData.level3, seriesData.level4],
