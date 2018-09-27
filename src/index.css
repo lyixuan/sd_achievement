@@ -1,9 +1,13 @@
 
 html, body, :global(#root) {
   height: 100%;
+  width:100%;
   background-color: #EDF0F3;
   font-family: PingFangSC-Regular;
 
+}
+:global(#root){
+  overflow: auto;
 }
 
 dl,dt,dd,p{

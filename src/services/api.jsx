@@ -15,7 +15,7 @@ const HOST = hostObj[NODE_ENV];
 export function getWeChart() {
   const weChartUrlObj = {
     dev: 'http://172.16.117.65:8087/authorizeKPI/RedirectToWechat?branch=dev',
-    pro: 'http://bi-wechat.ministudy.com/authorize/RedirectToWechat?branch=pro',
+    pro: 'http://bi-wechat.ministudy.com/authorizeKPI/RedirectToWechat?branch=pro',
   };
   return weChartUrlObj[NODE_ENV];
 }
