@@ -4,7 +4,7 @@ import config from '../config';
 
 const { NODE_ENV = 'pro' } = config;
 const hostObj = {
-  pro: 'http://bi-admin.ministudy.com',
+  pro: 'http://test-api.bd.ministudy.com/apis',
   dev: 'http://172.16.117.65:8082',
 };
 const HOST = hostObj[NODE_ENV];
