@@ -1,12 +1,4 @@
 
-/* html, body, :global(#root) {
-  height: 100%;
-  width:100%;
-  background-color: #EDF0F3;
-  font-family: PingFangSC-Regular;
-
-} */
-/* 解决pc端浏览器警告 */
 html, body{
   width:100%;
   height: 100%;
