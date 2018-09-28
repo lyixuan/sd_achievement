@@ -109,9 +109,7 @@ class BossMothly extends React.Component {
             this.onDateChange(date);
           }}
         />
-        <p className={styles.descriptionText}>
-          *预估绩效每天与小德学分同步更新;学院打分绩效为浮动绩效,月底根据本月工作表现确定实发绩效
-        </p>
+        <p className={styles.descriptionText}>*预估绩效每天与小德学分同步更新</p>
         {!isShowTab ? null : (
           <PerformanceTab
             firstId={monthlyType === 'step' ? 1 : 2}
