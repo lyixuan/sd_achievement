@@ -4,8 +4,6 @@ import arrow from '../../../assets/arrow.svg';
 import ImgTitle from '../../../components/ImgTitle/ImgTitle';
 import NoData from '../../../components/NoData/NoData';
 import { formatMoney } from '../../../utils/utils';
-// import redtriangle from '../../../assets/redtriangle.png';
-// import greentriangle from '../../../assets/greentriangle.png';
 import MultipHeaderList from '../../../components/ListView/listView';
 import CustomRenderHeader from '../../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../../components/TableItem/TableItem';
@@ -19,6 +17,7 @@ class TableFile extends React.Component {
     };
   }
 
+  // 信息弹框提示
   showModal = () => {
     if (this.props.flag === 2 && this.props.flag2 === 2) {
       this.setState({
@@ -26,12 +25,14 @@ class TableFile extends React.Component {
       });
     }
   };
+  // 弹框隐藏
   hideModal = () => {
     this.setState({
       modalflag: false,
     });
   };
 
+  // 处理table行数据
   itemList = val => {
     const data = [];
     val.map((item, index) =>
@@ -39,22 +40,15 @@ class TableFile extends React.Component {
         key: index,
         flag: item.flag,
         data: [
-          {
-            value: item.range,
-            clsName: 'familyCls',
-            key: 1,
-          },
-          {
-            value: formatMoney(item.value || 0),
-            clsName: 'familyCls',
-            key: 2,
-          },
+          { value: item.range, clsName: 'familyCls', key: 1 },
+          { value: formatMoney(item.value || 0), clsName: 'familyCls', key: 2 },
         ],
       })
     );
     return data;
   };
 
+  // 针对运营长和班主任button选择3的时候，每行3列数据处理
   itemList2 = val => {
     const data = [];
     val.map((item, index) =>
@@ -68,7 +62,6 @@ class TableFile extends React.Component {
         ],
       })
     );
-
     return data;
   };
 
@@ -81,25 +74,26 @@ class TableFile extends React.Component {
         : this.itemList(!dataSource ? [] : dataSource);
 
     // 用户为运营长前2个tab切换时，table列头数据
+    // const columns = [
+    //   {
+    //     title: '小组排名',
+    //     dataIndex: 'titleOne',
+    //     key: 'columnsOne',
+    //     clsName: 'halfDatacls',
+    //   },
+    //   {
+    //     title: flag2 === 1 ? '系数' : '绩效基数',
+    //     dataIndex: 'titleThree',
+    //     key: 'columnsThree',
+    //     clsName: 'halfStuCls',
+    //   },
+    // ];
+
+    // 用户tab切换时table列头数据
     const columns = [
       {
-        title: '小组排名',
-        dataIndex: 'titleOne',
-        key: 'columnsOne',
-        clsName: 'halfDatacls',
-      },
-      {
-        title: flag2 === 1 ? '系数' : '绩效基数',
-        dataIndex: 'titleThree',
-        key: 'columnsThree',
-        clsName: 'halfStuCls',
-      },
-    ];
-
-    // 用户为家族长tab切换时table列头数据
-    const columns2 = [
-      {
-        title: flag2 === 1 ? '家族排名比' : flag2 === 2 ? '家族排名' : '区间',
+        title:
+          flag === 2 ? '小组排名' : flag2 === 1 ? '家族排名比' : flag2 === 2 ? '家族排名' : '区间',
         dataIndex: 'titleOne',
         key: 'columns3One',
         clsName: 'halfDatacls',
@@ -225,9 +219,7 @@ class TableFile extends React.Component {
             <MultipHeaderList
               dataList={tableList}
               customRenderHeader={() => (
-                <CustomRenderHeader
-                  columnsData={flag === 1 ? columns2 : flag2 === 3 ? columns3 : columns}
-                />
+                <CustomRenderHeader columnsData={flag2 === 3 ? columns3 : columns} />
               )}
               customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
             />
