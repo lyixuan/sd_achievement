@@ -32,11 +32,10 @@ export default {
           if (flagVal === 0) {
             levelVal = dailyCredit.ratio || 1;
           } else if (flagVal === 1) {
-            levelVal = baseKpi.personNumAvg || 1;
+            levelVal = baseKpi.value || 1;
           } else {
             levelVal = userFlag === 2 ? selfNum : manageScale.value || 1;
           }
-          // console.log('同时请求两个接口时候档位上送的参数',{ ...kpiLevelParams, levelVal })
           const kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams, levelVal });
           if (kpiLevelData.code === 2000) {
             yield put({ type: 'kpisave', payload: { kpiLevelData, kpiLevelParams } });
@@ -50,7 +49,6 @@ export default {
     },
     *findKpiLevel({ payload }, { call, put }) {
       const { kpiLevelParams } = payload;
-      // console.log('只请求档位上送的参数',kpiLevelParams)
       const kpiLevelData = yield call(findKpiLevel, { ...kpiLevelParams });
       if (kpiLevelData.code === 2000) {
         yield put({ type: 'kpisave', payload: { kpiLevelData, kpiLevelParams } });
