@@ -54,6 +54,8 @@ class Teacher extends React.Component {
       this.props.setRouteUrlParams(pathname, {});
     }
   }
+
+  // 时间切换时需要更新数据
   onDateChange = date => {
     if (this.state.dateTime !== date) {
       const val =
@@ -63,6 +65,7 @@ class Teacher extends React.Component {
     }
   };
 
+  // 请求接口的中间函数
   getData = (params = {}) => {
     const dateTime = params.dateTime || this.state.dateTime;
     const { type = 0, interfaceFlag = 1, levelVal = 0 } = params;
@@ -141,11 +144,9 @@ class Teacher extends React.Component {
     });
   };
   // button切换调用的档位接口
-  buttonChange = (item, manageScale, baseKpi) => {
+  buttonChange = (item, classNum, baseKpi) => {
     if (this.state.tabFlag !== item.id) {
-      const num1 = !manageScale
-        ? 0
-        : !manageScale.classNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
+      const num1 = classNum;
       const num2 = !baseKpi ? 0 : !baseKpi.value && baseKpi.value !== 0 ? 0 : baseKpi.value;
       let aa = item.score;
       if (typeof aa === 'string' && aa.indexOf('%') !== -1) {
@@ -165,6 +166,7 @@ class Teacher extends React.Component {
 
   render() {
     const { flag, tabFlag, dateTime, groupType } = this.state;
+
     const detailKpiData = !this.props.teacherhome.detailKpiData
       ? []
       : !this.props.teacherhome.detailKpiData.data ? [] : this.props.teacherhome.detailKpiData.data;
@@ -226,7 +228,7 @@ class Teacher extends React.Component {
           flag2={tabFlag}
           flag={flag}
           dataSource={detailKpiData}
-          changeFlag={item => this.buttonChange(item, manageScale, baseKpi)}
+          changeFlag={item => this.buttonChange(item, classNum, baseKpi)}
         />
         <TableFile
           flag2={tabFlag}
