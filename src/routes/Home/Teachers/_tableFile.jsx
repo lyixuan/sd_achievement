@@ -219,7 +219,7 @@ class TableFile extends React.Component {
             <MultipHeaderList
               dataList={tableList}
               customRenderHeader={() => (
-                <CustomRenderHeader columnsData={flag2 === 3 ? columns3 : columns} />
+                <CustomRenderHeader columnsData={flag2 === 3&&flag===2 ? columns3 : columns} />
               )}
               customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
             />
