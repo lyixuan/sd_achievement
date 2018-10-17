@@ -9,7 +9,6 @@ import { formatMoney } from '../../../utils/utils';
 class TeacherPer extends React.Component {
   itemList = val => {
     const data = [];
-    // console.log(val);
     val.map((item, index) =>
       data.push({
         key: index,
@@ -93,4 +92,3 @@ class TeacherPer extends React.Component {
   }
 }
 export default TeacherPer;
-// connect(({ loading }) => ({ loading }))(Boss);
