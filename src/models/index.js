@@ -42,13 +42,18 @@ export default {
       if (response.code === 2000) {
         const responseData = response.data || {};
         const authList = responseData.data || [];
-        responseData.data = authList.map(item => ({
+        responseData.data = authList.filter(item => item.isKpi).map(item => ({
           ...item,
           userId: item.id,
           loginUserId: responseData.userId,
           groupNameArr: splitDepartment(item.department) || [],
           currentGroupName: (splitDepartment(item.department) || []).slice(-1)[0] || null,
         }));
+        if (!responseData.isLogin || !responseData.data || responseData.data.length === 0) {
+          // 返回结果异常,或返回结果有且仅有一条无权限数据,或返回结果islogin为false时
+          yield put(routerRedux.push('/exception/403'));
+          return;
+        }
         const CurrentAuthInfo = { ...responseData.data[0] };
         yield call(setItem, 'performanceUser', responseData);
         yield call(setItem, 'performanceCurrentAuth', CurrentAuthInfo);
