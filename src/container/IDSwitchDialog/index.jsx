@@ -14,8 +14,8 @@ const groupTypeList = {
   others: '无绩效岗位',
   admin: '管理员',
   college: '院长',
-  family: '家族',
-  group: '运营',
+  family: '家族长',
+  group: '运营长',
   class: '班主任',
 };
 @getCurrentAuthInfo
