@@ -16,9 +16,9 @@ class FloatIcon extends React.Component {
     const { urlParams = {}, groupType } = props;
     const initState = {
       modelflag: false,
+      usercourseBtnIsShow: groupType !== 'boss' && groupType !== 'college',
       searchBtnShow: groupType === 'boss', // boss和college权限，该值为true，否则为false
     };
-
     this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {
@@ -61,7 +61,7 @@ class FloatIcon extends React.Component {
   }
 
   render() {
-    const { modelflag, searchBtnShow } = this.state;
+    const { modelflag, searchBtnShow, usercourseBtnIsShow } = this.state;
     return (
       <div className={styles.m_floatIcon}>
         {/* *************** 回到顶部 *************** */}
@@ -74,15 +74,18 @@ class FloatIcon extends React.Component {
         >
           <img src={top} className={styles.imgTop} alt="回到顶部" />
         </div>
-        {/* *************** 档位说明 *************** */}
-        <div
-          className={`${styles.floatIcon} ${styles.dashBordCls}`}
-          onClick={() => {
-            this.props.setRouteUrlParams('/static/usercourse');
-          }}
-        >
-          <img src={dashboard} className={styles.imgDash} alt="档位说明" />
-        </div>
+        {/* *************** 档位说明(boss和college权限无法查看) *************** */}
+        {!usercourseBtnIsShow ? null : (
+          <div
+            className={`${styles.floatIcon} ${styles.dashBordCls}`}
+            onClick={() => {
+              this.props.setRouteUrlParams('/static/usercourse');
+            }}
+          >
+            <img src={dashboard} className={styles.imgDash} alt="档位说明" />
+          </div>
+        )}
+
         {/* *************** 算法说明 *************** */}
         <div
           className={`${styles.floatIcon} ${styles.countCls}`}

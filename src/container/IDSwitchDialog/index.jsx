@@ -4,20 +4,12 @@
 import React from 'react';
 import { getItem, setItem } from 'utils/localStorage';
 import { getCurrentAuthInfo } from 'utils/decorator';
+import dict from 'utils/dict';
 import Modal from '../../components/Modal/index';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import idSwitch from '../../assets/switch.svg';
 import styles from './SwitchDialog.less';
 
-const groupTypeList = {
-  boss: '管理层',
-  others: '无绩效岗位',
-  admin: '管理员',
-  college: '院长',
-  family: '家族',
-  group: '运营',
-  class: '班主任',
-};
 @getCurrentAuthInfo
 class SwitchDialog extends React.Component {
   constructor(props) {
@@ -56,9 +48,9 @@ class SwitchDialog extends React.Component {
         item.groupType === 'family' ||
         item.groupType === 'college'
       ) {
-        buttonName = `${groupTypeList[item.groupType]} - ${item.currentGroupName}`;
+        buttonName = `${dict.groupTypeDict[item.groupType]} - ${item.currentGroupName}`;
       } else {
-        buttonName = `${groupTypeList[item.groupType]}`;
+        buttonName = `${dict.groupTypeDict[item.groupType]}`;
       }
       return {
         id: item.id,

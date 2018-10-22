@@ -6,12 +6,12 @@ import { formatMoney } from '../../../utils/utils';
 
 class ButtonFile extends React.Component {
   render() {
-    const { flag2 = 1, flag = 1, dataSource = null } = this.props;
+    const { tabFlag = 1, userFlag = 1, dataSource = null } = this.props;
     const { dailyCredit = null, baseKpi = null, manageScale = null, name = null } = !dataSource
       ? {}
       : dataSource;
-    const ratio = !dailyCredit ? 0 : !dailyCredit.ratio ? 0 : dailyCredit.ratio;
-    const value = !baseKpi ? 0 : !baseKpi.value ? 0 : baseKpi.value;
+    const { ratio = 0 } = !dailyCredit ? 0 : dailyCredit;
+    const { value = 0 } = !baseKpi ? 0 : baseKpi;
     const manageNum = !manageScale ? 0 : !manageScale.value ? 0 : manageScale.value;
     return (
       <div className={styles.m_btnContainer}>
@@ -25,7 +25,7 @@ class ButtonFile extends React.Component {
           dataReturnFun={item => {
             this.props.changeFlag(item);
           }}
-          id={flag2}
+          id={tabFlag}
         />
         <img className={styles.u_buttonLineStyle} src={multiple} alt="乘号" />
         <FormulaButton
@@ -33,19 +33,19 @@ class ButtonFile extends React.Component {
           dataReturnFun={item => {
             this.props.changeFlag(item);
           }}
-          id={flag2}
+          id={tabFlag}
         />
         <img className={styles.u_buttonLineStyle} src={multiple} alt="乘号" />
         <FormulaButton
           dataSource={{
             id: 3,
-            name: flag === 1 ? '管理规模系数' : '绩效比例',
-            score: flag === 1 ? manageNum : `${manageNum * 100}%`,
+            name: userFlag === 1 ? '管理规模系数' : '绩效比例',
+            score: userFlag === 1 ? manageNum : `${manageNum * 100}%`,
           }}
           dataReturnFun={item => {
             this.props.changeFlag(item);
           }}
-          id={flag2}
+          id={tabFlag}
         />
       </div>
     );

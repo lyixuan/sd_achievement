@@ -19,12 +19,13 @@ class TableFile extends React.Component {
 
   // 信息弹框提示
   showModal = () => {
-    if (this.props.flag === 2 && this.props.flag2 === 2) {
+    if (this.props.userFlag === 2 && this.props.tabFlag === 2) {
       this.setState({
         modalflag: true,
       });
     }
   };
+
   // 弹框隐藏
   hideModal = () => {
     this.setState({
@@ -66,40 +67,26 @@ class TableFile extends React.Component {
   };
 
   render() {
-    const { flag = 1, flag2 = 1, dataSource = [], titleData = null } = this.props;
+    const { userFlag = 1, tabFlag = 1, dataSource = [], titleData = null } = this.props;
     const { modalflag } = this.state;
     const tableList =
-      flag === 2 && flag2 === 3
+      userFlag === 2 && tabFlag === 3
         ? this.itemList2(!dataSource ? [] : dataSource)
         : this.itemList(!dataSource ? [] : dataSource);
-
-    // 用户为运营长前2个tab切换时，table列头数据
-    // const columns = [
-    //   {
-    //     title: '小组排名',
-    //     dataIndex: 'titleOne',
-    //     key: 'columnsOne',
-    //     clsName: 'halfDatacls',
-    //   },
-    //   {
-    //     title: flag2 === 1 ? '系数' : '绩效基数',
-    //     dataIndex: 'titleThree',
-    //     key: 'columnsThree',
-    //     clsName: 'halfStuCls',
-    //   },
-    // ];
 
     // 用户tab切换时table列头数据
     const columns = [
       {
         title:
-          flag === 2 ? '小组排名' : flag2 === 1 ? '家族排名比' : flag2 === 2 ? '家族排名' : '区间',
+          userFlag === 2
+            ? '小组排名'
+            : tabFlag === 1 ? '家族排名比' : tabFlag === 2 ? '家族排名' : '区间',
         dataIndex: 'titleOne',
         key: 'columns3One',
         clsName: 'halfDatacls',
       },
       {
-        title: flag2 === 2 ? '绩效基数' : '系数',
+        title: tabFlag === 2 ? '绩效基数' : '系数',
         dataIndex: 'titleTwo',
         key: 'columns3Two',
         clsName: 'halfStuCls',
@@ -128,50 +115,32 @@ class TableFile extends React.Component {
     ];
 
     const buttonData = !titleData ? null : titleData;
-    const dailyCredit = !buttonData
+    const { dailyCredit = null, baseKpi = null, manageScale = null } = !buttonData
       ? null
-      : !buttonData.dailyCredit ? null : buttonData.dailyCredit;
-    const baseKpi = !buttonData ? null : !buttonData.baseKpi ? null : buttonData.baseKpi;
-    const manageScale = !buttonData
-      ? null
-      : !buttonData.manageScale ? null : buttonData.manageScale;
-    const scoreLeft = () => (
-      <span className={styles.u_numSpan}>
-        {flag2 === 1
-          ? !dailyCredit
-            ? 0
-            : !dailyCredit.value && dailyCredit.value !== 0 ? 0 : dailyCredit.value.toFixed(2)
-          : flag2 === 2
-            ? !baseKpi
-              ? 0
-              : !baseKpi.personNumAvg && baseKpi.personNumAvg !== 0
-                ? 0
-                : `${formatMoney(baseKpi.personNumAvg || 0)}人`
-            : !manageScale
-              ? 0
-              : !manageScale.manageNum && manageScale.classNum !== 0
-                ? 0
-                : `${formatMoney(manageScale.classNum || 0)}人`}
-      </span>
-    );
-    const classNum = !manageScale
+      : buttonData;
+    const dailyValue = !dailyCredit
       ? 0
-      : !manageScale.manageNum && manageScale.manageNum !== 0 ? 0 : manageScale.manageNum || 0;
-    const index =
-      flag2 === 1
-        ? !dailyCredit
-          ? 0
-          : !dailyCredit.index && dailyCredit.index !== 0 ? 0 : dailyCredit.index || 0
-        : !baseKpi ? 0 : !baseKpi.index && baseKpi.index !== 0 ? 0 : baseKpi.index || 0;
-    const size =
-      flag2 === 1
-        ? !dailyCredit ? 1 : !dailyCredit.size && dailyCredit.size !== 0 ? 1 : dailyCredit.size
-        : (!baseKpi ? 1 : !baseKpi.size && baseKpi.size !== 0 ? 1 : baseKpi.size) || 1;
+      : !dailyCredit.value && dailyCredit.value !== 0 ? 0 : dailyCredit.value.toFixed(2);
+    const baseValue = !baseKpi
+      ? 0
+      : !baseKpi.personNumAvg && baseKpi.personNumAvg !== 0
+        ? 0
+        : `${formatMoney(baseKpi.personNumAvg || 0)}人`;
+    const manageValue = !manageScale
+      ? 0
+      : !manageScale.manageNum && manageScale.classNum !== 0
+        ? 0
+        : `${formatMoney(manageScale.classNum || 0)}人`;
+    const scoreLeftValue = tabFlag === 1 ? dailyValue : tabFlag === 2 ? baseValue : manageValue;
+    const scoreLeft = () => <span className={styles.u_numSpan}>{scoreLeftValue}</span>;
+    const { manageNum = 0 } = !manageScale ? 0 : manageScale;
+    const { index = 0 } = tabFlag === 1 ? (!dailyCredit ? 0 : dailyCredit) : !baseKpi ? 0 : baseKpi;
+    const { size = 1 } = tabFlag === 1 ? (!dailyCredit ? 1 : dailyCredit) : !baseKpi ? 1 : baseKpi;
     const perSize = (index / size * 100).toFixed(2);
     const scoreRight = () => (
       <span className={styles.u_numSpan}>
-        {flag2 === 3 ? (
-          `${formatMoney(classNum || 0)}人`
+        {tabFlag === 3 ? (
+          `${formatMoney(manageNum || 0)}人`
         ) : (
           <span>
             {index}/{size} ({`${perSize}%`})
@@ -182,7 +151,7 @@ class TableFile extends React.Component {
     return (
       <div className={styles.m_perTable}>
         <img
-          style={{ left: flag2 === 1 ? '0.7rem' : flag2 === 2 ? '3.25rem' : '5.7rem' }}
+          style={{ left: tabFlag === 1 ? '0.7rem' : tabFlag === 2 ? '3.25rem' : '5.7rem' }}
           className={styles.u_arrowImg}
           src={arrow}
           alt="箭头"
@@ -191,12 +160,12 @@ class TableFile extends React.Component {
           <div onClick={this.showModal}>
             <ImgTitle
               dataSource={{
-                imgSrc: flag2 === 1 ? 4 : flag2 === 2 ? 2 : 1,
+                imgSrc: tabFlag === 1 ? 4 : tabFlag === 2 ? 2 : 1,
                 titleValue:
-                  flag2 === 1
+                  tabFlag === 1
                     ? '日均学分'
-                    : flag2 === 2 ? '人均在服学员' : flag === 1 ? '管理规模' : '组内老师',
-                showDetail: flag === 2 && flag2 === 2 ? 'show' : 'hidden',
+                    : tabFlag === 2 ? '人均在服学员' : userFlag === 1 ? '管理规模' : '组内老师',
+                showDetail: userFlag === 2 && tabFlag === 2 ? 'show' : 'hidden',
               }}
               spanFunction={() => scoreLeft()}
             />
@@ -205,8 +174,8 @@ class TableFile extends React.Component {
           <div className={styles.u_ySplitLine} />
           <ImgTitle
             dataSource={{
-              imgSrc: flag2 === 1 ? 3 : flag2 === 2 ? 3 : 2,
-              titleValue: flag2 === 3 ? '在服学员' : '排名',
+              imgSrc: tabFlag === 1 ? 3 : tabFlag === 2 ? 3 : 2,
+              titleValue: tabFlag === 3 ? '在服学员' : '排名',
             }}
             spanFunction={() => scoreRight()}
           />
@@ -219,7 +188,9 @@ class TableFile extends React.Component {
             <MultipHeaderList
               dataList={tableList}
               customRenderHeader={() => (
-                <CustomRenderHeader columnsData={flag2 === 3&&flag===2 ? columns3 : columns} />
+                <CustomRenderHeader
+                  columnsData={tabFlag === 3 && userFlag === 2 ? columns3 : columns}
+                />
               )}
               customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
             />
