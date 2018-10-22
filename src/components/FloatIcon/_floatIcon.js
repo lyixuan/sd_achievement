@@ -75,7 +75,7 @@ class FloatIcon extends React.Component {
           <img src={top} className={styles.imgTop} alt="回到顶部" />
         </div>
         {/* *************** 档位说明(boss和college权限无法查看) *************** */}
-        {usercourseBtnIsShow && (
+        {!usercourseBtnIsShow ?null: (
           <div
             className={`${styles.floatIcon} ${styles.dashBordCls}`}
             onClick={() => {
