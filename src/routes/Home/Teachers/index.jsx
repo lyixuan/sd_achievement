@@ -199,33 +199,32 @@ class Teacher extends React.Component {
           titleData={detailKpiData}
         />
 
-        <div style={{ display: userFlag === 2 && groupType === 'group' ? 'block' : 'none' }}>
-          <TeacherPer dataSource={detailKpiData} />
-          <div
-            className={styles.m_warningP}
-            style={{ display: Number(classNum) >= 6 ? 'block' : 'none' }}
-          >
-            <p className={styles.u_pContent}>
-              本月在岗老师≥6人，随机取4人展示绩效，供参考。各班主任实发以最终调整后绩效为准
-            </p>
+        {userFlag === 2 && groupType === 'group' ? (
+          <div>
+            <TeacherPer dataSource={detailKpiData} />
+            {Number(classNum) >= 6 ? (
+              <div className={styles.m_warningP}>
+                <p className={styles.u_pContent}>
+                  本月在岗老师≥6人，随机取4人展示绩效，供参考。各班主任实发以最终调整后绩效为准
+                </p>
+              </div>
+            ) : null}
           </div>
-        </div>
+        ) : null}
 
-        <div
-          className={styles.m_familyGroup}
-          style={{ display: userFlag === 1 ? 'block' : 'none' }}
-          onClick={() => this.jumpDetail()}
-        >
-          <div className={styles.u_pRight}>
-            <img src={Bitmap} alt="logo" className={styles.u_imgLogo} />
+        {userFlag === 1 ? (
+          <div className={styles.m_familyGroup} onClick={() => this.jumpDetail()}>
+            <div className={styles.u_pRight}>
+              <img src={Bitmap} alt="logo" className={styles.u_imgLogo} />
+            </div>
+            <div className={styles.u_warpCls}>
+              <span className={styles.u_pCls}>小组绩效</span>
+            </div>
+            <div className={styles.u_pLast}>
+              <img src={Right} alt="rightArrow" className={styles.u_rightArrow} />
+            </div>
           </div>
-          <div className={styles.u_warpCls}>
-            <span className={styles.u_pCls}>小组绩效</span>
-          </div>
-          <div className={styles.u_pLast}>
-            <img src={Right} alt="rightArrow" className={styles.u_rightArrow} />
-          </div>
-        </div>
+        ) : null}
       </div>
     );
   }
