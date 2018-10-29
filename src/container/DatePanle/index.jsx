@@ -23,13 +23,14 @@ export default class DatePanle extends React.Component {
       this.props.onChange(date);
     }
   };
+
   isShowHistoryImage = () => {
     const { defaultDate = '' } = this.props;
-
     const formateDate = defaultDate.replace(/\./g, '-');
     const nowDate = moment().format(formate);
     return !moment(formateDate).isSame(nowDate);
   };
+
   toHistoryPage = () => {
     if (this.props.toHistoryPage) {
       this.props.toHistoryPage();
@@ -39,21 +40,24 @@ export default class DatePanle extends React.Component {
   dataFun = () => {
     const dateVal = timeArea();
     const { maxDate, minDate } = dateVal;
-    const aa = maxDate.replace(/\s/g, 'T').replace(/\//g, '-');
-    const nowDate = new Date(aa);
+    const maxDateVal = !maxDate ? null : maxDate.replace(/\s/g, 'T').replace(/\//g, '-');
+    const minDateVal = !minDate ? null : minDate.replace(/\s/g, 'T').replace(/\//g, '-');
+    const nowMaxDate = new Date(maxDateVal);
+    const nowMinDate = !minDateVal ? null : new Date(minDateVal);
     const result = [];
     const num = this.state.flag === 1 ? 12 : 3;
     result.push({ id: maxDate, name: maxDate });
 
     for (let i = 0; i < num; i += 1) {
-      nowDate.setMonth(nowDate.getMonth() - 1);
-      let m = nowDate.getMonth() + 1;
+      nowMaxDate.setMonth(nowMaxDate.getMonth() - 1);
+      let m = nowMaxDate.getMonth() + 1;
       m = m < 10 ? `0${m}` : m;
-      const insertDate = `${nowDate.getFullYear()}-${m}`;
-      if (!minDate ? true : insertDate >= minDate) {
-        result.push({ id: `${nowDate.getFullYear()}-${m}`, name: `${nowDate.getFullYear()}-${m}` });
+      if (!minDate ? true : nowMaxDate.getTime() >= nowMinDate.getTime()) {
+        result.push({
+          id: `${nowMaxDate.getFullYear()}-${m}`,
+          name: `${nowMaxDate.getFullYear()}-${m}`,
+        });
       }
-      // result.push({ id: `${nowDate.getFullYear()}-${m}`, name: `${nowDate.getFullYear()}-${m}` });
     }
     return result;
   };

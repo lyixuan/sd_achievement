@@ -78,7 +78,9 @@ class TableFile extends React.Component {
     const columns = [
       {
         title:
-          userFlag === 2 ? '小组排名' : (tabFlag === 1 ? '家族排名比' : (tabFlag === 2 ? '家族排名' : '区间')),
+          userFlag === 2
+            ? '小组排名'
+            : tabFlag === 1 ? '家族排名比' : tabFlag === 2 ? '家族排名' : '区间',
         dataIndex: 'titleOne',
         key: 'columns3One',
         clsName: 'halfDatacls',
@@ -113,21 +115,36 @@ class TableFile extends React.Component {
     ];
 
     const buttonData = !titleData ? null : titleData;
-    const {dailyCredit=null,baseKpi=null,manageScale=null}=!buttonData ? null : buttonData
-    const dailyValue = !dailyCredit ? 0 : !dailyCredit.value && dailyCredit.value !== 0 ? 0 : dailyCredit.value.toFixed(2)
-    const baseValue = !baseKpi ? 0 : !baseKpi.personNumAvg && baseKpi.personNumAvg !== 0 ? 0 : `${formatMoney(baseKpi.personNumAvg || 0)}人`;
-    const manageValue = !manageScale ? 0 : !manageScale.manageNum && manageScale.classNum !== 0 ? 0 : `${formatMoney(manageScale.classNum || 0)}人`
-    const scoreLeftValue = tabFlag === 1 ? dailyValue: (tabFlag === 2?baseValue:manageValue)
-    const scoreLeft = () => (
-      <span className={styles.u_numSpan}>{scoreLeftValue}</span>
-    );
-    const {manageNum=0}=!manageScale?0:manageScale
-    const {index=0} = tabFlag === 1?(!dailyCredit ? 0:dailyCredit):(!baseKpi ? 0 : baseKpi);
-    const {size=1} = tabFlag === 1?(!dailyCredit ? 1:dailyCredit):(!baseKpi ? 1 : baseKpi);
-    const perSize = (index / size * 100).toFixed(2);
+    const { dailyCredit = null, baseKpi = null, manageScale = null } = !buttonData
+      ? null
+      : buttonData;
+    const dailyValue = !dailyCredit
+      ? 0
+      : !dailyCredit.value && dailyCredit.value !== 0 ? 0 : dailyCredit.value.toFixed(2);
+    const baseValue = !baseKpi
+      ? 0
+      : !baseKpi.personNumAvg && baseKpi.personNumAvg !== 0
+        ? 0
+        : `${formatMoney(baseKpi.personNumAvg || 0)}人`;
+    const manageValue = !manageScale
+      ? 0
+      : !manageScale.manageNum && manageScale.classNum !== 0
+        ? 0
+        : `${formatMoney(manageScale.classNum || 0)}人`;
+    const scoreLeftValue = tabFlag === 1 ? dailyValue : tabFlag === 2 ? baseValue : manageValue;
+    const scoreLeft = () => <span className={styles.u_numSpan}>{scoreLeftValue}</span>;
+    const { manageNum = 0 } = !manageScale ? 0 : manageScale;
+    const { index = 0, size = 1 } =
+      tabFlag === 1 ? (!dailyCredit ? 0 : dailyCredit) : !baseKpi ? 0 : baseKpi;
+    const { creditPercent = 0 } = !dailyCredit ? 0 : dailyCredit;
+    const { rankPercent = 0 } = !baseKpi ? 0 : baseKpi;
+    const rankVal = tabFlag === 1 ? creditPercent : rankPercent;
+    const perSize = (rankVal * 100).toFixed(2);
     const scoreRight = () => (
       <span className={styles.u_numSpan}>
-        {tabFlag === 3 ? (`${formatMoney(manageNum || 0)}人`) : (
+        {tabFlag === 3 ? (
+          `${formatMoney(manageNum || 0)}人`
+        ) : (
           <span>
             {index}/{size} ({`${perSize}%`})
           </span>
@@ -148,7 +165,9 @@ class TableFile extends React.Component {
               dataSource={{
                 imgSrc: tabFlag === 1 ? 4 : tabFlag === 2 ? 2 : 1,
                 titleValue:
-                  tabFlag === 1 ? '日均学分' : tabFlag === 2 ? '人均在服学员' : userFlag === 1 ? '管理规模' : '组内老师',
+                  tabFlag === 1
+                    ? '日均学分'
+                    : tabFlag === 2 ? '人均在服学员' : userFlag === 1 ? '管理规模' : '组内老师',
                 showDetail: userFlag === 2 && tabFlag === 2 ? 'show' : 'hidden',
               }}
               spanFunction={() => scoreLeft()}
@@ -172,7 +191,9 @@ class TableFile extends React.Component {
             <MultipHeaderList
               dataList={tableList}
               customRenderHeader={() => (
-                <CustomRenderHeader columnsData={tabFlag === 3&&userFlag===2? columns3 : columns} />
+                <CustomRenderHeader
+                  columnsData={tabFlag === 3 && userFlag === 2 ? columns3 : columns}
+                />
               )}
               customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
             />

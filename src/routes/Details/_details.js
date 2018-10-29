@@ -52,8 +52,10 @@ class RenderDetails extends React.Component {
       averageStuNum = {},
       kpiDistribution = {},
     } = rowData;
-    const dayAvg = (dayAvgScore.index / dayAvgScore.size * 100).toFixed(2); // 日均学分
-    const avg = (averageStuNum.index / averageStuNum.size * 100).toFixed(2); // 人均服务学员数
+    // 日均学分排名比
+    // 人均在服学员排名比rankPercent
+    const dayAvg = (dayAvgScore.creditPercent * 100).toFixed(2); // 日均学分
+    const avg = (averageStuNum.rankPercent * 100).toFixed(2); // 人均服务学员数
     return (
       <div className={styles.m_detailRender}>
         {this.renderFn(kpiDistribution)}

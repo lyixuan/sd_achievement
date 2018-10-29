@@ -47,7 +47,7 @@ class Teacher extends React.Component {
   componentDidMount() {
     const pathname = this.checkoutUserAuthPathName(); // 检测用户权限,如果该权限不能调转到该页面的话则跳转到指定页面
     if (pathname === '/indexPage/teacher') {
-      const val = this.tabChangeValue()
+      const val = this.tabChangeValue();
       this.getData({ type: val, interfaceFlag: 1 });
     } else {
       this.props.setRouteUrlParams(pathname, {});
@@ -57,7 +57,7 @@ class Teacher extends React.Component {
   // 时间切换时需要更新数据
   onDateChange = date => {
     if (this.state.dateTime !== date) {
-      const val =this.tabChangeValue()
+      const val = this.tabChangeValue();
       this.getData({ type: val, dateTime: date, interfaceFlag: 1 });
       this.saveParams({ dateTime: date });
     }
@@ -76,8 +76,16 @@ class Teacher extends React.Component {
       familyType = null,
       userFlag = null,
     } = this.state;
-    const detailKpiParams = {groupType, collegeId, familyId, groupId, familyType, userId, month: dateTime};
-    const kpiLevelParams = {...detailKpiParams, type, levelVal}
+    const detailKpiParams = {
+      groupType,
+      collegeId,
+      familyId,
+      groupId,
+      familyType,
+      userId,
+      month: dateTime,
+    };
+    const kpiLevelParams = { ...detailKpiParams, type, levelVal };
     if (interfaceFlag === 1) {
       this.detailKpiFetch(detailKpiParams, userFlag, type, kpiLevelParams);
     } else {
@@ -87,12 +95,14 @@ class Teacher extends React.Component {
 
   // tab切换时button下标数值和接口统一
   tabChangeValue = () => {
-    return this.state.tabFlag === 3 ? (this.state.userFlag === 1 ? 2 : 3) : Number(this.state.tabFlag) - 1;
+    return this.state.tabFlag === 3
+      ? this.state.userFlag === 1 ? 2 : 3
+      : Number(this.state.tabFlag) - 1;
   };
 
   // 请求model中的detailKpi方法
   detailKpiFetch(detailKpiParams, userFlag, flagVal, kpiLevelParams) {
-    const sendParams = {detailKpiParams, flagVal, kpiLevelParams, userFlag};
+    const sendParams = { detailKpiParams, flagVal, kpiLevelParams, userFlag };
     this.props.dispatch({
       type: 'teacherhome/detailKpi',
       payload: sendParams,
@@ -103,7 +113,7 @@ class Teacher extends React.Component {
   kpiLevelFetch(kpiLevelParams) {
     this.props.dispatch({
       type: 'teacherhome/findKpiLevel',
-      payload: {kpiLevelParams},
+      payload: { kpiLevelParams },
     });
   }
 
@@ -116,14 +126,18 @@ class Teacher extends React.Component {
   // 家族长角色跳到小组详情
   jumpDetail = () => {
     const { dateTime = null } = this.state;
-    this.props.setRouteUrlParams('/details', {month: dateTime, type: 1});
+    this.props.setRouteUrlParams('/details', { month: dateTime, type: 1 });
   };
 
   // button切换调用的档位接口
   buttonChange = (item, classNum, baseKpi) => {
-    if (this.state.tabFlag !== item.id) { // 放重复点击同一个button
+    if (this.state.tabFlag !== item.id) {
+      // 放重复点击同一个button
       const baseKpiValue = !baseKpi ? 0 : !baseKpi.value && baseKpi.value !== 0 ? 0 : baseKpi.value;
-      const levelVal = item.id === 2 ? baseKpiValue : this.state.userFlag === 2 && item.id === 3 ? classNum : item.score;
+      const levelVal =
+        item.id === 2
+          ? baseKpiValue
+          : this.state.userFlag === 2 && item.id === 3 ? classNum : item.score;
       const val = item.id === 3 ? (this.state.userFlag === 1 ? 2 : 3) : item.id - 1;
       this.getData({ type: val, levelVal, interfaceFlag: 2 });
       this.saveParams({ tabFlag: item.id });
@@ -138,13 +152,17 @@ class Teacher extends React.Component {
 
   render() {
     const { userFlag, tabFlag, dateTime, groupType } = this.state;
-    const {teacherhome,isloading} = this.props
-    const detailData =!teacherhome.detailKpiData ? [] : teacherhome.detailKpiData
-    const kpiData =!teacherhome.kpiLevelData ? [] : teacherhome.kpiLevelData
+    const { teacherhome, isloading } = this.props;
+    const detailData = !teacherhome.detailKpiData ? [] : teacherhome.detailKpiData;
+    const kpiData = !teacherhome.kpiLevelData ? [] : teacherhome.kpiLevelData;
     const detailKpiData = !detailData ? [] : !detailData.data ? [] : detailData.data;
     const kpiLevelData = !kpiData ? [] : !kpiData.data ? [] : kpiData.data;
-    const { base = 0, mark = 0, total = 0, manageScale = null, baseKpi = null } = !detailKpiData ? {} : detailKpiData;
-    const classNum = !manageScale ? 0 : (!manageScale.manageNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum);
+    const { base = 0, mark = 0, total = 0, manageScale = null, baseKpi = null } = !detailKpiData
+      ? {}
+      : detailKpiData;
+    const classNum = !manageScale
+      ? 0
+      : !manageScale.manageNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
     return (
       <div>
         <DatePanle
@@ -199,33 +217,32 @@ class Teacher extends React.Component {
           titleData={detailKpiData}
         />
 
-        <div style={{ display: userFlag === 2 && groupType === 'group' ? 'block' : 'none' }}>
-          <TeacherPer dataSource={detailKpiData} />
-          <div
-            className={styles.m_warningP}
-            style={{ display: Number(classNum) >= 6 ? 'block' : 'none' }}
-          >
-            <p className={styles.u_pContent}>
-              本月在岗老师≥6人，随机取4人展示绩效，供参考。各班主任实发以最终调整后绩效为准
-            </p>
+        {userFlag === 2 && groupType === 'group' ? (
+          <div>
+            <TeacherPer dataSource={detailKpiData} />
+            {Number(classNum) >= 6 ? (
+              <div className={styles.m_warningP}>
+                <p className={styles.u_pContent}>
+                  本月在岗老师≥6人，随机取4人展示绩效，供参考。各班主任实发以最终调整后绩效为准
+                </p>
+              </div>
+            ) : null}
           </div>
-        </div>
+        ) : null}
 
-        <div
-          className={styles.m_familyGroup}
-          style={{ display: userFlag === 1 ? 'block' : 'none' }}
-          onClick={() => this.jumpDetail()}
-        >
-          <div className={styles.u_pRight}>
-            <img src={Bitmap} alt="logo" className={styles.u_imgLogo} />
+        {userFlag === 1 ? (
+          <div className={styles.m_familyGroup} onClick={() => this.jumpDetail()}>
+            <div className={styles.u_pRight}>
+              <img src={Bitmap} alt="logo" className={styles.u_imgLogo} />
+            </div>
+            <div className={styles.u_warpCls}>
+              <span className={styles.u_pCls}>小组绩效</span>
+            </div>
+            <div className={styles.u_pLast}>
+              <img src={Right} alt="rightArrow" className={styles.u_rightArrow} />
+            </div>
           </div>
-          <div className={styles.u_warpCls}>
-            <span className={styles.u_pCls}>小组绩效</span>
-          </div>
-          <div className={styles.u_pLast}>
-            <img src={Right} alt="rightArrow" className={styles.u_rightArrow} />
-          </div>
-        </div>
+        ) : null}
       </div>
     );
   }
