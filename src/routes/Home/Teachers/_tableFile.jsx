@@ -134,9 +134,12 @@ class TableFile extends React.Component {
     const scoreLeftValue = tabFlag === 1 ? dailyValue : tabFlag === 2 ? baseValue : manageValue;
     const scoreLeft = () => <span className={styles.u_numSpan}>{scoreLeftValue}</span>;
     const { manageNum = 0 } = !manageScale ? 0 : manageScale;
-    const { index = 0 } = tabFlag === 1 ? (!dailyCredit ? 0 : dailyCredit) : !baseKpi ? 0 : baseKpi;
-    const { size = 1 } = tabFlag === 1 ? (!dailyCredit ? 1 : dailyCredit) : !baseKpi ? 1 : baseKpi;
-    const perSize = (index / size * 100).toFixed(2);
+    const { index = 0, size = 1 } =
+      tabFlag === 1 ? (!dailyCredit ? 0 : dailyCredit) : !baseKpi ? 0 : baseKpi;
+    const { creditPercent = 0 } = !dailyCredit ? 0 : dailyCredit;
+    const { rankPercent = 0 } = !baseKpi ? 0 : baseKpi;
+    const rankVal = tabFlag === 1 ? creditPercent : rankPercent;
+    const perSize = (rankVal * 100).toFixed(2);
     const scoreRight = () => (
       <span className={styles.u_numSpan}>
         {tabFlag === 3 ? (

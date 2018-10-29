@@ -3,7 +3,7 @@ import { setItem } from 'utils/localStorage';
 import { getUserId } from 'utils/authority';
 import Message from '../components/Message';
 
-import { getUserInfo, getDisableTime } from '../services/api';
+import { getUserInfo, getDisableTime, getKpiUserInfoByMonth } from '../services/api';
 
 function splitDepartment(str = '') {
   const newStr = str || '';
@@ -72,6 +72,16 @@ export default {
         type: 'saveUser',
         payload: response,
       });
+    },
+    *fetchKpiUserInfoByMonth({ payload }, { call }) {
+      const { performanceCurrentAuth = {}, month = '' } = payload;
+      const userId = performanceCurrentAuth.userId || '';
+      const response = yield call(getKpiUserInfoByMonth, { userId, month });
+      if (response.code === 2000) {
+        console.log(response);
+      } else {
+        Message.fail(response.msg);
+      }
     },
   },
 
