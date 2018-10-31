@@ -84,12 +84,14 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['global', 'index'], () => import('../layout/BaseLayout')),
     },
     '/indexPage': {
-      component: dynamicWrapper(app, [], () => import('../routes/Home/IndexPage')),
+      component: dynamicWrapper(app, ['index'], () => import('../routes/Home/IndexPage')),
       title: '',
       showTitle: true,
     },
     '/indexPage/boss': {
-      component: dynamicWrapper(app, ['bosshome'], () => import('../routes/Home/Boss/index')),
+      component: dynamicWrapper(app, ['bosshome', 'index'], () =>
+        import('../routes/Home/Boss/index')
+      ),
       title: '',
       showTitle: true,
     },
@@ -108,7 +110,7 @@ export const getRouterData = app => {
       showTitle: true,
     },
     '/indexPage/teacher': {
-      component: dynamicWrapper(app, ['teacherhome'], () =>
+      component: dynamicWrapper(app, ['teacherhome', 'index'], () =>
         import('../routes/Home/Teachers/index')
       ),
       title: '我的绩效',

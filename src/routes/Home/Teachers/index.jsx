@@ -34,7 +34,7 @@ class Teacher extends React.Component {
       familyType, // 自考还是壁垒
       userFlag: roleFlag, // 判断是家族长1,运营长2
       tabFlag: 1, // tab切换标记 0 日均学分排名系数 1绩效基数 2管理规模系数 3绩效比例
-      dateTime: maxDate,
+      month: maxDate,
       groupType, // 用户角色：family/group/class
       collegeId,
       userId,
@@ -55,17 +55,22 @@ class Teacher extends React.Component {
   }
 
   // 时间切换时需要更新数据
-  onDateChange = date => {
-    if (this.state.dateTime !== date) {
-      const val = this.tabChangeValue();
-      this.getData({ type: val, dateTime: date, interfaceFlag: 1 });
-      this.saveParams({ dateTime: date });
-    }
+  onDateChange = month => {
+    // if (this.state.dateTime !== date) {
+    //   const val = this.tabChangeValue();
+    //   this.getData({ type: val, dateTime: date, interfaceFlag: 1 });
+    //   this.saveParams({ dateTime: date });
+    // }
+    const currentAuthInfo = this.currentAuthInfo();
+    this.props.dispatch({
+      type: 'index/fetchKpiUserInfoByMonth',
+      payload: { currentAuthInfo, month },
+    });
   };
 
   // 请求接口的中间函数
   getData = (params = {}) => {
-    const dateTime = params.dateTime || this.state.dateTime;
+    const month = params.month || this.state.month;
     const { type = 0, interfaceFlag = 1, levelVal = 0 } = params;
     const {
       groupType = 'family',
@@ -83,7 +88,7 @@ class Teacher extends React.Component {
       groupId,
       familyType,
       userId,
-      month: dateTime,
+      month,
     };
     const kpiLevelParams = { ...detailKpiParams, type, levelVal };
     if (interfaceFlag === 1) {
@@ -125,8 +130,8 @@ class Teacher extends React.Component {
 
   // 家族长角色跳到小组详情
   jumpDetail = () => {
-    const { dateTime = null } = this.state;
-    this.props.setRouteUrlParams('/details', { month: dateTime, type: 1 });
+    const { month = null } = this.state;
+    this.props.setRouteUrlParams('/details', { month, type: 1 });
   };
 
   // button切换调用的档位接口
@@ -146,12 +151,12 @@ class Teacher extends React.Component {
 
   // 跳转到历史绩效
   toHistoryPage = () => {
-    const { dateTime } = this.state;
-    this.props.setRouteUrlParams('/history', { month: dateTime, type: 1 });
+    const { month } = this.state;
+    this.props.setRouteUrlParams('/history', { month, type: 1 });
   };
 
   render() {
-    const { userFlag, tabFlag, dateTime, groupType } = this.state;
+    const { userFlag, tabFlag, month, groupType } = this.state;
     const { teacherhome, isloading } = this.props;
     const detailData = !teacherhome.detailKpiData ? [] : teacherhome.detailKpiData;
     const kpiData = !teacherhome.kpiLevelData ? [] : teacherhome.kpiLevelData;
@@ -166,7 +171,7 @@ class Teacher extends React.Component {
     return (
       <div>
         <DatePanle
-          defaultDate={dateTime}
+          defaultDate={month}
           toHistoryPage={() => {
             this.toHistoryPage();
           }}

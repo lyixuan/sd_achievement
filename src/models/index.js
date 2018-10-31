@@ -1,6 +1,8 @@
 import { routerRedux } from 'dva/router';
 import { setItem } from 'utils/localStorage';
 import { getUserId } from 'utils/authority';
+import { assignUrlParams, checkoutAuthUrl } from 'utils/routerUtils';
+import { stringify } from 'qs';
 import Message from '../components/Message';
 
 import { getUserInfo, getDisableTime, getKpiUserInfoByMonth } from '../services/api';
@@ -54,16 +56,10 @@ export default {
           yield put(routerRedux.push('/exception/403'));
           return;
         }
-        const CurrentAuthInfo = { ...responseData.data[0] };
+        const currentAuthInfo = { ...responseData.data[0] };
         yield call(setItem, 'performanceUser', responseData);
-        yield call(setItem, 'performanceCurrentAuth', CurrentAuthInfo);
-        const timeResponse = yield call(getDisableTime);
-        if (timeResponse.code === 2000) {
-          setItem('timeDate', timeResponse.data);
-          yield put(routerRedux.push('/indexPage'));
-        } else {
-          Message.fail(timeResponse.msg);
-        }
+        yield put({ type: 'getDateTime' });
+        yield put({ type: 'fetchKpiUserInfoByMonth', payload: { currentAuthInfo } });
       } else {
         Message.fail(response.msg);
         yield put(routerRedux.push('/exception/403'));
@@ -73,14 +69,29 @@ export default {
         payload: response,
       });
     },
-    *fetchKpiUserInfoByMonth({ payload }, { call }) {
-      const { performanceCurrentAuth = {}, month = '' } = payload;
-      const userId = performanceCurrentAuth.userId || '';
+    *fetchKpiUserInfoByMonth({ payload }, { call, put }) {
+      const { currentAuthInfo = {}, month = '2018-09' } = payload;
+      const userId = currentAuthInfo.userId || '';
       const response = yield call(getKpiUserInfoByMonth, { userId, month });
       if (response.code === 2000) {
-        console.log(response);
+        const data = response.data || {};
+        if (data.id) {
+          data.userId = data.id;
+        }
+        const newData = assignUrlParams(currentAuthInfo, data);
+        yield call(setItem, 'performanceCurrentAuth', newData);
+        const redirtUrl = yield call(checkoutAuthUrl);
+        yield put(routerRedux.push({ path: redirtUrl, search: stringify({ month }) }));
       } else {
         Message.fail(response.msg);
+      }
+    },
+    *getDateTime(_, { call }) {
+      const timeResponse = yield call(getDisableTime);
+      if (timeResponse.code === 2000) {
+        setItem('timeDate', timeResponse.data);
+      } else {
+        Message.fail(timeResponse.msg);
       }
     },
   },
