@@ -1,3 +1,5 @@
+import { getCurrentAuthInfo } from 'utils/decorator';
+
 function getRenderArr(routes) {
   let renderArr = [];
   renderArr.push(routes[0]);
@@ -72,4 +74,20 @@ export function assignUrlParams(paramsObj = {}, urlParams = {}) {
     }
   });
   return returnParams;
+}
+/*
+*根据权限匹配出不同的路径
+*/
+export function checkoutAuthUrl() {
+  const { groupType = null, isKpi } = getCurrentAuthInfo();
+  if (!isKpi) {
+    return '/exception/403';
+  }
+  if (groupType === 'boss' || groupType === 'college') {
+    return '/indexPage/boss';
+  } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
+    return '/indexPage/teacher';
+  } else {
+    return '/exception/403';
+  }
 }

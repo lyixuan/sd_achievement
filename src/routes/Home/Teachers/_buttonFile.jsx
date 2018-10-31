@@ -7,9 +7,11 @@ import { formatMoney } from '../../../utils/utils';
 class ButtonFile extends React.Component {
   render() {
     const { tabFlag = 1, userFlag = 1, dataSource = null } = this.props;
-    const { dailyCredit = null, baseKpi = null, manageScale = null, name = null } = !dataSource ? {} : dataSource;
-    const {ratio=0} = !dailyCredit ? 0 : dailyCredit;
-    const {value=0} = !baseKpi ? 0 : baseKpi;
+    const { dailyCredit = null, baseKpi = null, manageScale = null, name = null } = !dataSource
+      ? {}
+      : dataSource;
+    const { ratio = 0 } = !dailyCredit ? 0 : dailyCredit;
+    const { value = 0 } = !baseKpi ? 0 : baseKpi;
     const manageNum = !manageScale ? 0 : !manageScale.value ? 0 : manageScale.value;
     return (
       <div className={styles.m_btnContainer}>

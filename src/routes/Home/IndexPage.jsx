@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Redirect, Switch } from 'dva/router';
 import { getCurrentAuthInfo } from 'utils/decorator';
 import Authorized from 'utils/Authorized';
-import { getRoutes, assignUrlParams } from '../../utils/routerUtils';
+import { getRoutes, assignUrlParams, checkoutAuthUrl } from '../../utils/routerUtils';
 import SwitchDialog from '../../container/IDSwitchDialog/index';
 
 const { AuthorizedRoute } = Authorized;
@@ -19,22 +19,19 @@ class indexPage extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
-  // componentDidMount(){
-  //   this.getAuthList();
-  // }
-  checkoutUserAuth = () => {
-    const { groupType = null, isKpi } = this.currentAuthInfo();
-    if (!isKpi) {
-      return '/exception/403';
-    }
-    if (groupType === 'boss' || groupType === 'college') {
-      return '/indexPage/boss';
-    } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
-      return '/indexPage/teacher';
-    } else {
-      return '/exception/403';
-    }
-  };
+  // checkoutUserAuth = () => {
+  //   const { groupType = null, isKpi } = this.currentAuthInfo();
+  //   if (!isKpi) {
+  //     return '/exception/403';
+  //   }
+  //   if (groupType === 'boss' || groupType === 'college') {
+  //     return '/indexPage/boss';
+  //   } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
+  //     return '/indexPage/teacher';
+  //   } else {
+  //     return '/exception/403';
+  //   }
+  // };
   checkLoginSuccess = () => {
     // 判断是否登录成功;
     const currentAuthInfo = getCurrentAuthInfo();
@@ -46,12 +43,17 @@ class indexPage extends React.Component {
     }
   };
   // 切换身份，点击确定，调取接口
-  toIndexPage = () => {
-    this.props.setRouteUrlParams('/', {});
+  toIndexPage = (selectedAuth = {}) => {
+    const urlParams = this.props.getUrlParams();
+    const { month = '' } = urlParams;
+    this.props.dispatch({
+      type: 'index/fetchKpiUserInfoByMonth',
+      payload: { currentAuthInfo: selectedAuth, month },
+    });
   };
   render() {
     const { routerData, match } = this.props;
-    const redirectUrl = this.checkoutUserAuth();
+    const redirectUrl = checkoutAuthUrl();
     const isLoginSuccess = this.checkLoginSuccess();
     return !isLoginSuccess ? null : (
       <div>

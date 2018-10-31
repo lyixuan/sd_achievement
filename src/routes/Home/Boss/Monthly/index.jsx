@@ -45,8 +45,13 @@ class BossMothly extends React.Component {
     this.getData({ monthlyType });
   };
   onDateChange = month => {
-    this.saveParams({ month });
-    this.getData({ month });
+    // this.saveParams({ month });
+    // this.getData({ month });
+    const currentAuthInfo = this.currentAuthInfo();
+    this.props.dispatch({
+      type: 'index/fetchKpiUserInfoByMonth',
+      payload: { currentAuthInfo, month },
+    });
   };
   getData = (params = {}) => {
     const monthlyType = params.monthlyType || this.state.monthlyType;
