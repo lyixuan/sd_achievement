@@ -70,7 +70,7 @@ export default {
       });
     },
     *fetchKpiUserInfoByMonth({ payload }, { call, put }) {
-      const { currentAuthInfo = {}, month = '2018-09' } = payload;
+      const { currentAuthInfo = {}, month = '' } = payload;
       const userId = currentAuthInfo.userId || '';
       const response = yield call(getKpiUserInfoByMonth, { userId, month });
       if (response.code === 2000) {
