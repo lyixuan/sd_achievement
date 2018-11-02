@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Redirect, Switch } from 'dva/router';
 import { getCurrentAuthInfo } from 'utils/decorator';
 import Authorized from 'utils/Authorized';
+import { timeArea } from 'utils/timeArea';
 import { getRoutes, assignUrlParams, checkoutAuthUrl } from '../../utils/routerUtils';
 import SwitchDialog from '../../container/IDSwitchDialog/index';
 
@@ -45,7 +46,7 @@ class indexPage extends React.Component {
   // 切换身份，点击确定，调取接口
   toIndexPage = (selectedAuth = {}) => {
     const urlParams = this.props.getUrlParams();
-    const { month = '' } = urlParams;
+    const month = urlParams.month ? urlParams.month : timeArea().maxDate;
     this.props.dispatch({
       type: 'index/fetchKpiUserInfoByMonth',
       payload: { currentAuthInfo: selectedAuth, month },
