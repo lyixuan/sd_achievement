@@ -2,6 +2,7 @@ import { routerRedux } from 'dva/router';
 import { setItem } from 'utils/localStorage';
 import { getUserId } from 'utils/authority';
 import { assignUrlParams, checkoutAuthUrl } from 'utils/routerUtils';
+import { timeArea } from 'utils/timeArea';
 import { stringify } from 'qs';
 import Message from '../components/Message';
 
@@ -61,7 +62,11 @@ export default {
         const currentAuthInfo = { ...responseData.data[0] };
         yield call(setItem, 'performanceUser', responseData);
         yield put({ type: 'getDateTime' });
-        yield put({ type: 'fetchKpiUserInfoByMonth', payload: { currentAuthInfo } });
+        const timeAreaData = yield call(timeArea);
+        yield put({
+          type: 'fetchKpiUserInfoByMonth',
+          payload: { currentAuthInfo, month: timeAreaData.maxDate },
+        });
       } else {
         Message.fail(response.msg);
         yield put(routerRedux.push('/exception/403'));
