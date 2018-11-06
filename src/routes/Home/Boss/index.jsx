@@ -2,20 +2,19 @@ import React from 'react';
 import { connect } from 'dva';
 import { Redirect, Switch, Route } from 'dva/router';
 import SelfTab from 'components/SelfTab/SelfTab';
-import { timeArea } from 'utils/timeArea';
-import { getCurrentAuthInfo, currentPathName } from 'utils/decorator';
+import { getCurrentAuthInfo, currentPathName, getCurrentMonth } from 'utils/decorator';
 import { getRoutes, assignUrlParams } from '../../../utils/routerUtils';
 import styles from './index.less';
 
 @getCurrentAuthInfo
 @currentPathName
+@getCurrentMonth
 class Boss extends React.Component {
   constructor(props) {
     super(props);
-    const { maxDate } = timeArea();
     const { urlParams = {} } = props;
     const initState = {
-      month: maxDate,
+      month: this.currentMonth(),
     };
     this.state = assignUrlParams(initState, urlParams);
   }

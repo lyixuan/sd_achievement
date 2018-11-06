@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { getCurrentAuthInfo, currentPathName } from 'utils/decorator';
+import { getCurrentAuthInfo, currentPathName, getCurrentMonth } from 'utils/decorator';
 import DatePanle from 'container/DatePanle';
 import Loading from 'components/Loading/Loading';
 import { assignUrlParams } from 'utils/routerUtils';
@@ -10,18 +10,16 @@ import TableFile from './_tableFile';
 import TeacherPer from './_teacherPer';
 import Bitmap from '../../../assets/Bitmap.png';
 import Right from '../../../assets/right.svg';
-import { timeArea } from '../../../utils/timeArea';
 import { formatMoney } from '../../../utils/utils';
 import count from '../../../assets/count.svg';
 
 @getCurrentAuthInfo
 @currentPathName
+@getCurrentMonth
 class Teacher extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
-    const dateVal = timeArea();
-    const { maxDate } = dateVal;
     const {
       groupType = 'family',
       collegeId = null,
@@ -35,7 +33,7 @@ class Teacher extends React.Component {
       familyType, // 自考还是壁垒
       userFlag: roleFlag, // 判断是家族长1,运营长2
       tabFlag: 1, // tab切换标记 0 日均学分排名系数 1绩效基数 2管理规模系数 3绩效比例
-      month: maxDate,
+      month: this.currentMonth(),
       groupType, // 用户角色：family/group/class
       collegeId,
       userId,
@@ -57,15 +55,11 @@ class Teacher extends React.Component {
 
   // 时间切换时需要更新数据
   onDateChange = month => {
-    // if (this.state.dateTime !== date) {
-    //   const val = this.tabChangeValue();
-    //   this.getData({ type: val, dateTime: date, interfaceFlag: 1 });
-    //   this.saveParams({ dateTime: date });
-    // }
     const currentAuthInfo = this.currentAuthInfo();
+    const userId = currentAuthInfo.loginUserId;
     this.props.dispatch({
-      type: 'index/fetchKpiUserInfoByMonth',
-      payload: { currentAuthInfo, month },
+      type: 'index/getUserInfo',
+      payload: { userId, month },
     });
   };
 
