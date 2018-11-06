@@ -14,15 +14,15 @@ export function getCurrentAuthInfo(target) {
   }
 }
 export function getCurrentMonth(target) {
-  const store = getItem('performanceUser') || null;
-  const value = store.value || {};
   const currentMonth = () => {
+    const store = getItem('performanceUser') || null;
+    const value = store.value || {};
     return value.month || '';
   };
   if (target && typeof target === 'function') {
     Object.assign(target.prototype, { currentMonth });
   } else {
-    return value.month || '';
+    return currentMonth() || '';
   }
 }
 export function currentPathName(target) {
