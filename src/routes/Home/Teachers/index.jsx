@@ -57,9 +57,10 @@ class Teacher extends React.Component {
   onDateChange = month => {
     const currentAuthInfo = this.currentAuthInfo();
     const userId = currentAuthInfo.loginUserId;
+    const { id } = currentAuthInfo;
     this.props.dispatch({
       type: 'index/getUserInfo',
-      payload: { userId, month },
+      payload: { userId, month, id },
     });
   };
 
