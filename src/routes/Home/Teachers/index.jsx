@@ -12,6 +12,7 @@ import Bitmap from '../../../assets/Bitmap.png';
 import Right from '../../../assets/right.svg';
 import { timeArea } from '../../../utils/timeArea';
 import { formatMoney } from '../../../utils/utils';
+import count from '../../../assets/count.svg';
 
 @getCurrentAuthInfo
 @currentPathName
@@ -248,6 +249,15 @@ class Teacher extends React.Component {
             </div>
           </div>
         ) : null}
+
+        <div
+          className={styles.countCls}
+          onClick={() => {
+            this.props.setRouteUrlParams('/static/algorithmdescription');
+          }}
+        >
+          <img src={count} className={styles.imgCount} alt="算法说明" />
+        </div>
       </div>
     );
   }
