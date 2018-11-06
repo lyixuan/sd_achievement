@@ -22,6 +22,10 @@ function handleOriginData(responseData = {}) {
       currentGroupName: (splitDepartment(item.department) || []).slice(-1)[0] || null,
     }));
 }
+function sliceCurrentAuth(arr = [], id = null) {
+  const findCurrentAuth = arr.find(item => item.id === id);
+  return findCurrentAuth || { ...arr[0] };
+}
 
 export default {
   namespace: 'index',
@@ -53,7 +57,8 @@ export default {
     *getUserInfo({ payload }, { call, put }) {
       // eslint-disable-line
       const entUserId = payload.userId;
-      const { month = '' } = payload;
+      // 切换月份中使用
+      const { month = '', id = null } = payload;
       const response = yield call(getUserInfo, { entUserId, month });
       if (response.code !== 2000) {
         Message.fail(response.msg);
@@ -67,7 +72,7 @@ export default {
         yield put(routerRedux.push('/exception/403'));
         return;
       }
-      const currentAuthInfo = { ...responseData.data[0] };
+      const currentAuthInfo = sliceCurrentAuth(responseData.data, id);
       yield call(setItem, 'performanceUser', responseData);
       if (!month) {
         yield put({ type: 'getDateTime' }); //  当非初次请求时时不进行请求时间接口
