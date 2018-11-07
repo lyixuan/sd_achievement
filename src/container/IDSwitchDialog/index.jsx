@@ -2,7 +2,7 @@
  * 必穿参数：switchIdFn，function
  * */
 import React from 'react';
-import { getItem, setItem } from 'utils/localStorage';
+import { getItem } from 'utils/localStorage';
 import { getCurrentAuthInfo } from 'utils/decorator';
 import dict from 'utils/dict';
 import Modal from '../../components/Modal/index';
@@ -71,11 +71,8 @@ class SwitchDialog extends React.Component {
     const authData = this.getAuthList() || [];
     const selectedAuth = authData.find(item => item.id === id);
     if (id !== currentId && selectedAuth) {
-      setItem('performanceCurrentAuth', selectedAuth);
       if (this.props.toIndexPage) {
-        setTimeout(() => {
-          this.props.toIndexPage();
-        }, 100);
+        this.props.toIndexPage(selectedAuth);
       }
     } else {
       console.warn('添加失败');

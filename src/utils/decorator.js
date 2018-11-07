@@ -13,6 +13,18 @@ export function getCurrentAuthInfo(target) {
     return value || {};
   }
 }
+export function getCurrentMonth(target) {
+  const currentMonth = () => {
+    const store = getItem('performanceUser') || null;
+    const value = store.value || {};
+    return value.month || '';
+  };
+  if (target && typeof target === 'function') {
+    Object.assign(target.prototype, { currentMonth });
+  } else {
+    return currentMonth() || '';
+  }
+}
 export function currentPathName(target) {
   const checkoutUserAuthPathName = () => {
     const { groupType = null, isKpi } = getCurrentAuthInfo();

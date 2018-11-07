@@ -115,22 +115,31 @@ class TableFile extends React.Component {
     ];
 
     const buttonData = !titleData ? null : titleData;
-
-    const {dailyCredit=null,baseKpi=null,manageScale=null}=!buttonData ? null : buttonData
-    const dailyValue = !dailyCredit ? 0 : !dailyCredit.value && dailyCredit.value !== 0 ? 0 : dailyCredit.value.toFixed(2)
-    const baseValue = !baseKpi ? 0 : !baseKpi.personNumAvg && baseKpi.personNumAvg !== 0 ? 0 : `${formatMoney(baseKpi.personNumAvg || 0)}人`;
-    const manageValue = !manageScale ? 0 : !manageScale.manageNum && manageScale.classNum !== 0 ? 0 : `${formatMoney(manageScale.classNum || 0)}人`
-    const scoreLeftValue = tabFlag === 1 ? dailyValue: (tabFlag === 2?baseValue:manageValue)
-    const scoreLeft = () => (
-      <span className={styles.u_numSpan}>{scoreLeftValue}</span>
-    );
-    const {manageNum=0}=!manageScale?0:manageScale
-    const {index=0,size=1} = tabFlag === 1?(!dailyCredit ? 0:dailyCredit):(!baseKpi ? 0 : baseKpi);
-    const {creditPercent=0} = !dailyCredit ? 0:dailyCredit
-    const {rankPercent=0} = !baseKpi ? 0 : baseKpi
-    const rankVal = tabFlag === 1?creditPercent:rankPercent
+    const { dailyCredit = null, baseKpi = null, manageScale = null } = !buttonData
+      ? null
+      : buttonData;
+    const dailyValue = !dailyCredit
+      ? 0
+      : !dailyCredit.value && dailyCredit.value !== 0 ? 0 : dailyCredit.value.toFixed(2);
+    const baseValue = !baseKpi
+      ? 0
+      : !baseKpi.personNumAvg && baseKpi.personNumAvg !== 0
+        ? 0
+        : `${formatMoney(baseKpi.personNumAvg || 0)}人`;
+    const manageValue = !manageScale
+      ? 0
+      : !manageScale.manageNum && manageScale.classNum !== 0
+        ? 0
+        : `${formatMoney(manageScale.classNum || 0)}人`;
+    const scoreLeftValue = tabFlag === 1 ? dailyValue : tabFlag === 2 ? baseValue : manageValue;
+    const scoreLeft = () => <span className={styles.u_numSpan}>{scoreLeftValue}</span>;
+    const { manageNum = 0 } = !manageScale ? 0 : manageScale;
+    const { index = 0, size = 1 } =
+      tabFlag === 1 ? (!dailyCredit ? 0 : dailyCredit) : !baseKpi ? 0 : baseKpi;
+    const { creditPercent = 0 } = !dailyCredit ? 0 : dailyCredit;
+    const { rankPercent = 0 } = !baseKpi ? 0 : baseKpi;
+    const rankVal = tabFlag === 1 ? creditPercent : rankPercent;
     const perSize = (rankVal * 100).toFixed(2);
-
     const scoreRight = () => (
       <span className={styles.u_numSpan}>
         {tabFlag === 3 ? (

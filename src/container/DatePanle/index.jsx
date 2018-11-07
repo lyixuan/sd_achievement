@@ -40,19 +40,23 @@ export default class DatePanle extends React.Component {
   dataFun = () => {
     const dateVal = timeArea();
     const { maxDate, minDate } = dateVal;
-    const maxDateVal = !maxDate?null:maxDate.replace(/\s/g, 'T').replace(/\//g, '-');
-    const minDateVal = !minDate?null:minDate.replace(/\s/g, 'T').replace(/\//g, '-');
+    const maxDateVal = !maxDate ? null : maxDate.replace(/\s/g, 'T').replace(/\//g, '-');
+    const minDateVal = !minDate ? null : minDate.replace(/\s/g, 'T').replace(/\//g, '-');
     const nowMaxDate = new Date(maxDateVal);
-    const nowMinDate = !minDateVal?null:new Date(minDateVal);
+    const nowMinDate = !minDateVal ? null : new Date(minDateVal);
     const result = [];
     const num = this.state.flag === 1 ? 12 : 3;
     result.push({ id: maxDate, name: maxDate });
+
     for (let i = 0; i < num; i += 1) {
       nowMaxDate.setMonth(nowMaxDate.getMonth() - 1);
       let m = nowMaxDate.getMonth() + 1;
       m = m < 10 ? `0${m}` : m;
       if (!minDate ? true : nowMaxDate.getTime() >= nowMinDate.getTime()) {
-        result.push({ id: `${nowMaxDate.getFullYear()}-${m}`, name: `${nowMaxDate.getFullYear()}-${m}` });
+        result.push({
+          id: `${nowMaxDate.getFullYear()}-${m}`,
+          name: `${nowMaxDate.getFullYear()}-${m}`,
+        });
       }
     }
     return result;

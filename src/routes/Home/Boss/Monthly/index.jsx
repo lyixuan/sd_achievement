@@ -4,23 +4,23 @@ import { assignUrlParams } from 'utils/routerUtils';
 import DatePanle from 'container/DatePanle';
 import PerformanceTab from 'components/SelfTab/PerformanceTab';
 import Loading from 'components/Loading/Loading';
-import { getCurrentAuthInfo, currentPathName } from 'utils/decorator';
-import { timeArea } from 'utils/timeArea';
+import { getCurrentAuthInfo, currentPathName, getCurrentMonth } from 'utils/decorator';
 import Proportion from './proportion';
 import Step from './step';
 import styles from './index.less';
 
 @getCurrentAuthInfo
 @currentPathName
+@getCurrentMonth
 class BossMothly extends React.Component {
   constructor(props) {
     super(props);
     const { groupType = null } = this.currentAuthInfo();
-    const { maxDate } = timeArea();
+    // const { maxDate } = timeArea();
     const { urlParams = {} } = props;
     const initState = {
       // dateTime: maxDate,
-      month: maxDate,
+      month: this.currentMonth(),
       monthlyType: 'step', // 默认绩效分档
       isShowTab: groupType === 'boss', // 是否显示切换分档和占比按钮
     };
@@ -45,8 +45,13 @@ class BossMothly extends React.Component {
     this.getData({ monthlyType });
   };
   onDateChange = month => {
-    this.saveParams({ month });
-    this.getData({ month });
+    const currentAuthInfo = this.currentAuthInfo();
+    const userId = currentAuthInfo.loginUserId;
+    const { id } = currentAuthInfo;
+    this.props.dispatch({
+      type: 'index/getUserInfo',
+      payload: { userId, month, id },
+    });
   };
   getData = (params = {}) => {
     const monthlyType = params.monthlyType || this.state.monthlyType;

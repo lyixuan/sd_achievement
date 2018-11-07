@@ -34,6 +34,14 @@ export async function getUserInfo(params) {
   });
 }
 /*
+*  此接口为获取当前权限当前日期下的用户信息
+*/
+export async function getKpiUserInfoByMonth(params) {
+  return request(`${HOST}/wechatLogin/getKpiUserInfoByMonth?${stringify(params)}`, {
+    method: 'GET',
+  });
+}
+/*
 *此接口获取时间空间是指可选日期
 *
 */
