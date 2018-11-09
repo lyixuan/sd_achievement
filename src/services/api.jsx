@@ -202,7 +202,7 @@ export async function findGroupDetailKpi(params) {
 *
 */
 export async function findKpiLevel(params) {
-  return request(`${HOST}/kpilevel/findKpiLevel`, {
+  return request(`${HOST}/kpilevel/findNewKpiLevelByMonthAndType`, {
     method: 'POST',
     body: params,
   });

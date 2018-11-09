@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './index.less';
 import multiple from '../../../assets/multiple.svg';
 import FormulaButton from '../../../components/ButtonGroup/FormulaButton';
-import { formatMoney } from '../../../utils/utils';
+import { formatMoney ,NumtoPrecision} from '../../../utils/utils';
 
 class ButtonFile extends React.Component {
   render() {
@@ -12,7 +12,7 @@ class ButtonFile extends React.Component {
       : dataSource;
     const { ratio = 0 } = !dailyCredit ? 0 : dailyCredit;
     const { value = 0 } = !baseKpi ? 0 : baseKpi;
-    const manageNum = !manageScale ? 0 : !manageScale.value ? 0 : manageScale.value;
+    const manageNum = !manageScale ? 0.0 : !manageScale.value ? 0 : manageScale.value;
     return (
       <div className={styles.m_btnContainer}>
         <div className={styles.m_titile}>
@@ -40,7 +40,7 @@ class ButtonFile extends React.Component {
           dataSource={{
             id: 3,
             name: userFlag === 1 ? '管理规模系数' : '绩效比例',
-            score: userFlag === 1 ? manageNum : `${manageNum * 100}%`,
+            score: userFlag === 1 ? manageNum : `${NumtoPrecision(manageNum)}%`,
           }}
           dataReturnFun={item => {
             this.props.changeFlag(item);

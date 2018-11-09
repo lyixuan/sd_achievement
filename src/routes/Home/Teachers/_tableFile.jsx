@@ -107,7 +107,7 @@ class TableFile extends React.Component {
         clsName: 'otherStuCls',
       },
       {
-        title: '班主任分配比例',
+        title: '各班主任分配比例',
         dataIndex: 'titleTwo',
         key: 'columns3Three',
         clsName: 'otherPreValCls',
