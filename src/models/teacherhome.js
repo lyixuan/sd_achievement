@@ -13,6 +13,7 @@ export default {
 
   effects: {
     *detailKpi({ payload }, { call, put }) {
+      //    待优化
       const { detailKpiParams, userFlag, flagVal, kpiLevelParams } = payload;
       const { groupType } = detailKpiParams;
       let detailKpiData = null;
@@ -41,6 +42,8 @@ export default {
           } else {
             Message.error(kpiLevelData.msg);
           }
+        } else {
+          yield put({ type: 'kpisave', payload: { kpiLevelData: { data: null } } });
         }
       } else {
         Message.error(detailKpiData.msg);

@@ -164,6 +164,7 @@ class Teacher extends React.Component {
     const classNum = !manageScale
       ? 0
       : !manageScale.manageNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
+
     return (
       <div>
         <DatePanle
