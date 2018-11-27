@@ -9,7 +9,7 @@ class Counting extends React.Component {
   formateDate = () => {
     const month = this.props.match.params.month || new Date();
     const year = moment(month).year();
-    const newMonth = moment(month).month();
+    const newMonth = moment(month).month() + 1;
     return {
       year,
       month: newMonth + 1 >= 10 ? newMonth : `0${newMonth + 1}`,
