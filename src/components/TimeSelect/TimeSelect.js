@@ -28,9 +28,9 @@ class TimeSelect extends Component {
     this.dateFomate(defaultDate);
   }
   onGroupChange = item => {
-    const { onChange } = this.props;
+    const { onChange, defaultDate } = this.props;
     const { name = '' } = item;
-    if (onChange) {
+    if (onChange && !moment(name).isSame(defaultDate)) {
       onChange(name);
     }
     this.dateFomate(name);

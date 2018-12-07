@@ -207,3 +207,16 @@ export async function findKpiLevel(params) {
     body: params,
   });
 }
+/*
+* 记录用户登录学分的次数
+ */
+export async function operateLog(params) {
+  const newParams = {
+    site: HOST,
+    operateType: 'AUTH',
+  };
+  return request(`${HOST}/operateLog/add`, {
+    method: 'POST',
+    body: { ...newParams, ...params },
+  });
+}
