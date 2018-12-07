@@ -40,7 +40,6 @@ class SwitchDialog extends React.Component {
     });
   };
   handleGroupList = (data = []) => {
-    console.log(data);
     return data.map(item => {
       let buttonName = null;
       if (
