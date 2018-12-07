@@ -40,6 +40,7 @@ class SwitchDialog extends React.Component {
     });
   };
   handleGroupList = (data = []) => {
+    console.log(data);
     return data.map(item => {
       let buttonName = null;
       if (
@@ -48,7 +49,9 @@ class SwitchDialog extends React.Component {
         item.groupType === 'family' ||
         item.groupType === 'college'
       ) {
-        buttonName = `${dict.groupTypeDict[item.groupType]} - ${item.currentGroupName}`;
+        buttonName = item.currentGroupName
+          ? `${dict.groupTypeDict[item.groupType]} - ${item.currentGroupName}`
+          : `${dict.groupTypeDict[item.groupType]}`;
       } else {
         buttonName = `${dict.groupTypeDict[item.groupType]}`;
       }
