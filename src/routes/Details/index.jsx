@@ -46,7 +46,6 @@ class Details extends React.Component {
           ? 'details/findGroupDetailByFamily' // 家族长-小组详情
           : 'details/collgeKpiFamilyDetail', // boss/院长-小组详情
     };
-
     this.state = assignUrlParams(initState, urlParams);
   }
 
@@ -126,7 +125,6 @@ class Details extends React.Component {
   render() {
     const { paramsObj, collegeName, isShowSwitch } = this.state;
     const { dataList = {} } = this.props.details;
-
     const param = [
       { groupName: '（自考）', id: 0 },
       { groupName: '（壁垒）', id: 1 },
@@ -136,7 +134,7 @@ class Details extends React.Component {
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
           <span>
-            {formatDate(paramsObj.month)}预测绩效 - {collegeName}
+            {formatDate(paramsObj.month)}预测绩效{collegeName ? `- ${collegeName}` : ''}
           </span>
           {!isShowSwitch ? null : <Switch onChange={val => this.onChange(val)} />}
         </div>
