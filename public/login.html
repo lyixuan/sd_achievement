@@ -129,9 +129,6 @@ function Login(params){
 Login.prototype.checkLoginType=function(){
   var type=this.loginType;
   switch (type){
-  case 'app':          // 企业客户端登录
-  this.appLogin();
-  break;
   case 'wechart':      // 企业微信端登录
   this.wechartLogin();
   break;
@@ -139,13 +136,6 @@ Login.prototype.checkLoginType=function(){
   this.wechartLogin();
   break;
 }
-}
-Login.prototype.appLogin=function(){
-  var isLogin=this.params.isBiLogin==1||false;
-  var isAuth=this.userId&&this.userType==1&&isLogin;
-  this.successPath='/user/applogin';
-  this.errorPath='/exception/403';
-  this.checkoutLoginState(isAuth);
 }
 Login.prototype.wechartLogin=function(){
   var isAuth=this.userId&&this.userType==1;
