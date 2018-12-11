@@ -64,10 +64,10 @@ export function assignUrlParams(paramsObj = {}, urlParams = {}) {
     } else {
       const value =
         urlParams[key] === undefined
-          ? paramsObj[key] === undefined ? null : paramsObj[key]
+          ? paramsObj[key] === undefined ? '' : paramsObj[key]
           : urlParams[key];
       if (typeof value !== 'object' && !isNaN(Number(value))) {
-        returnParams[key] = typeof paramsObj[key] === 'string' ? value : Number(value);
+        returnParams[key] = typeof paramsObj[key] === 'number' && value ? Number(value) : value;
       } else {
         returnParams[key] = value;
       }

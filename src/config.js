@@ -4,6 +4,6 @@ export default {
 
   DEBUGGER: false, // 调试环境
   performanceUser: {
-    userId: 'liumingming05',
+    userId: 'wangkai02',
   },
 };

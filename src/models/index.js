@@ -4,7 +4,7 @@ import { getUserId } from 'utils/authority';
 import { assignUrlParams } from 'utils/routerUtils';
 import Message from '../components/Message';
 
-import { getUserInfo, getDisableTime, getKpiUserInfoByMonth } from '../services/api';
+import { getUserInfo, getDisableTime, getKpiUserInfoByMonth, operateLog } from '../services/api';
 
 function splitDepartment(str = '') {
   const newStr = str || '';
@@ -76,6 +76,13 @@ export default {
       yield call(setItem, 'performanceUser', responseData);
       if (!month) {
         yield put({ type: 'getDateTime' }); //  当非初次请求时时不进行请求时间接口
+        yield put({
+          //  登录时进行log记录
+          type: 'saveLoginLog',
+          payload: {
+            operator: currentAuthInfo.id,
+          },
+        });
       }
       yield put({
         type: 'fetchKpiUserInfoByMonth',
@@ -101,6 +108,16 @@ export default {
         yield put(routerRedux.push('/indexPage'));
         // yield put(routerRedux.push({ path: redirtUrl, search: stringify({ month }) }));
       } else {
+        Message.fail(response.msg);
+      }
+    },
+    *saveLoginLog({ payload }, { call }) {
+      const response = yield call(operateLog, {
+        url: '/user/wechart',
+        operateCode: '0002',
+        ...payload,
+      });
+      if (response.code !== 2000) {
         Message.fail(response.msg);
       }
     },
