@@ -8,6 +8,7 @@ import MultipHeaderList from '../../../components/ListView/listView';
 import CustomRenderHeader from '../../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../../components/TableItem/TableItem';
 import Modal from '../../../components/Modal/index';
+import sortImg from '../../../assets/sortImg.png';
 
 class TableFile extends React.Component {
   constructor(props) {
@@ -160,7 +161,10 @@ class TableFile extends React.Component {
           alt="箭头"
         />
         {userFlag !== 1 && tabFlag===5 ? (
-          <div>你猜</div>
+          <div className={styles.m_teacherEffict}>
+            <img src={sortImg} alt="小图标" className={styles.u_teacherEffictImg} />
+            <span className={styles.u_teacherEffictWord}>老师人效果: 5人</span>
+          </div>
         ) : (
           <div>
             <div className={styles.m_scoreContener}>
