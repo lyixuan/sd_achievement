@@ -154,7 +154,7 @@ class TableFile extends React.Component {
     return (
       <div className={styles.m_perTable}>
         <img
-          style={{ left: tabFlag === 1 ? '0.7rem' : tabFlag === 2 ? '3.25rem' : '5.7rem' }}
+          style={{ left: tabFlag === 1 ? (userFlag === 1 ?'0.7rem':'0.52rem') : tabFlag === 2 ? (userFlag === 1 ?'3.25rem':'2.4rem') : tabFlag === 3 ? (userFlag === 1 ?'5.7rem':'6rem'):'4.15rem' }}
           className={styles.u_arrowImg}
           src={arrow}
           alt="箭头"
