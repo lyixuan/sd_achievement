@@ -159,62 +159,70 @@ class TableFile extends React.Component {
           src={arrow}
           alt="箭头"
         />
-        <div className={styles.m_scoreContener}>
-          <div onClick={this.showModal}>
-            <ImgTitle
-              dataSource={{
-                imgSrc: tabFlag === 1 ? 4 : tabFlag === 2 ? 2 : 1,
-                titleValue:
-                  tabFlag === 1
-                    ? '日均学分'
-                    : tabFlag === 2 ? '人均在服学员' : userFlag === 1 ? '管理规模' : '组内老师',
-                showDetail: userFlag === 2 && tabFlag === 2 ? 'show' : 'hidden',
-              }}
-              spanFunction={() => scoreLeft()}
-            />
-          </div>
+        {userFlag !== 1 && tabFlag===5 ? (
+          <div>你猜</div>
+        ) : (
+          <div>
+            <div className={styles.m_scoreContener}>
+              <div onClick={this.showModal}>
+                <ImgTitle
+                  dataSource={{
+                    imgSrc: tabFlag === 1 ? 4 : tabFlag === 2 ? 2 : 1,
+                    titleValue:
+                      tabFlag === 1
+                        ? '日均学分'
+                        : tabFlag === 2 ? '人均在服学员' : userFlag === 1 ? '管理规模' : '组内老师',
+                    showDetail: userFlag === 2 && tabFlag === 2 ? 'show' : 'hidden',
+                  }}
+                  spanFunction={() => scoreLeft()}
+                />
+              </div>
 
-          <div className={styles.u_ySplitLine} />
-          <ImgTitle
-            dataSource={{
-              imgSrc: tabFlag === 1 ? 3 : tabFlag === 2 ? 3 : 2,
-              titleValue: tabFlag === 3 ? '在服学员' : '排名',
-            }}
-            spanFunction={() => scoreRight()}
-          />
-        </div>
-        <div className={styles.u_xSplitLine} />
-        <div className={styles.testList} style={{ marginTop: '0.2rem' }}>
-          {tableList.length === 0 ? (
-            <NoData showflag />
-          ) : (
-            <MultipHeaderList
-              dataList={tableList}
-              customRenderHeader={() => (
-                <CustomRenderHeader
-                  columnsData={tabFlag === 3 && userFlag === 2 ? columns3 : columns}
+              <div className={styles.u_ySplitLine} />
+              <ImgTitle
+                dataSource={{
+                  imgSrc: tabFlag === 1 ? 3 : tabFlag === 2 ? 3 : 2,
+                  titleValue: tabFlag === 3 ? '在服学员' : '排名',
+                }}
+                spanFunction={() => scoreRight()}
+              />
+            </div>
+            <div className={styles.u_xSplitLine} />
+            <div className={styles.testList} style={{ marginTop: '0.2rem' }}>
+              {tableList.length === 0 ? (
+                <NoData showflag />
+              ) : (
+                <MultipHeaderList
+                  dataList={tableList}
+                  customRenderHeader={() => (
+                    <CustomRenderHeader
+                      columnsData={tabFlag === 3 && userFlag === 2 ? columns3 : columns}
+                    />
+                  )}
+                  customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
                 />
               )}
-              customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
-            />
-          )}
-          <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
-        </div>
-
-        <div className={styles.selfModal}>
-          <Modal
-            visible={modalflag}
-            modelClass={styles.m_dialogWrap}
-            footer={[{ text: '确定', onPress: this.hideModal }]}
-          >
-            <p className={styles.dialogTitle}>温馨提示</p>
-            <div className={styles.flexContainer}>
-              <p className={styles.WordCls}>人均在服学员数=在服学员数/老师数</p>
-              <p className={styles.WordCls}>学员从属判定规则和老师人效判定规则请参</p>
-              <p className={styles.WordCls}>考{`"绩效算法说明"`}</p>
+              <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
             </div>
-          </Modal>
-        </div>
+
+            <div className={styles.selfModal}>
+              <Modal
+                visible={modalflag}
+                modelClass={styles.m_dialogWrap}
+                footer={[{ text: '确定', onPress: this.hideModal }]}
+              >
+                <p className={styles.dialogTitle}>温馨提示</p>
+                <div className={styles.flexContainer}>
+                  <p className={styles.WordCls}>人均在服学员数=在服学员数/老师数</p>
+                  <p className={styles.WordCls}>学员从属判定规则和老师人效判定规则请参</p>
+                  <p className={styles.WordCls}>考{`"绩效算法说明"`}</p>
+                </div>
+              </Modal>
+            </div>
+          </div>
+
+        )}
+
       </div>
     );
   }

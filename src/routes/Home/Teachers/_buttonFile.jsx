@@ -44,7 +44,7 @@ class ButtonFile extends React.Component {
 
         {userFlag !== 1 ? (
           <FormulaButton
-            dataSource={{ id: 4, name: '老师人效', score: 5 }}
+            dataSource={{ id: 5, name: '老师人效', score: 5 }}
             dataReturnFun={item => {
               this.props.changeFlag(item);
             }}
