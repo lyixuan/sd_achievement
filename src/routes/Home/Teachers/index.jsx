@@ -134,14 +134,20 @@ class Teacher extends React.Component {
   buttonChange = (item, classNum, baseKpi) => {
     if (this.state.tabFlag !== item.id) {
       // 放重复点击同一个button
-      const baseKpiValue = !baseKpi ? 0 : !baseKpi.value && baseKpi.value !== 0 ? 0 : baseKpi.value;
-      const levelVal =
-        item.id === 2
-          ? baseKpiValue
-          : this.state.userFlag === 2 && item.id === 3 ? classNum : item.score;
-      const val = item.id === 3 ? (this.state.userFlag === 1 ? 2 : 3) : item.id - 1;
-      this.getData({ type: val, levelVal, interfaceFlag: 2 });
-      this.saveParams({ tabFlag: item.id });
+      if(item.id===5){
+        this.saveParams({ tabFlag: item.id });
+      }
+      else{
+        const baseKpiValue = !baseKpi ? 0 : !baseKpi.value && baseKpi.value !== 0 ? 0 : baseKpi.value;
+        const levelVal =
+          item.id === 2
+            ? baseKpiValue
+            : this.state.userFlag === 2 && item.id === 3 ? classNum : item.score;
+        const val = item.id === 3 ? (this.state.userFlag === 1 ? 2 : 3) : item.id - 1;
+        this.getData({ type: val, levelVal, interfaceFlag: 2 });
+        this.saveParams({ tabFlag: item.id });
+      }
+
     }
   };
 
