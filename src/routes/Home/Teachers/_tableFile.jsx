@@ -116,7 +116,7 @@ class TableFile extends React.Component {
     ];
 
     const buttonData = !titleData ? null : titleData;
-    const { dailyCredit = null, baseKpi = null, manageScale = null } = !buttonData
+    const { dailyCredit = null, baseKpi = null, manageScale = null,personEfficiency=0 } = !buttonData
       ? null
       : buttonData;
     const dailyValue = !dailyCredit
@@ -163,7 +163,7 @@ class TableFile extends React.Component {
         {userFlag !== 1 && tabFlag===5 ? (
           <div className={styles.m_teacherEffict}>
             <img src={studentImg} alt="小图标" className={styles.u_teacherEffictImg} />
-            <span className={styles.u_teacherEffictWord}>老师人效: 5人</span>
+            <span className={styles.u_teacherEffictWord}>老师人效: {personEfficiency} 人</span>
           </div>
         ) : (
           <div>
