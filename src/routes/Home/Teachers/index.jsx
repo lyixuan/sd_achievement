@@ -134,7 +134,7 @@ class Teacher extends React.Component {
   buttonChange = (item, classNum, baseKpi) => {
     if (this.state.tabFlag !== item.id) {
       // 放重复点击同一个button
-      if(item.id===5){
+      if(item.id===5){ // 老师人效的button不需要请求接口，回显数据即可
         this.saveParams({ tabFlag: item.id });
       }
       else{
