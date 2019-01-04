@@ -7,7 +7,7 @@ import { formatMoney ,NumtoPrecision} from '../../../utils/utils';
 class ButtonFile extends React.Component {
   render() {
     const { tabFlag = 1, userFlag = 1, dataSource = null } = this.props;
-    const { dailyCredit = null, baseKpi = null, manageScale = null, name = null } = !dataSource
+    const { dailyCredit = null, baseKpi = null, manageScale = null, name = null,personEfficiency=0 } = !dataSource
       ? {}
       : dataSource;
     const { ratio = 0 } = !dailyCredit ? 0 : dailyCredit;
@@ -44,7 +44,7 @@ class ButtonFile extends React.Component {
 
         {userFlag !== 1 ? (
           <FormulaButton
-            dataSource={{ id: 5, name: '老师人效', score: 5 }}
+            dataSource={{ id: 5, name: '老师人效', score: personEfficiency }}
             dataReturnFun={item => {
               this.props.changeFlag(item);
             }}
