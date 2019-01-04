@@ -67,7 +67,7 @@ class RenderDetails extends React.Component {
             <div className={styles.blackColor}>
               <span className={styles.greyColor}>管理规模：</span> 在服学员
               <span> {managerScale.serviceCount} </span> 人
-              <span className={styles.blueColor}> | </span> 老师人效
+              <span className={styles.blueColor}> | </span> 老师
               <span> {managerScale.classNum} </span> 人
             </div>
           </dd>
