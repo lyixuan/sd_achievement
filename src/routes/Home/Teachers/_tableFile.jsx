@@ -8,7 +8,7 @@ import MultipHeaderList from '../../../components/ListView/listView';
 import CustomRenderHeader from '../../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../../components/TableItem/TableItem';
 import Modal from '../../../components/Modal/index';
-import studentImg from '../../../assets/studentImg.png';
+import personEfficiencyImg from '../../../assets/personEfficiency.png';
 
 class TableFile extends React.Component {
   constructor(props) {
@@ -162,7 +162,7 @@ class TableFile extends React.Component {
         />
         {userFlag !== 1 && tabFlag===5 ? (
           <div className={styles.m_teacherEffict}>
-            <img src={studentImg} alt="小图标" className={styles.u_teacherEffictImg} />
+            <img src={personEfficiencyImg} alt="小图标" className={styles.u_teacherEffictImg} />
             <span className={styles.u_teacherEffictWord}>老师人效: {personEfficiency} 人</span>
           </div>
         ) : (
