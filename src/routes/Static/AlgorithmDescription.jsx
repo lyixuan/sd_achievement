@@ -13,7 +13,6 @@ import formula9 from '../../assets/formula9.png';
 import formula10 from '../../assets/formula10.png';
 import formula11 from '../../assets/formula11.png';
 import formula12 from '../../assets/formula12.png';
-import formula13 from '../../assets/formula13.png';
 import formula14 from '../../assets/formula14.png';
 import formula15 from '../../assets/formula15.png';
 
@@ -89,7 +88,6 @@ class AlgorithmDescription extends Component {
         <img id="test10" src={formula10} alt="formula10" />
         <img id="test11" src={formula11} alt="formula11" />
         <img src={formula12} alt="formula12" />
-        <img src={formula13} alt="formula13" />
         <img id="test14" src={formula14} alt="formula14" />
         <img id="test15" src={formula15} alt="formula15" />
       </div>
