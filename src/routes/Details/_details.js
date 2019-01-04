@@ -55,7 +55,7 @@ class RenderDetails extends React.Component {
     // 日均学分排名比
     // 人均在服学员排名比rankPercent
     const dayAvg = (dayAvgScore.creditPercent * 100).toFixed(2); // 日均学分
-    const avg = (averageStuNum.rankPercent * 100).toFixed(2); // 人均服务学员数
+    // const avg = (averageStuNum.rankPercent * 100).toFixed(2); // 人均服务学员数
     return (
       <div className={styles.m_detailRender}>
         {this.renderFn(kpiDistribution)}
@@ -67,7 +67,7 @@ class RenderDetails extends React.Component {
             <div className={styles.blackColor}>
               <span className={styles.greyColor}>管理规模：</span> 在服学员
               <span> {managerScale.serviceCount} </span> 人
-              <span className={styles.blueColor}> | </span> 老师
+              <span className={styles.blueColor}> | </span> 老师人效
               <span> {managerScale.classNum} </span> 人
             </div>
           </dd>
@@ -80,12 +80,12 @@ class RenderDetails extends React.Component {
             <div className={styles.blackColor}>
               <span className={styles.greyColor}>人均服务学员数：</span>
               <span> {averageStuNum.num} </span> 人
-              <span className={styles.blueColor}> | </span>
-              <span className={styles.greyColor}> 排名：</span>
-              <span>
-                {averageStuNum.index} / {averageStuNum.size}
-                {Number(avg) === 0 ? '（0）' : `（${avg}%）`}
-              </span>
+              {/* <span className={styles.blueColor}> | </span> */}
+              {/* <span className={styles.greyColor}> 排名：</span> */}
+              {/* <span> */}
+              {/* {averageStuNum.index} / {averageStuNum.size} */}
+              {/* {Number(avg) === 0 ? '（0）' : `（${avg}%）`} */}
+              {/* </span> */}
             </div>
           </dd>
         </dl>
