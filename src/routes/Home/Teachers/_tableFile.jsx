@@ -10,8 +10,6 @@ import CustomRenderItem from '../../../components/TableItem/TableItem';
 import Modal from '../../../components/Modal/index';
 import personEfficiencyImg from '../../../assets/personEfficiency.png';
 import studentImg from '../../../assets/studentImg.png';
-import detaiPro from '../../../assets/detaiPro.svg';
-
 
 class TableFile extends React.Component {
   constructor(props) {
@@ -81,8 +79,7 @@ class TableFile extends React.Component {
     // 用户tab切换时table列头数据
     const columns = [
       {
-        title:
-          tabFlag === 1 ? '家族排名比' : tabFlag === 2 ? '人均在服分档' : '区间',
+        title: tabFlag === 1 ? '家族排名比' : tabFlag === 2 ? '人均在服分档' : '区间',
         dataIndex: 'titleOne',
         key: 'columns3One',
         clsName: 'halfDatacls',
@@ -117,9 +114,12 @@ class TableFile extends React.Component {
     ];
 
     const buttonData = !titleData ? null : titleData;
-    const { dailyCredit = null, baseKpi = null, manageScale = null,personEfficiency=0 } = !buttonData
-      ? null
-      : buttonData;
+    const {
+      dailyCredit = null,
+      baseKpi = null,
+      manageScale = null,
+      personEfficiency = 0,
+    } = !buttonData ? null : buttonData;
     const dailyValue = !dailyCredit
       ? 0
       : !dailyCredit.value && dailyCredit.value !== 0 ? 0 : dailyCredit.value.toFixed(2);
@@ -156,28 +156,37 @@ class TableFile extends React.Component {
     return (
       <div className={styles.m_perTable}>
         <img
-          style={{ left: tabFlag === 1 ? (userFlag === 1 ?'0.7rem':'0.52rem') : tabFlag === 2 ? (userFlag === 1 ?'3.25rem':'2.4rem') : tabFlag === 3 ? (userFlag === 1 ?'5.7rem':'6rem'):'4.15rem' }}
+          style={{
+            left:
+              tabFlag === 1
+                ? userFlag === 1 ? '0.7rem' : '0.52rem'
+                : tabFlag === 2
+                  ? userFlag === 1 ? '3.25rem' : '2.4rem'
+                  : tabFlag === 3 ? (userFlag === 1 ? '5.7rem' : '6rem') : '4.15rem',
+          }}
           className={styles.u_arrowImg}
           src={arrow}
           alt="箭头"
         />
-        {userFlag !== 1 && tabFlag===5 ? (
+        {userFlag !== 1 && tabFlag === 5 ? (
           <div className={styles.m_teacherEffict}>
             <img src={personEfficiencyImg} alt="小图标" className={styles.u_teacherEffictImg} />
             <span className={styles.u_teacherEffictWord}>老师人效: {personEfficiency} 人</span>
           </div>
         ) : (
           <div>
-            <div >
-              {tabFlag===2 ? (
+            <div>
+              {tabFlag === 2 ? (
                 <div>
                   <div className={styles.m_teacherEffict}>
                     <img src={studentImg} alt="小图标" className={styles.u_teacherEffictImg} />
-                    <span className={styles.u_teacherEffictWord}>人均在服学员: {scoreLeftValue}</span>
+                    <span className={styles.u_teacherEffictWord}>
+                      人均在服学员: {scoreLeftValue}
+                    </span>
                   </div>
                   <div className={styles.u_ySplitLine} />
                 </div>
-              ) :(
+              ) : (
                 <div className={styles.m_scoreContener}>
                   <div onClick={this.showModal}>
                     <ImgTitle
@@ -186,7 +195,9 @@ class TableFile extends React.Component {
                         titleValue:
                           tabFlag === 1
                             ? '日均学分'
-                            : tabFlag === 2 ? '人均在服学员' : userFlag === 1 ? '管理规模' : '组内老师',
+                            : tabFlag === 2
+                              ? '人均在服学员'
+                              : userFlag === 1 ? '管理规模' : '组内老师',
                         showDetail: userFlag === 2 && tabFlag === 2 ? 'show' : 'hidden',
                       }}
                       spanFunction={() => scoreLeft()}
@@ -201,11 +212,7 @@ class TableFile extends React.Component {
                     spanFunction={() => scoreRight()}
                   />
                 </div>
-
               )}
-
-
-
             </div>
             <div className={styles.u_xSplitLine} />
             <div className={styles.testList} style={{ marginTop: '0.2rem' }}>
@@ -240,9 +247,7 @@ class TableFile extends React.Component {
               </Modal>
             </div>
           </div>
-
         )}
-
       </div>
     );
   }
