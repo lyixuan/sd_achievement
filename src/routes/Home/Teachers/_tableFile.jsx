@@ -10,8 +10,6 @@ import CustomRenderItem from '../../../components/TableItem/TableItem';
 import Modal from '../../../components/Modal/index';
 import personEfficiencyImg from '../../../assets/personEfficiency.png';
 import studentImg from '../../../assets/studentImg.png';
-import detaiPro from '../../../assets/detaiPro.svg';
-
 
 class TableFile extends React.Component {
   constructor(props) {
