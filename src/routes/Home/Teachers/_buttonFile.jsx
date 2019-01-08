@@ -7,7 +7,7 @@ import { formatMoney ,NumtoPrecision} from '../../../utils/utils';
 class ButtonFile extends React.Component {
   render() {
     const { tabFlag = 1, userFlag = 1, dataSource = null } = this.props;
-    const { dailyCredit = null, baseKpi = null, manageScale = null, name = null } = !dataSource
+    const { dailyCredit = null, baseKpi = null, manageScale = null, name = null,personEfficiency=0 } = !dataSource
       ? {}
       : dataSource;
     const { ratio = 0 } = !dailyCredit ? 0 : dailyCredit;
@@ -26,16 +26,37 @@ class ButtonFile extends React.Component {
             this.props.changeFlag(item);
           }}
           id={tabFlag}
+          btnClass={userFlag === 1?null:styles.btnClass}
+          btnSelectedClass={userFlag === 1?null:styles.btnSelectedClass}
         />
-        <img className={styles.u_buttonLineStyle} src={multiple} alt="乘号" />
+        <img className={userFlag === 1?styles.u_buttonLineStyle:styles.u_unFamilyButtonLineStyle} src={multiple} alt="乘号" />
         <FormulaButton
           dataSource={{ id: 2, name: '绩效基数', score: formatMoney(value) }}
           dataReturnFun={item => {
             this.props.changeFlag(item);
           }}
           id={tabFlag}
+          btnClass={userFlag === 1?null:styles.btnClass}
+          btnSelectedClass={userFlag === 1?null:styles.btnSelectedClass}
         />
-        <img className={styles.u_buttonLineStyle} src={multiple} alt="乘号" />
+        <img className={userFlag === 1?styles.u_buttonLineStyle:styles.u_unFamilyButtonLineStyle} src={multiple} alt="乘号" />
+
+
+        {userFlag !== 1 ? (
+          <FormulaButton
+            dataSource={{ id: 5, name: '老师人效', score: personEfficiency }}
+            dataReturnFun={item => {
+              this.props.changeFlag(item);
+            }}
+            id={tabFlag}
+            btnClass={userFlag === 1?null:styles.btnClass}
+            btnSelectedClass={userFlag === 1?null:styles.btnSelectedClass}
+          />
+        ) : null}
+        {userFlag !== 1 ? (
+          <img className={userFlag === 1?styles.u_buttonLineStyle:styles.u_unFamilyButtonLineStyle} src={multiple} alt="乘号" />
+        ) : null}
+
         <FormulaButton
           dataSource={{
             id: 3,
@@ -46,6 +67,8 @@ class ButtonFile extends React.Component {
             this.props.changeFlag(item);
           }}
           id={tabFlag}
+          btnClass={userFlag === 1?null:styles.btnClass}
+          btnSelectedClass={userFlag === 1?null:styles.btnSelectedClass}
         />
       </div>
     );

@@ -8,6 +8,10 @@ import MultipHeaderList from '../../../components/ListView/listView';
 import CustomRenderHeader from '../../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../../components/TableItem/TableItem';
 import Modal from '../../../components/Modal/index';
+import personEfficiencyImg from '../../../assets/personEfficiency.png';
+import studentImg from '../../../assets/studentImg.png';
+import detaiPro from '../../../assets/detaiPro.svg';
+
 
 class TableFile extends React.Component {
   constructor(props) {
@@ -78,9 +82,7 @@ class TableFile extends React.Component {
     const columns = [
       {
         title:
-          userFlag === 2
-            ? '小组排名'
-            : tabFlag === 1 ? '家族排名比' : tabFlag === 2 ? '家族排名' : '区间',
+          tabFlag === 1 ? '家族排名比' : tabFlag === 2 ? '人均在服分档' : '区间',
         dataIndex: 'titleOne',
         key: 'columns3One',
         clsName: 'halfDatacls',
@@ -115,7 +117,7 @@ class TableFile extends React.Component {
     ];
 
     const buttonData = !titleData ? null : titleData;
-    const { dailyCredit = null, baseKpi = null, manageScale = null } = !buttonData
+    const { dailyCredit = null, baseKpi = null, manageScale = null,personEfficiency=0 } = !buttonData
       ? null
       : buttonData;
     const dailyValue = !dailyCredit
@@ -154,67 +156,93 @@ class TableFile extends React.Component {
     return (
       <div className={styles.m_perTable}>
         <img
-          style={{ left: tabFlag === 1 ? '0.7rem' : tabFlag === 2 ? '3.25rem' : '5.7rem' }}
+          style={{ left: tabFlag === 1 ? (userFlag === 1 ?'0.7rem':'0.52rem') : tabFlag === 2 ? (userFlag === 1 ?'3.25rem':'2.4rem') : tabFlag === 3 ? (userFlag === 1 ?'5.7rem':'6rem'):'4.15rem' }}
           className={styles.u_arrowImg}
           src={arrow}
           alt="箭头"
         />
-        <div className={styles.m_scoreContener}>
-          <div onClick={this.showModal}>
-            <ImgTitle
-              dataSource={{
-                imgSrc: tabFlag === 1 ? 4 : tabFlag === 2 ? 2 : 1,
-                titleValue:
-                  tabFlag === 1
-                    ? '日均学分'
-                    : tabFlag === 2 ? '人均在服学员' : userFlag === 1 ? '管理规模' : '组内老师',
-                showDetail: userFlag === 2 && tabFlag === 2 ? 'show' : 'hidden',
-              }}
-              spanFunction={() => scoreLeft()}
-            />
+        {userFlag !== 1 && tabFlag===5 ? (
+          <div className={styles.m_teacherEffict}>
+            <img src={personEfficiencyImg} alt="小图标" className={styles.u_teacherEffictImg} />
+            <span className={styles.u_teacherEffictWord}>老师人效: {personEfficiency} 人</span>
           </div>
+        ) : (
+          <div>
+            <div >
+              {tabFlag===2 ? (
+                <div>
+                  <div className={styles.m_teacherEffict}>
+                    <img src={studentImg} alt="小图标" className={styles.u_teacherEffictImg} />
+                    <span className={styles.u_teacherEffictWord}>人均在服学员: {scoreLeftValue}</span>
+                  </div>
+                  <div className={styles.u_ySplitLine} />
+                </div>
+              ) :(
+                <div className={styles.m_scoreContener}>
+                  <div onClick={this.showModal}>
+                    <ImgTitle
+                      dataSource={{
+                        imgSrc: tabFlag === 1 ? 4 : tabFlag === 2 ? 2 : 1,
+                        titleValue:
+                          tabFlag === 1
+                            ? '日均学分'
+                            : tabFlag === 2 ? '人均在服学员' : userFlag === 1 ? '管理规模' : '组内老师',
+                        showDetail: userFlag === 2 && tabFlag === 2 ? 'show' : 'hidden',
+                      }}
+                      spanFunction={() => scoreLeft()}
+                    />
+                  </div>
+                  <div className={styles.u_ySplitLine} />
+                  <ImgTitle
+                    dataSource={{
+                      imgSrc: tabFlag === 1 ? 3 : tabFlag === 2 ? 3 : 2,
+                      titleValue: tabFlag === 3 ? '在服学员' : '排名',
+                    }}
+                    spanFunction={() => scoreRight()}
+                  />
+                </div>
 
-          <div className={styles.u_ySplitLine} />
-          <ImgTitle
-            dataSource={{
-              imgSrc: tabFlag === 1 ? 3 : tabFlag === 2 ? 3 : 2,
-              titleValue: tabFlag === 3 ? '在服学员' : '排名',
-            }}
-            spanFunction={() => scoreRight()}
-          />
-        </div>
-        <div className={styles.u_xSplitLine} />
-        <div className={styles.testList} style={{ marginTop: '0.2rem' }}>
-          {tableList.length === 0 ? (
-            <NoData showflag />
-          ) : (
-            <MultipHeaderList
-              dataList={tableList}
-              customRenderHeader={() => (
-                <CustomRenderHeader
-                  columnsData={tabFlag === 3 && userFlag === 2 ? columns3 : columns}
+              )}
+
+
+
+            </div>
+            <div className={styles.u_xSplitLine} />
+            <div className={styles.testList} style={{ marginTop: '0.2rem' }}>
+              {tableList.length === 0 ? (
+                <NoData showflag />
+              ) : (
+                <MultipHeaderList
+                  dataList={tableList}
+                  customRenderHeader={() => (
+                    <CustomRenderHeader
+                      columnsData={tabFlag === 3 && userFlag === 2 ? columns3 : columns}
+                    />
+                  )}
+                  customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
                 />
               )}
-              customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
-            />
-          )}
-          <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
-        </div>
-
-        <div className={styles.selfModal}>
-          <Modal
-            visible={modalflag}
-            modelClass={styles.m_dialogWrap}
-            footer={[{ text: '确定', onPress: this.hideModal }]}
-          >
-            <p className={styles.dialogTitle}>温馨提示</p>
-            <div className={styles.flexContainer}>
-              <p className={styles.WordCls}>人均在服学员数=在服学员数/老师数</p>
-              <p className={styles.WordCls}>学员从属判定规则和老师人效判定规则请参</p>
-              <p className={styles.WordCls}>考{`"绩效算法说明"`}</p>
+              <div style={{ height: '0.3rem', width: '100%', borderRadius: '0.12rem' }} />
             </div>
-          </Modal>
-        </div>
+
+            <div className={styles.selfModal}>
+              <Modal
+                visible={modalflag}
+                modelClass={styles.m_dialogWrap}
+                footer={[{ text: '确定', onPress: this.hideModal }]}
+              >
+                <p className={styles.dialogTitle}>温馨提示</p>
+                <div className={styles.flexContainer}>
+                  <p className={styles.WordCls}>人均在服学员数=在服学员数/老师数</p>
+                  <p className={styles.WordCls}>学员从属判定规则和老师人效判定规则请参</p>
+                  <p className={styles.WordCls}>考{`"绩效算法说明"`}</p>
+                </div>
+              </Modal>
+            </div>
+          </div>
+
+        )}
+
       </div>
     );
   }
