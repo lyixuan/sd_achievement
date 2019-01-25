@@ -65,9 +65,32 @@ class Level extends React.Component {
       </div>
     );
   };
-  render() {
+  renderData = month => {
     const { familyData = [] } = this.props.level;
     const dataList = changeObj(familyData);
+    return !dataList || Object.keys(dataList).length === 0 ? (
+      <NoData showflag />
+    ) : (
+      familyData.map(item => {
+        const newDataList = Object.keys(dataList).filter(obj => Number(obj) === item.id);
+        return (
+          newDataList.length > 0 && (
+            <MultipHeaderList
+              key={item.id}
+              dataList={dataList}
+              groupName={item.id}
+              collegeName={item.name}
+              renderHeader={name => this.renderHeader(name)}
+              renderFooter={(name, id) => this.renderFooter(name, id, month)}
+              customRenderHeader={() => <RenderHeader type={this.state.type} />}
+              customRenderItem={rowData => <RenderItem rowData={rowData} />}
+            />
+          )
+        );
+      })
+    );
+  };
+  render() {
     const { month, groupType } = this.state.paramsObj;
     return (
       <div className={styles.m_details}>
@@ -82,27 +105,7 @@ class Level extends React.Component {
 
         {this.props.loading && <Loading />}
         {/* *************** listview *************** */}
-        {!dataList || Object.keys(dataList).length === 0 ? (
-          <NoData showflag />
-        ) : (
-          familyData.map(item => {
-            const newDataList = Object.keys(dataList).filter(obj => Number(obj) === item.id);
-            return (
-              newDataList.length > 0 && (
-                <MultipHeaderList
-                  key={item.id}
-                  dataList={dataList}
-                  groupName={item.id}
-                  collegeName={item.name}
-                  renderHeader={name => this.renderHeader(name)}
-                  renderFooter={(name, id) => this.renderFooter(name, id, month)}
-                  customRenderHeader={() => <RenderHeader type={this.state.type} />}
-                  customRenderItem={rowData => <RenderItem rowData={rowData} />}
-                />
-              )
-            );
-          })
-        )}
+        {!this.props.loading && this.renderData(month)}
       </div>
     );
   }
