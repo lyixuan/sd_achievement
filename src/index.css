@@ -13,3 +13,11 @@ html, body{
   margin:0;
   padding: 0;
 }
+/* 固定浮框按钮 */
+:global(.fixBox) {
+  background: transparent;
+  position: fixed;
+  right: 0.12rem;
+  bottom: 1.74rem;
+  z-index: 500;
+}
