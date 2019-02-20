@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { getItem } from './localStorage';
 
-const minDate = '2018-11'; // 配置最小日期
+const minDate = '2019-02'; // 配置最小日期
 
 /*
 * 用户进入时间组件处理
