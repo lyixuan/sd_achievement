@@ -63,7 +63,7 @@ class FloatIcon extends React.Component {
   render() {
     const { modelflag, searchBtnShow, usercourseBtnIsShow } = this.state;
     return (
-      <div className={styles.m_floatIcon}>
+      <div className={`fixBox ${styles.m_floatIcon}`}>
         {/* *************** 回到顶部 *************** */}
         <div
           className={`${styles.floatIcon} ${styles.goTopCls}`}

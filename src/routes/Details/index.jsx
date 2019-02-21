@@ -121,15 +121,56 @@ class Details extends React.Component {
     });
     this.getListData(url, { sort }, { collegeId: v.id });
   }
-
-  render() {
-    const { paramsObj, collegeName, isShowSwitch } = this.state;
+  renderData = paramsObj => {
     const { dataList = {} } = this.props.details;
     const param = [
       { groupName: '（自考）', id: 0 },
       { groupName: '（壁垒）', id: 1 },
       { groupName: '（孵化器）', id: 2 },
     ];
+    return !dataList || Object.keys(dataList).length === 0 ? (
+      <NoData showflag />
+    ) : (
+      param.map(item => {
+        const newDataList = Object.keys(dataList).filter(obj => {
+          if (dataList[obj]) {
+            return Number(obj) === item.id;
+          } else {
+            return '';
+          }
+        });
+
+        return (
+          newDataList.length > 0 && (
+            <MultipHeaderList
+              key={item.id}
+              dataList={dataList}
+              groupName={item.id}
+              customRenderHeader={sectionData => (
+                <RenderHeader
+                  sectionData={sectionData}
+                  type={paramsObj.type}
+                  groupName={item.groupName}
+                />
+              )}
+              customRenderItem={rowData => (
+                <RenderItem
+                  paramsObj={paramsObj}
+                  rowData={rowData}
+                  groupType={item.id}
+                  paramCom={this.paramCom}
+                />
+              )}
+            />
+          )
+        );
+      })
+    );
+  };
+  render() {
+    const { paramsObj, collegeName, isShowSwitch } = this.state;
+    const { loading } = this.props;
+
     return (
       <div className={styles.m_details}>
         <div className={styles.detailBtn}>
@@ -138,46 +179,9 @@ class Details extends React.Component {
           </span>
           {!isShowSwitch ? null : <Switch onChange={val => this.onChange(val)} />}
         </div>
-        {this.props.loading && <Loading />}
+        {loading && <Loading />}
         {/* *************** listview *************** */}
-        {!dataList || Object.keys(dataList).length === 0 ? (
-          <NoData showflag />
-        ) : (
-          param.map(item => {
-            const newDataList = Object.keys(dataList).filter(obj => {
-              if (dataList[obj]) {
-                return Number(obj) === item.id;
-              } else {
-                return '';
-              }
-            });
-
-            return (
-              newDataList.length > 0 && (
-                <MultipHeaderList
-                  key={item.id}
-                  dataList={dataList}
-                  groupName={item.id}
-                  customRenderHeader={sectionData => (
-                    <RenderHeader
-                      sectionData={sectionData}
-                      type={paramsObj.type}
-                      groupName={item.groupName}
-                    />
-                  )}
-                  customRenderItem={rowData => (
-                    <RenderItem
-                      paramsObj={paramsObj}
-                      rowData={rowData}
-                      groupType={item.id}
-                      paramCom={this.paramCom}
-                    />
-                  )}
-                />
-              )
-            );
-          })
-        )}
+        {!loading && this.renderData(paramsObj)}
         {/* *************** floatIcon *************** */}
         <FloatIcon
           changeCollegeName={val => this.changeCollegeName(val)}
