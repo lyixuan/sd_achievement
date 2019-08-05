@@ -48,6 +48,7 @@ class TimeSelect extends Component {
   };
 
   dateFomate = (dateTime = '') => {
+    const { isperformance } = this.props;
     const storEndTime = this.timeArea();
     const formate = 'YYYY-MM';
     const formateDate = dateTime.replace(/\./g, '-');
@@ -60,7 +61,26 @@ class TimeSelect extends Component {
       timeText = formateDate;
     }
     timeText = timeText.replace(/-/g, '.');
+    // 组件本身页面展示是2019-02这种样式，创收绩效需要展示区间，所以单独处理成 2019年4月29日~2019年5月28日 根据isperformance值判断
+    if (isperformance) {
+      timeText = this.formatPerformance(timeText);
+    }
     this.setState({ timeText });
+  };
+
+  formatPerformance = timeText => {
+    // 2019.02 -》 '2019年1月29日 ~ 2019年2月28日 '
+    const curYear = Number(timeText.split('.')[0]);
+    const curMonth = timeText.split('.')[1];
+    let preYear = curYear;
+    let preMonth = curMonth;
+    if (curMonth === '01') {
+      preYear = curYear - 1;
+      preMonth = 12;
+    } else {
+      preMonth = curMonth - 1;
+    }
+    return `${preYear}年${preMonth}月29日 ~ ${curYear}年${curMonth}月28日`;
   };
 
   renderGroupList = () => {

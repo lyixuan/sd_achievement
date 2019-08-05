@@ -172,6 +172,14 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('../routes/Static/AlgorithmDescription')),
       isAuth: true,
     },
+    // 创收绩效
+    '/performance': {
+      component: dynamicWrapper(app, [], () => import('../routes/Performance/index')),
+      title: '创收绩效',
+      showTitle: true,
+      // isAuth: true,
+    },
+    // end
     '/exception': {
       component: dynamicWrapper(app, [], () => import('../layout/Exception')),
     },

@@ -64,25 +64,27 @@ export default class DatePanle extends React.Component {
 
   render() {
     const dateArea = this.dataFun();
-    const { defaultDate } = this.props;
+    const { defaultDate, toHideImg, isperformance } = this.props;
     const isShowHistoryImage = this.isShowHistoryImage();
     return (
       <div>
         <TimeSelect
           defaultDate={defaultDate}
           dateArea={dateArea}
+          isperformance={isperformance}
           onChange={date => {
             this.onChange(date);
           }}
         />
-        {isShowHistoryImage && (
-          <img
-            onClick={this.toHistoryPage}
-            src={history}
-            className={styles.fixedCotainer}
-            alt="查看历史"
-          />
-        )}
+        {isShowHistoryImage &&
+          !toHideImg && (
+            <img
+              onClick={this.toHistoryPage}
+              src={history}
+              className={styles.fixedCotainer}
+              alt="查看历史"
+            />
+          )}
       </div>
     );
   }
