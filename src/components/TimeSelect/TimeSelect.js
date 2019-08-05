@@ -101,10 +101,11 @@ class TimeSelect extends Component {
 
   render() {
     const { dialogVisible, timeText } = this.state;
+    const { isperformance } = this.props;
     return (
       <div>
         <div className={styles.m_timeContener}>
-          <span className={styles.timeName}>时间:</span>
+          {!isperformance && <span className={styles.timeName}>时间:</span>}
           <span className={styles.timeDate}>{timeText}</span>
           <img
             onClick={this.showModel.bind(this, true)}

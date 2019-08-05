@@ -1,20 +1,19 @@
 import React from 'react';
-import { getCurrentAuthInfo } from 'utils/decorator';
+import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
 import DatePanle from 'container/DatePanle';
 
 @getCurrentAuthInfo
+@getCurrentMonth
 class Performance extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      month: '2018-08',
+      month: this.currentMonth(),
     };
   }
 
-  onDateChange = date => {
-    if (this.props.onChange) {
-      this.props.onChange(date);
-    }
+  onDateChange = month => {
+    this.setState({ month });
   };
 
   toHistoryPage = () => {
@@ -27,7 +26,6 @@ class Performance extends React.Component {
     return (
       <div>
         <div>
-          <span>{11}</span>
           <span>
             <DatePanle
               defaultDate={month}
