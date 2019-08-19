@@ -174,7 +174,7 @@ export const getRouterData = app => {
     },
     // 创收绩效
     '/performance': {
-      component: dynamicWrapper(app, [], () => import('../routes/Performance/index')),
+      component: dynamicWrapper(app, ['performance'], () => import('../routes/Performance/index')),
       title: '创收绩效',
       showTitle: true,
       // isAuth: true,

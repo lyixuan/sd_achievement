@@ -9,6 +9,13 @@ const hostObj = {
 };
 const HOST = hostObj[NODE_ENV];
 
+const proxyHost = {
+  dev: 'http://172.16.58.18:8082', // 'http://test.xd.admin.ministudy.com',
+  pro: 'http://api.bd.ministudy.com',
+};
+
+const NEWHOST = proxyHost[NODE_ENV];
+
 /*
 *此接口为获取微信授权接口(微信企业号)
 */
@@ -218,5 +225,71 @@ export async function operateLog(params) {
   return request(`${HOST}/operateLog/add`, {
     method: 'POST',
     body: { ...newParams, ...params },
+  });
+}
+
+/*
+* 创收绩效首页-院长首页
+ */
+export async function collegeHomePage(params) {
+  return request(`${NEWHOST}/incomeIndex/collegeHomePage`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+// admin
+export async function adminHomePage(params) {
+  return request(`${NEWHOST}/incomeIndex/adminHomePage`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+// 班主任
+export async function classHomePage(params) {
+  return request(`${NEWHOST}/incomeIndex/classHomePage`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+// 家族长
+export async function familyHomePage(params) {
+  return request(`${NEWHOST}/incomeIndex/familyHomePage`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+// 运营长
+export async function groupHomePage(params) {
+  return request(`${NEWHOST}/incomeIndex/groupHomePage`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+// 小组
+export async function groupRankList(params) {
+  return request(`${NEWHOST}/incomeIndex/groupRankList`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+// 续报
+export async function findRenewalKpiDetail(params) {
+  return request(`${NEWHOST}/incomeIndex/findRenewalKpiDetail`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+// 好推
+export async function findGoodpushKpiDetail(params) {
+  return request(`${NEWHOST}/incomeIndex/findGoodpushKpiDetail`, {
+    method: 'POST',
+    body: params,
   });
 }

@@ -14,6 +14,7 @@ import Dialog from '../../components/Dialog';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import styles from './TimeSelect.less';
 import dateImg from '../../assets/dateSelect.svg';
+import dateImg1 from '../../assets/dateSelect1.svg';
 
 class TimeSelect extends Component {
   constructor(props) {
@@ -80,7 +81,7 @@ class TimeSelect extends Component {
     } else {
       preMonth = curMonth - 1;
     }
-    return `${preYear}年${preMonth}月29日 ~ ${curYear}年${curMonth}月28日`;
+    return `时间: ${preYear}年${preMonth}月29日 ~ ${curYear}年${curMonth}月28日`;
   };
 
   renderGroupList = () => {
@@ -101,16 +102,16 @@ class TimeSelect extends Component {
 
   render() {
     const { dialogVisible, timeText } = this.state;
-    const { isperformance } = this.props;
+    const { isperformance, isColor } = this.props;
     return (
       <div>
         <div className={styles.m_timeContener}>
           {!isperformance && <span className={styles.timeName}>时间:</span>}
-          <span className={styles.timeDate}>{timeText}</span>
+          <span className={isColor ? styles.timeDate1 : styles.timeDate}>{timeText}</span>
           <img
             onClick={this.showModel.bind(this, true)}
-            className={styles.timeImg}
-            src={dateImg}
+            className={isColor ? styles.timeImg1 : styles.timeImg}
+            src={isColor ? dateImg1 : dateImg}
             alt="时间图片"
           />
         </div>
