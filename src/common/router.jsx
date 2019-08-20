@@ -173,9 +173,71 @@ export const getRouterData = app => {
       isAuth: true,
     },
     // 创收绩效
-    '/performance': {
+    // '/performance': {
+    //   component: dynamicWrapper(app, ['performance'], () => import('../routes/Performance')),
+    //   title: '创收绩效',
+    //   showTitle: true,
+    //   // isAuth: true,
+    // },
+    // admin
+    '/performance/admin': {
+      component: dynamicWrapper(app, ['performance'], () =>
+        import('../routes/Performance/Admin/index')
+      ),
+      title: '创收绩效-admin',
+      showTitle: true,
+      // isAuth: true,
+    },
+    // 院长
+    '/performance/president': {
+      component: dynamicWrapper(app, ['performance'], () =>
+        import('../routes/Performance/President/index')
+      ),
+      title: '创收绩效-院长',
+      showTitle: true,
+      // isAuth: true,
+    },
+    '/performance/family': {
+      component: dynamicWrapper(app, ['performance'], () =>
+        import('../routes/Performance/Family/index')
+      ),
+      title: '创收绩效-家族长',
+      showTitle: true,
+      // isAuth: true,
+    },
+    '/performance/operation': {
+      component: dynamicWrapper(app, ['performance'], () =>
+        import('../routes/Performance/Operation/index')
+      ),
+      title: '创收绩效-运营长',
+      showTitle: true,
+      // isAuth: true,
+    },
+    '/performance/teacher': {
+      component: dynamicWrapper(app, ['performance'], () =>
+        import('../routes/Performance/Teacher/index')
+      ),
+      title: '创收绩效-班主任',
+      showTitle: true,
+      // isAuth: true,
+    },
+    '/performance1/group': {
+      component: dynamicWrapper(app, ['performance'], () =>
+        import('../routes/Performance/Group/index')
+      ),
+      title: '创收绩效-小组绩效',
+      showTitle: true,
+      // isAuth: true,
+    },
+    '/performance/renewal': {
       component: dynamicWrapper(app, ['performance'], () => import('../routes/Performance/index')),
-      title: '创收绩效',
+      title: '创收绩效-续报绩效',
+      showTitle: true,
+      // isAuth: true,
+    },
+    '/performance/goodpush': {
+      component: dynamicWrapper(app, ['performance'], () => import('../routes/Performance/index')),
+      title: '创收绩效-好推绩效',
       showTitle: true,
       // isAuth: true,
     },
