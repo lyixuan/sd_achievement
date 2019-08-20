@@ -7,10 +7,10 @@
     color: #fff;
     font-size: 0.28rem;
     margin: 0.3rem 0 0.1rem 0;
-    span:nth-child(1) {
+    .total {
       font-size: 0.9rem;
     }
-    span:nth-child(2) {
+    .price {
       font-size: 0.36rem;
     }
   }
@@ -26,12 +26,39 @@
     padding: 0.24rem 0.28rem;
     margin-bottom: 0.4rem;
   }
+}
+.presidentContent {
+  width: 6.9rem;
+  margin: 0 auto;
+
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    color: #00ccc3;
+
+    margin: 0.3rem 0 0.1rem 0;
+    span {
+      font-size: 0.28rem;
+      text-align: center;
+    }
+    span:nth-child(1) {
+      width: 20%;
+    }
+    span:nth-child(2) {
+      width: 23%;
+    }
+    span:nth-child(3) {
+      width: 27%;
+    }
+    span:nth-child(4) {
+      width: 10%;
+    }
+  }
 
   .list > li > .items {
     background: #fff;
     color: #1a1c1f;
   }
-
   .list {
     .items {
       font-size: 0.28rem;
@@ -46,14 +73,19 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        text-align: center;
       }
       span:nth-child(1) {
-        width: 40%;
+        width: 20%;
       }
+
       span:nth-child(2) {
-        width: 40%;
+        width: 23%;
       }
       span:nth-child(3) {
+        width: 27%;
+      }
+      span:nth-child(4) {
         width: 10%;
       }
     }
@@ -88,6 +120,22 @@
       }
       span:nth-child(3) {
         width: 10%;
+      }
+    }
+
+    .list2 {
+      background: #fff;
+      width: 96%;
+      margin: 0 auto;
+      border-radius: 5px;
+      color: #55595e;
+      font-size: 12px;
+      li {
+        padding: 0.1rem;
+        border-bottom: 1px solid #efefef;
+      }
+      li:last-child {
+        border-bottom: none;
       }
     }
   }
