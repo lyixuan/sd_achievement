@@ -13,7 +13,7 @@ class Family extends React.Component {
   // }
 
   render() {
-    const { listData } = this.props.listData;
+    const { listData } = this.props;
     const columnsData = [
       {
         title: '绩效子项',

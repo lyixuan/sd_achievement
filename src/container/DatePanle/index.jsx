@@ -70,7 +70,7 @@ export default class DatePanle extends React.Component {
     return (
       <div>
         <TimeSelect
-          isColor
+          isColor={isColor}
           defaultDate={defaultDate}
           dateArea={dateArea}
           isperformance={isperformance}

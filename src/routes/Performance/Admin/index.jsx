@@ -36,7 +36,7 @@ class Admin extends React.Component {
     ];
     return (
       <div className={styles.adminContent}>
-        <Table columnsData={columnsData} rowData={listData} />
+        <Table columnsData={columnsData} rowData={listData.listData} />
       </div>
     );
   }

@@ -10,7 +10,7 @@ class RenderTabel extends React.Component {
     return (
       <table border="0" className={styles.newTable} style={{ width: '100%' }}>
         <RenderHeader columnsData={columnsData} />
-        <RenderItem rowData={rowData} />
+        <RenderItem rowData={rowData} columnsData={columnsData} />
       </table>
     );
   }

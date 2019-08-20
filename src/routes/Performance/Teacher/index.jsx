@@ -11,7 +11,8 @@ class Teacher extends React.Component {
   // }
 
   render() {
-    const { listData } = this.props.listData;
+    const { listData } = this.props;
+    console.log(listData, 'listData');
     const columnsData = [
       {
         title: '绩效子项',
@@ -25,8 +26,8 @@ class Teacher extends React.Component {
       },
       {
         title: '操作',
-        dataIndex: 'itemType',
-        key: 'itemType',
+        dataIndex: '操作',
+        key: '操作',
       },
     ];
     return (
@@ -39,7 +40,7 @@ class Teacher extends React.Component {
           <p>好推净流水122873元 | 续报净流水 28773元</p>
           <p>足课单量 2 | 硕士续报单量 4 </p>
         </div>
-        <Table columnsData={columnsData} rowData={listData.incomeKpiItemList} />
+        <Table columnsData={columnsData} rowData={listData && listData.incomeKpiItemList} />
       </div>
     );
   }

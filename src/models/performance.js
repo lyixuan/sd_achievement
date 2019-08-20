@@ -48,7 +48,7 @@ export default {
       });
     },
 
-    // 创收绩效首页-院长首页
+    // 创收绩效首页-admin
     *adminHomePage({ payload }, { call, put }) {
       const response = yield call(adminHomePage, { ...payload });
       if (response.code === 2000) {

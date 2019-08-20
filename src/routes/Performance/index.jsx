@@ -30,10 +30,10 @@ class Performance extends React.Component {
 
   componentDidMount() {
     // this.getPresidentData();
-    // this.getAdminData();
+    this.getAdminData();
     // this.getTeacherData();
     // this.getFamilyData();
-    this.getOperationData();
+    // this.getOperationData();
   }
 
   onDateChange = month => {
@@ -131,7 +131,7 @@ class Performance extends React.Component {
     };
 
     this.props.dispatch({
-      type: 'performance/familyHomePage',
+      type: 'performance/adminHomePage',
       payload: params,
     });
   };
@@ -156,7 +156,7 @@ class Performance extends React.Component {
       groupHomePageData,
     } = this.props.performance;
     // html1 针对没有背景图的样式Ï
-    // eslint-disable-next-line
+
     const html = (
       <div className={styles.performanceCon}>
         <div className={styles.dateWrap}>
@@ -172,36 +172,37 @@ class Performance extends React.Component {
             }}
           />
         </div>
-        <Admin listData={groupHomePageData} />
-        <President listData={collegeHomePageData} />
-      </div>
-    );
-    // html1 针对有背景图的样式Ï
-    const html1 = (
-      // performanceConBg3 2 1
-      <div className={styles.performanceConBg3}>
-        <div className={styles.dateWrapBg}>
-          <DatePanle
-            isColor
-            defaultDate={month}
-            toHideImg
-            toHistoryPage={() => {
-              this.toHistoryPage();
-            }}
-            isperformance
-            onChange={date => {
-              this.onDateChange(date);
-            }}
-          />
-        </div>
-        <Operation listData={groupHomePageData} />
-        {/* <Family listData={familyHomePageData} /> */}
-        {/* <Teacher listData={classHomePageData} /> */}
-        {/* <Admin listData={adminHomePageData} /> */}
+        {adminHomePageData.length && <Admin listData={adminHomePageData} />}
         {/* <President listData={collegeHomePageData} /> */}
       </div>
     );
-    return <div>{html1}</div>;
+    // html1 针对有背景图的样式Ï
+    // eslint-disable-next-line
+    // const html1 = (
+    //   // performanceConBg3 2 1
+    //   <div className={styles.performanceConBg3}>
+    //     <div className={styles.dateWrapBg}>
+    //       <DatePanle
+    //         isColor
+    //         defaultDate={month}
+    //         toHideImg
+    //         toHistoryPage={() => {
+    //           this.toHistoryPage();
+    //         }}
+    //         isperformance
+    //         onChange={date => {
+    //           this.onDateChange(date);
+    //         }}
+    //       />
+    //     </div>
+    //     {/* <Operation listData={groupHomePageData} /> */}
+    //     {/* <Family listData={familyHomePageData} /> */}
+    //     {/* <Teacher listData={classHomePageData} /> */}
+    //     {adminHomePageData.length && <Admin listData={adminHomePageData} />}
+    //     {/* <President listData={collegeHomePageData} /> */}
+    //   </div>
+    // );
+    return <div>{html}</div>;
     // <div className={styles.performanceCon}>
     //   <div className={styles.dateWrap}>
     //     <DatePanle
