@@ -221,7 +221,7 @@ export const getRouterData = app => {
       showTitle: true,
       // isAuth: true,
     },
-    '/performance1/group': {
+    '/performance/group': {
       component: dynamicWrapper(app, ['performance'], () =>
         import('../routes/Performance/Group/index')
       ),
@@ -230,13 +230,17 @@ export const getRouterData = app => {
       // isAuth: true,
     },
     '/performance/renewal': {
-      component: dynamicWrapper(app, ['performance'], () => import('../routes/Performance/index')),
+      component: dynamicWrapper(app, ['performance'], () =>
+        import('../routes/Performance/Renewal/index')
+      ),
       title: '创收绩效-续报绩效',
       showTitle: true,
       // isAuth: true,
     },
     '/performance/goodpush': {
-      component: dynamicWrapper(app, ['performance'], () => import('../routes/Performance/index')),
+      component: dynamicWrapper(app, ['performance'], () =>
+        import('../routes/Performance/GoodPush/index')
+      ),
       title: '创收绩效-好推绩效',
       showTitle: true,
       // isAuth: true,

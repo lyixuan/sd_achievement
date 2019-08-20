@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
+import DatePanle from 'container/DatePanle';
 import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
 import styles from './index.less';
 
@@ -9,6 +11,7 @@ class Group extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      month: this.currentMonth(),
       id: 0,
       id1: 0,
     };
@@ -96,50 +99,71 @@ class Group extends React.Component {
       );
     });
   };
+
   render() {
-    const { id } = this.state;
-    const { groupRankListData = [] } = this.props;
+    const { groupRankListData = [] } = this.props.performance;
+    const { id, month } = this.state;
+    if (!groupRankListData.length) return <div>11</div>;
     // 默认第一个展示
-    const showFirstId = groupRankListData.length && this.props.groupRankListData[0].itemId;
+    const showFirstId = groupRankListData.length && groupRankListData[0].itemId;
     return (
-      <div className={styles.presidentContent}>
-        <p className={styles.meta}>
-          <span>家族</span>
-          <span>绩效总额</span>
-          <span>操作</span>
-        </p>
-        <ul className={styles.list}>
-          {groupRankListData.map(item => {
-            return (
-              <li key={item.itemName}>
-                <div className={styles.items}>
-                  <span>{item.itemName}</span>
-                  <span>{item.totalKpi}</span>
-                  <span
-                    onClick={() => this.toggle(item.itemId)}
-                    style={{
-                      alignItems: 'center',
-                      width: '10%',
-                      display: 'flex',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <Icon
-                      type={(id || showFirstId) === item.itemId ? 'up' : 'down'}
-                      size="xs"
-                      color="#00ccc3"
-                    />
-                  </span>
-                </div>
-                {(id || showFirstId) === item.itemId && (
-                  <ul className={styles.list1}>{this.renderIem1(item.groupKpiList)}</ul>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+      <div className={styles.performanceCon}>
+        <div className={styles.dateWrap}>
+          <DatePanle
+            defaultDate={month}
+            toHideImg
+            toHistoryPage={() => {
+              this.toHistoryPage();
+            }}
+            isperformance
+            onChange={() => {
+              this.onDateChange();
+            }}
+          />
+        </div>
+        <div className={styles.presidentContent}>
+          <p className={styles.meta}>
+            <span>家族</span>
+            <span>绩效总额</span>
+            <span>操作</span>
+          </p>
+          <ul className={styles.list}>
+            {groupRankListData.map(item => {
+              return (
+                <li key={item.itemName}>
+                  <div className={styles.items}>
+                    <span>{item.itemName}</span>
+                    <span>{item.totalKpi}</span>
+                    <span
+                      onClick={() => this.toggle(item.itemId)}
+                      style={{
+                        alignItems: 'center',
+                        width: '10%',
+                        display: 'flex',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <Icon
+                        type={(id || showFirstId) === item.itemId ? 'up' : 'down'}
+                        size="xs"
+                        color="#00ccc3"
+                      />
+                    </span>
+                  </div>
+                  {(id || showFirstId) === item.itemId && (
+                    <ul className={styles.list1}>{this.renderIem1(item.classKpiList)}</ul>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     );
   }
 }
-export default Group;
+
+export default connect(({ performance, loading }) => ({
+  performance,
+  isloading: loading.models.performance,
+}))(Group);
