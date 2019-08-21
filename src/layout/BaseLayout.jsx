@@ -11,6 +11,13 @@ import styles from './common.less';
 
 const { AuthorizedRoute } = Authorized;
 class BaseLayout extends React.Component {
+  constructor(props) {
+    super(props);
+    const { entrance } = this.props.urlParams;
+    this.state = {
+      entrance,
+    };
+  }
   componentDidMount() {
     const { loading } = this.props;
 
@@ -44,6 +51,7 @@ class BaseLayout extends React.Component {
   render() {
     const { loading } = this.props;
     const { routerData, match } = this.props;
+    const { entrance } = this.state;
     return !loading ? (
       <DocumentTitle title={this.getPageTitle()}>
         <div className={styles.container}>
@@ -58,7 +66,11 @@ class BaseLayout extends React.Component {
                 redirectPath="/exception/403"
               />
             ))}
-            <Redirect exact from="/" to="/indexPage" />
+            {entrance && entrance === '1' ? (
+              <Redirect exact from="/" to="/indexPage" />
+            ) : (
+              <Redirect exact from="/" to="/indexPage" />
+            )}
           </Switch>
         </div>
       </DocumentTitle>
