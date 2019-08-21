@@ -9,14 +9,15 @@ const { DEBUGGER = false, performanceUser } = config;
 class WeChartLogin extends React.Component {
   constructor(props) {
     super(props);
-    const { match={} } = this.props;
-    const { params } = match||{};
-    this.entrance =params.entrance;
+    const { match = {} } = this.props;
+    const { params } = match || {};
+    this.entrance = params.entrance;
+    setItem('entrance', this.entrance);
   }
   componentDidMount() {
     if (DEBUGGER) {
       setItem('performanceUser', performanceUser);
-      this.props.setRouteUrlParams('/',{entrance:this.entrance});
+      this.props.setRouteUrlParams('/');
       // setTimeout(()=>{
       //   this.checkoutHasAuth();
       // },100);
@@ -28,7 +29,7 @@ class WeChartLogin extends React.Component {
     // 获取微信授权信息,如果获取失败,则需要跳转微信授权
     const isHasUserId = getUserId();
     if (isHasUserId) {
-      this.props.setRouteUrlParams('/',{entrance:this.entrance});
+      this.props.setRouteUrlParams('/');
     } else {
       const url = getWeChart();
       window.location.href = url;

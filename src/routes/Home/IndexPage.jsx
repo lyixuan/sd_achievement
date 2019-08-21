@@ -3,8 +3,14 @@ import { connect } from 'dva';
 import { Redirect, Switch } from 'dva/router';
 import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
 import Authorized from 'utils/Authorized';
-import { getRoutes, assignUrlParams, checkoutAuthUrl } from '../../utils/routerUtils';
+import {
+  getRoutes,
+  assignUrlParams,
+  checkoutAuthUrl,
+  checkoutAuthUrlPerformance,
+} from '../../utils/routerUtils';
 import SwitchDialog from '../../container/IDSwitchDialog/index';
+import { getItem } from '../../utils/localStorage';
 
 const { AuthorizedRoute } = Authorized;
 @getCurrentAuthInfo
@@ -13,6 +19,7 @@ class indexPage extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
+    this.entrance = getItem('entrance').value;
     const initState = {
       paramsObj: {
         startTime: null, // 过滤开始时间
@@ -20,6 +27,7 @@ class indexPage extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
+
   checkLoginSuccess = () => {
     // 判断是否登录成功;
     const currentAuthInfo = getCurrentAuthInfo();
@@ -40,7 +48,12 @@ class indexPage extends React.Component {
   };
   render() {
     const { routerData, match } = this.props;
-    const redirectUrl = checkoutAuthUrl();
+    let redirectUrl = '';
+    if (this.entrance === 'income') {
+      redirectUrl = checkoutAuthUrlPerformance();
+    } else {
+      redirectUrl = checkoutAuthUrl();
+    }
     const isLoginSuccess = this.checkLoginSuccess();
     return !isLoginSuccess ? null : (
       <div>
