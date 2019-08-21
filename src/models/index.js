@@ -111,6 +111,26 @@ export default {
         Message.fail(response.msg);
       }
     },
+
+    // 回到performance页面
+    *fetchKpiUserInfoPerformance({ payload }, { call, put }) {
+      const { currentAuthInfo = {}, month = '' } = payload;
+      const userId = currentAuthInfo.userId || '';
+      const response = yield call(getKpiUserInfoByMonth, { userId, month });
+      if (response.code === 2000) {
+        const data = response.data || {};
+        if (data.id) {
+          data.userId = data.id;
+        }
+        const newData = assignUrlParams(currentAuthInfo, data);
+        yield call(setItem, 'performanceCurrentAuth', newData);
+        // const redirtUrl = yield call(checkoutAuthUrl);
+        yield put(routerRedux.push('/performance'));
+        // yield put(routerRedux.push({ path: redirtUrl, search: stringify({ month }) }));
+      } else {
+        Message.fail(response.msg);
+      }
+    },
     *saveLoginLog({ payload }, { call }) {
       const response = yield call(operateLog, {
         url: '/user/wechart',

@@ -1,0 +1,110 @@
+@import '../History/index.less';
+
+.performanceConBg1,
+.performanceConBg2,
+.performanceConBg3 {
+  background: url('../../assets/bg2.png') no-repeat;
+  height: 4rem;
+  width: 100%;
+  background-size: 100% 100%;
+
+  .bg1 {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  .dateWrapBg {
+    background: none;
+    display: flex;
+    height: 1rem;
+    justify-content: center;
+    align-items: center;
+
+    .timeDate {
+      font-size: 0.28rem;
+      color: #fff !important;
+      line-height: 0.42rem;
+      margin-left: 0.2rem;
+    }
+  }
+}
+
+.performanceConBg1 {
+  background: url('../../assets/bg1.png') no-repeat;
+}
+
+.performanceConBg3 {
+  background: url('../../assets/bg3.png') no-repeat;
+  height: 6.5rem;
+  width: 100%;
+  background-size: 100% 100%;
+}
+
+.performanceCon,
+.performanceConBg1,
+.performanceConBg2,
+.performanceConBg3 {
+  * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .m_timeContener {
+    margin-top: 0 auto 0.2rem;
+  }
+
+  .bg1 {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  .hasnone {
+    padding: 0.1rem 0.2rem;
+    margin: 0.2rem 0;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    border-radius: 0.08rem;
+    font-size: 0.26rem;
+  }
+  .timeDate {
+    font-size: 0.28rem;
+    color: #6d6d75;
+    line-height: 0.42rem;
+    margin-left: 0.2rem;
+  }
+
+  .dateWrap {
+    background: #fff;
+    display: flex;
+    height: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+  .timeIm {
+    margin-top: 0.2rem;
+  }
+
+  .content {
+    width: 6.9rem;
+    margin: 0 auto;
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      color: #00ccc3;
+      font-size: 0.28rem;
+      margin: 0.3rem 0 0.1rem 0;
+      span:nth-child(1) {
+        width: 40%;
+      }
+      span:nth-child(2) {
+        width: 40%;
+      }
+      span:nth-child(3) {
+        width: 10%;
+      }
+    }
+  }
+}

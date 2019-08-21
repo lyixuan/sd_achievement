@@ -77,3 +77,20 @@ $ npm start         # visit http://localhost:8000
 2018-8-9
     本次修改优化使用setCurrentUrlParams时点击返回,无法立即返回上一页面的bug
     工具类里增加assignUrlParams方法,用于递归将对象进行合并,优化从url中拿取数据时造成的异常合并
+
+## 页面本地开发条件
+2019-07-12 环境需要更换成dev测试环境 文件 config.js
+```javascript
+  export default {
+    NODE_ENV: 'dev', // 测试环境
+    // NODE_ENV: 'pro', // 线上环境
+
+    DEBUGGER: true, // 调试环境
+    performanceUser: {
+      userId: 'zhanglulu02',
+    },
+  };
+```
+
+地址需要更新为 ip+端口号+/user/wechart进入
+performanceUser 如果需要，可以修改用户

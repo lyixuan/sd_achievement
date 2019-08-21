@@ -1,0 +1,57 @@
+.newTable {
+  border-radius: 0.08rem;
+  border: 0;
+
+  tr {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  .header {
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    font-size: 0.22rem;
+    height: 0.7rem;
+    color: #00ccc3;
+    border-radius: 0.08rem;
+    text-align: center;
+    background: #e5f9f9;
+
+    th {
+      flex: 1;
+      color: #00ccc3;
+      font-weight: normal;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #f8fafb;
+    margin-top: -2px;
+
+    tr {
+      border-bottom: 1px solid #eee;
+    }
+    tr:last-child {
+      border-bottom: none;
+    }
+  }
+  td {
+    white-space: nowrap; /*规定段落中的文本不进行换行*/
+    overflow: hidden; /*内容会被修剪，并且其余内容是不可见的。*/
+    text-overflow: ellipsis; /*显示省略号来代表被修剪的文本*/
+    flex: 1;
+    text-align: center;
+    height: 0.72rem;
+    line-height: 0.72rem;
+    font-size: 0.2rem;
+    color: #1a1c1f;
+  }
+
+  :global(.am-icon) {
+    margin-top: 0.23rem;
+  }
+}
