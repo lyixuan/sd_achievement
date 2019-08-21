@@ -151,7 +151,11 @@ class GoodPush extends React.Component {
                       </span>
                     </div>
                     {(id || showFirstId) === item.itemId && (
-                      <Table columnsData={columnsData} rowData={item.renewalOrderList} />
+                      <Table
+                        history={this.props.history}
+                        columnsData={columnsData}
+                        rowData={item.renewalOrderList}
+                      />
                     )}
                   </li>
                 );

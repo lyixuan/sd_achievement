@@ -4,7 +4,6 @@ import { Redirect, Switch } from 'dva/router';
 import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
 import Authorized from 'utils/Authorized';
 import { getRoutes, assignUrlParams, checkoutAuthUrlPerformance } from '../../utils/routerUtils';
-import SwitchDialog from '../../container/IDSwitchDialog/index';
 
 const { AuthorizedRoute } = Authorized;
 @getCurrentAuthInfo
@@ -20,6 +19,15 @@ class Performance extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
+
+  componentDidMount() {
+    this.getDateRangeData();
+  }
+  getDateRangeData = () => {
+    this.props.dispatch({
+      type: 'performance/getDateRangeData',
+    });
+  };
   checkLoginSuccess = () => {
     // 判断是否登录成功;
     const currentAuthInfo = getCurrentAuthInfo();
@@ -57,8 +65,6 @@ class Performance extends React.Component {
           ))}
           <Redirect exact from="/performance" to={redirectUrl} />
         </Switch>
-        {/* boss - 切换身份 */}
-        {<SwitchDialog toIndexPage={this.toIndexPage} />}
       </div>
     );
   }

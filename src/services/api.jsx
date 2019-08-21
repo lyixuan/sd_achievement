@@ -293,3 +293,8 @@ export async function findGoodpushKpiDetail(params) {
     body: params,
   });
 }
+
+// 时间
+export async function getDateRange() {
+  return request(`${NEWHOST}/incomeIndex/getDateRange`);
+}

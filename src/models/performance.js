@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { setItem } from 'utils/localStorage';
 import {
   collegeHomePage,
   adminHomePage,
@@ -8,6 +9,7 @@ import {
   groupRankList,
   findRenewalKpiDetail,
   findGoodpushKpiDetail,
+  getDateRange,
 } from '../services/api';
 import Message from '../components/Message';
 
@@ -188,6 +190,16 @@ export default {
         type: 'save',
         payload: response,
       });
+    },
+
+    // 绩效时间
+    *getDateRangeData(_, { call }) {
+      const timeResponse = yield call(getDateRange);
+      if (timeResponse.code === 2000) {
+        setItem('timeDatePerformance', timeResponse.data);
+      } else {
+        Message.fail(timeResponse.msg);
+      }
     },
   },
 

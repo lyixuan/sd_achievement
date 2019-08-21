@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
 import DatePanle from 'container/DatePanle';
+import url from 'url';
 import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
 import styles from './index.less';
 
@@ -23,16 +24,18 @@ class President extends React.Component {
   }
   // 院长
   getPresidentData = () => {
+    const { query } = url.parse(this.props.location.search, true);
     const currentAuthInfo = getCurrentAuthInfo();
-    const month = this.currentMonth();
-    let { collegeId = null } = currentAuthInfo;
-    const { userId = null } = currentAuthInfo;
-    if (this.props.location.search) {
-      const id = this.props.location.search.split('?')[1].split('=')[1];
-      collegeId = id;
-    }
+    // const month = this.currentMonth();
+    // let { collegeId = null } = currentAuthInfo;
+    // const { userId = null } = currentAuthInfo;
+    const { collegeId = null, userId = null } = currentAuthInfo || query;
+    // if (this.props.location.search) {
+    //   const id = this.props.location.search.split('?')[1].split('=')[1];
+    //   collegeId = id;
+    // }
     const params = {
-      reportMonth: month,
+      reportMonth: '2019-05',
       collegeId,
       userId,
     };
@@ -49,7 +52,36 @@ class President extends React.Component {
     this.setState({ id1 });
   };
 
-  renderIem2 = classKpiList => {
+  goto = (id, id2, itemType) => {
+    switch (itemType) {
+      case 21: // 21	人员-家族长
+        this.props.history.push({
+          pathname: '/performance/family',
+          search: `?familyId=${id}&userId=${id2}`,
+        });
+        break;
+      case 22: // 22	人员-运营长
+        this.props.history.push({
+          pathname: '/performance/operation',
+          search: `?groupId=${id}&userId=${id2}`,
+        });
+        break;
+      case 23: // 21	人员-班主任
+        this.props.history.push({
+          pathname: '/performance/teacher',
+          search: `?groupId=${id}&userId=${id2}`,
+        });
+        break;
+      default:
+        this.props.history.push({
+          pathname: '/performance/teacher',
+          search: `?groupId=${id}&userId=${id2}`,
+        });
+        break;
+    }
+  };
+
+  renderIem2 = (id, classKpiList) => {
     if (!classKpiList) {
       return <li className={styles.hasnone}>暂无数据</li>;
     }
@@ -60,6 +92,7 @@ class President extends React.Component {
             <span>{item.itemName}</span>
             <span>{item.totalKpi}</span>
             <span
+              onClick={() => this.goto(id, item.itemId, item.itemType)}
               style={{
                 alignItems: 'center',
                 width: '10%',
@@ -74,7 +107,7 @@ class President extends React.Component {
       );
     });
   };
-  renderIem1 = groupKpiList => {
+  renderIem1 = (id, groupKpiList) => {
     const { id1 } = this.state;
     return groupKpiList.map(item => {
       return (
@@ -83,7 +116,6 @@ class President extends React.Component {
             <span>{item.itemName}</span>
             <span>{item.totalKpi}</span>
             <span
-              onClick={() => this.toggle1(item.itemId)}
               style={{
                 alignItems: 'center',
                 width: '10%',
@@ -91,19 +123,35 @@ class President extends React.Component {
                 cursor: 'pointer',
               }}
             >
-              <Icon type={id1 === item.itemId ? 'up' : 'down'} size="xs" color="#00ccc3" />
+              {item.itemType !== 1 && (
+                <Icon
+                  onClick={() => this.goto(id, item.itemId, item.itemType)}
+                  type="right"
+                  size="xs"
+                  color="#00ccc3"
+                />
+              )}
+              {item.itemType === 1 && (
+                <Icon
+                  onClick={() => this.toggle1(item.itemId)}
+                  type={id1 === item.itemId ? 'up' : 'down'}
+                  size="xs"
+                  color="#00ccc3"
+                />
+              )}
             </span>
           </div>
-          {item.itemId === id1 && (
-            <ul className={styles.list2}>{this.renderIem2(item.classKpiList)}</ul>
-          )}
+          {item.itemId === id1 &&
+            item.itemType === 1 && (
+              <ul className={styles.list2}>{this.renderIem2(item.itemId, item.classKpiList)}</ul>
+            )}
         </li>
       );
     });
   };
   render() {
     const { collegeHomePageData } = this.props.performance;
-    if (!collegeHomePageData.length) return <div>11</div>;
+    if (!collegeHomePageData) return <div>暂无数据</div>;
     const { id, month } = this.state;
     // 默认第一个展示
     const showFirstId = collegeHomePageData.length && collegeHomePageData[0].itemId;
@@ -152,7 +200,9 @@ class President extends React.Component {
                     </span>
                   </div>
                   {(id || showFirstId) === item.itemId && (
-                    <ul className={styles.list1}>{this.renderIem1(item.groupKpiList)}</ul>
+                    <ul className={styles.list1}>
+                      {this.renderIem1(item.itemId, item.groupKpiList)}
+                    </ul>
                   )}
                 </li>
               );

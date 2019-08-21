@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import url from 'url';
 import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
 import DatePanle from 'container/DatePanle';
 import Table from '../component/table';
@@ -22,17 +23,25 @@ class Teacher extends React.Component {
   }
   // 班主任
   getTeacherData = () => {
-    // const { month, collegeId, userId } = this.state;
-    // const params = {
-    //   reportMonth: month,
-    //   collegeId: 111,
-    //   userId: userId,
-    // };
+    const { query } = url.parse(this.props.location.search, true);
+    const currentAuthInfo = getCurrentAuthInfo();
+    // const month = this.currentMonth();
+    const { groupId = null, userId = null } = currentAuthInfo || query;
+    // if (this.props.location.search) {
+    //   groupId =query.groupId;
+    //   userId =query.userId;
+    // }
     const params = {
       reportMonth: '2019-05',
-      groupId: 99,
-      userId: '417',
+      groupId,
+      userId,
     };
+
+    // const params = {
+    //   reportMonth: '2019-05',
+    //   groupId: 99,
+    //   userId: '417',
+    // };
     this.props.dispatch({
       type: 'performance/classHomePage',
       payload: params,
@@ -84,7 +93,11 @@ class Teacher extends React.Component {
             <p>好推净流水122873元 | 续报净流水 28773元</p>
             <p>足课单量 2 | 硕士续报单量 4 </p>
           </div>
-          <Table columnsData={columnsData} rowData={classHomePageData.incomeKpiItemList} />
+          <Table
+            history={this.props.history}
+            columnsData={columnsData}
+            rowData={classHomePageData.incomeKpiItemList}
+          />
         </div>
       </div>
     );

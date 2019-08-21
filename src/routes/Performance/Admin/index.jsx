@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
 import DatePanle from 'container/DatePanle';
 import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
+import SwitchDialog from '../../../container/IDSwitchDialog/index';
 import styles from './index.less';
 
 @getCurrentAuthInfo
@@ -34,14 +35,14 @@ class Admin extends React.Component {
   getAdminData = () => {
     const currentAuthInfo = getCurrentAuthInfo();
     const { userId = null } = currentAuthInfo;
-    const { month } = this.state;
+    // const { month } = this.state;
     // const params = {
     //   reportMonth: month,
     //   collegeId: 111,
     //   userId: userId,
     // };
     const params = {
-      reportMonth: month,
+      reportMonth: '2019-05',
       userId,
     };
 
@@ -54,7 +55,7 @@ class Admin extends React.Component {
   toggle = id => {
     this.props.history.push({
       pathname: '/performance/president',
-      search: `?collage='${id}`,
+      search: `?collage=${id}`,
     });
     // this.props.history.push('/performance/president?collage='`${id}`);
   };
@@ -110,6 +111,8 @@ class Admin extends React.Component {
             })}
           </ul>
         </div>
+        {/* boss - 切换身份 */}
+        {<SwitchDialog toIndexPage={this.toIndexPage} />}
       </div>
     );
   }
