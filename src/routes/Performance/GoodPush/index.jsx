@@ -152,7 +152,6 @@ class GoodPush extends React.Component {
                     </div>
                     {(id || showFirstId) === item.itemId && (
                       <Table columnsData={columnsData} rowData={item.renewalOrderList} />
-                      // <ul className={styles.list1}>{this.renderIem1(item.renewalOrderList)}</ul>
                     )}
                   </li>
                 );

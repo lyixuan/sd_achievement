@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   collegeHomePage,
   adminHomePage,
@@ -137,6 +138,17 @@ export default {
     *findRenewalKpiDetail({ payload }, { call, put }) {
       const response = yield call(findRenewalKpiDetail, { ...payload });
       if (response.code === 2000) {
+        response.data.map(item => {
+          if (item.renewalOrderList.length) {
+            return item.renewalOrderList.map(list => {
+              // eslint-disable-next-line
+              list.registrationDate = moment(list.registrationDate).format('YYYY.MM.DD');
+              return list;
+            });
+          } else {
+            return item.renewalOrderList;
+          }
+        });
         yield put({
           type: 'save',
           payload: { findRenewalKpiDetailData: response.data },
@@ -154,6 +166,17 @@ export default {
     *findGoodpushKpiDetail({ payload }, { call, put }) {
       const response = yield call(findGoodpushKpiDetail, { ...payload });
       if (response.code === 2000) {
+        response.data.map(item => {
+          if (item.renewalOrderList.length) {
+            return item.renewalOrderList.map(list => {
+              // eslint-disable-next-line
+              list.registrationDate = moment(list.registrationDate).format('YYYY.MM.DD');
+              return list;
+            });
+          } else {
+            return item.renewalOrderList;
+          }
+        });
         yield put({
           type: 'save',
           payload: { findGoodpushKpiDetailData: response.data },
