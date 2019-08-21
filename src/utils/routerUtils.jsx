@@ -80,6 +80,7 @@ export function assignUrlParams(paramsObj = {}, urlParams = {}) {
 */
 export function checkoutAuthUrl() {
   const { groupType = null, isKpi } = getCurrentAuthInfo();
+  console.log(getCurrentAuthInfo(), 'getCurrentAuthInfo()');
   if (!isKpi) {
     return '/exception/403';
   }
@@ -90,4 +91,52 @@ export function checkoutAuthUrl() {
   } else {
     return '/exception/403';
   }
+}
+
+/*
+*创收绩效---根据权限匹配出不同的路径
+  COLLEGE("college"),院长
+  FAMILY("family"),家族长
+  GROUP("group"),运营长
+  CLASS("class"),班主任
+  ADMIN("admin"),admin
+  BOSS("boss"),boss`
+*/
+export function checkoutAuthUrlPerformance() {
+  const { groupType = null, isKpi } = getCurrentAuthInfo();
+  const IDENTIFY = {
+    college: 'college', // 院长
+    family: 'family', // 家族长
+    group: 'group', // 运营长
+    class: 'class', // 班主任
+    admin: 'admin', // 家族长
+    boss: 'boss',
+  };
+
+  if (!isKpi) {
+    return '/exception/403';
+  }
+
+  switch (groupType) {
+    case IDENTIFY.admin:
+    case IDENTIFY.boss:
+      return '/performance/admin';
+    case IDENTIFY.family:
+      return '/performance/family';
+    case IDENTIFY.group:
+      return '/performance/opreation';
+    case IDENTIFY.class:
+      return '/performance/teacher';
+    case IDENTIFY.college:
+      return '/performance/president';
+    default:
+      return '/exception/403';
+  }
+  // if (groupType === 'boss' || groupType === 'admin') {
+  //   return '/performance/admin';
+  // } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
+  //   return '/indexPage/teacher';
+  // } else {
+  //   return '/exception/403';
+  // }
 }
