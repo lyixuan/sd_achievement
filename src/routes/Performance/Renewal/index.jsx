@@ -108,8 +108,8 @@ class Renewal extends React.Component {
         </div>
         <div className={styles.teacherContent}>
           <div className={styles.meta}>
-            <span>18902</span>
-            <span>元</span>
+            <span className={styles.total}>18902</span>
+            <span className={styles.price}>元</span>
           </div>
           <div className={styles.middle}>
             <p>续报绩效 = 续报净流水 x 岗位提点</p>
@@ -126,7 +126,8 @@ class Renewal extends React.Component {
                   <li key={item.positionType}>
                     <div className={styles.items}>
                       <span>{item.positionType}</span>
-                      <span>{item.positionDistribution}</span>
+                      <span>{item.positionPointKpi}</span>
+                      <span>{item.totalFinanceNetFlow}</span>
                       <span>{item.totalKpi}</span>
                       <span
                         onClick={() => this.toggle(item.itemId)}
