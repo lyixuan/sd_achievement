@@ -7,6 +7,7 @@ import styles from './index.less';
 
 @getCurrentAuthInfo
 @getCurrentMonth
+// 院长
 class President extends React.Component {
   constructor(props) {
     super(props);
@@ -22,18 +23,19 @@ class President extends React.Component {
   }
   // 院长
   getPresidentData = () => {
-    // const { month, collegeId, userId } = this.state;
-    // const params = {
-    //   reportMonth: month,
-    //   collegeId: 111,
-    //   userId: userId,
-    // };
+    const currentAuthInfo = getCurrentAuthInfo();
+    const month = this.currentMonth();
+    let { collegeId = null } = currentAuthInfo;
+    const { userId = null } = currentAuthInfo;
+    if (this.props.location.search) {
+      const id = this.props.location.search.split('?')[1].split('=')[1];
+      collegeId = id;
+    }
     const params = {
-      reportMonth: '2019-05',
-      collegeId: 112,
-      userId: '123',
+      reportMonth: month,
+      collegeId,
+      userId,
     };
-
     this.props.dispatch({
       type: 'performance/collegeHomePage',
       payload: params,

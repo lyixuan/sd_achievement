@@ -20,16 +20,29 @@ class Admin extends React.Component {
     this.getAdminData();
   }
 
+  onDateChange = month => {
+    this.setState({ month });
+    // const currentAuthInfo = this.currentAuthInfo();
+    // const userId = currentAuthInfo.loginUserId;
+    // const { id } = currentAuthInfo;
+    // this.props.dispatch({
+    //   type: 'index/getUserInfo',
+    //   payload: { userId, month, id },
+    // });
+  };
+
   getAdminData = () => {
-    // const { month, userId } = this.state;
+    const currentAuthInfo = getCurrentAuthInfo();
+    const { userId = null } = currentAuthInfo;
+    const { month } = this.state;
     // const params = {
     //   reportMonth: month,
     //   collegeId: 111,
     //   userId: userId,
     // };
     const params = {
-      reportMonth: '2019-05',
-      userId: '123',
+      reportMonth: month,
+      userId,
     };
 
     this.props.dispatch({
@@ -38,9 +51,13 @@ class Admin extends React.Component {
     });
   };
 
-  // toggle = id => {
-  //   this.setState({ id });
-  // };
+  toggle = id => {
+    this.props.history.push({
+      pathname: '/performance/president',
+      search: `?collage='${id}`,
+    });
+    // this.props.history.push('/performance/president?collage='`${id}`);
+  };
 
   render() {
     const { adminHomePageData } = this.props.performance;
