@@ -1,8 +1,8 @@
 import { getItem } from './localStorage';
 /*
-* 权限判断 1  
+* 权限判断 1
 *  获取用户userId,如果没有则表示无权限
-*         
+*
 */
 export function getAuthority() {
   const store = getItem('performanceUser') || {};

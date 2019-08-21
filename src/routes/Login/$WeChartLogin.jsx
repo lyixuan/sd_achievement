@@ -7,6 +7,13 @@ import config from '../../config';
 
 const { DEBUGGER = false, performanceUser } = config;
 class WeChartLogin extends React.Component {
+  constructor(props) {
+    super(props);
+    const { match = {} } = this.props;
+    const { params } = match || {};
+    this.entrance = params.entrance;
+    setItem('entrance', this.entrance);
+  }
   componentDidMount() {
     if (DEBUGGER) {
       setItem('performanceUser', performanceUser);
