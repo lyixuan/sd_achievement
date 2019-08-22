@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { setItem } from 'utils/localStorage';
+import { setItem, getItem } from 'utils/localStorage';
 import {
   collegeHomePage,
   adminHomePage,
@@ -140,23 +140,30 @@ export default {
     *findRenewalKpiDetail({ payload }, { call, put }) {
       const response = yield call(findRenewalKpiDetail, { ...payload });
       if (response.code === 2000) {
-        response.data.map((item, idx) => {
-          // eslint-disable-next-line
-          item.index = idx;
-          if (item.renewalOrderList.length) {
-            return item.renewalOrderList.map(list => {
-              // eslint-disable-next-line
-              list.registrationDate = moment(list.registrationDate).format('YYYY.MM.DD');
+        if (response.data === null) {
+          yield put({
+            type: 'save',
+            payload: { findRenewalKpiDetailData: null },
+          });
+        } else {
+          response.data.map((item, idx) => {
+            // eslint-disable-next-line
+            item.index = idx;
+            if (item.renewalOrderList.length) {
+              return item.renewalOrderList.map(list => {
+                // eslint-disable-next-line
+                list.registrationDate = moment(list.registrationDate).format('YYYY.MM.DD');
+                return item;
+              });
+            } else {
               return item;
-            });
-          } else {
-            return item;
-          }
-        });
-        yield put({
-          type: 'save',
-          payload: { findRenewalKpiDetailData: response.data },
-        });
+            }
+          });
+          yield put({
+            type: 'save',
+            payload: { findRenewalKpiDetailData: response.data },
+          });
+        }
       } else {
         Message.fail(response.msg);
       }
@@ -170,23 +177,30 @@ export default {
     *findGoodpushKpiDetail({ payload }, { call, put }) {
       const response = yield call(findGoodpushKpiDetail, { ...payload });
       if (response.code === 2000) {
-        response.data.map((item, idx) => {
-          // eslint-disable-next-line
-          item.index = idx;
-          if (item.renewalOrderList.length) {
-            return item.renewalOrderList.map(list => {
-              // eslint-disable-next-line
-              list.registrationDate = moment(list.registrationDate).format('YYYY.MM.DD');
+        if (response.data === null) {
+          yield put({
+            type: 'save',
+            payload: { findGoodpushKpiDetailData: null },
+          });
+        } else {
+          response.data.map((item, idx) => {
+            // eslint-disable-next-line
+            item.index = idx;
+            if (item.renewalOrderList.length) {
+              return item.renewalOrderList.map(list => {
+                // eslint-disable-next-line
+                list.registrationDate = moment(list.registrationDate).format('YYYY.MM.DD');
+                return item;
+              });
+            } else {
               return item;
-            });
-          } else {
-            return item;
-          }
-        });
-        yield put({
-          type: 'save',
-          payload: { findGoodpushKpiDetailData: response.data },
-        });
+            }
+          });
+          yield put({
+            type: 'save',
+            payload: { findGoodpushKpiDetailData: response.data },
+          });
+        }
       } else {
         Message.fail(response.msg);
       }
@@ -197,10 +211,18 @@ export default {
     },
 
     // 绩效时间
-    *getDateRangeData(_, { call }) {
+    *getDateRangeData({ payload }, { call }) {
       const timeResponse = yield call(getDateRange);
       if (timeResponse.code === 2000) {
         setItem('timeDatePerformance', timeResponse.data);
+        if (payload) {
+          setItem('month', payload.month);
+        } else {
+          // eslint-disable-next-line
+          getItem('month').value
+            ? setItem('month', getItem('month').value)
+            : setItem('month', timeResponse.data[0].kpiMonth);
+        }
       } else {
         Message.fail(timeResponse.msg);
       }

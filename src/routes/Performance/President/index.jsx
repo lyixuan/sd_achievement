@@ -3,11 +3,12 @@ import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
 import DatePanle from 'container/DatePanle';
 import url from 'url';
-import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
+import { setItem } from 'utils/localStorage';
+import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import styles from './index.less';
 
 @getCurrentAuthInfo
-@getCurrentMonth
+@getPerformanceCurrentMonth
 // 院长
 class President extends React.Component {
   constructor(props) {
@@ -23,21 +24,19 @@ class President extends React.Component {
     this.getPresidentData();
   }
   // 院长
-  getPresidentData = () => {
+  onDateChange = month => {
+    setItem('month', month);
+    this.setState({ month });
+    this.getPresidentData(month);
+  };
+
+  getPresidentData = data => {
     const { query } = url.parse(this.props.location.search, true);
     const currentAuthInfo = getCurrentAuthInfo();
-    // const month = this.currentMonth();
-    // let { collegeId = null } = currentAuthInfo;
-    // const { userId = null } = currentAuthInfo;
-    const { collegeId = null, userId = null } = currentAuthInfo || query;
-    // if (this.props.location.search) {
-    //   const id = this.props.location.search.split('?')[1].split('=')[1];
-    //   collegeId = id;
-    // }
     const params = {
-      reportMonth: '2019-05',
-      collegeId,
-      userId,
+      reportMonth: data || this.state.month, // '2019-05',
+      collegeId: query.collegeId || currentAuthInfo.collegeId,
+      userId: query.userId || currentAuthInfo.userId,
     };
     this.props.dispatch({
       type: 'performance/collegeHomePage',
@@ -57,25 +56,25 @@ class President extends React.Component {
       case 21: // 21	人员-家族长
         this.props.history.push({
           pathname: '/performance/family',
-          search: `?familyId=${id}&userId=${id2}`,
+          search: `?familyId=${id}&userId=${id2}&userType=${itemType}`,
         });
         break;
       case 22: // 22	人员-运营长
         this.props.history.push({
           pathname: '/performance/operation',
-          search: `?groupId=${id}&userId=${id2}`,
+          search: `?groupId=${id}&userId=${id2}&userType=${itemType}`,
         });
         break;
       case 23: // 21	人员-班主任
         this.props.history.push({
           pathname: '/performance/teacher',
-          search: `?groupId=${id}&userId=${id2}`,
+          search: `?groupId=${id}&userId=${id2}&userType=${itemType}`,
         });
         break;
       default:
         this.props.history.push({
           pathname: '/performance/teacher',
-          search: `?groupId=${id}&userId=${id2}`,
+          search: `?groupId=${id}&userId=${id2}&userType=${itemType}`,
         });
         break;
     }
@@ -151,14 +150,16 @@ class President extends React.Component {
   };
   render() {
     const { collegeHomePageData } = this.props.performance;
-    if (!collegeHomePageData) return <div>暂无数据</div>;
+    // if (!collegeHomePageData) return <div>暂无数据</div>;
     const { id, month } = this.state;
     // 默认第一个展示
-    const showFirstId = collegeHomePageData.length && collegeHomePageData[0].itemId;
+    const showFirstId =
+      collegeHomePageData && collegeHomePageData.length && collegeHomePageData[0].itemId;
     return (
       <div className={styles.performanceCon}>
         <div className={styles.dateWrap}>
           <DatePanle
+            dateAreaResult
             defaultDate={month}
             toHideImg
             toHistoryPage={() => {
@@ -177,36 +178,38 @@ class President extends React.Component {
             <span>操作</span>
           </p>
           <ul className={styles.list}>
-            {collegeHomePageData.map(item => {
-              return (
-                <li key={item.itemName}>
-                  <div className={styles.items}>
-                    <span>{item.itemName}</span>
-                    <span>{item.totalKpi}</span>
-                    <span
-                      onClick={() => this.toggle(item.itemId)}
-                      style={{
-                        alignItems: 'center',
-                        width: '10%',
-                        display: 'flex',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      <Icon
-                        type={(id || showFirstId) === item.itemId ? 'up' : 'down'}
-                        size="xs"
-                        color="#00ccc3"
-                      />
-                    </span>
-                  </div>
-                  {(id || showFirstId) === item.itemId && (
-                    <ul className={styles.list1}>
-                      {this.renderIem1(item.itemId, item.groupKpiList)}
-                    </ul>
-                  )}
-                </li>
-              );
-            })}
+            {collegeHomePageData &&
+              collegeHomePageData.map(item => {
+                return (
+                  <li key={item.itemName}>
+                    <div className={styles.items}>
+                      <span>{item.itemName}</span>
+                      <span>{item.totalKpi}</span>
+                      <span
+                        onClick={() => this.toggle(item.itemId)}
+                        style={{
+                          alignItems: 'center',
+                          width: '10%',
+                          display: 'flex',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <Icon
+                          type={(id || showFirstId) === item.itemId ? 'up' : 'down'}
+                          size="xs"
+                          color="#00ccc3"
+                        />
+                      </span>
+                    </div>
+                    {(id || showFirstId) === item.itemId && (
+                      <ul className={styles.list1}>
+                        {this.renderIem1(item.itemId, item.groupKpiList)}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            {!collegeHomePageData && <li className={styles.hasnone}>暂无数据</li>}
           </ul>
         </div>
       </div>

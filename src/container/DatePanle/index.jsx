@@ -4,7 +4,7 @@ import { getCurrentAuthInfo } from 'utils/decorator';
 import TimeSelect from 'components/TimeSelect/TimeSelect';
 import styles from './index.less';
 import history from '../../assets/history.png';
-import { timeArea } from '../../utils/timeArea';
+import { timeArea, timeAreaPerformance } from '../../utils/timeArea';
 
 const formate = 'YYYY-MM';
 @getCurrentAuthInfo
@@ -38,34 +38,41 @@ export default class DatePanle extends React.Component {
   };
 
   dataFun = () => {
-    const dateVal = timeArea();
-    const { maxDate, minDate } = dateVal;
-    const maxDateVal = !maxDate ? null : maxDate.replace(/\s/g, 'T').replace(/\//g, '-');
-    const minDateVal = !minDate ? null : minDate.replace(/\s/g, 'T').replace(/\//g, '-');
-    const nowMaxDate = new Date(maxDateVal);
-    const nowMinDate = !minDateVal ? null : new Date(minDateVal);
-    const result = [];
-    const num = this.state.flag === 1 ? 12 : 3;
-    result.push({ id: maxDate, name: maxDate });
+    const { dateAreaResult } = this.props;
+    if (dateAreaResult) {
+      const dateVal = timeAreaPerformance();
+      return dateVal;
+    } else {
+      const dateVal = timeArea();
+      const { maxDate, minDate } = dateVal;
+      const maxDateVal = !maxDate ? null : maxDate.replace(/\s/g, 'T').replace(/\//g, '-');
+      const minDateVal = !minDate ? null : minDate.replace(/\s/g, 'T').replace(/\//g, '-');
+      const nowMaxDate = new Date(maxDateVal);
+      const nowMinDate = !minDateVal ? null : new Date(minDateVal);
+      const result = [];
+      const num = this.state.flag === 1 ? 12 : 3;
+      result.push({ id: maxDate, name: maxDate });
 
-    for (let i = 0; i < num; i += 1) {
-      nowMaxDate.setMonth(nowMaxDate.getMonth() - 1);
-      let m = nowMaxDate.getMonth() + 1;
-      m = m < 10 ? `0${m}` : m;
-      if (!minDate ? true : nowMaxDate.getTime() >= nowMinDate.getTime()) {
-        result.push({
-          id: `${nowMaxDate.getFullYear()}-${m}`,
-          name: `${nowMaxDate.getFullYear()}-${m}`,
-        });
+      for (let i = 0; i < num; i += 1) {
+        nowMaxDate.setMonth(nowMaxDate.getMonth() - 1);
+        let m = nowMaxDate.getMonth() + 1;
+        m = m < 10 ? `0${m}` : m;
+        if (!minDate ? true : nowMaxDate.getTime() >= nowMinDate.getTime()) {
+          result.push({
+            id: `${nowMaxDate.getFullYear()}-${m}`,
+            name: `${nowMaxDate.getFullYear()}-${m}`,
+          });
+        }
       }
+      return result;
     }
-    return result;
   };
 
   render() {
     const dateArea = this.dataFun();
     // eslint-disable-next-line
     const { defaultDate, toHideImg, isperformance, isColor } = this.props;
+
     const isShowHistoryImage = this.isShowHistoryImage();
     return (
       <div>

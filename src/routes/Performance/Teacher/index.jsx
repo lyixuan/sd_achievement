@@ -1,26 +1,36 @@
 import React from 'react';
 import { connect } from 'dva';
 import url from 'url';
-import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
+import { setItem } from 'utils/localStorage';
+import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import DatePanle from 'container/DatePanle';
 import Table from '../component/table';
 import styles from './index.less';
 
 @getCurrentAuthInfo
-@getCurrentMonth
+@getPerformanceCurrentMonth
 class Teacher extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      month: this.currentMonth(),
-      // collegeId,
-      // userId,
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     // month: this.currentMonth(),
+  //     // collegeId,
+  //     // userId,
+  //   };
+  // }
 
   componentDidMount() {
     this.getTeacherData();
   }
+  onDateChange = month => {
+    setItem('month', month);
+    // this.setState({ month });
+    this.props.dispatch({
+      type: 'performance/getDateRangeData',
+      payload: { month },
+    });
+    this.getTeacherData();
+  };
   // 班主任
   getTeacherData = () => {
     const { query } = url.parse(this.props.location.search, true);
@@ -32,7 +42,7 @@ class Teacher extends React.Component {
     //   userId =query.userId;
     // }
     const params = {
-      reportMonth: '2019-05',
+      reportMonth: this.currentMonth(),
       groupId,
       userId,
     };
@@ -47,16 +57,16 @@ class Teacher extends React.Component {
       payload: params,
     });
   };
-
   render() {
-    const { month } = this.state;
     const { classHomePageData } = this.props.performance;
-    if (!classHomePageData) return <div>暂无数据</div>;
-    const newParams = {
-      userType: classHomePageData.userType,
-      userId: classHomePageData.userId,
-      orgId: classHomePageData.orgId,
-    };
+    let newParams = {};
+    if (classHomePageData) {
+      newParams = {
+        userType: classHomePageData.userType,
+        userId: classHomePageData.userId,
+        orgId: classHomePageData.orgId,
+      };
+    }
     const columnsData = [
       {
         title: '绩效子项',
@@ -78,8 +88,9 @@ class Teacher extends React.Component {
       <div className={styles.performanceConBg2}>
         <div className={styles.dateWrapBg}>
           <DatePanle
+            dateAreaResult
             isColor
-            defaultDate={month}
+            defaultDate={this.currentMonth()}
             toHideImg
             toHistoryPage={() => {
               this.toHistoryPage();
@@ -90,22 +101,25 @@ class Teacher extends React.Component {
             }}
           />
         </div>
-        <div className={styles.teacherContent}>
-          <div className={styles.meta}>
-            <span>18902</span>
-            <span>元</span>
+        {classHomePageData && (
+          <div className={styles.teacherContent}>
+            <div className={styles.meta}>
+              <span>18902</span>
+              <span>元</span>
+            </div>
+            <div className={styles.middle}>
+              <p>好推净流水122873元 | 续报净流水 28773元</p>
+              <p>足课单量 2 | 硕士续报单量 4 </p>
+            </div>
+            <Table
+              history={this.props.history}
+              columnsData={columnsData}
+              rowData={classHomePageData.incomeKpiItemList}
+              newParams={newParams}
+            />
           </div>
-          <div className={styles.middle}>
-            <p>好推净流水122873元 | 续报净流水 28773元</p>
-            <p>足课单量 2 | 硕士续报单量 4 </p>
-          </div>
-          <Table
-            history={this.props.history}
-            columnsData={columnsData}
-            rowData={classHomePageData.incomeKpiItemList}
-            newParams={newParams}
-          />
-        </div>
+        )}
+        {!classHomePageData && <div />}
       </div>
     );
   }

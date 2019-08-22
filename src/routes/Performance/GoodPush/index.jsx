@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
 import url from 'url';
-import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
-import DatePanle from 'container/DatePanle';
+import moment from 'moment';
+import { getItem } from 'utils/localStorage';
+import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import Table from '../component/table';
 import styles from './index.less';
 
 @getCurrentAuthInfo
-@getCurrentMonth
+@getPerformanceCurrentMonth
 class GoodPush extends React.Component {
   constructor(props) {
     super(props);
@@ -28,8 +29,9 @@ class GoodPush extends React.Component {
   getRenewalData = () => {
     const { query } = url.parse(this.props.location.search, true);
     const { familyId = null, userId = null, userType = null, groupId = null } = query;
+    const { month } = this.state;
     const params = {
-      reportMonth: '2019-05',
+      reportMonth: month,
       userId,
     };
     if (userType === '21') {
@@ -65,8 +67,21 @@ class GoodPush extends React.Component {
     this.setState({ index });
   };
 
+  formate = () => {
+    const currMonth = getItem('month');
+    const dateListMonth = getItem('timeDatePerformance').value;
+    return dateListMonth.map(item => {
+      if (currMonth.value === item.kpiMonth) {
+        const start = moment(item.startDate).format('YYYY-MM-DD');
+        const end = moment(item.endDate).format('YYYY-MM-DD');
+        return `时间: ${start} ~ ${end}`;
+      }
+      return '';
+    });
+  };
+
   render() {
-    const { month, index } = this.state;
+    const { index } = this.state;
     const { findGoodpushKpiDetailData } = this.props.performance;
     const showFirstId = 0;
     const columnsData = [
@@ -121,20 +136,7 @@ class GoodPush extends React.Component {
     ];
     return (
       <div className={styles.performanceConBg2}>
-        <div className={styles.dateWrapBg}>
-          <DatePanle
-            isColor
-            defaultDate={month}
-            toHideImg
-            toHistoryPage={() => {
-              this.toHistoryPage();
-            }}
-            isperformance
-            onChange={date => {
-              this.onDateChange(date);
-            }}
-          />
-        </div>
+        <div className={styles.dateWrapBg}>{this.formate()}</div>
         <div className={styles.teacherContent}>
           <div className={styles.meta}>
             <span className={styles.total}>18902</span>

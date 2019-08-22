@@ -15,6 +15,7 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import styles from './TimeSelect.less';
 import dateImg from '../../assets/dateSelect.svg';
 import dateImg1 from '../../assets/dateSelect1.svg';
+// import { SesSsion } from 'inspector';
 
 class TimeSelect extends Component {
   constructor(props) {
@@ -64,24 +65,23 @@ class TimeSelect extends Component {
     timeText = timeText.replace(/-/g, '.');
     // 组件本身页面展示是2019-02这种样式，创收绩效需要展示区间，所以单独处理成 2019年4月29日~2019年5月28日 根据isperformance值判断
     if (isperformance) {
-      timeText = this.formatPerformance(timeText);
+      timeText = this.formatPerformance();
     }
     this.setState({ timeText });
   };
 
-  formatPerformance = timeText => {
-    // 2019.02 -》 '2019年1月29日 ~ 2019年2月28日 '
-    const curYear = Number(timeText.split('.')[0]);
-    const curMonth = timeText.split('.')[1];
-    let preYear = curYear;
-    let preMonth = curMonth;
-    if (curMonth === '01') {
-      preYear = curYear - 1;
-      preMonth = 12;
-    } else {
-      preMonth = curMonth - 1;
-    }
-    return `时间: ${preYear}年${preMonth}月29日 ~ ${curYear}年${curMonth}月28日`;
+  formatPerformance = () => {
+    const { defaultDate } = this.props;
+    const currMonth = getItem('month');
+    const dateListMonth = getItem('timeDatePerformance').value;
+    // eslint-disable-next-line
+    return dateListMonth.map(item => {
+      if ((currMonth.value || defaultDate) === item.kpiMonth) {
+        const start = moment(item.startDate).format('YYYY-MM-DD');
+        const end = moment(item.endDate).format('YYYY-MM-DD');
+        return `时间: ${start} ~ ${end}`;
+      }
+    });
   };
 
   renderGroupList = () => {

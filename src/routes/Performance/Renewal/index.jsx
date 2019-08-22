@@ -2,19 +2,20 @@ import React from 'react';
 import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
 import url from 'url';
-import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
-import DatePanle from 'container/DatePanle';
+import moment from 'moment';
+import { getItem } from 'utils/localStorage';
+import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import Table from '../component/table';
 import styles from './index.less';
 
 @getCurrentAuthInfo
-@getCurrentMonth
+@getPerformanceCurrentMonth
 class Renewal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       index: 0,
-      month: this.currentMonth(),
+      // month: this.currentMonth(),
       // collegeId,
       // userId,
     };
@@ -33,7 +34,7 @@ class Renewal extends React.Component {
     const { query } = url.parse(this.props.location.search, true);
     const { familyId = null, userId = null, userType = null, groupId = null } = query;
     const params = {
-      reportMonth: '2019-05',
+      reportMonth: this.currentMonth(),
       userId,
     };
     if (userType === '21') {
@@ -60,8 +61,21 @@ class Renewal extends React.Component {
     this.setState({ index });
   };
 
+  formate = () => {
+    const currMonth = getItem('month');
+    const dateListMonth = getItem('timeDatePerformance').value;
+    return dateListMonth.map(item => {
+      if (currMonth.value === item.kpiMonth) {
+        const start = moment(item.startDate).format('YYYY-MM-DD');
+        const end = moment(item.endDate).format('YYYY-MM-DD');
+        return `时间: ${start} ~ ${end}`;
+      }
+      return '';
+    });
+  };
+
   render() {
-    const { month, index } = this.state;
+    const { index } = this.state;
     const { findRenewalKpiDetailData } = this.props.performance;
     const showFirstId = 0;
     const columnsData = [
@@ -111,74 +125,64 @@ class Renewal extends React.Component {
     ];
     return (
       <div className={styles.performanceConBg2}>
-        <div className={styles.dateWrapBg}>
-          <DatePanle
-            isColor
-            defaultDate={month}
-            toHideImg
-            toHistoryPage={() => {
-              this.toHistoryPage();
-            }}
-            isperformance
-            onChange={date => {
-              this.onDateChange(date);
-            }}
-          />
-        </div>
-        <div className={styles.teacherContent}>
-          <div className={styles.meta}>
-            <span className={styles.total}>18902</span>
-            <span className={styles.price}>元</span>
-          </div>
-          <div className={styles.middle}>
-            <p>续报绩效 = 续报净流水 x 岗位提点</p>
-          </div>
-          <div className={styles.presidentContent}>
-            <p className={styles.meta}>
-              {columnsDataMeta.map(item => {
-                return <span key={item.title}>{item.title}</span>;
-              })}
-            </p>
-            <ul className={styles.list}>
-              {findRenewalKpiDetailData.map(item => {
-                return (
-                  <li key={item.positionType}>
-                    <div className={styles.items}>
-                      <span>{item.positionType}</span>
-                      <span>{item.positionPointKpi}</span>
-                      <span>{item.totalFinanceNetFlow}</span>
-                      <span>{item.totalKpi}</span>
-                      <span
-                        onClick={() => this.toggle(item.index)}
-                        style={{
-                          alignItems: 'center',
-                          width: '10%',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        <Icon
-                          type={(index || showFirstId) === item.index ? 'up' : 'down'}
-                          size="xs"
-                          color="#00ccc3"
+        <div className={styles.dateWrapBg}>{this.formate()}</div>
+        {findRenewalKpiDetailData && (
+          <div className={styles.teacherContent}>
+            <div className={styles.meta}>
+              <span className={styles.total}>18902</span>
+              <span className={styles.price}>元</span>
+            </div>
+            <div className={styles.middle}>
+              <p>续报绩效 = 续报净流水 x 岗位提点</p>
+            </div>
+            <div className={styles.presidentContent}>
+              <p className={styles.meta}>
+                {columnsDataMeta.map(item => {
+                  return <span key={item.title}>{item.title}</span>;
+                })}
+              </p>
+              <ul className={styles.list}>
+                {findRenewalKpiDetailData.map(item => {
+                  return (
+                    <li key={item.positionType}>
+                      <div className={styles.items}>
+                        <span>{item.positionType}</span>
+                        <span>{item.positionPointKpi}</span>
+                        <span>{item.totalFinanceNetFlow}</span>
+                        <span>{item.totalKpi}</span>
+                        <span
+                          onClick={() => this.toggle(item.index)}
+                          style={{
+                            alignItems: 'center',
+                            width: '10%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <Icon
+                            type={(index || showFirstId) === item.index ? 'up' : 'down'}
+                            size="xs"
+                            color="#00ccc3"
+                          />
+                        </span>
+                      </div>
+                      {(index || showFirstId) === item.index && (
+                        <Table
+                          history={this.props.history}
+                          columnsData={columnsData}
+                          rowData={item.renewalOrderList}
                         />
-                      </span>
-                    </div>
-                    {(index || showFirstId) === item.index && (
-                      <Table
-                        history={this.props.history}
-                        columnsData={columnsData}
-                        rowData={item.renewalOrderList}
-                      />
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            {/* {<Table columnsData={columnsData} rowData={findRenewalKpiDetailData} />} */}
           </div>
-          {/* {<Table columnsData={columnsData} rowData={findRenewalKpiDetailData} />} */}
-        </div>
+        )}
+        {!findRenewalKpiDetailData && <div>暂无数据</div>}
       </div>
     );
   }

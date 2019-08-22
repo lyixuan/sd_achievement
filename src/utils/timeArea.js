@@ -21,3 +21,14 @@ export function timeArea() {
   maxDate = !maxDate ? currentDate : currentDate < maxDate ? currentDate : maxDate;
   return { minDate, maxDate };
 }
+
+export function timeAreaPerformance() {
+  const store = getItem('timeDatePerformance') || {};
+  const { value = null } = store;
+  const arr = [];
+  value.map(item => {
+    arr.push({ id: item.kpiMonth, name: item.kpiMonth });
+    return arr;
+  });
+  return arr;
+}

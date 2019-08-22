@@ -25,6 +25,21 @@ export function getCurrentMonth(target) {
     return currentMonth() || '';
   }
 }
+
+export function getPerformanceCurrentMonth(target) {
+  const currentMonth = () => {
+    const store = getItem('month') || null;
+    const value = store.value || {};
+    return value || '';
+  };
+
+  if (target && typeof target === 'function') {
+    Object.assign(target.prototype, { currentMonth });
+  } else {
+    return currentMonth() || '';
+  }
+}
+
 export function currentPathName(target) {
   const checkoutUserAuthPathName = () => {
     const { groupType = null, isKpi } = getCurrentAuthInfo();
