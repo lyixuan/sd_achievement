@@ -19,7 +19,7 @@ class RenderItem extends React.Component {
         this.props.history.push({
           pathname,
           search: `?familyId=${newParams.orgId}&userId=${newParams.userId}&userType=${
-            newParams.userId
+            newParams.userType
           }`,
         });
         break;
@@ -27,7 +27,7 @@ class RenderItem extends React.Component {
         this.props.history.push({
           pathname,
           search: `?groupId=${newParams.orgId}&userId=${newParams.userId}&userType=${
-            newParams.userId
+            newParams.userType
           }`,
         });
         break;
@@ -35,7 +35,7 @@ class RenderItem extends React.Component {
         this.props.history.push({
           pathname,
           search: `?groupId=${newParams.orgId}&userId=${newParams.userId}&userType=${
-            newParams.userId
+            newParams.userType
           }`,
         });
         break;
@@ -43,7 +43,7 @@ class RenderItem extends React.Component {
         this.props.history.push({
           pathname: '/performance/teacher',
           search: `?groupId=${newParams.orgId}&userId=${newParams.userId}&userType=${
-            newParams.userId
+            newParams.userType
           }`,
         });
         break;

@@ -140,15 +140,17 @@ export default {
     *findRenewalKpiDetail({ payload }, { call, put }) {
       const response = yield call(findRenewalKpiDetail, { ...payload });
       if (response.code === 2000) {
-        response.data.map(item => {
+        response.data.map((item, idx) => {
+          // eslint-disable-next-line
+          item.index = idx;
           if (item.renewalOrderList.length) {
             return item.renewalOrderList.map(list => {
               // eslint-disable-next-line
               list.registrationDate = moment(list.registrationDate).format('YYYY.MM.DD');
-              return list;
+              return item;
             });
           } else {
-            return item.renewalOrderList;
+            return item;
           }
         });
         yield put({
@@ -168,15 +170,17 @@ export default {
     *findGoodpushKpiDetail({ payload }, { call, put }) {
       const response = yield call(findGoodpushKpiDetail, { ...payload });
       if (response.code === 2000) {
-        response.data.map(item => {
+        response.data.map((item, idx) => {
+          // eslint-disable-next-line
+          item.index = idx;
           if (item.renewalOrderList.length) {
             return item.renewalOrderList.map(list => {
               // eslint-disable-next-line
               list.registrationDate = moment(list.registrationDate).format('YYYY.MM.DD');
-              return list;
+              return item;
             });
           } else {
-            return item.renewalOrderList;
+            return item;
           }
         });
         yield put({

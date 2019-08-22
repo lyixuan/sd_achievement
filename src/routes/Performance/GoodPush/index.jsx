@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
+import url from 'url';
 import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
 import DatePanle from 'container/DatePanle';
 import Table from '../component/table';
@@ -12,7 +13,7 @@ class GoodPush extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0,
+      index: 0,
       month: this.currentMonth(),
       // collegeId,
       // userId,
@@ -22,29 +23,52 @@ class GoodPush extends React.Component {
   componentDidMount() {
     this.getRenewalData();
   }
+
   // 班主任
   getRenewalData = () => {
-    // const { month, collegeId, userId } = this.state;
-    // const params = {
-    //   reportMonth: month,
-    //   collegeId: 111,
-    //   userId: userId,
-    // };
+    const { query } = url.parse(this.props.location.search, true);
+    const { familyId = null, userId = null, userType = null, groupId = null } = query;
     const params = {
       reportMonth: '2019-05',
-      userType: 'group',
-      userId: '537',
+      userId,
     };
+    if (userType === '21') {
+      params.userType = 'family';
+      params.familyId = familyId;
+    }
+
+    if (userType === '22') {
+      params.userType = 'group';
+      params.groupId = groupId;
+    }
+
+    if (userType === '23') {
+      params.userType = 'class';
+      params.groupId = groupId;
+    }
     this.props.dispatch({
       type: 'performance/findGoodpushKpiDetail',
       payload: params,
     });
+    // const params = {
+    //   reportMonth: '2019-05',
+    //   userType: 'group',
+    //   userId: '537',
+    // };
+    // this.props.dispatch({
+    //   type: 'performance/findGoodpushKpiDetail',
+    //   payload: params,
+    // });
+  };
+
+  toggle = index => {
+    this.setState({ index });
   };
 
   render() {
-    const { month, id } = this.state;
+    const { month, index } = this.state;
     const { findGoodpushKpiDetailData } = this.props.performance;
-    const showFirstId = findGoodpushKpiDetailData.length && findGoodpushKpiDetailData[0].itemId;
+    const showFirstId = 0;
     const columnsData = [
       {
         title: '报名日期',
@@ -144,13 +168,13 @@ class GoodPush extends React.Component {
                         }}
                       >
                         <Icon
-                          type={(id || showFirstId) === item.itemId ? 'up' : 'down'}
+                          type={(index || showFirstId) === item.index ? 'up' : 'down'}
                           size="xs"
                           color="#00ccc3"
                         />
                       </span>
                     </div>
-                    {(id || showFirstId) === item.itemId && (
+                    {(index || showFirstId) === item.index && (
                       <Table
                         history={this.props.history}
                         columnsData={columnsData}
