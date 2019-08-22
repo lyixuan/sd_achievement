@@ -2,12 +2,13 @@ import React from 'react';
 import { connect } from 'dva';
 import url from 'url';
 import { Icon } from 'antd-mobile';
+import { setItem } from 'utils/localStorage';
 import DatePanle from 'container/DatePanle';
-import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
+import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import styles from './index.less';
 
 @getCurrentAuthInfo
-@getCurrentMonth
+@getPerformanceCurrentMonth
 // 院长
 class President extends React.Component {
   constructor(props) {
@@ -22,16 +23,28 @@ class President extends React.Component {
   componentDidMount() {
     this.getGroupData();
   }
+  onDateChange = month => {
+    setItem('month', month);
+    this.setState({ month });
+    this.props.dispatch({
+      type: 'performance/getDateRangeData',
+      payload: { month },
+    });
+    this.getGroupData();
+    // const currentAuthInfo = this.currentAuthInfo();
+    // const userId = currentAuthInfo.loginUserId;
+    // const { id } = currentAuthInfo;
+  };
   // 小组绩效
   getGroupData = () => {
     const { query } = url.parse(this.props.location.search, true);
     const currentAuthInfo = getCurrentAuthInfo();
     // const month = this.currentMonth();
-    const { familyId, userId } = query || currentAuthInfo;
+    // const { groupId, userId } = query || currentAuthInfo;
     const params = {
-      reportMonth: '2019-05',
-      familyId,
-      userId,
+      reportMonth: this.currentMonth(),
+      familyId: query.familyId || currentAuthInfo.familyId,
+      userId: query.userId || currentAuthInfo.userId,
     };
 
     // const params = {
@@ -123,13 +136,16 @@ class President extends React.Component {
   render() {
     const { groupRankListData = [] } = this.props.performance;
     const { id, month } = this.state;
-    if (!groupRankListData.length) return <div>11</div>;
     // 默认第一个展示
-    const showFirstId = groupRankListData.length && groupRankListData[0].itemId;
+    let showFirstId = 0;
+    if (groupRankListData) {
+      showFirstId = groupRankListData.length && groupRankListData[0].itemId;
+    }
     return (
       <div className={styles.performanceCon}>
         <div className={styles.dateWrap}>
           <DatePanle
+            dateAreaResult
             defaultDate={month}
             toHideImg
             toHistoryPage={() => {
@@ -148,36 +164,38 @@ class President extends React.Component {
             <span>操作</span>
           </p>
           <ul className={styles.list}>
-            {groupRankListData.map(item => {
-              return (
-                <li key={item.itemName}>
-                  <div className={styles.items}>
-                    <span>{item.itemName}</span>
-                    <span>{item.totalKpi}</span>
-                    <span
-                      onClick={() => this.toggle(item.itemId)}
-                      style={{
-                        alignItems: 'center',
-                        width: '10%',
-                        display: 'flex',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      <Icon
-                        type={(id || showFirstId) === item.itemId ? 'up' : 'down'}
-                        size="xs"
-                        color="#00ccc3"
-                      />
-                    </span>
-                  </div>
-                  {(id || showFirstId) === item.itemId && (
-                    <ul className={styles.list1}>
-                      {this.renderIem1(item.itemId, item.classKpiList)}
-                    </ul>
-                  )}
-                </li>
-              );
-            })}
+            {groupRankListData &&
+              groupRankListData.map(item => {
+                return (
+                  <li key={item.itemName}>
+                    <div className={styles.items}>
+                      <span>{item.itemName}</span>
+                      <span>{item.totalKpi}</span>
+                      <span
+                        onClick={() => this.toggle(item.itemId)}
+                        style={{
+                          alignItems: 'center',
+                          width: '10%',
+                          display: 'flex',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <Icon
+                          type={(id || showFirstId) === item.itemId ? 'up' : 'down'}
+                          size="xs"
+                          color="#00ccc3"
+                        />
+                      </span>
+                    </div>
+                    {(id || showFirstId) === item.itemId && (
+                      <ul className={styles.list1}>
+                        {this.renderIem1(item.itemId, item.classKpiList)}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            {!groupRankListData && <li className={styles.hasnone}>暂无数据</li>}
           </ul>
         </div>
       </div>
