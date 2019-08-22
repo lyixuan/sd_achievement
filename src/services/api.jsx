@@ -10,7 +10,7 @@ const hostObj = {
 const HOST = hostObj[NODE_ENV];
 
 const proxyHost = {
-  dev: 'http://172.16.58.18:8082', // 'http://test.xd.admin.ministudy.com',
+  dev: 'http://172.16.117.65:8082', // 'http://172.16.58.18:8082', // 'http://test.xd.admin.ministudy.com',
   pro: 'http://api.bd.ministudy.com',
 };
 
