@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import url from 'url';
 import { Icon } from 'antd-mobile';
 import DatePanle from 'container/DatePanle';
 import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
@@ -23,17 +24,21 @@ class President extends React.Component {
   }
   // 小组绩效
   getGroupData = () => {
-    // const { month, collegeId, userId } = this.state;
-    // const params = {
-    //   reportMonth: month,
-    //   collegeId: 111,
-    //   userId: userId,
-    // };
+    const { query } = url.parse(this.props.location.search, true);
+    const currentAuthInfo = getCurrentAuthInfo();
+    // const month = this.currentMonth();
+    const { familyId, userId } = query || currentAuthInfo;
     const params = {
       reportMonth: '2019-05',
-      familyId: 184,
-      userId: '123',
+      familyId,
+      userId,
     };
+
+    // const params = {
+    //   reportMonth: '2019-05',
+    //   familyId: 184,
+    //   userId: '123',
+    // };
 
     this.props.dispatch({
       type: 'performance/groupRankList',

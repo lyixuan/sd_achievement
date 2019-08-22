@@ -51,8 +51,13 @@ class Family extends React.Component {
   };
 
   gotoGroup = () => {
+    const { query } = url.parse(this.props.location.search, true);
+    const currentAuthInfo = getCurrentAuthInfo();
+    // const month = this.currentMonth();
+    const { familyId = null, userId = null } = query || currentAuthInfo;
     this.props.history.push({
       pathname: '/performance/group',
+      search: `?familyId=${familyId}&userId=${userId}`,
     });
   };
 
