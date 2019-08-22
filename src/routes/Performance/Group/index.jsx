@@ -7,7 +7,8 @@ import styles from './index.less';
 
 @getCurrentAuthInfo
 @getCurrentMonth
-class Group extends React.Component {
+// 院长
+class President extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,10 +48,37 @@ class Group extends React.Component {
     this.setState({ id1 });
   };
 
-  renderIem2 = classKpiList => {
-    if (!classKpiList) {
-      return <li className={styles.hasnone}>暂无数据</li>;
+  goto = (id, id2, itemType) => {
+    switch (itemType) {
+      case 21: // 21	人员-家族长
+        this.props.history.push({
+          pathname: '/performance/family',
+          search: `?familyId=${id}&userId=${id2}`,
+        });
+        break;
+      case 22: // 22	人员-运营长
+        this.props.history.push({
+          pathname: '/performance/operation',
+          search: `?groupId=${id}&userId=${id2}`,
+        });
+        break;
+      case 23: // 21	人员-班主任
+        this.props.history.push({
+          pathname: '/performance/teacher',
+          search: `?groupId=${id}&userId=${id2}`,
+        });
+        break;
+      default:
+        this.props.history.push({
+          pathname: '/performance/teacher',
+          search: `?groupId=${id}&userId=${id2}`,
+        });
+        break;
     }
+  };
+
+  renderIem1 = (id, classKpiList) => {
+    const { id1 } = this.state;
     return classKpiList.map(item => {
       return (
         <li key={item.itemName}>
@@ -65,41 +93,28 @@ class Group extends React.Component {
                 cursor: 'pointer',
               }}
             >
-              <Icon type="right" size="xs" color="#00ccc3" />
+              {item.itemType !== 1 && (
+                <Icon
+                  onClick={() => this.goto(id, item.itemId, item.itemType)}
+                  type="right"
+                  size="xs"
+                  color="#00ccc3"
+                />
+              )}
+              {item.itemType === 1 && (
+                <Icon
+                  onClick={() => this.toggle1(item.itemId)}
+                  type={id1 === item.itemId ? 'up' : 'down'}
+                  size="xs"
+                  color="#00ccc3"
+                />
+              )}
             </span>
           </div>
         </li>
       );
     });
   };
-  renderIem1 = groupKpiList => {
-    const { id1 } = this.state;
-    return groupKpiList.map(item => {
-      return (
-        <li key={item.itemName}>
-          <div className={styles.items}>
-            <span>{item.itemName}</span>
-            <span>{item.totalKpi}</span>
-            <span
-              onClick={() => this.toggle1(item.itemId)}
-              style={{
-                alignItems: 'center',
-                width: '10%',
-                display: 'flex',
-                cursor: 'pointer',
-              }}
-            >
-              <Icon type={id1 === item.itemId ? 'up' : 'down'} size="xs" color="#00ccc3" />
-            </span>
-          </div>
-          {item.itemId === id1 && (
-            <ul className={styles.list2}>{this.renderIem2(item.classKpiList)}</ul>
-          )}
-        </li>
-      );
-    });
-  };
-
   render() {
     const { groupRankListData = [] } = this.props.performance;
     const { id, month } = this.state;
@@ -116,8 +131,8 @@ class Group extends React.Component {
               this.toHistoryPage();
             }}
             isperformance
-            onChange={() => {
-              this.onDateChange();
+            onChange={date => {
+              this.onDateChange(date);
             }}
           />
         </div>
@@ -151,7 +166,9 @@ class Group extends React.Component {
                     </span>
                   </div>
                   {(id || showFirstId) === item.itemId && (
-                    <ul className={styles.list1}>{this.renderIem1(item.classKpiList)}</ul>
+                    <ul className={styles.list1}>
+                      {this.renderIem1(item.itemId, item.classKpiList)}
+                    </ul>
                   )}
                 </li>
               );
@@ -166,4 +183,4 @@ class Group extends React.Component {
 export default connect(({ performance, loading }) => ({
   performance,
   isloading: loading.models.performance,
-}))(Group);
+}))(President);

@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'dva';
+import url from 'url';
 import DatePanle from 'container/DatePanle';
 import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
-import url from 'url';
 import Table from '../component/table';
 import styles from './index.less';
 
@@ -26,12 +26,7 @@ class Operation extends React.Component {
     const { query } = url.parse(this.props.location.search, true);
     const currentAuthInfo = getCurrentAuthInfo();
     // const month = this.currentMonth();
-    const { groupId = null, userId = null } = currentAuthInfo || query;
-    // let { groupId = null, userId = null } = currentAuthInfo;
-    // if (this.props.location.search) {
-    //   groupId = query.groupId;
-    //   userId = query.userId;
-    // }
+    const { groupId, userId } = query || currentAuthInfo;
     const params = {
       reportMonth: '2019-05',
       groupId,
@@ -87,6 +82,17 @@ class Operation extends React.Component {
         key: '操作',
       },
     ];
+    const newParams = {
+      userType: groupHomePageData.userType,
+      userId: groupHomePageData.userId,
+      orgId: groupHomePageData.orgId,
+    };
+    const newParams1 = {
+      // userType: groupHomePageData.userType,
+      // userId: groupHomePageData.userId,
+      orgId: groupHomePageData.orgId,
+      teacher: '/performance/teacher',
+    };
     return (
       <div className={styles.performanceConBg}>
         <div className={styles.performanceConBg1}>
@@ -133,18 +139,24 @@ class Operation extends React.Component {
                 </li>
               </ul>
             </div>
-            <Table
-              history={this.props.history}
-              columnsData={columnsData}
-              rowData={groupHomePageData.incomeKpiItemList}
-            />
-            <div className={styles.teacher}>
-              <p>班主任预测绩效</p>
+            {groupHomePageData.incomeKpiItemList && (
               <Table
                 history={this.props.history}
-                columnsData={columnsData1}
-                rowData={groupHomePageData.teacherKpiItemList}
+                columnsData={columnsData}
+                rowData={groupHomePageData.incomeKpiItemList}
+                newParams={newParams}
               />
+            )}
+            <div className={styles.teacher}>
+              <p>班主任预测绩效</p>
+              {groupHomePageData.teacherKpiItemList && (
+                <Table
+                  history={this.props.history}
+                  columnsData={columnsData1}
+                  rowData={groupHomePageData.teacherKpiItemList}
+                  newParams={newParams1}
+                />
+              )}
             </div>
           </div>
         </div>

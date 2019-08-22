@@ -3,8 +3,15 @@ import { Icon } from 'antd-mobile';
 import styles from './renderItem.less';
 
 class RenderItem extends React.Component {
-  goto = key => {
+  goto = (key, id) => {
     const { newParams } = this.props;
+    if (newParams.teacher) {
+      this.props.history.push({
+        pathname: newParams.teacher,
+        search: `?groupId=${newParams.orgId}&userId=${id}`,
+      });
+      return;
+    }
     const { userType } = newParams;
     const pathname = key === 1 ? '/performance/renewal' : '/performance/goodpush';
     switch (userType) {
@@ -18,7 +25,7 @@ class RenderItem extends React.Component {
         break;
       case 22: // 22	人员-运营长
         this.props.history.push({
-          pathname: '/performance/operation',
+          pathname,
           search: `?groupId=${newParams.orgId}&userId=${newParams.userId}&userType=${
             newParams.userId
           }`,
@@ -26,7 +33,7 @@ class RenderItem extends React.Component {
         break;
       case 23: // 21	人员-班主任
         this.props.history.push({
-          pathname: '/performance/teacher',
+          pathname,
           search: `?groupId=${newParams.orgId}&userId=${newParams.userId}&userType=${
             newParams.userId
           }`,
@@ -61,7 +68,7 @@ class RenderItem extends React.Component {
                         type="right"
                         size="xs"
                         color="#00ccc3"
-                        onClick={() => this.goto(item.itemKey)}
+                        onClick={() => this.goto(item.itemKey, item.itemId)}
                       />
                     </td>
                   );

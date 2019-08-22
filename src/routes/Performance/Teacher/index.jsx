@@ -26,7 +26,7 @@ class Teacher extends React.Component {
     const { query } = url.parse(this.props.location.search, true);
     const currentAuthInfo = getCurrentAuthInfo();
     // const month = this.currentMonth();
-    const { groupId = null, userId = null } = currentAuthInfo || query;
+    const { groupId = null, userId = null } = query || currentAuthInfo;
     // if (this.props.location.search) {
     //   groupId =query.groupId;
     //   userId =query.userId;
@@ -51,6 +51,12 @@ class Teacher extends React.Component {
   render() {
     const { month } = this.state;
     const { classHomePageData } = this.props.performance;
+    if (!classHomePageData) return <div>暂无数据</div>;
+    const newParams = {
+      userType: classHomePageData.userType,
+      userId: classHomePageData.userId,
+      orgId: classHomePageData.orgId,
+    };
     const columnsData = [
       {
         title: '绩效子项',
@@ -97,6 +103,7 @@ class Teacher extends React.Component {
             history={this.props.history}
             columnsData={columnsData}
             rowData={classHomePageData.incomeKpiItemList}
+            newParams={newParams}
           />
         </div>
       </div>

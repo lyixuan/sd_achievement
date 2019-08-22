@@ -28,7 +28,7 @@ class Family extends React.Component {
     const { query } = url.parse(this.props.location.search, true);
     const currentAuthInfo = getCurrentAuthInfo();
     // const month = this.currentMonth();
-    const { familyId = null, userId = null } = currentAuthInfo || query;
+    const { familyId = null, userId = null } = query || currentAuthInfo;
     // if (this.props.location.search) {
     //   familyId = query.familyId;
     //   userId = query.userId;
