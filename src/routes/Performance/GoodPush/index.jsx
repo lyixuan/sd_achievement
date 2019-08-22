@@ -84,6 +84,13 @@ class GoodPush extends React.Component {
   render() {
     const { index } = this.state;
     const { findGoodpushKpiDetailData } = this.props.performance;
+    let totalkpi = 0;
+    if (findGoodpushKpiDetailData) {
+      findGoodpushKpiDetailData.map(item => {
+        // eslint-disable-next-line
+        return (totalkpi += item.totalKpi);
+      });
+    }
     const showFirstId = 0;
     const columnsData = [
       {
@@ -147,7 +154,7 @@ class GoodPush extends React.Component {
         </div>
         <div className={styles.teacherContent}>
           <div className={styles.meta}>
-            <span className={styles.total}>18902</span>
+            <span className={styles.total}>{totalkpi}</span>
             <span className={styles.price}>元</span>
           </div>
           <div className={styles.middle}>

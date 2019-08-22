@@ -78,6 +78,13 @@ class Renewal extends React.Component {
   render() {
     const { index } = this.state;
     const { findRenewalKpiDetailData } = this.props.performance;
+    let totalkpi = 0;
+    if (findRenewalKpiDetailData) {
+      findRenewalKpiDetailData.map(item => {
+        // eslint-disable-next-line
+        return (totalkpi += item.totalKpi);
+      });
+    }
     const showFirstId = 0;
     const columnsData = [
       {
@@ -133,7 +140,7 @@ class Renewal extends React.Component {
         {findRenewalKpiDetailData && (
           <div className={styles.teacherContent}>
             <div className={styles.meta}>
-              <span className={styles.total}>18902</span>
+              <span className={styles.total}>{totalkpi}</span>
               <span className={styles.price}>元</span>
             </div>
             <div className={styles.middle}>

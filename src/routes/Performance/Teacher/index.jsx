@@ -106,7 +106,7 @@ class Teacher extends React.Component {
         {classHomePageData && (
           <div className={styles.teacherContent}>
             <div className={styles.meta}>
-              <span>18902</span>
+              <span>{classHomePageData && classHomePageData.totalKpi}</span>
               <span>元</span>
             </div>
             <div className={styles.middle}>
