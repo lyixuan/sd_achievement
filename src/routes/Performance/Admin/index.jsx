@@ -4,7 +4,6 @@ import { Icon } from 'antd-mobile';
 import { setItem } from 'utils/localStorage';
 import DatePanle from 'container/DatePanle';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
-import SwitchDialog from '../../../container/IDSwitchDialog/index';
 import styles from './index.less';
 
 @getCurrentAuthInfo
@@ -113,8 +112,6 @@ class Admin extends React.Component {
             {!adminHomePageData && <li className={styles.hasnone}>暂无数据</li>}
           </ul>
         </div>
-        {/* boss - 切换身份 */}
-        {<SwitchDialog toIndexPage={this.toIndexPage} />}
       </div>
     );
   }

@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Redirect, Switch } from 'dva/router';
 import { getCurrentAuthInfo, getCurrentMonth } from 'utils/decorator';
 import Authorized from 'utils/Authorized';
+import SwitchDialog from '../../container/IDSwitchDialog/index';
 import { getRoutes, assignUrlParams, checkoutAuthUrlPerformance } from '../../utils/routerUtils';
 
 const { AuthorizedRoute } = Authorized;
@@ -65,6 +66,8 @@ class Performance extends React.Component {
           ))}
           <Redirect exact from="/performance" to={redirectUrl} />
         </Switch>
+        {/* boss - 切换身份 */}
+        {<SwitchDialog toIndexPage={this.toIndexPage} />}
       </div>
     );
   }
