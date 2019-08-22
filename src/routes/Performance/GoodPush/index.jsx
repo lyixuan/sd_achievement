@@ -7,6 +7,7 @@ import { getItem } from 'utils/localStorage';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import Table from '../component/table';
 import styles from './index.less';
+import bg2 from '../../../assets/bg2.png';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -136,7 +137,14 @@ class GoodPush extends React.Component {
     ];
     return (
       <div className={styles.performanceConBg2}>
-        <div className={styles.dateWrapBg}>{this.formate()}</div>
+        <img
+          src={bg2}
+          alt="好推绩效"
+          style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
+        />
+        <div className={styles.dateWrapBg}>
+          <div className={styles.time}>{this.formate()}</div>
+        </div>
         <div className={styles.teacherContent}>
           <div className={styles.meta}>
             <span className={styles.total}>18902</span>

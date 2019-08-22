@@ -6,6 +6,7 @@ import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator'
 import DatePanle from 'container/DatePanle';
 import Table from '../component/table';
 import styles from './index.less';
+import bg2 from '../../../assets/bg2.png';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -86,6 +87,7 @@ class Teacher extends React.Component {
     ];
     return (
       <div className={styles.performanceConBg2}>
+        <img src={bg2} alt="班主任" style={{ position: 'absolute', zIndex: '-1', width: '100%' }} />
         <div className={styles.dateWrapBg}>
           <DatePanle
             dateAreaResult

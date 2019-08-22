@@ -8,6 +8,7 @@ import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator'
 import Bitmap from '../../../assets/Bitmap.png';
 import Table from '../component/table';
 import styles from './index.less';
+import bg3 from '../../../assets/bg3.png';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -91,6 +92,11 @@ class Family extends React.Component {
     return (
       <div className={styles.performanceConBg}>
         <div className={styles.performanceConBg3}>
+          <img
+            src={bg3}
+            alt="家族长"
+            style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
+          />
           <div className={styles.dateWrapBg}>
             <DatePanle
               dateAreaResult

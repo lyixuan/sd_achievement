@@ -7,16 +7,10 @@
 .performanceConBg1,
 .performanceConBg2,
 .performanceConBg3 {
-  background: url('../../assets/bg2.png') no-repeat;
+  // background: url('../../assets/bg2.png') no-repeat;
   // height: 4rem;
   width: 100%;
   background-size: 100% 100%;
-
-  .bg1 {
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
 
   .dateWrapBg {
     background: none;
@@ -34,19 +28,12 @@
   }
 }
 
-.performanceConBg1 {
-  background: url('../../assets/bg1.png') no-repeat;
-}
-
-.performanceConBg3 {
-  background: url('../../assets/bg3.png') no-repeat;
-  // height: 6.5rem;
-}
-
 .performanceCon,
 .performanceConBg1,
 .performanceConBg2,
 .performanceConBg3 {
+  position: relative;
+  z-index: 1;
   * {
     margin: 0;
     padding: 0;
