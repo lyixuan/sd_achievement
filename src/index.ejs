@@ -19,6 +19,7 @@
             </script>
         <script type="text/javascript" src='http://bd.ministudy.com/trace/trace_sdk.js'></script>
               <script>
+                   localStorage.clear()
                   const userInfo = localStorage.getItem('performanceCurrentAuth');
                   const userId = JSON.parse(userInfo)?JSON.parse(userInfo).value.userId:null;
                   xd('config',{userId,site:2,project:'achievement'});
