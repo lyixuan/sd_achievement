@@ -139,7 +139,7 @@ Login.prototype.checkLoginType=function(){
 }
 Login.prototype.wechartLogin=function(){
   var isAuth=this.userId&&this.userType==1;
-  this.successPath='/user/wechart';
+  this.successPath='/';
   this.errorPath='/exception/403';
   this.checkoutLoginState(isAuth);
 }
