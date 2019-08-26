@@ -167,7 +167,7 @@ class Operation extends React.Component {
                   newParams={newParams}
                 />
               )}
-              {!groupHomePageData.incomeKpiItemList && <li className={styles.hasnone}>暂无数据</li>}
+              {!groupHomePageData.incomeKpiItemList && <div>暂无数据</div>}
               <div className={styles.teacher}>
                 <p>班主任预测绩效</p>
                 {groupHomePageData.teacherKpiItemList && (

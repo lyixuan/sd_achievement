@@ -8,6 +8,7 @@ import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator'
 import Table from '../component/table';
 import styles from './index.less';
 import bg2 from '../../../assets/bg2.png';
+import noData from '../../../assets/nodata.png';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -17,8 +18,9 @@ class GoodPush extends React.Component {
     this.state = {
       index: 0,
       month: this.currentMonth(),
-      // collegeId,
-      // userId,
+      // findGoodpushKpiDetailDataNone:{
+
+      // }
     };
   }
 
@@ -53,15 +55,6 @@ class GoodPush extends React.Component {
       type: 'performance/findGoodpushKpiDetail',
       payload: params,
     });
-    // const params = {
-    //   reportMonth: '2019-05',
-    //   userType: 'group',
-    //   userId: '537',
-    // };
-    // this.props.dispatch({
-    //   type: 'performance/findGoodpushKpiDetail',
-    //   payload: params,
-    // });
   };
 
   toggle = index => {
@@ -143,67 +136,72 @@ class GoodPush extends React.Component {
       },
     ];
     return (
-      <div className={styles.performanceConBg2}>
-        <img
-          src={bg2}
-          alt="好推绩效"
-          style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
-        />
-        <div className={styles.dateWrapBg}>
-          <div className={styles.time}>{this.formate()}</div>
+      <div>
+        <div className={styles.performanceConBg2}>
+          <img
+            src={bg2}
+            alt="好推绩效"
+            style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
+          />
+          <div className={styles.dateWrapBg}>
+            <div className={styles.time}>{this.formate()}</div>
+          </div>
+          <div className={styles.teacherContent}>
+            <div className={styles.meta}>
+              <span className={styles.total}>{findGoodpushKpiDetailData ? totalkpi : '-'}</span>
+              <span className={styles.price}>元</span>
+            </div>
+            <div className={styles.middle}>
+              <p>好推绩效 = 好推净流水 x 好推净流水系数</p>
+            </div>
+            {findGoodpushKpiDetailData && (
+              <div className={styles.presidentContent}>
+                <p className={styles.meta}>
+                  {columnsDataMeta.map(item => {
+                    return <span key={item.title}>{item.title}</span>;
+                  })}
+                </p>
+                <ul className={styles.list}>
+                  {findGoodpushKpiDetailData.map(item => {
+                    return (
+                      <li key={item.positionType}>
+                        <div className={styles.items}>
+                          <span>{item.positionType}</span>
+                          <span>{item.positionDistribution}</span>
+                          <span>{item.totalKpi}</span>
+                          <span
+                            onClick={() => this.toggle(item.itemId)}
+                            style={{
+                              alignItems: 'center',
+                              width: '10%',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <Icon
+                              type={(index || showFirstId) === item.index ? 'up' : 'down'}
+                              size="xs"
+                              color="#00ccc3"
+                            />
+                          </span>
+                        </div>
+                        {(index || showFirstId) === item.index && (
+                          <Table
+                            history={this.props.history}
+                            columnsData={columnsData}
+                            rowData={item.renewalOrderList}
+                          />
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
-        <div className={styles.teacherContent}>
-          <div className={styles.meta}>
-            <span className={styles.total}>{totalkpi}</span>
-            <span className={styles.price}>元</span>
-          </div>
-          <div className={styles.middle}>
-            <p>好推绩效 = 好推净流水 x 好推净流水系数</p>
-          </div>
-          <div className={styles.presidentContent}>
-            <p className={styles.meta}>
-              {columnsDataMeta.map(item => {
-                return <span key={item.title}>{item.title}</span>;
-              })}
-            </p>
-            <ul className={styles.list}>
-              {findGoodpushKpiDetailData.map(item => {
-                return (
-                  <li key={item.positionType}>
-                    <div className={styles.items}>
-                      <span>{item.positionType}</span>
-                      <span>{item.positionDistribution}</span>
-                      <span>{item.totalKpi}</span>
-                      <span
-                        onClick={() => this.toggle(item.itemId)}
-                        style={{
-                          alignItems: 'center',
-                          width: '10%',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        <Icon
-                          type={(index || showFirstId) === item.index ? 'up' : 'down'}
-                          size="xs"
-                          color="#00ccc3"
-                        />
-                      </span>
-                    </div>
-                    {(index || showFirstId) === item.index && (
-                      <Table
-                        history={this.props.history}
-                        columnsData={columnsData}
-                        rowData={item.renewalOrderList}
-                      />
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </div>
+        {!findGoodpushKpiDetailData && <img src={noData} alt="nodata" className={styles.noData} />}
       </div>
     );
   }
@@ -211,5 +209,5 @@ class GoodPush extends React.Component {
 
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance,
+  isloading: loading.models.performance.findGoodpushKpiDetail,
 }))(GoodPush);

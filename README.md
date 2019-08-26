@@ -91,6 +91,6 @@ $ npm start         # visit http://localhost:8000
     },
   };
 ```
-
+测试地址 http://172.16.117.64:8093/performance/admin 
 地址需要更新为 ip+端口号+/user/wechart进入
 performanceUser 如果需要，可以修改用户

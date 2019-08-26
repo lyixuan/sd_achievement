@@ -6,6 +6,7 @@ import url from 'url';
 import { setItem } from 'utils/localStorage';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import styles from './index.less';
+import noData from '../../../assets/nodata.png';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -150,74 +151,80 @@ class President extends React.Component {
   };
   render() {
     const { collegeHomePageData } = this.props.performance;
-    // if (!collegeHomePageData) return <div>暂无数据</div>;
     const { id, month } = this.state;
     // 默认第一个展示
     const showFirstId =
       collegeHomePageData && collegeHomePageData.length && collegeHomePageData[0].itemId;
     return (
-      <div className={styles.performanceCon}>
-        <div className={styles.dateWrap}>
-          <DatePanle
-            dateAreaResult
-            defaultDate={month}
-            toHideImg
-            toHistoryPage={() => {
-              this.toHistoryPage();
-            }}
-            isperformance
-            onChange={date => {
-              this.onDateChange(date);
-            }}
-          />
+      <div>
+        <div className={styles.performanceCon}>
+          <div className={styles.dateWrap}>
+            <DatePanle
+              dateAreaResult
+              defaultDate={month}
+              toHideImg
+              toHistoryPage={() => {
+                this.toHistoryPage();
+              }}
+              isperformance
+              onChange={date => {
+                this.onDateChange(date);
+              }}
+            />
+          </div>
+          {collegeHomePageData && (
+            <div className={styles.presidentContent}>
+              <p className={styles.meta}>
+                <span>家族</span>
+                <span>绩效总额</span>
+                <span>操作</span>
+              </p>
+              <ul className={styles.list}>
+                {collegeHomePageData.map(item => {
+                  return (
+                    <li key={item.itemName}>
+                      <div className={styles.items}>
+                        <span>{item.itemName}</span>
+                        <span>{item.totalKpi}</span>
+                        <span
+                          onClick={() => this.toggle(item.itemId)}
+                          style={{
+                            alignItems: 'center',
+                            width: '10%',
+                            display: 'flex',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <Icon
+                            type={(id || showFirstId) === item.itemId ? 'up' : 'down'}
+                            size="xs"
+                            color="#00ccc3"
+                          />
+                        </span>
+                      </div>
+                      {(id || showFirstId) === item.itemId && (
+                        <ul className={styles.list1}>
+                          {this.renderIem1(item.itemId, item.groupKpiList)}
+                        </ul>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
         </div>
-        <div className={styles.presidentContent}>
-          <p className={styles.meta}>
-            <span>家族</span>
-            <span>绩效总额</span>
-            <span>操作</span>
-          </p>
-          <ul className={styles.list}>
-            {collegeHomePageData &&
-              collegeHomePageData.map(item => {
-                return (
-                  <li key={item.itemName}>
-                    <div className={styles.items}>
-                      <span>{item.itemName}</span>
-                      <span>{item.totalKpi}</span>
-                      <span
-                        onClick={() => this.toggle(item.itemId)}
-                        style={{
-                          alignItems: 'center',
-                          width: '10%',
-                          display: 'flex',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        <Icon
-                          type={(id || showFirstId) === item.itemId ? 'up' : 'down'}
-                          size="xs"
-                          color="#00ccc3"
-                        />
-                      </span>
-                    </div>
-                    {(id || showFirstId) === item.itemId && (
-                      <ul className={styles.list1}>
-                        {this.renderIem1(item.itemId, item.groupKpiList)}
-                      </ul>
-                    )}
-                  </li>
-                );
-              })}
-            {!collegeHomePageData && <li className={styles.hasnone}>暂无数据</li>}
-          </ul>
-        </div>
+        {!collegeHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
       </div>
     );
   }
 }
 
+// export default connect(({ loading, bosshome }) =>
+// ({ loading: loading.models.bosshome, bosshome }))(
+//   Boss
+// );
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance,
+  loading: loading.models.performance.collegeHomePage,
 }))(President);

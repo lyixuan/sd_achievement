@@ -17,14 +17,14 @@ export default {
   namespace: 'performance',
 
   state: {
-    collegeHomePageData: [],
-    adminHomePageData: [],
-    classHomePageData: [],
-    familyHomePageData: [],
-    groupHomePageData: [],
-    groupRankListData: [],
-    findRenewalKpiDetailData: [],
-    findGoodpushKpiDetailData: [],
+    collegeHomePageData: null,
+    adminHomePageData: null,
+    classHomePageData: null,
+    familyHomePageData: null,
+    groupHomePageData: null,
+    groupRankListData: null,
+    findRenewalKpiDetailData: null,
+    findGoodpushKpiDetailData: null,
   },
 
   subscriptions: {

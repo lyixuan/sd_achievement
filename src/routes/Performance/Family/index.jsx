@@ -16,9 +16,16 @@ class Family extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // month: this.currentMonth(),
-      // collegeId,
-      // userId,
+      familyHomePageDataNone: {
+        totalKpi: ' - ',
+        serviceStuCount: '-',
+        teacherCount: '-',
+        totalIncomeOrderCount: '-',
+        registrationAbove60minCount: '-',
+        registrationAbove60minPercent: '-',
+        goodpushFinanceNetFlow: '-',
+        renewalFinanceNewFlow: '-',
+      },
     };
   }
 
@@ -63,6 +70,7 @@ class Family extends React.Component {
 
   render() {
     const { familyHomePageData } = this.props.performance;
+    const { familyHomePageDataNone } = this.state;
     const columnsData = [
       {
         title: '绩效子项',
@@ -112,53 +120,75 @@ class Family extends React.Component {
               }}
             />
           </div>
-          {familyHomePageData && (
-            <div className={styles.familyContent}>
-              <div className={styles.meta}>
-                <span>{familyHomePageData.totalKpi}</span>
-                <span>元</span>
-              </div>
-              <div className={styles.middle}>
-                <ul>
-                  <li>
-                    <p>管理规模</p>
-                    <p>
-                      在服学员 {familyHomePageData.serviceStuCount} | 老师{' '}
-                      {familyHomePageData.teacherCount}
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      创收单量 {familyHomePageData.totalIncomeOrderCount} | 足课单量{' '}
-                      {familyHomePageData.registrationAbove60minCount} | 足课占比{' '}
-                      {familyHomePageData.registrationAbove60minPercent}
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      好推净流水 {familyHomePageData.goodpushFinanceNetFlow} 元 | 续报净流水{' '}
-                      {familyHomePageData.renewalFinanceNewFlow}元
-                    </p>
-                  </li>
-                </ul>
-              </div>
-              <Table
-                history={this.props.history}
-                columnsData={columnsData}
-                rowData={familyHomePageData.incomeKpiItemList}
-                newParams={newParams}
-              />
-
-              <div className={styles.group} onClick={() => this.gotoGroup()}>
-                <div>
-                  <img src={Bitmap} alt="logo" className={styles.logo} />
-                  <span>小组绩效</span>
-                </div>
-                <Icon type="right" size="xs" color="#00ccc3" />
-              </div>
+          <div className={styles.familyContent}>
+            <div className={styles.meta}>
+              <span>
+                {familyHomePageData ? familyHomePageData.totalKpi : familyHomePageDataNone.totalKpi}
+              </span>
+              <span>元</span>
             </div>
-          )}
-          {!familyHomePageData && <div />}
+            <div className={styles.middle}>
+              <ul>
+                <li>
+                  <p>管理规模</p>
+                  <p>
+                    在服学员{' '}
+                    {familyHomePageData
+                      ? familyHomePageData.serviceStuCount
+                      : familyHomePageDataNone.serviceStuCount}{' '}
+                    | 老师{' '}
+                    {familyHomePageData
+                      ? familyHomePageData.teacherCount
+                      : familyHomePageDataNone.teacherCount}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    创收单量{' '}
+                    {familyHomePageData
+                      ? familyHomePageData.totalIncomeOrderCount
+                      : familyHomePageDataNone.totalIncomeOrderCount}{' '}
+                    | 足课单量{' '}
+                    {familyHomePageData
+                      ? familyHomePageData.registrationAbove60minCount
+                      : familyHomePageDataNone.registrationAbove60minCount}{' '}
+                    | 足课占比{' '}
+                    {familyHomePageData
+                      ? familyHomePageData.registrationAbove60minPercent
+                      : familyHomePageDataNone.registrationAbove60minPercent}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    好推净流水{' '}
+                    {familyHomePageData
+                      ? familyHomePageData.goodpushFinanceNetFlow
+                      : familyHomePageDataNone.goodpushFinanceNetFlow}{' '}
+                    元 | 续报净流水{' '}
+                    {familyHomePageData
+                      ? familyHomePageData.renewalFinanceNewFlow
+                      : familyHomePageDataNone.goodpushFinanceNetFlow}元
+                  </p>
+                </li>
+              </ul>
+            </div>
+            {familyHomePageData &&
+              familyHomePageData.incomeKpiItemList && (
+                <Table
+                  history={this.props.history}
+                  columnsData={columnsData}
+                  rowData={familyHomePageData.incomeKpiItemList}
+                  newParams={newParams}
+                />
+              )}
+            <div className={styles.group} onClick={() => this.gotoGroup()}>
+              <div>
+                <img src={Bitmap} alt="logo" className={styles.logo} />
+                <span>小组绩效</span>
+              </div>
+              <Icon type="right" size="xs" color="#00ccc3" />
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -167,5 +197,5 @@ class Family extends React.Component {
 
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance,
+  isloading: loading.models.performance.familyHomePage,
 }))(Family);

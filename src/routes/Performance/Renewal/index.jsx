@@ -8,6 +8,7 @@ import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator'
 import Table from '../component/table';
 import styles from './index.less';
 import bg2 from '../../../assets/bg2.png';
+import noData from '../../../assets/nodata.png';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -132,68 +133,69 @@ class Renewal extends React.Component {
       },
     ];
     return (
-      <div className={styles.performanceConBg2}>
-        <img src={bg2} alt="续报" style={{ position: 'absolute', zIndex: '-1', width: '100%' }} />
-        <div className={styles.dateWrapBg}>
-          <div className={styles.time}>{this.formate()}</div>
-        </div>
-        {findRenewalKpiDetailData && (
+      <div>
+        <div className={styles.performanceConBg2}>
+          <img src={bg2} alt="续报" style={{ position: 'absolute', zIndex: '-1', width: '100%' }} />
+          <div className={styles.dateWrapBg}>
+            <div className={styles.time}>{this.formate()}</div>
+          </div>
           <div className={styles.teacherContent}>
             <div className={styles.meta}>
-              <span className={styles.total}>{totalkpi}</span>
+              <span className={styles.total}>{findRenewalKpiDetailData ? totalkpi : '-'}</span>
               <span className={styles.price}>元</span>
             </div>
             <div className={styles.middle}>
               <p>续报绩效 = 续报净流水 x 岗位提点</p>
             </div>
-            <div className={styles.presidentContent}>
-              <p className={styles.meta}>
-                {columnsDataMeta.map(item => {
-                  return <span key={item.title}>{item.title}</span>;
-                })}
-              </p>
-              <ul className={styles.list}>
-                {findRenewalKpiDetailData.map(item => {
-                  return (
-                    <li key={item.positionType}>
-                      <div className={styles.items}>
-                        <span>{item.positionType}</span>
-                        <span>{item.positionPointKpi}</span>
-                        <span>{item.totalFinanceNetFlow}</span>
-                        <span>{item.totalKpi}</span>
-                        <span
-                          onClick={() => this.toggle(item.index)}
-                          style={{
-                            alignItems: 'center',
-                            width: '10%',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          <Icon
-                            type={(index || showFirstId) === item.index ? 'up' : 'down'}
-                            size="xs"
-                            color="#00ccc3"
+            {findRenewalKpiDetailData && (
+              <div className={styles.presidentContent}>
+                <p className={styles.meta}>
+                  {columnsDataMeta.map(item => {
+                    return <span key={item.title}>{item.title}</span>;
+                  })}
+                </p>
+                <ul className={styles.list}>
+                  {findRenewalKpiDetailData.map(item => {
+                    return (
+                      <li key={item.positionType}>
+                        <div className={styles.items}>
+                          <span>{item.positionType}</span>
+                          <span>{item.positionPointKpi}</span>
+                          <span>{item.totalFinanceNetFlow}</span>
+                          <span>{item.totalKpi}</span>
+                          <span
+                            onClick={() => this.toggle(item.index)}
+                            style={{
+                              alignItems: 'center',
+                              width: '10%',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <Icon
+                              type={(index || showFirstId) === item.index ? 'up' : 'down'}
+                              size="xs"
+                              color="#00ccc3"
+                            />
+                          </span>
+                        </div>
+                        {(index || showFirstId) === item.index && (
+                          <Table
+                            history={this.props.history}
+                            columnsData={columnsData}
+                            rowData={item.renewalOrderList}
                           />
-                        </span>
-                      </div>
-                      {(index || showFirstId) === item.index && (
-                        <Table
-                          history={this.props.history}
-                          columnsData={columnsData}
-                          rowData={item.renewalOrderList}
-                        />
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            {/* {<Table columnsData={columnsData} rowData={findRenewalKpiDetailData} />} */}
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
           </div>
-        )}
-        {!findRenewalKpiDetailData && <div>暂无数据</div>}
+        </div>
+        {!findRenewalKpiDetailData && <img src={noData} alt="nodata" className={styles.noData} />}
       </div>
     );
   }
@@ -201,5 +203,5 @@ class Renewal extends React.Component {
 
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance,
+  isloading: loading.models.performance.findRenewalKpiDetail,
 }))(Renewal);
