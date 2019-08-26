@@ -18,12 +18,23 @@ class President extends React.Component {
       month: this.currentMonth(),
       id: 0,
       id1: 0,
+      bflag: true,
+      bflag1: false,
     };
   }
 
   componentDidMount() {
     this.getPresidentData();
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const { id } = this.state;
+  //   if (nextState.id !== id) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
   // 院长
   onDateChange = month => {
     setItem('month', month);
@@ -45,11 +56,15 @@ class President extends React.Component {
     });
   };
 
-  toggle = id => {
-    this.setState({ id });
+  toggle = (e, id, bol) => {
+    e.stopPropagation();
+    const { bflag } = this.state;
+    this.setState({ id, bflag: bol ? !bflag : true });
   };
-  toggle1 = id1 => {
-    this.setState({ id1 });
+  toggle1 = (e, id1, bol) => {
+    const { bflag1 } = this.state;
+    e.stopPropagation();
+    this.setState({ id1, bflag1: bol ? !bflag1 : true });
   };
 
   goto = (id, id2, itemType) => {
@@ -108,7 +123,7 @@ class President extends React.Component {
     });
   };
   renderIem1 = (id, groupKpiList) => {
-    const { id1 } = this.state;
+    const { id1, bflag1 } = this.state;
     return groupKpiList.map(item => {
       return (
         <li key={item.itemName}>
@@ -133,25 +148,29 @@ class President extends React.Component {
               )}
               {item.itemType === 1 && (
                 <Icon
-                  onClick={() => this.toggle1(item.itemId)}
-                  type={id1 === item.itemId ? 'up' : 'down'}
+                  onClick={e => this.toggle1(e, item.itemId, id1 === item.itemId)}
+                  type={id1 === item.itemId && bflag1 ? 'up' : 'down'}
                   size="xs"
                   color="#00ccc3"
                 />
               )}
             </span>
           </div>
-          {item.itemId === id1 &&
-            item.itemType === 1 && (
-              <ul className={styles.list2}>{this.renderIem2(item.itemId, item.classKpiList)}</ul>
-            )}
+          <ul
+            style={{
+              display: item.itemId === id1 && bflag1 && item.itemType === 1 ? 'block' : 'none',
+            }}
+            className={styles.list2}
+          >
+            {this.renderIem2(item.itemId, item.classKpiList)}
+          </ul>
         </li>
       );
     });
   };
   render() {
     const { collegeHomePageData } = this.props.performance;
-    const { id, month } = this.state;
+    const { id, month, bflag } = this.state;
     // 默认第一个展示
     const showFirstId =
       collegeHomePageData && collegeHomePageData.length && collegeHomePageData[0].itemId;
@@ -182,12 +201,16 @@ class President extends React.Component {
               <ul className={styles.list}>
                 {collegeHomePageData.map(item => {
                   return (
-                    <li key={item.itemName}>
+                    <li
+                      key={item.itemName}
+                      onClick={e =>
+                        this.toggle(e, item.itemId, (id || showFirstId) === item.itemId)
+                      }
+                    >
                       <div className={styles.items}>
                         <span>{item.itemName}</span>
                         <span>{item.totalKpi}</span>
                         <span
-                          onClick={() => this.toggle(item.itemId)}
                           style={{
                             alignItems: 'center',
                             width: '10%',
@@ -196,17 +219,24 @@ class President extends React.Component {
                           }}
                         >
                           <Icon
-                            type={(id || showFirstId) === item.itemId ? 'up' : 'down'}
+                            type={
+                              (id || showFirstId) === item.itemId && item.itemType === 1 && bflag
+                                ? 'up'
+                                : 'down'
+                            }
                             size="xs"
                             color="#00ccc3"
                           />
                         </span>
                       </div>
-                      {(id || showFirstId) === item.itemId && (
-                        <ul className={styles.list1}>
-                          {this.renderIem1(item.itemId, item.groupKpiList)}
-                        </ul>
-                      )}
+                      <ul
+                        className={styles.list1}
+                        style={{
+                          display: (id || showFirstId) === item.itemId && bflag ? 'block' : 'none',
+                        }}
+                      >
+                        {this.renderIem1(item.itemId, item.groupKpiList)}
+                      </ul>
                     </li>
                   );
                 })}
