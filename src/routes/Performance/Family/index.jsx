@@ -24,7 +24,7 @@ class Family extends React.Component {
         registrationAbove60minCount: '-',
         registrationAbove60minPercent: '-',
         goodpushFinanceNetFlow: '-',
-        renewalFinanceNewFlow: '-',
+        renewalFinanceNetFlow: '-',
       },
     };
   }
@@ -163,11 +163,11 @@ class Family extends React.Component {
                     好推净流水{' '}
                     {familyHomePageData
                       ? familyHomePageData.goodpushFinanceNetFlow
-                      : familyHomePageDataNone.goodpushFinanceNetFlow}{' '}
-                    元 | 续报净流水{' '}
+                      : familyHomePageDataNone.goodpushFinanceNetFlow}
+                    元 | 续报净流水
                     {familyHomePageData
-                      ? familyHomePageData.renewalFinanceNewFlow
-                      : familyHomePageDataNone.goodpushFinanceNetFlow}元
+                      ? familyHomePageData.renewalFinanceNetFlow
+                      : familyHomePageDataNone.renewalFinanceNetFlow}元
                   </p>
                 </li>
               </ul>

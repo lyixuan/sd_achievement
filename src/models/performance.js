@@ -13,6 +13,11 @@ import {
 } from '../services/api';
 import Message from '../components/Message';
 
+const name = {
+  key1: '续报绩效',
+  key2: '好推绩效',
+};
+
 export default {
   namespace: 'performance',
 
@@ -72,6 +77,18 @@ export default {
     *classHomePage({ payload }, { call, put }) {
       const response = yield call(classHomePage, { ...payload });
       if (response.code === 2000) {
+        // eslint-disable-line
+        if (response.data.incomeKpiItemList.length) {
+          response.data.incomeKpiItemList.forEach(item => {
+            let { itemKey } = item;
+            if (itemKey === 1) {
+              itemKey = name.key1;
+            } else {
+              itemKey = name.key2;
+            }
+            return item;
+          });
+        }
         yield put({
           type: 'save',
           payload: { classHomePageData: response.data },
@@ -89,6 +106,18 @@ export default {
     *familyHomePage({ payload }, { call, put }) {
       const response = yield call(familyHomePage, { ...payload });
       if (response.code === 2000) {
+        // eslint-disable-line
+        if (response.data.incomeKpiItemList.length) {
+          response.data.incomeKpiItemList.forEach(item => {
+            let { itemKey } = item;
+            if (itemKey === 1) {
+              itemKey = name.key1;
+            } else {
+              itemKey = name.key2;
+            }
+            return item;
+          });
+        }
         yield put({
           type: 'save',
           payload: { familyHomePageData: response.data },
@@ -106,6 +135,18 @@ export default {
     *groupHomePage({ payload }, { call, put }) {
       const response = yield call(groupHomePage, { ...payload });
       if (response.code === 2000) {
+        // eslint-disable-line
+        if (response.data.incomeKpiItemList.length) {
+          response.data.incomeKpiItemList.forEach(item => {
+            let { itemKey } = item;
+            if (itemKey === 1) {
+              itemKey = name.key1;
+            } else {
+              itemKey = name.key2;
+            }
+            return item;
+          });
+        }
         yield put({
           type: 'save',
           payload: { groupHomePageData: response.data },

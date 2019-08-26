@@ -7,6 +7,7 @@ import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator'
 import Table from '../component/table';
 import styles from './index.less';
 import bg3 from '../../../assets/bg3.png';
+import noData from '../../../assets/nodata.png';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -15,8 +16,16 @@ class Operation extends React.Component {
     super(props);
     this.state = {
       month: this.currentMonth(),
-      // collegeId,
-      // userId,
+      groupHomePageDataNone: {
+        totalKpi: ' - ',
+        serviceStuCount: '-',
+        teacherCount: '-',
+        totalIncomeOrderCount: '-',
+        registrationAbove60minCount: '-',
+        registrationAbove60minPercent: '-',
+        goodpushFinanceNetFlow: '-',
+        renewalFinanceNetFlow: '-',
+      },
     };
   }
 
@@ -57,6 +66,7 @@ class Operation extends React.Component {
     // const { listData } = this.props;
     const { month } = this.state;
     const { groupHomePageData } = this.props.performance;
+    const { groupHomePageDataNone } = this.state;
     const columnsData = [
       {
         title: '绩效子项',
@@ -107,32 +117,34 @@ class Operation extends React.Component {
     }
 
     return (
-      <div className={styles.performanceConBg}>
-        <div className={styles.performanceConBg3}>
-          <img
-            src={bg3}
-            alt="运营长"
-            style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
-          />
-          <div className={styles.dateWrapBg}>
-            <DatePanle
-              dateAreaResult
-              isColor
-              defaultDate={month}
-              toHideImg
-              toHistoryPage={() => {
-                this.toHistoryPage();
-              }}
-              isperformance
-              onChange={date => {
-                this.onDateChange(date);
-              }}
+      <div>
+        <div className={styles.performanceConBg}>
+          <div className={styles.performanceConBg3}>
+            <img
+              src={bg3}
+              alt="运营长"
+              style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
             />
-          </div>
-          {groupHomePageData && (
+            <div className={styles.dateWrapBg}>
+              <DatePanle
+                dateAreaResult
+                isColor
+                defaultDate={month}
+                toHideImg
+                toHistoryPage={() => {
+                  this.toHistoryPage();
+                }}
+                isperformance
+                onChange={date => {
+                  this.onDateChange(date);
+                }}
+              />
+            </div>
             <div className={styles.familyContent}>
               <div className={styles.meta}>
-                <span>{groupHomePageData.totalKpi}</span>
+                <span>
+                  {groupHomePageData ? groupHomePageData.totalKpi : groupHomePageDataNone.totalKpi}
+                </span>
                 <span>元</span>
               </div>
               <div className={styles.middle}>
@@ -140,48 +152,71 @@ class Operation extends React.Component {
                   <li>
                     <p>管理规模</p>
                     <p>
-                      在服学员 {groupHomePageData.serviceStuCount} | 老师{' '}
-                      {groupHomePageData.teacherCount}
+                      在服学员{' '}
+                      {groupHomePageData
+                        ? groupHomePageData.serviceStuCount
+                        : groupHomePageDataNone.serviceStuCount}{' '}
+                      | 老师{' '}
+                      {groupHomePageData
+                        ? groupHomePageData.teacherCount
+                        : groupHomePageDataNone.teacherCount}
                     </p>
                   </li>
                   <li>
                     <p>
-                      创收单量 {groupHomePageData.totalIncomeOrderCount} | 足课单量{' '}
-                      {groupHomePageData.registrationAbove60minCount} | 足课占比{' '}
-                      {groupHomePageData.registrationAbove60minPercent}
+                      创收单量{' '}
+                      {groupHomePageData
+                        ? groupHomePageData.totalIncomeOrderCount
+                        : groupHomePageDataNone.totalIncomeOrderCount}{' '}
+                      | 足课单量{' '}
+                      {groupHomePageData
+                        ? groupHomePageData.registrationAbove60minCount
+                        : groupHomePageDataNone.registrationAbove60minCount}{' '}
+                      | 足课占比{' '}
+                      {groupHomePageData
+                        ? groupHomePageData.registrationAbove60minPercent
+                        : groupHomePageDataNone.registrationAbove60minPercent}
                     </p>
                   </li>
                   <li>
                     <p>
-                      好推净流水 {groupHomePageData.goodpushFinanceNetFlow} 元 | 续报净流水{' '}
-                      {groupHomePageData.renewalFinanceNewFlow}元
+                      好推净流水{' '}
+                      {groupHomePageData
+                        ? groupHomePageData.goodpushFinanceNetFlow
+                        : groupHomePageDataNone.goodpushFinanceNetFlow}{' '}
+                      元 | 续报净流水{' '}
+                      {groupHomePageData
+                        ? groupHomePageData.renewalFinanceNetFlow
+                        : groupHomePageDataNone.renewalFinanceNetFlow}元
                     </p>
                   </li>
                 </ul>
               </div>
-              {groupHomePageData.incomeKpiItemList && (
-                <Table
-                  history={this.props.history}
-                  columnsData={columnsData}
-                  rowData={groupHomePageData.incomeKpiItemList}
-                  newParams={newParams}
-                />
-              )}
-              {!groupHomePageData.incomeKpiItemList && <div>暂无数据</div>}
-              <div className={styles.teacher}>
-                <p>班主任预测绩效</p>
-                {groupHomePageData.teacherKpiItemList && (
+              {groupHomePageData &&
+                groupHomePageData.incomeKpiItemList && (
                   <Table
                     history={this.props.history}
-                    columnsData={columnsData1}
-                    rowData={groupHomePageData.teacherKpiItemList}
-                    newParams={newParams1}
+                    columnsData={columnsData}
+                    rowData={groupHomePageData.incomeKpiItemList}
+                    newParams={newParams}
                   />
                 )}
-              </div>
+              {groupHomePageData &&
+                groupHomePageData.teacherKpiItemList && (
+                  <div className={styles.teacher}>
+                    <p>班主任预测绩效</p>
+                    <Table
+                      history={this.props.history}
+                      columnsData={columnsData1}
+                      rowData={groupHomePageData.teacherKpiItemList}
+                      newParams={newParams1}
+                    />
+                  </div>
+                )}
             </div>
-          )}
+          </div>
         </div>
+        {!groupHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
       </div>
     );
   }
