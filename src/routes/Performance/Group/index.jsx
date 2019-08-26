@@ -17,6 +17,7 @@ class President extends React.Component {
       month: this.currentMonth(),
       id: 0,
       id1: 0,
+      bflag: true,
     };
   }
 
@@ -39,19 +40,11 @@ class President extends React.Component {
   getGroupData = () => {
     const { query } = url.parse(this.props.location.search, true);
     const currentAuthInfo = getCurrentAuthInfo();
-    // const month = this.currentMonth();
-    // const { groupId, userId } = query || currentAuthInfo;
     const params = {
       reportMonth: this.currentMonth(),
       familyId: query.familyId || currentAuthInfo.familyId,
       userId: query.userId || currentAuthInfo.userId,
     };
-
-    // const params = {
-    //   reportMonth: '2019-05',
-    //   familyId: 184,
-    //   userId: '123',
-    // };
 
     this.props.dispatch({
       type: 'performance/groupRankList',
@@ -59,8 +52,10 @@ class President extends React.Component {
     });
   };
 
-  toggle = id => {
-    this.setState({ id });
+  toggle = (e, id, bol) => {
+    e.stopPropagation();
+    const { bflag } = this.state;
+    this.setState({ id, bflag: bol ? !bflag : true });
   };
   toggle1 = id1 => {
     this.setState({ id1 });
@@ -135,7 +130,7 @@ class President extends React.Component {
   };
   render() {
     const { groupRankListData = [] } = this.props.performance;
-    const { id, month } = this.state;
+    const { id, month, bflag } = this.state;
     // 默认第一个展示
     let showFirstId = 0;
     if (groupRankListData) {
@@ -167,12 +162,15 @@ class President extends React.Component {
             {groupRankListData &&
               groupRankListData.map(item => {
                 return (
-                  <li key={item.itemName}>
+                  <li
+                    key={item.itemName}
+                    onClick={e => this.toggle(e, item.itemId, (id || showFirstId) === item.itemId)}
+                  >
                     <div className={styles.items}>
                       <span>{item.itemName}</span>
                       <span>{item.totalKpi}</span>
                       <span
-                        onClick={() => this.toggle(item.itemId)}
+                        // onClick={() => this.toggle(item.itemId)}
                         style={{
                           alignItems: 'center',
                           width: '10%',
@@ -181,17 +179,24 @@ class President extends React.Component {
                         }}
                       >
                         <Icon
-                          type={(id || showFirstId) === item.itemId ? 'up' : 'down'}
+                          type={
+                            (id || showFirstId) === item.itemId && item.itemType === 1 && bflag
+                              ? 'up'
+                              : 'down'
+                          }
                           size="xs"
                           color="#00ccc3"
                         />
                       </span>
                     </div>
-                    {(id || showFirstId) === item.itemId && (
-                      <ul className={styles.list1}>
-                        {this.renderIem1(item.itemId, item.classKpiList)}
-                      </ul>
-                    )}
+                    <ul
+                      className={styles.list1}
+                      style={{
+                        display: (id || showFirstId) === item.itemId && bflag ? 'block' : 'none',
+                      }}
+                    >
+                      {this.renderIem1(item.itemId, item.classKpiList)}
+                    </ul>
                   </li>
                 );
               })}
