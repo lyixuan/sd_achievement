@@ -17,6 +17,7 @@ class Renewal extends React.Component {
     super(props);
     this.state = {
       index: 0,
+      bflag: true,
       // month: this.currentMonth(),
       // collegeId,
       // userId,
@@ -59,8 +60,10 @@ class Renewal extends React.Component {
     });
   };
 
-  toggle = index => {
-    this.setState({ index });
+  toggle = (e, index, bol) => {
+    e.stopPropagation();
+    const { bflag } = this.state;
+    this.setState({ index, bflag: bol ? !bflag : true });
   };
 
   formate = () => {
@@ -77,7 +80,7 @@ class Renewal extends React.Component {
   };
 
   render() {
-    const { index } = this.state;
+    const { index, bflag } = this.state;
     const { findRenewalKpiDetailData } = this.props.performance;
     let totalkpi = 0;
     if (findRenewalKpiDetailData) {
@@ -157,14 +160,19 @@ class Renewal extends React.Component {
                 <ul className={styles.list}>
                   {findRenewalKpiDetailData.map(item => {
                     return (
-                      <li key={item.positionType}>
+                      <li
+                        onClick={e =>
+                          this.toggle(e, item.index, (index || showFirstId) === item.index)
+                        }
+                        key={item.positionType}
+                      >
                         <div className={styles.items}>
                           <span>{item.positionType}</span>
                           <span>{item.positionPointKpi}</span>
                           <span>{item.totalFinanceNetFlow}</span>
                           <span>{item.totalKpi}</span>
                           <span
-                            onClick={() => this.toggle(item.index)}
+                            // onClick={() => this.toggle(item.index)}
                             style={{
                               alignItems: 'center',
                               width: '10%',
@@ -174,19 +182,24 @@ class Renewal extends React.Component {
                             }}
                           >
                             <Icon
-                              type={(index || showFirstId) === item.index ? 'up' : 'down'}
+                              type={(index || showFirstId) === item.index && bflag ? 'up' : 'down'}
                               size="xs"
                               color="#00ccc3"
                             />
                           </span>
                         </div>
-                        {(index || showFirstId) === item.index && (
+                        <div
+                          style={{
+                            display:
+                              (index || showFirstId) === item.index && bflag ? 'block' : 'none',
+                          }}
+                        >
                           <Table
                             history={this.props.history}
                             columnsData={columnsData}
                             rowData={item.renewalOrderList}
                           />
-                        )}
+                        </div>
                       </li>
                     );
                   })}
