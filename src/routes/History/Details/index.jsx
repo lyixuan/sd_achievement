@@ -22,7 +22,6 @@ class HistoryDetails extends React.Component {
     super(props);
     const { urlParams = {} } = props;
     const currentAuthInfo = this.currentAuthInfo() || {};
-    console.log(currentAuthInfo);
     const {
       collegeId = '',
       groupType = '',

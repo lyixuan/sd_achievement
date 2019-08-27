@@ -80,7 +80,6 @@ export function assignUrlParams(paramsObj = {}, urlParams = {}) {
 */
 export function checkoutAuthUrl() {
   const { groupType = null, isKpi } = getCurrentAuthInfo();
-  console.log(getCurrentAuthInfo(), 'getCurrentAuthInfo()');
   if (!isKpi) {
     return '/exception/403';
   }

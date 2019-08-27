@@ -63,7 +63,6 @@ class GoodPush extends React.Component {
   // };
 
   toggle = (e, index, bol) => {
-    console.log(index, 'index');
     e.stopPropagation();
     const { bflag } = this.state;
     this.setState({ index, bflag: bol ? !bflag : true });
