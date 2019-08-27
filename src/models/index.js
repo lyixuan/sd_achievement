@@ -6,6 +6,22 @@ import Message from '../components/Message';
 
 import { getUserInfo, getDisableTime, getKpiUserInfoByMonth, operateLog } from '../services/api';
 
+function getSource() {
+  // 参数枚举值：1 学分绩效，2 创收绩效，3 其他...（后续接入其他系统可扩充）
+  let source = getItem('entrance') && getItem('entrance').value;
+  switch (source) {
+    case 'achievement':
+      source = 1;
+      break;
+    case 'income':
+      source = 2;
+      break;
+    default:
+      source = 0;
+      break;
+  }
+  return source;
+}
 function splitDepartment(str = '') {
   const newStr = str || '';
   return newStr.split('-') || [];
@@ -57,23 +73,22 @@ export default {
     *getUserInfo({ payload }, { call, put }) {
       // eslint-disable-line
       const entUserId = payload.userId;
-      // 参数枚举值：1 学分绩效，2 创收绩效，3 其他...（后续接入其他系统可扩充）
-      // const source = getItem('entrance') && getItem('entrance').value === 'income' ? '2' : '1';
-      let source = getItem('entrance') && getItem('entrance').value;
-      switch (source) {
-        case 'achievement':
-          source = 1;
-          break;
-        case 'income':
-          source = 2;
-          break;
-        default:
-          source = 0;
-          break;
-      }
+
+      // let source = getItem('entrance') && getItem('entrance').value;
+      // switch (source) {
+      //   case 'achievement':
+      //     source = 1;
+      //     break;
+      //   case 'income':
+      //     source = 2;
+      //     break;
+      //   default:
+      //     source = 0;
+      //     break;
+      // }
       // 切换月份中使用
       const { month = '', id = null } = payload;
-      const response = yield call(getUserInfo, { entUserId, month, source });
+      const response = yield call(getUserInfo, { entUserId, month, source: getSource() });
       if (response.code !== 2000) {
         Message.fail(response.msg);
         yield put(routerRedux.push('/exception/403'));
@@ -110,7 +125,7 @@ export default {
     *fetchKpiUserInfoByMonth({ payload }, { call, put }) {
       const { currentAuthInfo = {}, month = '' } = payload;
       const userId = currentAuthInfo.userId || '';
-      const response = yield call(getKpiUserInfoByMonth, { userId, month });
+      const response = yield call(getKpiUserInfoByMonth, { userId, month, source: getSource() });
       if (response.code === 2000) {
         const data = response.data || {};
         if (data.id) {
@@ -130,7 +145,7 @@ export default {
     *fetchKpiUserInfoPerformance({ payload }, { call, put }) {
       const { currentAuthInfo = {}, month = '' } = payload;
       const userId = currentAuthInfo.userId || '';
-      const response = yield call(getKpiUserInfoByMonth, { userId, month });
+      const response = yield call(getKpiUserInfoByMonth, { userId, month, source: getSource() });
       if (response.code === 2000) {
         const data = response.data || {};
         if (data.id) {
