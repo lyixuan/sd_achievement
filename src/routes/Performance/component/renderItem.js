@@ -13,7 +13,7 @@ class RenderItem extends React.Component {
       return;
     }
     const { userType } = newParams;
-    const pathname = key === 1 ? '/performance/renewal' : '/performance/goodpush';
+    const pathname = key === '续报绩效' ? '/performance/renewal' : '/performance/goodpush';
     switch (userType) {
       case 21: // 21	人员-家族长
         this.props.history.push({
@@ -51,7 +51,7 @@ class RenderItem extends React.Component {
   };
   render() {
     const { rowData, columnsData } = this.props;
-    if (!rowData) return <div>11</div>;
+    if (!rowData) return <div />;
     return (
       <tbody className={styles.content}>
         {rowData.map((item, index) => {

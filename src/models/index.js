@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { setItem } from 'utils/localStorage';
+import { setItem, getItem } from 'utils/localStorage';
 import { getUserId } from 'utils/authority';
 import { assignUrlParams } from 'utils/routerUtils';
 import Message from '../components/Message';
@@ -57,9 +57,23 @@ export default {
     *getUserInfo({ payload }, { call, put }) {
       // eslint-disable-line
       const entUserId = payload.userId;
+      // 参数枚举值：1 学分绩效，2 创收绩效，3 其他...（后续接入其他系统可扩充）
+      // const source = getItem('entrance') && getItem('entrance').value === 'income' ? '2' : '1';
+      let source = getItem('entrance') && getItem('entrance').value;
+      switch (source) {
+        case 'achievement':
+          source = 1;
+          break;
+        case 'income':
+          source = 2;
+          break;
+        default:
+          source = 0;
+          break;
+      }
       // 切换月份中使用
       const { month = '', id = null } = payload;
-      const response = yield call(getUserInfo, { entUserId, month });
+      const response = yield call(getUserInfo, { entUserId, month, source });
       if (response.code !== 2000) {
         Message.fail(response.msg);
         yield put(routerRedux.push('/exception/403'));

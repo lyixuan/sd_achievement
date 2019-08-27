@@ -86,14 +86,16 @@ export default {
       if (response.code === 2000) {
         // eslint-disable-line
         if (response.data.incomeKpiItemList.length) {
-          response.data.incomeKpiItemList.forEach(item => {
-            let { itemKey } = item;
-            if (itemKey === 1) {
-              itemKey = name.key1;
-            } else {
-              itemKey = name.key2;
+          response.data.incomeKpiItemList.map(item => {
+            const newItem = item;
+            // eslint-disable-line
+            if (newItem.itemKey === 1) {
+              newItem.itemKey = name.key1;
             }
-            return item;
+            if (newItem.itemKey === 2) {
+              newItem.itemKey = name.key2;
+            }
+            return newItem;
           });
         }
         yield put({
@@ -115,14 +117,16 @@ export default {
       if (response.code === 2000) {
         // eslint-disable-line
         if (response.data.incomeKpiItemList.length) {
-          response.data.incomeKpiItemList.forEach(item => {
-            let { itemKey } = item;
-            if (itemKey === 1) {
-              itemKey = name.key1;
-            } else {
-              itemKey = name.key2;
+          response.data.incomeKpiItemList.map(item => {
+            const newItem = item;
+            // eslint-disable-line
+            if (newItem.itemKey === 1) {
+              newItem.itemKey = name.key1;
             }
-            return item;
+            if (newItem.itemKey === 2) {
+              newItem.itemKey = name.key2;
+            }
+            return newItem;
           });
         }
         yield put({
@@ -144,14 +148,16 @@ export default {
       if (response.code === 2000) {
         // eslint-disable-line
         if (response.data.incomeKpiItemList.length) {
-          response.data.incomeKpiItemList.forEach(item => {
-            let { itemKey } = item;
-            if (itemKey === 1) {
-              itemKey = name.key1;
-            } else {
-              itemKey = name.key2;
+          response.data.incomeKpiItemList.map(item => {
+            const newItem = item;
+            // eslint-disable-line
+            if (newItem.itemKey === 1) {
+              newItem.itemKey = name.key1;
             }
-            return item;
+            if (newItem.itemKey === 2) {
+              newItem.itemKey = name.key2;
+            }
+            return newItem;
           });
         }
         yield put({

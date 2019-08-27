@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
-import { setItem } from 'utils/localStorage';
+import { setItem, getItem } from 'utils/localStorage';
 import DatePanle from 'container/DatePanle';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import styles from './index.less';
@@ -69,18 +69,20 @@ class Admin extends React.Component {
       <div>
         <div className={styles.performanceCon}>
           <div className={styles.dateWrap}>
-            <DatePanle
-              dateAreaResult
-              defaultDate={this.currentMonth()}
-              toHideImg
-              toHistoryPage={() => {
-                this.toHistoryPage();
-              }}
-              isperformance
-              onChange={date => {
-                this.onDateChange(date);
-              }}
-            />
+            {getItem('timeDatePerformance').value && (
+              <DatePanle
+                dateAreaResult
+                defaultDate={this.currentMonth()}
+                toHideImg
+                toHistoryPage={() => {
+                  this.toHistoryPage();
+                }}
+                isperformance
+                onChange={date => {
+                  this.onDateChange(date);
+                }}
+              />
+            )}
           </div>
           {adminHomePageData && (
             <div className={styles.presidentContent}>
