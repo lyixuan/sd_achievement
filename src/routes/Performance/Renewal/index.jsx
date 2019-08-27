@@ -188,17 +188,22 @@ class Renewal extends React.Component {
                             />
                           </span>
                         </div>
+
                         <div
                           style={{
                             display:
                               (index || showFirstId) === item.index && bflag ? 'block' : 'none',
                           }}
                         >
-                          <Table
-                            history={this.props.history}
-                            columnsData={columnsData}
-                            rowData={item.renewalOrderList}
-                          />
+                          {item.renewalOrderList.length ? (
+                            <Table
+                              history={this.props.history}
+                              columnsData={columnsData}
+                              rowData={item.renewalOrderList}
+                            />
+                          ) : (
+                            <div className={styles.hasnone}>暂无数据</div>
+                          )}
                         </div>
                       </li>
                     );

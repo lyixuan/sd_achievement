@@ -18,6 +18,13 @@ const name = {
   key2: '好推绩效',
 };
 
+const groupName = {
+  admin: '管理员',
+  college: '院长',
+  family: '家族长',
+  group: '运营长',
+  class: '班主任',
+};
 export default {
   namespace: 'performance',
 
@@ -190,6 +197,8 @@ export default {
           response.data.map((item, idx) => {
             // eslint-disable-next-line
             item.index = idx;
+            // eslint-disable-next-line
+            item.positionType = groupName[item.positionType];
             if (item.renewalOrderList.length) {
               return item.renewalOrderList.map(list => {
                 // eslint-disable-next-line
@@ -227,8 +236,12 @@ export default {
           response.data.map((item, idx) => {
             // eslint-disable-next-line
             item.index = idx;
+            // eslint-disable-next-line
+            item.positionType = groupName[item.positionType];
             if (item.renewalOrderList.length) {
               return item.renewalOrderList.map(list => {
+                // eslint-disable-next-line
+                list.goodpushValue = list.goodpushValue * 100;
                 // eslint-disable-next-line
                 list.registrationDate = moment(list.registrationDate).format('YYYY.MM.DD');
                 return item;
