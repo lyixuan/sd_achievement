@@ -26,15 +26,6 @@ class President extends React.Component {
   componentDidMount() {
     this.getPresidentData();
   }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const { id } = this.state;
-  //   if (nextState.id !== id) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
   // 院长
   onDateChange = month => {
     setItem('month', month);
@@ -97,7 +88,7 @@ class President extends React.Component {
   };
 
   renderIem2 = (id, classKpiList) => {
-    if (!classKpiList) {
+    if (!classKpiList || !classKpiList.length) {
       return <li className={styles.hasnone}>暂无数据</li>;
     }
     return classKpiList.map(item => {
