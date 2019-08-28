@@ -186,7 +186,7 @@ class Renewal extends React.Component {
                             <Icon
                               type={(index || showFirstId) === item.index && bflag ? 'up' : 'down'}
                               size="xs"
-                              color="#00ccc3"
+                              color={item.renewalOrderList.length === 0 ? '#ccc' : '#00ccc3'}
                             />
                           </span>
                         </div>
