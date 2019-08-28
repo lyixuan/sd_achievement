@@ -244,10 +244,10 @@ export default {
             item.index = idx;
             // eslint-disable-next-line
             item.positionType = groupName[item.positionType];
-            if (item.renewalOrderList.length) {
-              return item.renewalOrderList.map(list => {
+            if (item.goodpushOrderList.length) {
+              return item.goodpushOrderList.map(list => {
                 // eslint-disable-next-line
-                list.goodpushValue = list.goodpushValue * 100;
+                list.goodpushValue = `${list.goodpushValue}%`;
                 // eslint-disable-next-line
                 list.registrationDate = moment(list.registrationDate).format('YYYY.MM.DD');
                 return item;

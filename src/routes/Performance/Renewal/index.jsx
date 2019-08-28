@@ -170,7 +170,7 @@ class Renewal extends React.Component {
                       >
                         <div className={styles.items}>
                           <span>{item.positionType}</span>
-                          <span>{item.positionPointKpi}</span>
+                          <span>{item.positionPointKpi}%</span>
                           <span>{item.totalFinanceNetFlow}</span>
                           <span>{item.totalKpi}</span>
                           <span

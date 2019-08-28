@@ -89,7 +89,7 @@ class GoodPush extends React.Component {
     if (findGoodpushKpiDetailData) {
       findGoodpushKpiDetailData.map(item => {
         // eslint-disable-next-line
-        showFirstId = item.renewalOrderList.length === 0 ? -1 : 0;
+        showFirstId = item.goodpushOrderList.length === 0 ? -1 : 0;
         // eslint-disable-next-line
         return (totalkpi += item.totalKpi);
       });
@@ -183,7 +183,7 @@ class GoodPush extends React.Component {
                       >
                         <div className={styles.items}>
                           <span>{item.positionType}</span>
-                          <span>{item.positionDistribution}</span>
+                          <span>{item.positionDistribution}%</span>
                           <span>{item.totalKpi}</span>
                           <span
                             style={{
@@ -197,7 +197,7 @@ class GoodPush extends React.Component {
                             <Icon
                               type={(index || showFirstId) === item.index && bflag ? 'up' : 'down'}
                               size="xs"
-                              color={item.renewalOrderList.length === 0 ? '#ccc' : '#00ccc3'}
+                              color={item.goodpushOrderList.length === 0 ? '#ccc' : '#00ccc3'}
                             />
                           </span>
                         </div>
@@ -207,11 +207,11 @@ class GoodPush extends React.Component {
                               (index || showFirstId) === item.index && bflag ? 'block' : 'none',
                           }}
                         >
-                          {item.renewalOrderList.length !== 0 && (
+                          {item.goodpushOrderList.length !== 0 && (
                             <Table
                               history={this.props.history}
                               columnsData={columnsData}
-                              rowData={item.renewalOrderList}
+                              rowData={item.goodpushOrderList}
                             />
                           )}
                         </div>
