@@ -184,7 +184,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['performance'], () =>
         import('../routes/Performance/Admin/index')
       ),
-      title: '创收绩效-admin',
+      title: '创收绩效',
       showTitle: true,
       // isAuth: true,
     },
@@ -193,7 +193,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['performance'], () =>
         import('../routes/Performance/President/index')
       ),
-      title: '创收绩效-院长',
+      title: '创收绩效',
       showTitle: true,
       // isAuth: true,
     },
@@ -201,7 +201,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['performance'], () =>
         import('../routes/Performance/Family/index')
       ),
-      title: '创收绩效-家族长',
+      title: '创收绩效',
       showTitle: true,
       // isAuth: true,
     },
@@ -209,7 +209,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['performance'], () =>
         import('../routes/Performance/Operation/index')
       ),
-      title: '创收绩效-运营长',
+      title: '创收绩效',
       showTitle: true,
       // isAuth: true,
     },
@@ -217,7 +217,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['performance'], () =>
         import('../routes/Performance/Teacher/index')
       ),
-      title: '创收绩效-班主任',
+      title: '创收绩效',
       showTitle: true,
       // isAuth: true,
     },
@@ -225,7 +225,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['performance'], () =>
         import('../routes/Performance/Group/index')
       ),
-      title: '创收绩效-小组绩效',
+      title: '创收绩效',
       showTitle: true,
       // isAuth: true,
     },
@@ -241,7 +241,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['performance'], () =>
         import('../routes/Performance/GoodPush/index')
       ),
-      title: '创收绩效-好推绩效',
+      title: '创收绩效',
       showTitle: true,
       // isAuth: true,
     },
