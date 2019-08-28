@@ -41,9 +41,6 @@ class Operation extends React.Component {
       payload: { month },
     });
     this.getOperationData();
-    // const currentAuthInfo = this.currentAuthInfo();
-    // const userId = currentAuthInfo.loginUserId;
-    // const { id } = currentAuthInfo;
   };
 
   // 家族长
@@ -202,7 +199,7 @@ class Operation extends React.Component {
                   />
                 )}
               {groupHomePageData &&
-                groupHomePageData.teacherKpiItemList && (
+                groupHomePageData.teacherKpiItemList.length !== 0 && (
                   <div className={styles.teacher}>
                     <p>班主任预测绩效</p>
                     <Table
