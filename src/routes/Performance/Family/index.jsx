@@ -154,7 +154,7 @@ class Family extends React.Component {
                       : familyHomePageDataNone.registrationAbove60minCount}{' '}
                     | 足课占比{' '}
                     {familyHomePageData
-                      ? familyHomePageData.registrationAbove60minPercent
+                      ? `${familyHomePageData.registrationAbove60minPercent}%`
                       : familyHomePageDataNone.registrationAbove60minPercent}
                   </p>
                 </li>
