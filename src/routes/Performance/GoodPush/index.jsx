@@ -159,7 +159,8 @@ class GoodPush extends React.Component {
               <span className={styles.price}>元</span>
             </div>
             <div className={styles.middle}>
-              <p>好推绩效 = 好推净流水 x 好推净流水系数</p>
+              <p>好推绩效 = 好推净流水 x 好推净流水系数 </p>
+              <p>x 好推岗位分配比</p>
             </div>
             {findGoodpushKpiDetailData && (
               <div className={styles.presidentContent}>
@@ -203,11 +204,15 @@ class GoodPush extends React.Component {
                               (index || showFirstId) === item.index && bflag ? 'block' : 'none',
                           }}
                         >
-                          <Table
-                            history={this.props.history}
-                            columnsData={columnsData}
-                            rowData={item.renewalOrderList}
-                          />
+                          {item.renewalOrderList.length ? (
+                            <Table
+                              history={this.props.history}
+                              columnsData={columnsData}
+                              rowData={item.renewalOrderList}
+                            />
+                          ) : (
+                            <div className={styles.hasnone}>暂无数据</div>
+                          )}
                         </div>
                       </li>
                     );
