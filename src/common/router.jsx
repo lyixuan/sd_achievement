@@ -233,7 +233,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['performance'], () =>
         import('../routes/Performance/Renewal/index')
       ),
-      title: '创收绩效-续报绩效',
+      title: '续报绩效',
       showTitle: true,
       // isAuth: true,
     },
@@ -241,7 +241,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['performance'], () =>
         import('../routes/Performance/GoodPush/index')
       ),
-      title: '创收绩效',
+      title: '好推绩效',
       showTitle: true,
       // isAuth: true,
     },
