@@ -83,13 +83,15 @@ class Renewal extends React.Component {
     const { index, bflag } = this.state;
     const { findRenewalKpiDetailData } = this.props.performance;
     let totalkpi = 0;
+    let showFirstId = 0;
     if (findRenewalKpiDetailData) {
       findRenewalKpiDetailData.map(item => {
+        // eslint-disable-next-line
+        showFirstId = item.renewalOrderList.length === 0 ? -1 : 0;
         // eslint-disable-next-line
         return (totalkpi += item.totalKpi);
       });
     }
-    const showFirstId = 0;
     const columnsData = [
       {
         title: '报名日期',
@@ -195,14 +197,12 @@ class Renewal extends React.Component {
                               (index || showFirstId) === item.index && bflag ? 'block' : 'none',
                           }}
                         >
-                          {item.renewalOrderList.length ? (
+                          {item.renewalOrderList.length !== 0 && (
                             <Table
                               history={this.props.history}
                               columnsData={columnsData}
                               rowData={item.renewalOrderList}
                             />
-                          ) : (
-                            <div className={styles.hasnone}>暂无数据</div>
                           )}
                         </div>
                       </li>

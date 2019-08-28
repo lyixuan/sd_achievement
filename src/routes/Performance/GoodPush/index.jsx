@@ -85,13 +85,16 @@ class GoodPush extends React.Component {
     const { index, bflag } = this.state;
     const { findGoodpushKpiDetailData } = this.props.performance;
     let totalkpi = 0;
+    let showFirstId = 0;
     if (findGoodpushKpiDetailData) {
       findGoodpushKpiDetailData.map(item => {
+        // eslint-disable-next-line
+        showFirstId = item.renewalOrderList.length === 0 ? -1 : 0;
         // eslint-disable-next-line
         return (totalkpi += item.totalKpi);
       });
     }
-    const showFirstId = 0;
+
     const columnsData = [
       {
         title: '报名日期',
@@ -194,7 +197,7 @@ class GoodPush extends React.Component {
                             <Icon
                               type={(index || showFirstId) === item.index && bflag ? 'up' : 'down'}
                               size="xs"
-                              color="#00ccc3"
+                              color={item.renewalOrderList.length === 0 ? '#ccc' : '#00ccc3'}
                             />
                           </span>
                         </div>
@@ -204,14 +207,12 @@ class GoodPush extends React.Component {
                               (index || showFirstId) === item.index && bflag ? 'block' : 'none',
                           }}
                         >
-                          {item.renewalOrderList.length ? (
+                          {item.renewalOrderList.length !== 0 && (
                             <Table
                               history={this.props.history}
                               columnsData={columnsData}
                               rowData={item.renewalOrderList}
                             />
-                          ) : (
-                            <div className={styles.hasnone}>暂无数据</div>
                           )}
                         </div>
                       </li>
