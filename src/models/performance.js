@@ -276,7 +276,7 @@ export default {
       if (timeResponse.code === 2000) {
         setItem('timeDatePerformance', timeResponse.data);
         if (payload) {
-          setItem('month', payload.month);
+          setItem('month', payload.month || timeResponse.data[0].kpiMonth);
         } else {
           // eslint-disable-next-line
           getItem('month').value

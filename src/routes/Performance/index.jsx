@@ -21,7 +21,7 @@ class Performance extends React.Component {
     this.state = assignUrlParams(initState, urlParams);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getDateRangeData();
   }
   getDateRangeData = () => {
