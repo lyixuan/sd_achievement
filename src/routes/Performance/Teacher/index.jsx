@@ -7,6 +7,7 @@ import DatePanle from 'container/DatePanle';
 import Table from '../component/table';
 import styles from './index.less';
 import bg2 from '../../../assets/bg2.png';
+import noData from '../../../assets/nodata.png';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -86,42 +87,48 @@ class Teacher extends React.Component {
       },
     ];
     return (
-      <div className={styles.performanceConBg2}>
-        <img src={bg2} alt="班主任" style={{ position: 'absolute', zIndex: '-1', width: '100%' }} />
-        <div className={styles.dateWrapBg}>
-          <DatePanle
-            dateAreaResult
-            isColor
-            defaultDate={this.currentMonth()}
-            toHideImg
-            toHistoryPage={() => {
-              this.toHistoryPage();
-            }}
-            isperformance
-            onChange={date => {
-              this.onDateChange(date);
-            }}
+      <div>
+        <div className={styles.performanceConBg2}>
+          <img
+            src={bg2}
+            alt="班主任"
+            style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
           />
-        </div>
-        {classHomePageData && (
-          <div className={styles.teacherContent}>
-            <div className={styles.meta}>
-              <span>{classHomePageData && classHomePageData.totalKpi}</span>
-              <span>元</span>
-            </div>
-            <div className={styles.middle}>
-              <p>好推净流水122873元 | 续报净流水 28773元</p>
-              <p>足课单量 2 | 硕士续报单量 4 </p>
-            </div>
-            <Table
-              history={this.props.history}
-              columnsData={columnsData}
-              rowData={classHomePageData.incomeKpiItemList}
-              newParams={newParams}
+          <div className={styles.dateWrapBg}>
+            <DatePanle
+              dateAreaResult
+              isColor
+              defaultDate={this.currentMonth()}
+              toHideImg
+              toHistoryPage={() => {
+                this.toHistoryPage();
+              }}
+              isperformance
+              onChange={date => {
+                this.onDateChange(date);
+              }}
             />
           </div>
-        )}
-        {!classHomePageData && <div />}
+          {classHomePageData && (
+            <div className={styles.teacherContent}>
+              <div className={styles.meta}>
+                <span>{classHomePageData && classHomePageData.totalKpi}</span>
+                <span>元</span>
+              </div>
+              <div className={styles.middle}>
+                <p>好推净流水122873元 | 续报净流水 28773元</p>
+                <p>足课单量 2 | 硕士续报单量 4 </p>
+              </div>
+              <Table
+                history={this.props.history}
+                columnsData={columnsData}
+                rowData={classHomePageData.incomeKpiItemList}
+                newParams={newParams}
+              />
+            </div>
+          )}
+        </div>
+        {!classHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
       </div>
     );
   }

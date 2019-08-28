@@ -85,7 +85,7 @@ export default {
       const response = yield call(classHomePage, { ...payload });
       if (response.code === 2000) {
         // eslint-disable-line
-        if (response.data.incomeKpiItemList.length) {
+        if (response.data && response.data.incomeKpiItemList.length) {
           response.data.incomeKpiItemList.map(item => {
             const newItem = item;
             // eslint-disable-line
@@ -116,7 +116,7 @@ export default {
       const response = yield call(familyHomePage, { ...payload });
       if (response.code === 2000) {
         // eslint-disable-line
-        if (response.data.incomeKpiItemList.length) {
+        if (response.data && response.data.incomeKpiItemList.length) {
           response.data.incomeKpiItemList.map(item => {
             const newItem = item;
             // eslint-disable-line
@@ -147,7 +147,7 @@ export default {
       const response = yield call(groupHomePage, { ...payload });
       if (response.code === 2000) {
         // eslint-disable-line
-        if (response.data.incomeKpiItemList.length) {
+        if (response.data && response.data.incomeKpiItemList.length) {
           response.data.incomeKpiItemList.map(item => {
             const newItem = item;
             // eslint-disable-line
