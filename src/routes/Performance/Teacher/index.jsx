@@ -98,29 +98,31 @@ class Teacher extends React.Component {
               }}
             />
           </div>
-          {classHomePageData && (
-            <div className={styles.teacherContent}>
-              <div className={styles.meta}>
-                <span>{classHomePageData && classHomePageData.totalKpi}</span>
-                <span>元</span>
-              </div>
-              <div className={styles.middle}>
-                <p>创收单量 {classHomePageData.totalIncomeOrderCount}</p>
-                <p>
-                  好推净流水 {classHomePageData.goodpushFinanceNetFlow}元 | 续报净流水{
-                    classHomePageData.renewalFinanceNetFlow
-                  }{' '}
-                  元
-                </p>
-              </div>
-              <Table
-                history={this.props.history}
-                columnsData={columnsData}
-                rowData={classHomePageData.incomeKpiItemList}
-                newParams={newParams}
-              />
+          <div className={styles.teacherContent}>
+            <div className={styles.meta}>
+              <span>{(classHomePageData && classHomePageData.totalKpi) || '-'}</span>
+              <span>元</span>
             </div>
-          )}
+            <div className={styles.middle}>
+              <p>
+                创收单量 {(classHomePageData && classHomePageData.totalIncomeOrderCount) || '-'}
+              </p>
+              <p>
+                好推净流水 {(classHomePageData && classHomePageData.goodpushFinanceNetFlow) || '-'}元
+                | 续报净流水{(classHomePageData && classHomePageData.renewalFinanceNetFlow) || '-'}{' '}
+                元
+              </p>
+            </div>
+            {classHomePageData &&
+              classHomePageData.incomeKpiItemList.length !== 0 && (
+                <Table
+                  history={this.props.history}
+                  columnsData={columnsData}
+                  rowData={classHomePageData.incomeKpiItemList}
+                  newParams={newParams}
+                />
+              )}
+          </div>
         </div>
         {!classHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
       </div>
