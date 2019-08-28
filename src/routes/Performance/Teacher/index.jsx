@@ -116,8 +116,13 @@ class Teacher extends React.Component {
                 <span>元</span>
               </div>
               <div className={styles.middle}>
-                <p>好推净流水122873元 | 续报净流水 28773元</p>
-                <p>足课单量 2 | 硕士续报单量 4 </p>
+                <p>创收单量 {classHomePageData.totalIncomeOrderCount}</p>
+                <p>
+                  好推净流水 {classHomePageData.goodpushFinanceNetFlow}元 | 续报净流水{
+                    classHomePageData.renewalFinanceNetFlow
+                  }{' '}
+                  元
+                </p>
               </div>
               <Table
                 history={this.props.history}
