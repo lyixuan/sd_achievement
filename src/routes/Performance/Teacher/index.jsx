@@ -37,23 +37,12 @@ class Teacher extends React.Component {
   getTeacherData = () => {
     const { query } = url.parse(this.props.location.search, true);
     const currentAuthInfo = getCurrentAuthInfo();
-    // const month = this.currentMonth();
-    const { groupId = null, userId = null } = query || currentAuthInfo;
-    // if (this.props.location.search) {
-    //   groupId =query.groupId;
-    //   userId =query.userId;
-    // }
     const params = {
       reportMonth: this.currentMonth(),
-      groupId,
-      userId,
+      groupId: query.groupId || currentAuthInfo.groupId,
+      userId: query.userId || currentAuthInfo.userId,
     };
 
-    // const params = {
-    //   reportMonth: '2019-05',
-    //   groupId: 99,
-    //   userId: '417',
-    // };
     this.props.dispatch({
       type: 'performance/classHomePage',
       payload: params,
