@@ -171,7 +171,7 @@ class Operation extends React.Component {
                         : groupHomePageDataNone.registrationAbove60minCount}{' '}
                       | 足课占比{' '}
                       {groupHomePageData
-                        ? groupHomePageData.registrationAbove60minPercent
+                        ? `${groupHomePageData.registrationAbove60minPercent}%`
                         : groupHomePageDataNone.registrationAbove60minPercent}
                     </p>
                   </li>
