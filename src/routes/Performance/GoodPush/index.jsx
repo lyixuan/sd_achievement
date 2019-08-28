@@ -158,7 +158,7 @@ class GoodPush extends React.Component {
           </div>
           <div className={styles.teacherContent}>
             <div className={styles.meta}>
-              <span className={styles.total}>{findGoodpushKpiDetailData ? totalkpi : '-'}</span>
+              <span className={styles.total}>{findGoodpushKpiDetailData ? totalkpi : '0'}</span>
               <span className={styles.price}>元</span>
             </div>
             <div className={styles.middle}>

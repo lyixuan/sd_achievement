@@ -12,14 +12,17 @@ import noData from '../../../assets/nodata.png';
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
 class Teacher extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     // month: this.currentMonth(),
-  //     // collegeId,
-  //     // userId,
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      classHomePageDataNone: {
+        totalKpi: '0',
+        totalIncomeOrderCount: '0',
+        goodpushFinanceNetFlow: '0',
+        renewalFinanceNetFlow: '0',
+      },
+    };
+  }
 
   componentDidMount() {
     this.getTeacherData();
@@ -50,6 +53,7 @@ class Teacher extends React.Component {
   };
   render() {
     const { classHomePageData } = this.props.performance;
+    const { classHomePageDataNone } = this.state;
     let newParams = {};
     if (classHomePageData) {
       newParams = {
@@ -100,16 +104,25 @@ class Teacher extends React.Component {
           </div>
           <div className={styles.teacherContent}>
             <div className={styles.meta}>
-              <span>{(classHomePageData && classHomePageData.totalKpi) || '-'}</span>
+              <span>
+                {classHomePageData ? classHomePageData.totalKpi : classHomePageDataNone.totalKpi}
+              </span>
               <span>元</span>
             </div>
             <div className={styles.middle}>
               <p>
-                创收单量 {(classHomePageData && classHomePageData.totalIncomeOrderCount) || '-'}
+                创收单量{' '}
+                {classHomePageData
+                  ? classHomePageData.totalIncomeOrderCount
+                  : classHomePageDataNone.totalIncomeOrderCount}
               </p>
               <p>
-                好推净流水 {(classHomePageData && classHomePageData.goodpushFinanceNetFlow) || '-'}元
-                | 续报净流水{(classHomePageData && classHomePageData.renewalFinanceNetFlow) || '-'}{' '}
+                好推净流水{' '}
+                {classHomePageData
+                  ? classHomePageData.goodpushFinanceNetFlow
+                  : classHomePageDataNone.goodpushFinanceNetFlow}元 | 续报净流水{classHomePageData
+                  ? classHomePageData.renewalFinanceNetFlow
+                  : classHomePageDataNone.renewalFinanceNetFlow}{' '}
                 元
               </p>
             </div>

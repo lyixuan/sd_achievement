@@ -146,7 +146,7 @@ class Renewal extends React.Component {
           </div>
           <div className={styles.teacherContent}>
             <div className={styles.meta}>
-              <span className={styles.total}>{findRenewalKpiDetailData ? totalkpi : '-'}</span>
+              <span className={styles.total}>{findRenewalKpiDetailData ? totalkpi : '0'}</span>
               <span className={styles.price}>元</span>
             </div>
             <div className={styles.middle}>

@@ -17,14 +17,14 @@ class Family extends React.Component {
     super(props);
     this.state = {
       familyHomePageDataNone: {
-        totalKpi: ' - ',
-        serviceStuCount: '-',
-        teacherCount: '-',
-        totalIncomeOrderCount: '-',
-        registrationAbove60minCount: '-',
-        registrationAbove60minPercent: '-',
-        goodpushFinanceNetFlow: '-',
-        renewalFinanceNetFlow: '-',
+        totalKpi: ' 0 ',
+        serviceStuCount: '0',
+        teacherCount: '0',
+        totalIncomeOrderCount: '0',
+        registrationAbove60minCount: '0',
+        registrationAbove60minPercent: '0',
+        goodpushFinanceNetFlow: '0',
+        renewalFinanceNetFlow: '0',
       },
     };
   }
