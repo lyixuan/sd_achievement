@@ -245,6 +245,14 @@ export const getRouterData = app => {
       showTitle: true,
       // isAuth: true,
     },
+    '/performance/adulttest': {
+      component: dynamicWrapper(app, ['performance'], () =>
+        import('../routes/Performance/AdultTest/index')
+      ),
+      title: '成考专本套绩效',
+      showTitle: true,
+      // isAuth: true,
+    },
     // end
     '/exception': {
       component: dynamicWrapper(app, [], () => import('../layout/Exception')),
