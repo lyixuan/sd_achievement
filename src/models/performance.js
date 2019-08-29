@@ -117,7 +117,7 @@ export default {
         }
         yield put({
           type: 'save',
-          payload: { classHomePageData: response.data },
+          payload: { classHomePageData: response.data || {} },
         });
       } else {
         Message.fail(response.msg);
@@ -159,7 +159,7 @@ export default {
         }
         yield put({
           type: 'save',
-          payload: { groupHomePageData: {} },
+          payload: { groupHomePageData: response.data || {} },
         });
       } else {
         Message.fail(response.msg);
