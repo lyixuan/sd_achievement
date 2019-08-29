@@ -14,7 +14,7 @@ import {
 } from '../services/api';
 import Message from '../components/Message';
 
-const name = [
+const nameList = [
   {
     key: 1,
     name: '续报绩效',
@@ -42,7 +42,7 @@ const groupName = {
 
 function returnName(list) {
   list.map(item => {
-    return name.map(smallItem => {
+    return nameList.map(smallItem => {
       let { itemKey } = item;
       if (itemKey === smallItem.key) itemKey = smallItem.name;
       // eslint-disable-line
