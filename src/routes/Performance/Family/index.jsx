@@ -32,8 +32,8 @@ class Family extends React.Component {
     const currentAuthInfo = getCurrentAuthInfo();
     const params = {
       reportMonth: this.currentMonth(),
-      familyId: query.familyId || currentAuthInfo.familyId,
-      userId: query.userId || currentAuthInfo.userId,
+      familyId: (query.familyId !== 'null' && query.familyId) || currentAuthInfo.familyId,
+      userId: (query.userId !== 'null' && query.userId) || currentAuthInfo.userId,
     };
     this.props.dispatch({
       type: 'performance/familyHomePage',

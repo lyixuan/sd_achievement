@@ -39,8 +39,8 @@ class President extends React.Component {
     const currentAuthInfo = getCurrentAuthInfo();
     const params = {
       reportMonth: data || this.state.month, // '2019-05',
-      collegeId: query.collegeId || currentAuthInfo.collegeId,
-      userId: query.userId || currentAuthInfo.userId,
+      collegeId: (query.collegeId !== 'null' && query.collegeId) || currentAuthInfo.collegeId,
+      userId: (query.userId !== 'null' && query.userId) || currentAuthInfo.userId,
     };
     this.props.dispatch({
       type: 'performance/collegeHomePage',

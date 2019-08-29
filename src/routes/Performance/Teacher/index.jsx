@@ -31,8 +31,8 @@ class Teacher extends React.Component {
     const currentAuthInfo = getCurrentAuthInfo();
     const params = {
       reportMonth: this.currentMonth(),
-      groupId: query.groupId || currentAuthInfo.groupId,
-      userId: query.userId || currentAuthInfo.userId,
+      groupId: (query.groupId !== 'null' && query.groupId) || currentAuthInfo.groupId,
+      userId: (query.userId !== 'null' && query.userId) || currentAuthInfo.userId,
     };
 
     this.props.dispatch({
