@@ -6,7 +6,7 @@ import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator'
 import DatePanle from 'container/DatePanle';
 import Table from '../component/table';
 import styles from './index.less';
-import bg2 from '../../../assets/bg2.png';
+import bg3 from '../../../assets/bg3.png';
 import noData from '../../../assets/nodata.png';
 
 @getCurrentAuthInfo
@@ -16,10 +16,13 @@ class Teacher extends React.Component {
     super(props);
     this.state = {
       classHomePageDataNone: {
+        serviceStuCount: '0',
+        teacherCount: '0',
         totalKpi: '0',
         totalIncomeOrderCount: '0',
         goodpushFinanceNetFlow: '0',
         renewalFinanceNetFlow: '0',
+        examinationZbtFinanceNetFlow: '0',
       },
     };
   }
@@ -61,6 +64,8 @@ class Teacher extends React.Component {
         userId: classHomePageData.userId,
         orgId: classHomePageData.orgId,
       };
+      classHomePageData.serviceStuCount = 0;
+      classHomePageData.examinationZbtFinanceNetFlow = 0;
     }
     const columnsData = [
       {
@@ -83,7 +88,7 @@ class Teacher extends React.Component {
       <div>
         <div className={styles.performanceConBg2}>
           <img
-            src={bg2}
+            src={bg3}
             alt="班主任"
             style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
           />
@@ -110,6 +115,60 @@ class Teacher extends React.Component {
               <span>元</span>
             </div>
             <div className={styles.middle}>
+              <ul>
+                <li>
+                  <p>管理规模</p>
+                  <p>
+                    在服学员{' '}
+                    {classHomePageData
+                      ? classHomePageData.serviceStuCount
+                      : classHomePageDataNone.serviceStuCount}{' '}
+                    | 老师{' '}
+                    {classHomePageData
+                      ? classHomePageData.teacherCount
+                      : classHomePageDataNone.teacherCount}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    创收单量{' '}
+                    {classHomePageData
+                      ? classHomePageData.totalIncomeOrderCount
+                      : classHomePageDataNone.totalIncomeOrderCount}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    好推净流水{' '}
+                    {classHomePageData
+                      ? classHomePageData.goodpushFinanceNetFlow
+                      : classHomePageDataNone.goodpushFinanceNetFlow}{' '}
+                    元 | 续报净流水{' '}
+                    {classHomePageData
+                      ? classHomePageData.renewalFinanceNetFlow
+                      : classHomePageDataNone.renewalFinanceNetFlow}元 <br />
+                    成考转本套绩效流水
+                    {classHomePageData
+                      ? classHomePageData.examinationZbtFinanceNetFlow
+                      : classHomePageDataNone.examinationZbtFinanceNetFlow}元
+                  </p>
+                </li>
+              </ul>
+            </div>
+            {/* <div className={styles.middle}>
+              <li>
+                <p>管理规模</p>
+                <p>
+                  在服学员{' '}
+                  {classHomePageData
+                    ? classHomePageData.serviceStuCount
+                    : classHomePageDataNone.serviceStuCount}{' '}
+                  | 老师{' '}
+                  {classHomePageData
+                    ? classHomePageData.teacherCount
+                    : classHomePageDataNone.teacherCount}
+                </p>
+              </li>
               <p>
                 创收单量{' '}
                 {classHomePageData
@@ -120,12 +179,17 @@ class Teacher extends React.Component {
                 好推净流水{' '}
                 {classHomePageData
                   ? classHomePageData.goodpushFinanceNetFlow
-                  : classHomePageDataNone.goodpushFinanceNetFlow}元 | 续报净流水{classHomePageData
+                  : classHomePageDataNone.goodpushFinanceNetFlow}元 | 续报净流水
+                {classHomePageData
                   ? classHomePageData.renewalFinanceNetFlow
-                  : classHomePageDataNone.renewalFinanceNetFlow}{' '}
-                元
+                  : classHomePageDataNone.renewalFinanceNetFlow}元
+                <br />
+                成考转本套绩效流水
+                {classHomePageData
+                  ? classHomePageData.examinationZbtFinanceNetFlow
+                  : classHomePageDataNone.examinationZbtFinanceNetFlow}元
               </p>
-            </div>
+            </div> */}
             {classHomePageData &&
               classHomePageData.incomeKpiItemList.length !== 0 && (
                 <Table

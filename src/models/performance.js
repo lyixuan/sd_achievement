@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: "error" */
 import moment from 'moment';
 import { setItem, getItem } from 'utils/localStorage';
 import {
@@ -13,10 +14,23 @@ import {
 } from '../services/api';
 import Message from '../components/Message';
 
-const name = {
-  key1: '续报绩效',
-  key2: '好推绩效',
-};
+const name = [
+  {
+    key: 1,
+    name: '续报绩效',
+    url: '/performance/renewal',
+  },
+  {
+    key: 2,
+    name: '好推绩效',
+    url: '/performance/goodpush',
+  },
+  {
+    key: 3,
+    name: '成考专本套绩效',
+    url: '/performance/adulttest',
+  },
+];
 
 const groupName = {
   admin: '管理员',
@@ -25,6 +39,19 @@ const groupName = {
   group: '运营长',
   class: '班主任',
 };
+
+function returnName(list) {
+  list.map(item => {
+    return name.map(smallItem => {
+      let { itemKey } = item;
+      if (itemKey === smallItem.key) itemKey = smallItem.name;
+      // eslint-disable-line
+      item.itemKey = itemKey;
+      return item;
+    });
+  });
+}
+
 export default {
   namespace: 'performance',
 
@@ -86,17 +113,7 @@ export default {
       if (response.code === 2000) {
         // eslint-disable-line
         if (response.data && response.data.incomeKpiItemList.length) {
-          response.data.incomeKpiItemList.map(item => {
-            const newItem = item;
-            // eslint-disable-line
-            if (newItem.itemKey === 1) {
-              newItem.itemKey = name.key1;
-            }
-            if (newItem.itemKey === 2) {
-              newItem.itemKey = name.key2;
-            }
-            return newItem;
-          });
+          returnName(response.data.incomeKpiItemList);
         }
         yield put({
           type: 'save',
@@ -117,17 +134,7 @@ export default {
       if (response.code === 2000) {
         // eslint-disable-line
         if (response.data && response.data.incomeKpiItemList.length) {
-          response.data.incomeKpiItemList.map(item => {
-            const newItem = item;
-            // eslint-disable-line
-            if (newItem.itemKey === 1) {
-              newItem.itemKey = name.key1;
-            }
-            if (newItem.itemKey === 2) {
-              newItem.itemKey = name.key2;
-            }
-            return newItem;
-          });
+          returnName(response.data.incomeKpiItemList);
         }
         yield put({
           type: 'save',
@@ -148,17 +155,7 @@ export default {
       if (response.code === 2000) {
         // eslint-disable-line
         if (response.data && response.data.incomeKpiItemList.length) {
-          response.data.incomeKpiItemList.map(item => {
-            const newItem = item;
-            // eslint-disable-line
-            if (newItem.itemKey === 1) {
-              newItem.itemKey = name.key1;
-            }
-            if (newItem.itemKey === 2) {
-              newItem.itemKey = name.key2;
-            }
-            return newItem;
-          });
+          returnName(response.data.incomeKpiItemList);
         }
         yield put({
           type: 'save',

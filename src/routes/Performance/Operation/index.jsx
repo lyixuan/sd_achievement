@@ -25,6 +25,7 @@ class Operation extends React.Component {
         registrationAbove60minPercent: '0',
         goodpushFinanceNetFlow: '0',
         renewalFinanceNetFlow: '0',
+        examinationZbtFinanceNetFlow: '0',
       },
     };
   }
@@ -111,6 +112,7 @@ class Operation extends React.Component {
         orgId: groupHomePageData.orgId,
         teacher: '/performance/teacher',
       };
+      groupHomePageData.examinationZbtFinanceNetFlow = 0;
     }
 
     return (
@@ -184,7 +186,11 @@ class Operation extends React.Component {
                       元 | 续报净流水{' '}
                       {groupHomePageData
                         ? groupHomePageData.renewalFinanceNetFlow
-                        : groupHomePageDataNone.renewalFinanceNetFlow}元
+                        : groupHomePageDataNone.renewalFinanceNetFlow}元 <br />
+                      成考转本套绩效流水
+                      {groupHomePageData
+                        ? groupHomePageData.examinationZbtFinanceNetFlow
+                        : groupHomePageDataNone.examinationZbtFinanceNetFlow}元
                     </p>
                   </li>
                 </ul>

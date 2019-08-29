@@ -25,6 +25,7 @@ class Family extends React.Component {
         registrationAbove60minPercent: '0',
         goodpushFinanceNetFlow: '0',
         renewalFinanceNetFlow: '0',
+        examinationZbtFinanceNetFlow: '0',
       },
     };
   }
@@ -95,6 +96,8 @@ class Family extends React.Component {
         userId: familyHomePageData.userId,
         orgId: familyHomePageData.orgId,
       };
+      // 成考专套本
+      familyHomePageData.examinationZbtFinanceNetFlow = 0;
     }
 
     return (
@@ -167,7 +170,11 @@ class Family extends React.Component {
                     元 | 续报净流水
                     {familyHomePageData
                       ? familyHomePageData.renewalFinanceNetFlow
-                      : familyHomePageDataNone.renewalFinanceNetFlow}元
+                      : familyHomePageDataNone.renewalFinanceNetFlow}元 <br />
+                    成考转本套绩效流水
+                    {familyHomePageData
+                      ? familyHomePageData.examinationZbtFinanceNetFlow
+                      : familyHomePageDataNone.examinationZbtFinanceNetFlow}元
                   </p>
                 </li>
               </ul>
