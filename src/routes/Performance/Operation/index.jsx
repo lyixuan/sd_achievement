@@ -173,6 +173,7 @@ class Operation extends React.Component {
                 <div className={styles.teacher}>
                   <p>班主任预测绩效</p>
                   <Table
+                    color="#F7F9FD"
                     history={this.props.history}
                     columnsData={columnsData1}
                     rowData={groupHomePageData.teacherKpiItemList}

@@ -130,7 +130,7 @@ class President extends React.Component {
     });
   };
   render() {
-    const { groupRankListData = null } = this.props.performance;
+    const { groupRankListData } = this.props.performance;
     const { id, month, bflag } = this.state;
     // 默认第一个展示
     let showFirstId = 0;

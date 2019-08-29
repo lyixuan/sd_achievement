@@ -56,12 +56,12 @@ export default {
   namespace: 'performance',
 
   state: {
-    collegeHomePageData: null,
+    collegeHomePageData: [],
     adminHomePageData: [],
     classHomePageData: {},
     familyHomePageData: {},
-    groupHomePageData: [],
-    groupRankListData: {},
+    groupHomePageData: {},
+    groupRankListData: [],
     findRenewalKpiDetailData: null,
     findGoodpushKpiDetailData: null,
   },

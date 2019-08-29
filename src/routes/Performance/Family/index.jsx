@@ -143,6 +143,7 @@ class Family extends React.Component {
                 <Table
                   history={this.props.history}
                   columnsData={columnsData}
+                  color="#F7F9FD"
                   rowData={familyHomePageData.incomeKpiItemList}
                   newParams={newParams}
                 />

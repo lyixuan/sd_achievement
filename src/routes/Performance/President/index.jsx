@@ -161,7 +161,7 @@ class President extends React.Component {
     });
   };
   render() {
-    const { collegeHomePageData = null } = this.props.performance;
+    const { collegeHomePageData } = this.props.performance;
     const { id, month, bflag } = this.state;
     const { loading } = this.props;
     // 默认第一个展示
