@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import url from 'url';
 import { setItem } from 'utils/localStorage';
+import Loading from 'components/Loading/Loading';
 import DatePanle from 'container/DatePanle';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import Table from '../component/table';
@@ -16,21 +17,9 @@ class Operation extends React.Component {
     super(props);
     this.state = {
       month: this.currentMonth(),
-      groupHomePageDataNone: {
-        totalKpi: ' 0 ',
-        serviceStuCount: '0',
-        teacherCount: '0',
-        totalIncomeOrderCount: '0',
-        registrationAbove60minCount: '0',
-        registrationAbove60minPercent: '0',
-        goodpushFinanceNetFlow: '0',
-        renewalFinanceNetFlow: '0',
-        examinationZbtFinanceNetFlow: '0',
-      },
     };
   }
-
-  componentDidMount() {
+  componentWillMount() {
     this.getOperationData();
   }
 
@@ -48,11 +37,9 @@ class Operation extends React.Component {
   getOperationData = () => {
     const { query } = url.parse(this.props.location.search, true);
     const currentAuthInfo = getCurrentAuthInfo();
-    // const month = this.currentMonth();
-    // const { groupId, userId } = query || currentAuthInfo;
     const params = {
       reportMonth: this.currentMonth(),
-      groupId: query.groupId || currentAuthInfo.currentAuthInfo,
+      groupId: query.groupId || currentAuthInfo.groupId,
       userId: query.userId || currentAuthInfo.userId,
     };
     this.props.dispatch({
@@ -61,10 +48,29 @@ class Operation extends React.Component {
     });
   };
   render() {
-    // const { listData } = this.props;
     const { month } = this.state;
-    const { groupHomePageData } = this.props.performance;
-    const { groupHomePageDataNone } = this.state;
+    const { groupHomePageData = {} } = this.props.performance;
+
+    const { loading } = this.props;
+    const totalKpi = groupHomePageData.totalKpi || 0;
+    const serviceStuCount = groupHomePageData.serviceStuCount || 0;
+    const teacherCount = groupHomePageData.teacherCount || 0;
+    const totalIncomeOrderCount = groupHomePageData.totalIncomeOrderCount || 0;
+    const registrationAbove60minCount = groupHomePageData.registrationAbove60minCount || 0;
+    const registrationAbove60minPercent = groupHomePageData.registrationAbove60minPercent || 0;
+    const goodpushFinanceNetFlow = groupHomePageData.goodpushFinanceNetFlow || 0;
+    const renewalFinanceNetFlow = groupHomePageData.renewalFinanceNetFlow || 0;
+    const examinationZbtFinanceNetFlow = groupHomePageData.examinationZbtFinanceNetFlow || 0;
+    const newParams = {
+      userType: groupHomePageData.userType || '',
+      userId: groupHomePageData.userId || '',
+      orgId: groupHomePageData.orgId || '',
+    };
+    const newParams1 = {
+      orgId: groupHomePageData.orgId || '',
+      teacher: '/performance/teacher',
+    };
+
     const columnsData = [
       {
         title: '绩效子项',
@@ -100,20 +106,6 @@ class Operation extends React.Component {
         key: '操作',
       },
     ];
-    let newParams = {};
-    let newParams1 = {};
-    if (groupHomePageData) {
-      newParams = {
-        userType: groupHomePageData.userType,
-        userId: groupHomePageData.userId,
-        orgId: groupHomePageData.orgId,
-      };
-      newParams1 = {
-        orgId: groupHomePageData.orgId,
-        teacher: '/performance/teacher',
-      };
-      groupHomePageData.examinationZbtFinanceNetFlow = 0;
-    }
 
     return (
       <div>
@@ -141,9 +133,7 @@ class Operation extends React.Component {
             </div>
             <div className={styles.familyContent}>
               <div className={styles.meta}>
-                <span>
-                  {groupHomePageData ? groupHomePageData.totalKpi : groupHomePageDataNone.totalKpi}
-                </span>
+                <span>{totalKpi}</span>
                 <span>元</span>
               </div>
               <div className={styles.middle}>
@@ -151,75 +141,52 @@ class Operation extends React.Component {
                   <li>
                     <p>管理规模</p>
                     <p>
-                      在服学员{' '}
-                      {groupHomePageData
-                        ? groupHomePageData.serviceStuCount
-                        : groupHomePageDataNone.serviceStuCount}{' '}
-                      | 老师{' '}
-                      {groupHomePageData
-                        ? groupHomePageData.teacherCount
-                        : groupHomePageDataNone.teacherCount}
+                      在服学员 {serviceStuCount}
+                      | 老师 {teacherCount}
                     </p>
                   </li>
                   <li>
                     <p>
-                      创收单量{' '}
-                      {groupHomePageData
-                        ? groupHomePageData.totalIncomeOrderCount
-                        : groupHomePageDataNone.totalIncomeOrderCount}{' '}
-                      | 足课单量{' '}
-                      {groupHomePageData
-                        ? groupHomePageData.registrationAbove60minCount
-                        : groupHomePageDataNone.registrationAbove60minCount}{' '}
-                      | 足课占比{' '}
-                      {groupHomePageData
-                        ? `${groupHomePageData.registrationAbove60minPercent}%`
-                        : groupHomePageDataNone.registrationAbove60minPercent}
+                      创收单量 {totalIncomeOrderCount}
+                      | 足课单量 {registrationAbove60minCount} | 足课占比
+                      {registrationAbove60minPercent}
                     </p>
                   </li>
                   <li>
                     <p>
-                      好推净流水{' '}
-                      {groupHomePageData
-                        ? groupHomePageData.goodpushFinanceNetFlow
-                        : groupHomePageDataNone.goodpushFinanceNetFlow}{' '}
-                      元 | 续报净流水{' '}
-                      {groupHomePageData
-                        ? groupHomePageData.renewalFinanceNetFlow
-                        : groupHomePageDataNone.renewalFinanceNetFlow}元 <br />
+                      好推净流水 {goodpushFinanceNetFlow} 元 | 续报净流水 {renewalFinanceNetFlow}元
+                      <br />
                       成考转本套绩效流水
-                      {groupHomePageData
-                        ? groupHomePageData.examinationZbtFinanceNetFlow
-                        : groupHomePageDataNone.examinationZbtFinanceNetFlow}元
+                      {examinationZbtFinanceNetFlow}元
                     </p>
                   </li>
                 </ul>
               </div>
-              {groupHomePageData &&
-                groupHomePageData.incomeKpiItemList && (
+              {groupHomePageData.incomeKpiItemList && (
+                <Table
+                  history={this.props.history}
+                  columnsData={columnsData}
+                  rowData={groupHomePageData.incomeKpiItemList}
+                  newParams={newParams}
+                />
+              )}
+              {groupHomePageData.teacherKpiItemList && (
+                <div className={styles.teacher}>
+                  <p>班主任预测绩效</p>
                   <Table
                     history={this.props.history}
-                    columnsData={columnsData}
-                    rowData={groupHomePageData.incomeKpiItemList}
-                    newParams={newParams}
+                    columnsData={columnsData1}
+                    rowData={groupHomePageData.teacherKpiItemList}
+                    newParams={newParams1}
                   />
-                )}
-              {groupHomePageData &&
-                groupHomePageData.teacherKpiItemList.length !== 0 && (
-                  <div className={styles.teacher}>
-                    <p>班主任预测绩效</p>
-                    <Table
-                      history={this.props.history}
-                      columnsData={columnsData1}
-                      rowData={groupHomePageData.teacherKpiItemList}
-                      newParams={newParams1}
-                    />
-                  </div>
-                )}
+                </div>
+              )}
             </div>
           </div>
         </div>
-        {!groupHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {!loading &&
+          !groupHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {loading && <Loading />}
       </div>
     );
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
 import { setItem, getItem } from 'utils/localStorage';
+import Loading from 'components/Loading/Loading';
 import DatePanle from 'container/DatePanle';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import styles from './index.less';
@@ -10,39 +11,22 @@ import noData from '../../../assets/nodata.png';
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
 class Admin extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // month: this.currentMonth(),
-      // id: 0,
-    };
-  }
-
   componentDidMount() {
     this.getAdminData();
   }
 
   onDateChange = month => {
     setItem('month', month);
-    // this.setState({ month });
     this.props.dispatch({
       type: 'performance/getDateRangeData',
       payload: { month },
     });
     this.getAdminData();
-    // const currentAuthInfo = this.currentAuthInfo();
-    // const userId = currentAuthInfo.loginUserId;
-    // const { id } = currentAuthInfo;
   };
 
   getAdminData = () => {
     const currentAuthInfo = getCurrentAuthInfo();
     const { userId = null } = currentAuthInfo;
-    // const params = {
-    //   reportMonth: month,
-    //   collegeId: 111,
-    //   userId: userId,
-    // };
     const params = {
       reportMonth: this.currentMonth(),
       userId,
@@ -65,6 +49,7 @@ class Admin extends React.Component {
 
   render() {
     const { adminHomePageData } = this.props.performance;
+    const { loading } = this.props;
     return (
       <div>
         <div className={styles.performanceCon}>
@@ -116,7 +101,9 @@ class Admin extends React.Component {
             </div>
           )}
         </div>
-        {!adminHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {!loading &&
+          !adminHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {loading && <Loading />}
       </div>
     );
   }
@@ -124,5 +111,5 @@ class Admin extends React.Component {
 
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance.adminHomePage,
+  loading: loading.models.performance,
 }))(Admin);

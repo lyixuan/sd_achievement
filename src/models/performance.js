@@ -57,11 +57,11 @@ export default {
 
   state: {
     collegeHomePageData: null,
-    adminHomePageData: null,
-    classHomePageData: null,
-    familyHomePageData: null,
-    groupHomePageData: null,
-    groupRankListData: null,
+    adminHomePageData: [],
+    classHomePageData: {},
+    familyHomePageData: {},
+    groupHomePageData: [],
+    groupRankListData: {},
     findRenewalKpiDetailData: null,
     findGoodpushKpiDetailData: null,
   },
@@ -138,7 +138,7 @@ export default {
         }
         yield put({
           type: 'save',
-          payload: { familyHomePageData: response.data },
+          payload: { familyHomePageData: response.data || {} },
         });
       } else {
         Message.fail(response.msg);
@@ -159,7 +159,7 @@ export default {
         }
         yield put({
           type: 'save',
-          payload: { groupHomePageData: response.data },
+          payload: { groupHomePageData: {} },
         });
       } else {
         Message.fail(response.msg);

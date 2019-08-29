@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
-import DatePanle from 'container/DatePanle';
+import Loading from 'components/Loading/Loading';
 import url from 'url';
 import { setItem } from 'utils/localStorage';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
-import styles from './index.less';
+import DatePanle from 'container/DatePanle';
 import noData from '../../../assets/nodata.png';
+import styles from './index.less';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -160,8 +161,9 @@ class President extends React.Component {
     });
   };
   render() {
-    const { collegeHomePageData } = this.props.performance;
+    const { collegeHomePageData = null } = this.props.performance;
     const { id, month, bflag } = this.state;
+    const { loading } = this.props;
     // 默认第一个展示
     const showFirstId =
       collegeHomePageData && collegeHomePageData.length && collegeHomePageData[0].itemId;
@@ -235,7 +237,9 @@ class President extends React.Component {
             </div>
           )}
         </div>
-        {!collegeHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {!loading &&
+          !collegeHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {loading && <Loading />}
       </div>
     );
   }
@@ -247,5 +251,5 @@ class President extends React.Component {
 // );
 export default connect(({ performance, loading }) => ({
   performance,
-  loading: loading.models.performance.collegeHomePage,
+  loading: loading.models.performance,
 }))(President);

@@ -3,6 +3,7 @@ import { Icon } from 'antd-mobile';
 import { connect } from 'dva';
 import url from 'url';
 import { setItem } from 'utils/localStorage';
+import Loading from 'components/Loading/Loading';
 import DatePanle from 'container/DatePanle';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import Bitmap from '../../../assets/Bitmap.png';
@@ -13,30 +14,12 @@ import bg3 from '../../../assets/bg3.png';
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
 class Family extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      familyHomePageDataNone: {
-        totalKpi: ' 0 ',
-        serviceStuCount: '0',
-        teacherCount: '0',
-        totalIncomeOrderCount: '0',
-        registrationAbove60minCount: '0',
-        registrationAbove60minPercent: '0',
-        goodpushFinanceNetFlow: '0',
-        renewalFinanceNetFlow: '0',
-        examinationZbtFinanceNetFlow: '0',
-      },
-    };
-  }
-
   componentDidMount() {
     this.getFamilyData();
   }
 
   onDateChange = month => {
     setItem('month', month);
-    // this.setState({ month });
     this.props.dispatch({
       type: 'performance/getDateRangeData',
       payload: { month },
@@ -70,8 +53,18 @@ class Family extends React.Component {
   };
 
   render() {
-    const { familyHomePageData } = this.props.performance;
-    const { familyHomePageDataNone } = this.state;
+    const { familyHomePageData = {} } = this.props.performance;
+    const { loading } = this.props;
+    const totalKpi = familyHomePageData.totalKpi || 0;
+    const serviceStuCount = familyHomePageData.serviceStuCount || 0;
+    const teacherCount = familyHomePageData.teacherCount || 0;
+    const totalIncomeOrderCount = familyHomePageData.totalIncomeOrderCount || 0;
+    const registrationAbove60minCount = familyHomePageData.registrationAbove60minCount || 0;
+    const registrationAbove60minPercent =
+      `${familyHomePageData.registrationAbove60minPercent}%` || 0;
+    const goodpushFinanceNetFlow = familyHomePageData.goodpushFinanceNetFlow || 0;
+    const renewalFinanceNetFlow = familyHomePageData.renewalFinanceNetFlow || 0;
+    const examinationZbtFinanceNetFlow = familyHomePageData.examinationZbtFinanceNetFlow || 0;
     const columnsData = [
       {
         title: '绩效子项',
@@ -89,98 +82,65 @@ class Family extends React.Component {
         key: '操作',
       },
     ];
-    let newParams = {};
-    if (familyHomePageData) {
-      newParams = {
-        userType: familyHomePageData.userType,
-        userId: familyHomePageData.userId,
-        orgId: familyHomePageData.orgId,
-      };
-      // 成考专套本
-      familyHomePageData.examinationZbtFinanceNetFlow = 0;
-    }
+    const newParams = {
+      userType: familyHomePageData.userType || '',
+      userId: familyHomePageData.userId || '',
+      orgId: familyHomePageData.orgId || '',
+    };
 
     return (
       <div className={styles.performanceConBg}>
-        <div className={styles.performanceConBg3}>
-          <img
-            src={bg3}
-            alt="家族长"
-            style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
-          />
-          <div className={styles.dateWrapBg}>
-            <DatePanle
-              dateAreaResult
-              isColor
-              defaultDate={this.currentMonth()}
-              toHideImg
-              toHistoryPage={() => {
-                this.toHistoryPage();
-              }}
-              isperformance
-              onChange={date => {
-                this.onDateChange(date);
-              }}
+        {!loading && (
+          <div className={styles.performanceConBg3}>
+            <img
+              src={bg3}
+              alt="家族长"
+              style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
             />
-          </div>
-          <div className={styles.familyContent}>
-            <div className={styles.meta}>
-              <span>
-                {familyHomePageData ? familyHomePageData.totalKpi : familyHomePageDataNone.totalKpi}
-              </span>
-              <span>元</span>
+            <div className={styles.dateWrapBg}>
+              <DatePanle
+                dateAreaResult
+                isColor
+                defaultDate={this.currentMonth()}
+                toHideImg
+                toHistoryPage={() => {
+                  this.toHistoryPage();
+                }}
+                isperformance
+                onChange={date => {
+                  this.onDateChange(date);
+                }}
+              />
             </div>
-            <div className={styles.middle}>
-              <ul>
-                <li>
-                  <p>管理规模</p>
-                  <p>
-                    在服学员{' '}
-                    {familyHomePageData
-                      ? familyHomePageData.serviceStuCount
-                      : familyHomePageDataNone.serviceStuCount}{' '}
-                    | 老师{' '}
-                    {familyHomePageData
-                      ? familyHomePageData.teacherCount
-                      : familyHomePageDataNone.teacherCount}
-                  </p>
-                </li>
-                <li>
-                  <p>
-                    创收单量{' '}
-                    {familyHomePageData
-                      ? familyHomePageData.totalIncomeOrderCount
-                      : familyHomePageDataNone.totalIncomeOrderCount}{' '}
-                    | 足课单量{' '}
-                    {familyHomePageData
-                      ? familyHomePageData.registrationAbove60minCount
-                      : familyHomePageDataNone.registrationAbove60minCount}{' '}
-                    | 足课占比{' '}
-                    {familyHomePageData
-                      ? `${familyHomePageData.registrationAbove60minPercent}%`
-                      : familyHomePageDataNone.registrationAbove60minPercent}
-                  </p>
-                </li>
-                <li>
-                  <p>
-                    好推净流水{' '}
-                    {familyHomePageData
-                      ? familyHomePageData.goodpushFinanceNetFlow
-                      : familyHomePageDataNone.goodpushFinanceNetFlow}
-                    元 | 续报净流水
-                    {familyHomePageData
-                      ? familyHomePageData.renewalFinanceNetFlow
-                      : familyHomePageDataNone.renewalFinanceNetFlow}元 <br />
-                    成考转本套绩效流水
-                    {familyHomePageData
-                      ? familyHomePageData.examinationZbtFinanceNetFlow
-                      : familyHomePageDataNone.examinationZbtFinanceNetFlow}元
-                  </p>
-                </li>
-              </ul>
-            </div>
-            {familyHomePageData &&
-              familyHomePageData.incomeKpiItemList && (
+            <div className={styles.familyContent}>
+              <div className={styles.meta}>
+                <span>{totalKpi}</span>
+                <span>元</span>
+              </div>
+              <div className={styles.middle}>
+                <ul>
+                  <li>
+                    <p>管理规模</p>
+                    <p>
+                      在服学员 {serviceStuCount} | 老师 {teacherCount}{' '}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      创收单量 {totalIncomeOrderCount} | 足课单量 {registrationAbove60minCount}
+                      | 足课占比 {registrationAbove60minPercent}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      好推净流水 {goodpushFinanceNetFlow} 元 | 续报净流水{renewalFinanceNetFlow}元{' '}
+                      <br />
+                      成考转本套绩效流水 {examinationZbtFinanceNetFlow}元
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              {familyHomePageData.incomeKpiItemList && (
                 <Table
                   history={this.props.history}
                   columnsData={columnsData}
@@ -188,15 +148,17 @@ class Family extends React.Component {
                   newParams={newParams}
                 />
               )}
-            <div className={styles.group} onClick={() => this.gotoGroup()}>
-              <div>
-                <img src={Bitmap} alt="logo" className={styles.logo} />
-                <span>小组绩效</span>
+              <div className={styles.group} onClick={() => this.gotoGroup()}>
+                <div>
+                  <img src={Bitmap} alt="logo" className={styles.logo} />
+                  <span>小组绩效</span>
+                </div>
+                <Icon type="right" size="xs" color="#00ccc3" />
               </div>
-              <Icon type="right" size="xs" color="#00ccc3" />
             </div>
           </div>
-        </div>
+        )}
+        {loading && <Loading />}
       </div>
     );
   }
@@ -204,5 +166,5 @@ class Family extends React.Component {
 
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance.familyHomePage,
+  loading: loading.models.performance,
 }))(Family);

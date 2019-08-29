@@ -123,7 +123,7 @@ export function checkoutAuthUrlPerformance() {
     case IDENTIFY.family:
       return '/performance/family';
     case IDENTIFY.group:
-      return '/performance/opreation';
+      return '/performance/operation';
     case IDENTIFY.class:
       return '/performance/teacher';
     case IDENTIFY.college:
@@ -131,11 +131,4 @@ export function checkoutAuthUrlPerformance() {
     default:
       return '/exception/403';
   }
-  // if (groupType === 'boss' || groupType === 'admin') {
-  //   return '/performance/admin';
-  // } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {
-  //   return '/indexPage/teacher';
-  // } else {
-  //   return '/exception/403';
-  // }
 }
