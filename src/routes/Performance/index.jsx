@@ -74,5 +74,5 @@ class Performance extends React.Component {
 }
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance,
+  loading: loading.models.performance,
 }))(Performance);

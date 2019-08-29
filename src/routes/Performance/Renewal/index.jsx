@@ -3,12 +3,12 @@ import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
 import url from 'url';
 import moment from 'moment';
+import Loading from 'components/Loading/Loading';
 import { getItem } from 'utils/localStorage';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import Table from '../component/table';
 import styles from './index.less';
 import bg2 from '../../../assets/bg2.png';
-import noData from '../../../assets/nodata.png';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -18,9 +18,6 @@ class Renewal extends React.Component {
     this.state = {
       index: 0,
       bflag: true,
-      // month: this.currentMonth(),
-      // collegeId,
-      // userId,
     };
   }
 
@@ -81,7 +78,10 @@ class Renewal extends React.Component {
 
   render() {
     const { index, bflag } = this.state;
+    const { loading } = this.props;
+    console.log(loading, 'this.props');
     const { findRenewalKpiDetailData } = this.props.performance;
+    console.log(findRenewalKpiDetailData, 'findRenewalKpiDetailData√');
     let totalkpi = 0;
     let showFirstId = 0;
     if (findRenewalKpiDetailData) {
@@ -213,7 +213,7 @@ class Renewal extends React.Component {
             )}
           </div>
         </div>
-        {!findRenewalKpiDetailData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {loading && <Loading />}
       </div>
     );
   }
@@ -221,5 +221,5 @@ class Renewal extends React.Component {
 
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance.findRenewalKpiDetail,
+  loading: loading.models.performance,
 }))(Renewal);

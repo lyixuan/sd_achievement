@@ -3,12 +3,12 @@ import { connect } from 'dva';
 import { Icon } from 'antd-mobile';
 import url from 'url';
 import moment from 'moment';
+import Loading from 'components/Loading/Loading';
 import { getItem } from 'utils/localStorage';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import Table from '../component/table';
 import styles from './index.less';
 import bg2 from '../../../assets/bg2.png';
-import noData from '../../../assets/nodata.png';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -19,9 +19,6 @@ class GoodPush extends React.Component {
       index: 0,
       month: this.currentMonth(),
       bflag: true,
-      // findGoodpushKpiDetailDataNone:{
-
-      // }
     };
   }
 
@@ -83,6 +80,7 @@ class GoodPush extends React.Component {
 
   render() {
     const { index, bflag } = this.state;
+    const { loading } = this.props;
     const { findGoodpushKpiDetailData } = this.props.performance;
     let totalkpi = 0;
     let showFirstId = 0;
@@ -228,7 +226,7 @@ class GoodPush extends React.Component {
             )}
           </div>
         </div>
-        {!findGoodpushKpiDetailData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {loading && <Loading />}
       </div>
     );
   }
@@ -236,5 +234,5 @@ class GoodPush extends React.Component {
 
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance.findGoodpushKpiDetail,
+  loading: loading.models.performance,
 }))(GoodPush);
