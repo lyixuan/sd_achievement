@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import url from 'url';
 import { setItem } from 'utils/localStorage';
+import Loading from 'components/Loading/Loading';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import DatePanle from 'container/DatePanle';
 import Table from '../component/table';
@@ -12,21 +13,6 @@ import noData from '../../../assets/nodata.png';
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
 class Teacher extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      classHomePageDataNone: {
-        serviceStuCount: '0',
-        teacherCount: '0',
-        totalKpi: '0',
-        totalIncomeOrderCount: '0',
-        goodpushFinanceNetFlow: '0',
-        renewalFinanceNetFlow: '0',
-        examinationZbtFinanceNetFlow: '0',
-      },
-    };
-  }
-
   componentDidMount() {
     this.getTeacherData();
   }
@@ -56,17 +42,24 @@ class Teacher extends React.Component {
   };
   render() {
     const { classHomePageData } = this.props.performance;
-    const { classHomePageDataNone } = this.state;
-    let newParams = {};
-    if (classHomePageData) {
-      newParams = {
-        userType: classHomePageData.userType,
-        userId: classHomePageData.userId,
-        orgId: classHomePageData.orgId,
-      };
-      classHomePageData.serviceStuCount = 0;
-      classHomePageData.examinationZbtFinanceNetFlow = 0;
-    }
+
+    const { loading } = this.props;
+    const totalKpi = classHomePageData.totalKpi || 0;
+    const serviceStuCount = classHomePageData.serviceStuCount || 0;
+    const teacherCount = classHomePageData.teacherCount || 0;
+    const goodpushOrderCount = classHomePageData.goodpushOrderCount || 0;
+    const renewalOrderCount = classHomePageData.renewalOrderCount || 0;
+    const examZbtOrderCount = classHomePageData.examZbtOrderCount || 0;
+    const goodpushFinanceNetFlow = classHomePageData.goodpushFinanceNetFlow || 0;
+    const renewalFinanceNetFlow = classHomePageData.renewalFinanceNetFlow || 0;
+    const examZbtFinanceNetFlow = classHomePageData.examZbtFinanceNetFlow || 0;
+
+    const newParams = {
+      userType: classHomePageData.userType,
+      userId: classHomePageData.userId,
+      orgId: classHomePageData.orgId,
+    };
+
     const columnsData = [
       {
         title: '绩效子项',
@@ -109,9 +102,7 @@ class Teacher extends React.Component {
           </div>
           <div className={styles.teacherContent}>
             <div className={styles.meta}>
-              <span>
-                {classHomePageData ? classHomePageData.totalKpi : classHomePageDataNone.totalKpi}
-              </span>
+              <span>{totalKpi}</span>
               <span>元</span>
             </div>
             <div className={styles.middle}>
@@ -119,89 +110,39 @@ class Teacher extends React.Component {
                 <li>
                   <p>管理规模</p>
                   <p>
-                    在服学员{' '}
-                    {classHomePageData
-                      ? classHomePageData.serviceStuCount
-                      : classHomePageDataNone.serviceStuCount}{' '}
-                    | 老师{' '}
-                    {classHomePageData
-                      ? classHomePageData.teacherCount
-                      : classHomePageDataNone.teacherCount}
+                    在服学员 {serviceStuCount}
+                    | 老师 {teacherCount}
                   </p>
                 </li>
                 <li>
                   <p>
-                    创收单量{' '}
-                    {classHomePageData
-                      ? classHomePageData.totalIncomeOrderCount
-                      : classHomePageDataNone.totalIncomeOrderCount}
+                    好推单量 {goodpushOrderCount} | 续报单量 {renewalOrderCount} | 成考专套本单量
+                    {examZbtOrderCount}
                   </p>
                 </li>
                 <li>
                   <p>
-                    好推净流水{' '}
-                    {classHomePageData
-                      ? classHomePageData.goodpushFinanceNetFlow
-                      : classHomePageDataNone.goodpushFinanceNetFlow}{' '}
-                    元 | 续报净流水{' '}
-                    {classHomePageData
-                      ? classHomePageData.renewalFinanceNetFlow
-                      : classHomePageDataNone.renewalFinanceNetFlow}元 <br />
+                    好推净流水 {goodpushFinanceNetFlow} 元 | 续报净流水 {renewalFinanceNetFlow}元
+                    <br />
                     成考转本套绩效流水
-                    {classHomePageData
-                      ? classHomePageData.examinationZbtFinanceNetFlow
-                      : classHomePageDataNone.examinationZbtFinanceNetFlow}元
+                    {examZbtFinanceNetFlow}元
                   </p>
                 </li>
               </ul>
             </div>
-            {/* <div className={styles.middle}>
-              <li>
-                <p>管理规模</p>
-                <p>
-                  在服学员{' '}
-                  {classHomePageData
-                    ? classHomePageData.serviceStuCount
-                    : classHomePageDataNone.serviceStuCount}{' '}
-                  | 老师{' '}
-                  {classHomePageData
-                    ? classHomePageData.teacherCount
-                    : classHomePageDataNone.teacherCount}
-                </p>
-              </li>
-              <p>
-                创收单量{' '}
-                {classHomePageData
-                  ? classHomePageData.totalIncomeOrderCount
-                  : classHomePageDataNone.totalIncomeOrderCount}
-              </p>
-              <p>
-                好推净流水{' '}
-                {classHomePageData
-                  ? classHomePageData.goodpushFinanceNetFlow
-                  : classHomePageDataNone.goodpushFinanceNetFlow}元 | 续报净流水
-                {classHomePageData
-                  ? classHomePageData.renewalFinanceNetFlow
-                  : classHomePageDataNone.renewalFinanceNetFlow}元
-                <br />
-                成考转本套绩效流水
-                {classHomePageData
-                  ? classHomePageData.examinationZbtFinanceNetFlow
-                  : classHomePageDataNone.examinationZbtFinanceNetFlow}元
-              </p>
-            </div> */}
-            {classHomePageData &&
-              classHomePageData.incomeKpiItemList.length !== 0 && (
-                <Table
-                  history={this.props.history}
-                  columnsData={columnsData}
-                  rowData={classHomePageData.incomeKpiItemList}
-                  newParams={newParams}
-                />
-              )}
+            {classHomePageData.incomeKpiItemList && (
+              <Table
+                history={this.props.history}
+                columnsData={columnsData}
+                rowData={classHomePageData.incomeKpiItemList}
+                newParams={newParams}
+              />
+            )}
           </div>
         </div>
-        {!classHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {!loading &&
+          !classHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {loading && <Loading />}
       </div>
     );
   }

@@ -58,13 +58,12 @@ class Family extends React.Component {
     const totalKpi = familyHomePageData.totalKpi || 0;
     const serviceStuCount = familyHomePageData.serviceStuCount || 0;
     const teacherCount = familyHomePageData.teacherCount || 0;
-    const totalIncomeOrderCount = familyHomePageData.totalIncomeOrderCount || 0;
-    const registrationAbove60minCount = familyHomePageData.registrationAbove60minCount || 0;
-    const registrationAbove60minPercent =
-      `${familyHomePageData.registrationAbove60minPercent}%` || 0;
+    const goodpushOrderCount = familyHomePageData.goodpushOrderCount || 0;
+    const renewalOrderCount = familyHomePageData.renewalOrderCount || 0;
+    const examZbtOrderCount = familyHomePageData.examZbtOrderCount || 0;
     const goodpushFinanceNetFlow = familyHomePageData.goodpushFinanceNetFlow || 0;
     const renewalFinanceNetFlow = familyHomePageData.renewalFinanceNetFlow || 0;
-    const examinationZbtFinanceNetFlow = familyHomePageData.examinationZbtFinanceNetFlow || 0;
+    const examZbtFinanceNetFlow = familyHomePageData.examZbtFinanceNetFlow || 0;
     const columnsData = [
       {
         title: '绩效子项',
@@ -127,15 +126,15 @@ class Family extends React.Component {
                   </li>
                   <li>
                     <p>
-                      创收单量 {totalIncomeOrderCount} | 足课单量 {registrationAbove60minCount}
-                      | 足课占比 {registrationAbove60minPercent}
+                      好推单量 {goodpushOrderCount} | 续报单量 {renewalOrderCount} | 成考专套本单量
+                      {examZbtOrderCount}
                     </p>
                   </li>
                   <li>
                     <p>
                       好推净流水 {goodpushFinanceNetFlow} 元 | 续报净流水{renewalFinanceNetFlow}元{' '}
                       <br />
-                      成考转本套绩效流水 {examinationZbtFinanceNetFlow}元
+                      成考转本套绩效流水 {examZbtFinanceNetFlow}元
                     </p>
                   </li>
                 </ul>

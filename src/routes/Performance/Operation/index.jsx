@@ -55,12 +55,12 @@ class Operation extends React.Component {
     const totalKpi = groupHomePageData.totalKpi || 0;
     const serviceStuCount = groupHomePageData.serviceStuCount || 0;
     const teacherCount = groupHomePageData.teacherCount || 0;
-    const totalIncomeOrderCount = groupHomePageData.totalIncomeOrderCount || 0;
-    const registrationAbove60minCount = groupHomePageData.registrationAbove60minCount || 0;
-    const registrationAbove60minPercent = groupHomePageData.registrationAbove60minPercent || 0;
+    const goodpushOrderCount = groupHomePageData.goodpushOrderCount || 0;
+    const renewalOrderCount = groupHomePageData.renewalOrderCount || 0;
+    const examZbtOrderCount = groupHomePageData.examZbtOrderCount || 0;
     const goodpushFinanceNetFlow = groupHomePageData.goodpushFinanceNetFlow || 0;
     const renewalFinanceNetFlow = groupHomePageData.renewalFinanceNetFlow || 0;
-    const examinationZbtFinanceNetFlow = groupHomePageData.examinationZbtFinanceNetFlow || 0;
+    const examZbtFinanceNetFlow = groupHomePageData.examZbtFinanceNetFlow || 0;
     const newParams = {
       userType: groupHomePageData.userType || '',
       userId: groupHomePageData.userId || '',
@@ -147,9 +147,8 @@ class Operation extends React.Component {
                   </li>
                   <li>
                     <p>
-                      创收单量 {totalIncomeOrderCount}
-                      | 足课单量 {registrationAbove60minCount} | 足课占比
-                      {registrationAbove60minPercent}
+                      好推单量 {goodpushOrderCount} | 续报单量 {renewalOrderCount} | 成考专套本单量
+                      {examZbtOrderCount}
                     </p>
                   </li>
                   <li>
@@ -157,7 +156,7 @@ class Operation extends React.Component {
                       好推净流水 {goodpushFinanceNetFlow} 元 | 续报净流水 {renewalFinanceNetFlow}元
                       <br />
                       成考转本套绩效流水
-                      {examinationZbtFinanceNetFlow}元
+                      {examZbtFinanceNetFlow}元
                     </p>
                   </li>
                 </ul>

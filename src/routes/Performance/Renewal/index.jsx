@@ -79,9 +79,7 @@ class Renewal extends React.Component {
   render() {
     const { index, bflag } = this.state;
     const { loading } = this.props;
-    console.log(loading, 'this.props');
     const { findRenewalKpiDetailData } = this.props.performance;
-    console.log(findRenewalKpiDetailData, 'findRenewalKpiDetailData√');
     let totalkpi = 0;
     let showFirstId = 0;
     if (findRenewalKpiDetailData) {
