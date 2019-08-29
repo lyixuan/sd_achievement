@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import url from 'url';
 import { Icon } from 'antd-mobile';
 import { setItem } from 'utils/localStorage';
+import Loading from 'components/Loading/Loading';
 import DatePanle from 'container/DatePanle';
 import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator';
 import styles from './index.less';
@@ -131,6 +132,7 @@ class President extends React.Component {
   };
   render() {
     const { groupRankListData } = this.props.performance;
+    const { loading } = this.props;
     const { id, month, bflag } = this.state;
     // 默认第一个展示
     let showFirstId = 0;
@@ -208,7 +210,9 @@ class President extends React.Component {
             </div>
           )}
         </div>
-        {!groupRankListData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {!loading &&
+          !groupRankListData && <img src={noData} alt="nodata" className={styles.noData} />}
+        {loading && <Loading />}
       </div>
     );
   }
