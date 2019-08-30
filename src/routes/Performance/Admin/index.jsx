@@ -52,55 +52,57 @@ class Admin extends React.Component {
     const { loading } = this.props;
     return (
       <div>
-        <div className={styles.performanceCon}>
-          <div className={styles.dateWrap}>
-            {getItem('timeDatePerformance').value && (
-              <DatePanle
-                dateAreaResult
-                defaultDate={this.currentMonth()}
-                toHideImg
-                toHistoryPage={() => {
-                  this.toHistoryPage();
-                }}
-                isperformance
-                onChange={date => {
-                  this.onDateChange(date);
-                }}
-              />
+        {!loading && (
+          <div className={styles.performanceCon}>
+            <div className={styles.dateWrap}>
+              {getItem('timeDatePerformance').value && (
+                <DatePanle
+                  dateAreaResult
+                  defaultDate={this.currentMonth()}
+                  toHideImg
+                  toHistoryPage={() => {
+                    this.toHistoryPage();
+                  }}
+                  isperformance
+                  onChange={date => {
+                    this.onDateChange(date);
+                  }}
+                />
+              )}
+            </div>
+            {adminHomePageData && (
+              <div className={styles.presidentContent}>
+                <p className={styles.meta}>
+                  <span>组织</span>
+                  <span>绩效</span>
+                  <span>操作</span>
+                </p>
+                <ul className={styles.list}>
+                  {adminHomePageData.map(item => {
+                    return (
+                      <li key={item.itemName} onClick={() => this.toggle(item.itemId)}>
+                        <div className={styles.items}>
+                          <span>{item.itemName}</span>
+                          <span>{item.totalKpi}</span>
+                          <span
+                            style={{
+                              alignItems: 'center',
+                              width: '10%',
+                              display: 'flex',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <Icon type="right" size="xs" color="#00ccc3" />
+                          </span>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             )}
           </div>
-          {adminHomePageData && (
-            <div className={styles.presidentContent}>
-              <p className={styles.meta}>
-                <span>组织</span>
-                <span>绩效</span>
-                <span>操作</span>
-              </p>
-              <ul className={styles.list}>
-                {adminHomePageData.map(item => {
-                  return (
-                    <li key={item.itemName} onClick={() => this.toggle(item.itemId)}>
-                      <div className={styles.items}>
-                        <span>{item.itemName}</span>
-                        <span>{item.totalKpi}</span>
-                        <span
-                          style={{
-                            alignItems: 'center',
-                            width: '10%',
-                            display: 'flex',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          <Icon type="right" size="xs" color="#00ccc3" />
-                        </span>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
-        </div>
+        )}
         {!loading &&
           !adminHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
         {loading && <Loading />}

@@ -79,67 +79,69 @@ class Teacher extends React.Component {
     ];
     return (
       <div>
-        <div className={styles.performanceConBg2}>
-          <img
-            src={bg3}
-            alt="班主任"
-            style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
-          />
-          <div className={styles.dateWrapBg}>
-            <DatePanle
-              dateAreaResult
-              isColor
-              defaultDate={this.currentMonth()}
-              toHideImg
-              toHistoryPage={() => {
-                this.toHistoryPage();
-              }}
-              isperformance
-              onChange={date => {
-                this.onDateChange(date);
-              }}
+        {!loading && (
+          <div className={styles.performanceConBg2}>
+            <img
+              src={bg3}
+              alt="班主任"
+              style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
             />
-          </div>
-          <div className={styles.teacherContent}>
-            <div className={styles.meta}>
-              <span>{totalKpi}</span>
-              <span>元</span>
-            </div>
-            <div className={styles.middle}>
-              <ul>
-                <li>
-                  <p>管理规模</p>
-                  <p>
-                    在服学员 {serviceStuCount}
-                    | 老师 {teacherCount}
-                  </p>
-                </li>
-                <li>
-                  <p>
-                    好推单量 {goodpushOrderCount} | 续报单量 {renewalOrderCount} | 成考专套本单量
-                    {examZbtOrderCount}
-                  </p>
-                </li>
-                <li>
-                  <p>
-                    好推净流水 {goodpushFinanceNetFlow} 元 | 续报净流水 {renewalFinanceNetFlow}元
-                    <br />
-                    成考转本套绩效流水
-                    {examZbtFinanceNetFlow}元
-                  </p>
-                </li>
-              </ul>
-            </div>
-            {classHomePageData.incomeKpiItemList && (
-              <Table
-                history={this.props.history}
-                columnsData={columnsData}
-                rowData={classHomePageData.incomeKpiItemList}
-                newParams={newParams}
+            <div className={styles.dateWrapBg}>
+              <DatePanle
+                dateAreaResult
+                isColor
+                defaultDate={this.currentMonth()}
+                toHideImg
+                toHistoryPage={() => {
+                  this.toHistoryPage();
+                }}
+                isperformance
+                onChange={date => {
+                  this.onDateChange(date);
+                }}
               />
-            )}
+            </div>
+            <div className={styles.teacherContent}>
+              <div className={styles.meta}>
+                <span>{totalKpi}</span>
+                <span>元</span>
+              </div>
+              <div className={styles.middle}>
+                <ul>
+                  <li>
+                    <p>管理规模</p>
+                    <p>
+                      在服学员 {serviceStuCount}
+                      | 老师 {teacherCount}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      好推单量 {goodpushOrderCount} | 续报单量 {renewalOrderCount} | 成考专套本单量
+                      {examZbtOrderCount}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      好推净流水 {goodpushFinanceNetFlow} 元 | 续报净流水 {renewalFinanceNetFlow}元
+                      <br />
+                      成考转本套绩效流水
+                      {examZbtFinanceNetFlow}元
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              {classHomePageData.incomeKpiItemList && (
+                <Table
+                  history={this.props.history}
+                  columnsData={columnsData}
+                  rowData={classHomePageData.incomeKpiItemList}
+                  newParams={newParams}
+                />
+              )}
+            </div>
           </div>
-        </div>
+        )}
         {!loading &&
           !classHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
         {loading && <Loading />}
@@ -150,6 +152,6 @@ class Teacher extends React.Component {
 
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance,
+  loading: loading.models.performance,
 }))(Teacher);
 // export default Teacher;

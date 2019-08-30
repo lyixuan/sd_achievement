@@ -47,7 +47,6 @@ class President extends React.Component {
       familyId: (query.familyId !== 'null' && query.familyId) || currentAuthInfo.familyId,
       userId: (query.userId !== 'null' && query.userId) || currentAuthInfo.userId,
     };
-    console.log(params, 'params');
     this.props.dispatch({
       type: 'performance/groupRankList',
       payload: params,
@@ -141,75 +140,78 @@ class President extends React.Component {
     }
     return (
       <div>
-        <div className={styles.performanceCon}>
-          <div className={styles.dateWrap}>
-            <DatePanle
-              dateAreaResult
-              defaultDate={month}
-              toHideImg
-              toHistoryPage={() => {
-                this.toHistoryPage();
-              }}
-              isperformance
-              onChange={date => {
-                this.onDateChange(date);
-              }}
-            />
-          </div>
-          {groupRankListData && (
-            <div className={styles.presidentContent}>
-              <p className={styles.meta}>
-                <span>家族</span>
-                <span>绩效总额</span>
-                <span>操作</span>
-              </p>
-              <ul className={styles.list}>
-                {groupRankListData.map(item => {
-                  return (
-                    <li
-                      key={item.itemName}
-                      onClick={e =>
-                        this.toggle(e, item.itemId, (id || showFirstId) === item.itemId)
-                      }
-                    >
-                      <div className={styles.items}>
-                        <span>{item.itemName}</span>
-                        <span>{item.totalKpi}</span>
-                        <span
-                          // onClick={() => this.toggle(item.itemId)}
+        {!loading && (
+          <div className={styles.performanceCon}>
+            <div className={styles.dateWrap}>
+              <DatePanle
+                dateAreaResult
+                defaultDate={month}
+                toHideImg
+                toHistoryPage={() => {
+                  this.toHistoryPage();
+                }}
+                isperformance
+                onChange={date => {
+                  this.onDateChange(date);
+                }}
+              />
+            </div>
+            {groupRankListData && (
+              <div className={styles.presidentContent}>
+                <p className={styles.meta}>
+                  <span>家族</span>
+                  <span>绩效总额</span>
+                  <span>操作</span>
+                </p>
+                <ul className={styles.list}>
+                  {groupRankListData.map(item => {
+                    return (
+                      <li
+                        key={item.itemName}
+                        onClick={e =>
+                          this.toggle(e, item.itemId, (id || showFirstId) === item.itemId)
+                        }
+                      >
+                        <div className={styles.items}>
+                          <span>{item.itemName}</span>
+                          <span>{item.totalKpi}</span>
+                          <span
+                            // onClick={() => this.toggle(item.itemId)}
+                            style={{
+                              alignItems: 'center',
+                              width: '10%',
+                              display: 'flex',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <Icon
+                              type={
+                                (id || showFirstId) === item.itemId && item.itemType === 1 && bflag
+                                  ? 'up'
+                                  : 'down'
+                              }
+                              size="xs"
+                              color="#00ccc3"
+                            />
+                          </span>
+                        </div>
+                        <ul
+                          className={styles.list1}
                           style={{
-                            alignItems: 'center',
-                            width: '10%',
-                            display: 'flex',
-                            cursor: 'pointer',
+                            display:
+                              (id || showFirstId) === item.itemId && bflag ? 'block' : 'none',
                           }}
                         >
-                          <Icon
-                            type={
-                              (id || showFirstId) === item.itemId && item.itemType === 1 && bflag
-                                ? 'up'
-                                : 'down'
-                            }
-                            size="xs"
-                            color="#00ccc3"
-                          />
-                        </span>
-                      </div>
-                      <ul
-                        className={styles.list1}
-                        style={{
-                          display: (id || showFirstId) === item.itemId && bflag ? 'block' : 'none',
-                        }}
-                      >
-                        {this.renderIem1(item.itemId, item.classKpiList)}
-                      </ul>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
-        </div>
+                          {this.renderIem1(item.itemId, item.classKpiList)}
+                        </ul>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
         {!loading &&
           !groupRankListData && <img src={noData} alt="nodata" className={styles.noData} />}
         {loading && <Loading />}
@@ -220,5 +222,5 @@ class President extends React.Component {
 
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance,
+  loading: loading.models.performance,
 }))(President);

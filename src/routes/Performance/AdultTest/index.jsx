@@ -233,5 +233,5 @@ class GoodPush extends React.Component {
 
 export default connect(({ performance, loading }) => ({
   performance,
-  isloading: loading.models.performance.findGoodpushKpiDetail,
+  loading: loading.models.performance,
 }))(GoodPush);

@@ -150,82 +150,86 @@ class GoodPush extends React.Component {
     ];
     return (
       <div>
-        <div className={styles.performanceConBg2}>
-          <img
-            src={bg2}
-            alt="好推绩效"
-            style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
-          />
-          <div className={styles.dateWrapBg}>
-            <div className={styles.time}>{this.formate()}</div>
-          </div>
-          <div className={styles.teacherContent}>
-            <div className={styles.meta}>
-              <span className={styles.total}>{totalkpi}</span>
-              <span className={styles.price}>元</span>
+        {!loading && (
+          <div className={styles.performanceConBg2}>
+            <img
+              src={bg2}
+              alt="好推绩效"
+              style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
+            />
+            <div className={styles.dateWrapBg}>
+              <div className={styles.time}>{this.formate()}</div>
             </div>
-            <div className={styles.middle}>
-              <p>好推绩效 = 好推净流水 x 好推净流水系数 </p>
-              <p>x 好推岗位分配比</p>
-            </div>
-            {findGoodpushKpiDetailData && (
-              <div className={styles.presidentContent}>
-                <p className={styles.meta}>
-                  {columnsDataMeta.map(item => {
-                    return <span key={item.title}>{item.title}</span>;
-                  })}
-                </p>
-                <ul className={styles.list}>
-                  {findGoodpushKpiDetailData.map(item => {
-                    return (
-                      <li
-                        onClick={e =>
-                          this.toggle(e, item.index, (index || showFirstId) === item.index)
-                        }
-                        key={item.positionType}
-                      >
-                        <div className={styles.items}>
-                          <span>{item.positionType}</span>
-                          <span>{item.positionDistribution}%</span>
-                          <span>{item.totalKpi}</span>
-                          <span
+            <div className={styles.teacherContent}>
+              <div className={styles.meta}>
+                <span className={styles.total}>{totalkpi}</span>
+                <span className={styles.price}>元</span>
+              </div>
+              <div className={styles.middle}>
+                <p>好推绩效 = 好推净流水 x 好推净流水系数 </p>
+                <p>x 好推岗位分配比</p>
+              </div>
+              {findGoodpushKpiDetailData && (
+                <div className={styles.presidentContent}>
+                  <p className={styles.meta}>
+                    {columnsDataMeta.map(item => {
+                      return <span key={item.title}>{item.title}</span>;
+                    })}
+                  </p>
+                  <ul className={styles.list}>
+                    {findGoodpushKpiDetailData.map(item => {
+                      return (
+                        <li
+                          onClick={e =>
+                            this.toggle(e, item.index, (index || showFirstId) === item.index)
+                          }
+                          key={item.positionType}
+                        >
+                          <div className={styles.items}>
+                            <span>{item.positionType}</span>
+                            <span>{item.positionDistribution}%</span>
+                            <span>{item.totalKpi}</span>
+                            <span
+                              style={{
+                                alignItems: 'center',
+                                width: '10%',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                              }}
+                            >
+                              <Icon
+                                type={
+                                  (index || showFirstId) === item.index && bflag ? 'up' : 'down'
+                                }
+                                size="xs"
+                                color={item.goodpushOrderList.length === 0 ? '#ccc' : '#00ccc3'}
+                              />
+                            </span>
+                          </div>
+                          <div
                             style={{
-                              alignItems: 'center',
-                              width: '10%',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              cursor: 'pointer',
+                              display:
+                                (index || showFirstId) === item.index && bflag ? 'block' : 'none',
                             }}
                           >
-                            <Icon
-                              type={(index || showFirstId) === item.index && bflag ? 'up' : 'down'}
-                              size="xs"
-                              color={item.goodpushOrderList.length === 0 ? '#ccc' : '#00ccc3'}
-                            />
-                          </span>
-                        </div>
-                        <div
-                          style={{
-                            display:
-                              (index || showFirstId) === item.index && bflag ? 'block' : 'none',
-                          }}
-                        >
-                          {item.goodpushOrderList.length !== 0 && (
-                            <Table
-                              history={this.props.history}
-                              columnsData={columnsData}
-                              rowData={item.goodpushOrderList}
-                            />
-                          )}
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            )}
+                            {item.goodpushOrderList.length !== 0 && (
+                              <Table
+                                history={this.props.history}
+                                columnsData={columnsData}
+                                rowData={item.goodpushOrderList}
+                              />
+                            )}
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
         {loading && <Loading />}
       </div>
     );

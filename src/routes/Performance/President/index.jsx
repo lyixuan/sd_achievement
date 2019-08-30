@@ -169,74 +169,77 @@ class President extends React.Component {
       collegeHomePageData && collegeHomePageData.length && collegeHomePageData[0].itemId;
     return (
       <div>
-        <div className={styles.performanceCon}>
-          <div className={styles.dateWrap}>
-            <DatePanle
-              dateAreaResult
-              defaultDate={month}
-              toHideImg
-              toHistoryPage={() => {
-                this.toHistoryPage();
-              }}
-              isperformance
-              onChange={date => {
-                this.onDateChange(date);
-              }}
-            />
-          </div>
-          {collegeHomePageData && (
-            <div className={styles.presidentContent}>
-              <p className={styles.meta}>
-                <span>家族</span>
-                <span>绩效总额</span>
-                <span>操作</span>
-              </p>
-              <ul className={styles.list}>
-                {collegeHomePageData.map(item => {
-                  return (
-                    <li
-                      key={item.itemName}
-                      onClick={e =>
-                        this.toggle(e, item.itemId, (id || showFirstId) === item.itemId)
-                      }
-                    >
-                      <div className={styles.items}>
-                        <span>{item.itemName}</span>
-                        <span>{item.totalKpi}</span>
-                        <span
+        {!loading && (
+          <div className={styles.performanceCon}>
+            <div className={styles.dateWrap}>
+              <DatePanle
+                dateAreaResult
+                defaultDate={month}
+                toHideImg
+                toHistoryPage={() => {
+                  this.toHistoryPage();
+                }}
+                isperformance
+                onChange={date => {
+                  this.onDateChange(date);
+                }}
+              />
+            </div>
+            {collegeHomePageData && (
+              <div className={styles.presidentContent}>
+                <p className={styles.meta}>
+                  <span>家族</span>
+                  <span>绩效总额</span>
+                  <span>操作</span>
+                </p>
+                <ul className={styles.list}>
+                  {collegeHomePageData.map(item => {
+                    return (
+                      <li
+                        key={item.itemName}
+                        onClick={e =>
+                          this.toggle(e, item.itemId, (id || showFirstId) === item.itemId)
+                        }
+                      >
+                        <div className={styles.items}>
+                          <span>{item.itemName}</span>
+                          <span>{item.totalKpi}</span>
+                          <span
+                            style={{
+                              alignItems: 'center',
+                              width: '10%',
+                              display: 'flex',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <Icon
+                              type={
+                                (id || showFirstId) === item.itemId && item.itemType === 1 && bflag
+                                  ? 'up'
+                                  : 'down'
+                              }
+                              size="xs"
+                              color="#00ccc3"
+                            />
+                          </span>
+                        </div>
+                        <ul
+                          className={styles.list1}
                           style={{
-                            alignItems: 'center',
-                            width: '10%',
-                            display: 'flex',
-                            cursor: 'pointer',
+                            display:
+                              (id || showFirstId) === item.itemId && bflag ? 'block' : 'none',
                           }}
                         >
-                          <Icon
-                            type={
-                              (id || showFirstId) === item.itemId && item.itemType === 1 && bflag
-                                ? 'up'
-                                : 'down'
-                            }
-                            size="xs"
-                            color="#00ccc3"
-                          />
-                        </span>
-                      </div>
-                      <ul
-                        className={styles.list1}
-                        style={{
-                          display: (id || showFirstId) === item.itemId && bflag ? 'block' : 'none',
-                        }}
-                      >
-                        {this.renderIem1(item.itemId, item.groupKpiList)}
-                      </ul>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
-        </div>
+                          {this.renderIem1(item.itemId, item.groupKpiList)}
+                        </ul>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
         {!loading &&
           !collegeHomePageData && <img src={noData} alt="nodata" className={styles.noData} />}
         {loading && <Loading />}
@@ -245,10 +248,6 @@ class President extends React.Component {
   }
 }
 
-// export default connect(({ loading, bosshome }) =>
-// ({ loading: loading.models.bosshome, bosshome }))(
-//   Boss
-// );
 export default connect(({ performance, loading }) => ({
   performance,
   loading: loading.models.performance,

@@ -137,80 +137,88 @@ class Renewal extends React.Component {
     ];
     return (
       <div>
-        <div className={styles.performanceConBg2}>
-          <img src={bg2} alt="续报" style={{ position: 'absolute', zIndex: '-1', width: '100%' }} />
-          <div className={styles.dateWrapBg}>
-            <div className={styles.time}>{this.formate()}</div>
-          </div>
-          <div className={styles.teacherContent}>
-            <div className={styles.meta}>
-              <span className={styles.total}>{findRenewalKpiDetailData ? totalkpi : '0'}</span>
-              <span className={styles.price}>元</span>
+        {!loading && (
+          <div className={styles.performanceConBg2}>
+            <img
+              src={bg2}
+              alt="续报"
+              style={{ position: 'absolute', zIndex: '-1', width: '100%' }}
+            />
+            <div className={styles.dateWrapBg}>
+              <div className={styles.time}>{this.formate()}</div>
             </div>
-            <div className={styles.middle}>
-              <p>续报绩效 = 续报净流水 x 岗位提点</p>
-            </div>
-            {findRenewalKpiDetailData && (
-              <div className={styles.presidentContent}>
-                <p className={styles.meta}>
-                  {columnsDataMeta.map(item => {
-                    return <span key={item.title}>{item.title}</span>;
-                  })}
-                </p>
-                <ul className={styles.list}>
-                  {findRenewalKpiDetailData.map(item => {
-                    return (
-                      <li
-                        onClick={e =>
-                          this.toggle(e, item.index, (index || showFirstId) === item.index)
-                        }
-                        key={item.positionType}
-                      >
-                        <div className={styles.items}>
-                          <span>{item.positionType}</span>
-                          <span>{item.positionPointKpi}%</span>
-                          <span>{item.totalFinanceNetFlow}</span>
-                          <span>{item.totalKpi}</span>
-                          <span
-                            // onClick={() => this.toggle(item.index)}
+            <div className={styles.teacherContent}>
+              <div className={styles.meta}>
+                <span className={styles.total}>{findRenewalKpiDetailData ? totalkpi : '0'}</span>
+                <span className={styles.price}>元</span>
+              </div>
+              <div className={styles.middle}>
+                <p>续报绩效 = 续报净流水 x 岗位提点</p>
+              </div>
+              {findRenewalKpiDetailData && (
+                <div className={styles.presidentContent}>
+                  <p className={styles.meta}>
+                    {columnsDataMeta.map(item => {
+                      return <span key={item.title}>{item.title}</span>;
+                    })}
+                  </p>
+                  <ul className={styles.list}>
+                    {findRenewalKpiDetailData.map(item => {
+                      return (
+                        <li
+                          onClick={e =>
+                            this.toggle(e, item.index, (index || showFirstId) === item.index)
+                          }
+                          key={item.positionType}
+                        >
+                          <div className={styles.items}>
+                            <span>{item.positionType}</span>
+                            <span>{item.positionPointKpi}%</span>
+                            <span>{item.totalFinanceNetFlow}</span>
+                            <span>{item.totalKpi}</span>
+                            <span
+                              // onClick={() => this.toggle(item.index)}
+                              style={{
+                                alignItems: 'center',
+                                width: '10%',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                              }}
+                            >
+                              <Icon
+                                type={
+                                  (index || showFirstId) === item.index && bflag ? 'up' : 'down'
+                                }
+                                size="xs"
+                                color={item.renewalOrderList.length === 0 ? '#ccc' : '#00ccc3'}
+                              />
+                            </span>
+                          </div>
+
+                          <div
                             style={{
-                              alignItems: 'center',
-                              width: '10%',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              cursor: 'pointer',
+                              display:
+                                (index || showFirstId) === item.index && bflag ? 'block' : 'none',
                             }}
                           >
-                            <Icon
-                              type={(index || showFirstId) === item.index && bflag ? 'up' : 'down'}
-                              size="xs"
-                              color={item.renewalOrderList.length === 0 ? '#ccc' : '#00ccc3'}
-                            />
-                          </span>
-                        </div>
-
-                        <div
-                          style={{
-                            display:
-                              (index || showFirstId) === item.index && bflag ? 'block' : 'none',
-                          }}
-                        >
-                          {item.renewalOrderList.length !== 0 && (
-                            <Table
-                              history={this.props.history}
-                              columnsData={columnsData}
-                              rowData={item.renewalOrderList}
-                            />
-                          )}
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            )}
+                            {item.renewalOrderList.length !== 0 && (
+                              <Table
+                                history={this.props.history}
+                                columnsData={columnsData}
+                                rowData={item.renewalOrderList}
+                              />
+                            )}
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
         {loading && <Loading />}
       </div>
     );
