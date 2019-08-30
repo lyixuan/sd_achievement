@@ -5,11 +5,11 @@ import styles from './renderHeader.less';
 
 class RenderTabel extends React.Component {
   render() {
-    const { columnsData, rowData, newParams } = this.props;
+    const { columnsData, rowData, newParams, params = {} } = this.props;
     if (!rowData) return <div>暂无数据</div>;
     return (
       <table border="0" className={styles.newTable} style={{ width: '100%' }}>
-        <RenderHeader columnsData={columnsData} />
+        <RenderHeader columnsData={columnsData} params={params} />
         <RenderItem
           rowData={rowData}
           columnsData={columnsData}

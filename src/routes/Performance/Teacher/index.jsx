@@ -77,6 +77,10 @@ class Teacher extends React.Component {
         key: '操作',
       },
     ];
+    const params = {
+      color: '#55595E',
+      background: '#F7F9FD',
+    };
     return (
       <div>
         {!loading && (
@@ -133,6 +137,7 @@ class Teacher extends React.Component {
               </div>
               {classHomePageData.incomeKpiItemList && (
                 <Table
+                  params={params}
                   history={this.props.history}
                   columnsData={columnsData}
                   rowData={classHomePageData.incomeKpiItemList}

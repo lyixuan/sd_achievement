@@ -86,6 +86,10 @@ class Family extends React.Component {
       userId: familyHomePageData.userId || '',
       orgId: familyHomePageData.orgId || '',
     };
+    const params = {
+      color: '#55595E',
+      background: '#F7F9FD',
+    };
 
     return (
       <div className={styles.performanceConBg}>
@@ -143,7 +147,7 @@ class Family extends React.Component {
                 <Table
                   history={this.props.history}
                   columnsData={columnsData}
-                  color="#F7F9FD"
+                  params={params}
                   rowData={familyHomePageData.incomeKpiItemList}
                   newParams={newParams}
                 />

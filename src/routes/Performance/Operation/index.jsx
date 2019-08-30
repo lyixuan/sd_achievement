@@ -107,6 +107,11 @@ class Operation extends React.Component {
       },
     ];
 
+    const params = {
+      color: '#55595E',
+      background: '#F7F9FD',
+    };
+
     return (
       <div>
         {!loading && (
@@ -165,6 +170,7 @@ class Operation extends React.Component {
                 </div>
                 {groupHomePageData.incomeKpiItemList && (
                   <Table
+                    params={params}
                     history={this.props.history}
                     columnsData={columnsData}
                     rowData={groupHomePageData.incomeKpiItemList}
@@ -175,7 +181,7 @@ class Operation extends React.Component {
                   <div className={styles.teacher}>
                     <p>班主任预测绩效</p>
                     <Table
-                      color="#F7F9FD"
+                      params={params}
                       history={this.props.history}
                       columnsData={columnsData1}
                       rowData={groupHomePageData.teacherKpiItemList}
