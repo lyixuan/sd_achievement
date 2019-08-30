@@ -294,6 +294,13 @@ export async function findGoodpushKpiDetail(params) {
   });
 }
 
+// 专套本
+export async function findExamZbtKpiDetail(params) {
+  return request(`${NEWHOST}/incomeIndex/findExamZbtKpiDetail`, {
+    method: 'POST',
+    body: params,
+  });
+}
 // 时间
 export async function getDateRange() {
   return request(`${NEWHOST}/incomeIndex/getDateRange`);

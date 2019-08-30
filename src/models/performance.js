@@ -11,6 +11,7 @@ import {
   findRenewalKpiDetail,
   findGoodpushKpiDetail,
   getDateRange,
+  findExamZbtKpiDetail,
 } from '../services/api';
 import Message from '../components/Message';
 
@@ -64,6 +65,7 @@ export default {
     groupRankListData: [],
     findRenewalKpiDetailData: null,
     findGoodpushKpiDetailData: null,
+    findExamZbtKpiDetailData: null,
   },
 
   subscriptions: {
@@ -256,6 +258,47 @@ export default {
           yield put({
             type: 'save',
             payload: { findGoodpushKpiDetailData: response.data },
+          });
+        }
+      } else {
+        Message.fail(response.msg);
+      }
+      yield put({
+        type: 'save',
+        payload: response,
+      });
+    },
+
+    // 成考专套本
+    *findExamZbtKpiDetail({ payload }, { call, put }) {
+      const response = yield call(findExamZbtKpiDetail, { ...payload });
+      if (response.code === 2000) {
+        if (response.data === null) {
+          yield put({
+            type: 'save',
+            payload: { findExamZbtKpiDetailData: null },
+          });
+        } else {
+          response.data.map((item, idx) => {
+            // eslint-disable-next-line
+            item.index = idx;
+            // eslint-disable-next-line
+            item.positionType = groupName[item.positionType];
+            if (item.goodpushOrderList.length) {
+              return item.goodpushOrderList.map(list => {
+                // eslint-disable-next-line
+                list.goodpushValue = `${list.goodpushValue}%`;
+                // eslint-disable-next-line
+                list.registrationDate = moment(list.registrationDate).format('YYYY.MM.DD');
+                return item;
+              });
+            } else {
+              return item;
+            }
+          });
+          yield put({
+            type: 'save',
+            payload: { findExamZbtKpiDetailData: response.data },
           });
         }
       } else {

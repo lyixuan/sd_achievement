@@ -245,9 +245,9 @@ export const getRouterData = app => {
       showTitle: true,
       // isAuth: true,
     },
-    '/performance/adulttest': {
+    '/performance/exam': {
       component: dynamicWrapper(app, ['performance'], () =>
-        import('../routes/Performance/AdultTest/index')
+        import('../routes/Performance/Exam/index')
       ),
       title: '成考专本套绩效',
       showTitle: true,

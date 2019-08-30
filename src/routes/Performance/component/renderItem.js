@@ -4,19 +4,19 @@ import styles from './renderItem.less';
 
 const name = [
   {
-    key: 0,
-    name: '续报绩效',
-    url: '/performance/renewal',
-  },
-  {
     key: 1,
     name: '好推绩效',
     url: '/performance/goodpush',
   },
   {
     key: 2,
+    name: '续报绩效',
+    url: '/performance/renewal',
+  },
+  {
+    key: 3,
     name: '成考专本套绩效',
-    url: '/performance/adulttest',
+    url: '/performance/exam',
   },
 ];
 
