@@ -64,6 +64,7 @@ class Family extends React.Component {
     const goodpushFinanceNetFlow = familyHomePageData.goodpushFinanceNetFlow || 0;
     const renewalFinanceNetFlow = familyHomePageData.renewalFinanceNetFlow || 0;
     const examZbtFinanceNetFlow = familyHomePageData.examZbtFinanceNetFlow || 0;
+    const incomeKpiItemList = familyHomePageData.incomeKpiItemList || [];
     const columnsData = [
       {
         title: '绩效子项',
@@ -143,12 +144,12 @@ class Family extends React.Component {
                   </li>
                 </ul>
               </div>
-              {familyHomePageData.incomeKpiItemList && (
+              {incomeKpiItemList.length !== 0 && (
                 <Table
                   history={this.props.history}
                   columnsData={columnsData}
                   params={params}
-                  rowData={familyHomePageData.incomeKpiItemList}
+                  rowData={incomeKpiItemList}
                   newParams={newParams}
                 />
               )}

@@ -53,11 +53,12 @@ class Teacher extends React.Component {
     const goodpushFinanceNetFlow = classHomePageData.goodpushFinanceNetFlow || 0;
     const renewalFinanceNetFlow = classHomePageData.renewalFinanceNetFlow || 0;
     const examZbtFinanceNetFlow = classHomePageData.examZbtFinanceNetFlow || 0;
+    const incomeKpiItemList = classHomePageData.incomeKpiItemList || [];
 
     const newParams = {
-      userType: classHomePageData.userType,
-      userId: classHomePageData.userId,
-      orgId: classHomePageData.orgId,
+      userType: classHomePageData.userType || '',
+      userId: classHomePageData.userId || '',
+      orgId: classHomePageData.orgId || '',
     };
 
     const columnsData = [
@@ -135,12 +136,12 @@ class Teacher extends React.Component {
                   </li>
                 </ul>
               </div>
-              {classHomePageData.incomeKpiItemList && (
+              {incomeKpiItemList.length !== 0 && (
                 <Table
                   params={params}
                   history={this.props.history}
                   columnsData={columnsData}
-                  rowData={classHomePageData.incomeKpiItemList}
+                  rowData={incomeKpiItemList}
                   newParams={newParams}
                 />
               )}

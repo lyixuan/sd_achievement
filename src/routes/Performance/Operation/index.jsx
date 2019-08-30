@@ -61,6 +61,9 @@ class Operation extends React.Component {
     const goodpushFinanceNetFlow = groupHomePageData.goodpushFinanceNetFlow || 0;
     const renewalFinanceNetFlow = groupHomePageData.renewalFinanceNetFlow || 0;
     const examZbtFinanceNetFlow = groupHomePageData.examZbtFinanceNetFlow || 0;
+    const incomeKpiItemList = groupHomePageData.incomeKpiItemList || [];
+    const teacherKpiItemList = groupHomePageData.teacherKpiItemList || [];
+
     const newParams = {
       userType: groupHomePageData.userType || '',
       userId: groupHomePageData.userId || '',
@@ -168,23 +171,23 @@ class Operation extends React.Component {
                     </li>
                   </ul>
                 </div>
-                {groupHomePageData.incomeKpiItemList && (
+                {incomeKpiItemList.length !== 0 && (
                   <Table
                     params={params}
                     history={this.props.history}
                     columnsData={columnsData}
-                    rowData={groupHomePageData.incomeKpiItemList}
+                    rowData={incomeKpiItemList}
                     newParams={newParams}
                   />
                 )}
-                {groupHomePageData.teacherKpiItemList && (
+                {teacherKpiItemList.length !== 0 && (
                   <div className={styles.teacher}>
                     <p>班主任预测绩效</p>
                     <Table
                       params={params}
                       history={this.props.history}
                       columnsData={columnsData1}
-                      rowData={groupHomePageData.teacherKpiItemList}
+                      rowData={teacherKpiItemList}
                       newParams={newParams1}
                     />
                   </div>
