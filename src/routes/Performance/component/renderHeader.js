@@ -5,7 +5,6 @@ class RenderHeader extends React.Component {
   render() {
     const columnsData = this.props;
     const { params } = this.props;
-    console.log(params, 'params');
     const style = {
       background: params.background ? params.background : '#e5f9f9',
       color: params.color ? params.color : '#00ccc3',

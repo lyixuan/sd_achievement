@@ -177,7 +177,9 @@ class Exam extends React.Component {
                         >
                           <div className={styles.items}>
                             <span>{item.positionType}</span>
-                            <span>{item.positionDistribution}%</span>
+                            <span>{item.examZbtValue}</span>
+                            <span>{item.positionPointKpi}%</span>
+                            <span>{item.totalFinanceNetFlow}%</span>
                             <span>{item.totalKpi}</span>
                             <span
                               style={{
