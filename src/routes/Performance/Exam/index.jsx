@@ -102,8 +102,8 @@ class Exam extends React.Component {
       },
       {
         title: '绩效流水',
-        dataIndex: 'kpiFinanceNetFlow',
-        key: 'kpiFinanceNetFlow',
+        dataIndex: 'financeNetFlow',
+        key: 'financeNetFlow',
       },
     ];
 
