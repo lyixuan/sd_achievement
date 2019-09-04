@@ -95,7 +95,16 @@ class President extends React.Component {
     const { id1 } = this.state;
     return classKpiList.map(item => {
       return (
-        <li key={item.itemName}>
+        <li
+          key={item.itemName}
+          onClick={() => {
+            if (item.itemType !== 1) {
+              this.goto(id, item.itemId, item.itemType);
+            } else {
+              this.toggle1(item.itemId);
+            }
+          }}
+        >
           <div className={styles.items}>
             <span>{item.itemName}</span>
             <span>{item.totalKpi}</span>
@@ -109,7 +118,7 @@ class President extends React.Component {
             >
               {item.itemType !== 1 && (
                 <Icon
-                  onClick={() => this.goto(id, item.itemId, item.itemType)}
+                  // onClick={() => this.goto(id, item.itemId, item.itemType)}
                   type="right"
                   size="xs"
                   color="#00ccc3"
@@ -117,7 +126,7 @@ class President extends React.Component {
               )}
               {item.itemType === 1 && (
                 <Icon
-                  onClick={() => this.toggle1(item.itemId)}
+                  // onClick={() => this.toggle1(item.itemId)}
                   type={id1 === item.itemId ? 'up' : 'down'}
                   size="xs"
                   color="#00ccc3"
