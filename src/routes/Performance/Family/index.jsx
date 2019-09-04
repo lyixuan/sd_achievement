@@ -137,7 +137,7 @@ class Family extends React.Component {
                   </li>
                   <li>
                     <p>
-                      好推续报流水 {goodpushFinanceNetFlow} 元 | 续报绩效流水{renewalFinanceNetFlow}元{' '}
+                      好推绩效流水 {goodpushFinanceNetFlow} 元 | 续报绩效流水{renewalFinanceNetFlow}元{' '}
                       <br />
                       成考专本套绩效流水 {examZbtFinanceNetFlow}元
                     </p>
