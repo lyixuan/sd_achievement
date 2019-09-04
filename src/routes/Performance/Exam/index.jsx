@@ -132,7 +132,7 @@ class Exam extends React.Component {
         key: 'positionPointKpi',
       },
       {
-        title: '净流水总额',
+        title: '绩效流水总额',
         dataIndex: 'totalFinanceNetFlow',
         key: 'totalFinanceNetFlow',
       },
@@ -165,7 +165,7 @@ class Exam extends React.Component {
                 <span className={styles.price}>元</span>
               </div>
               <div className={styles.middle}>
-                <p>成考转本套绩效 = =专项绩效 + （绩效流水 - 1000）* 岗位提点 </p>
+                <p>成考专本套绩效 = 专项绩效 +（绩效流水 - 1000）× 岗位提点</p>
               </div>
               {findExamZbtKpiDetailData && (
                 <div className={styles.presidentContent}>

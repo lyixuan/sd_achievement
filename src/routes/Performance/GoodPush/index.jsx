@@ -141,6 +141,11 @@ class GoodPush extends React.Component {
         key: 'positionDistribution',
       },
       {
+        title: '绩效流水总额',
+        dataIndex: 'kpiFinanceNetFlow',
+        key: 'kpiFinanceNetFlow',
+      },
+      {
         title: '绩效',
         dataIndex: 'totalKpi',
         key: 'totalKpi',
@@ -173,7 +178,7 @@ class GoodPush extends React.Component {
                 <span className={styles.price}>元</span>
               </div>
               <div className={styles.middle}>
-                <p>好推绩效 = 好推净流水 x 好推净流水系数 </p>
+                <p>好推绩效 = 绩效流水 × 好推净流水系数</p>
                 <p>x 好推岗位分配比</p>
               </div>
               {findGoodpushKpiDetailData && (
@@ -195,6 +200,7 @@ class GoodPush extends React.Component {
                           <div className={styles.items}>
                             <span>{item.positionType}</span>
                             <span>{item.positionDistribution}%</span>
+                            <span>{item.kpiFinanceNetFlow}</span>
                             <span>{item.totalKpi}</span>
                             <span
                               style={{

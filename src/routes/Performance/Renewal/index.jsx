@@ -111,7 +111,7 @@ class Renewal extends React.Component {
         key: 'subOrderId',
       },
       {
-        title: '净流水(元)',
+        title: '绩效流水',
         dataIndex: 'financeNetFlow',
         key: 'financeNetFlow',
       },
@@ -124,12 +124,12 @@ class Renewal extends React.Component {
         key: 'positionType',
       },
       {
-        title: '岗位提点',
+        title: '续报岗位提点',
         dataIndex: 'positionPointKpi',
         key: 'positionPointKpi',
       },
       {
-        title: '净流水总额',
+        title: '绩效流水总额',
         dataIndex: 'totalFinanceNetFlow',
         key: 'totalFinanceNetFlow',
       },
@@ -162,7 +162,7 @@ class Renewal extends React.Component {
                 <span className={styles.price}>元</span>
               </div>
               <div className={styles.middle}>
-                <p>续报绩效 = 续报净流水 x 岗位提点</p>
+                <p>续报绩效 = 绩效流水 × 续报岗位提点</p>
               </div>
               {findRenewalKpiDetailData && (
                 <div className={styles.presidentContent}>
