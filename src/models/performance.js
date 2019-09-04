@@ -18,13 +18,13 @@ import Message from '../components/Message';
 const nameList = [
   {
     key: 1,
-    name: '续报绩效',
-    url: '/performance/renewal',
+    name: '好推绩效',
+    url: '/performance/goodpush',
   },
   {
     key: 2,
-    name: '好推绩效',
-    url: '/performance/goodpush',
+    name: '续报绩效',
+    url: '/performance/renewal',
   },
   {
     key: 3,
