@@ -9,6 +9,7 @@ import { getCurrentAuthInfo, getPerformanceCurrentMonth } from 'utils/decorator'
 import Table from '../component/table';
 import styles from './index.less';
 import bg2 from '../../../assets/bg2.png';
+import { plus } from '../../../utils/utils';
 
 @getCurrentAuthInfo
 @getPerformanceCurrentMonth
@@ -81,15 +82,23 @@ class Renewal extends React.Component {
     const { loading } = this.props;
     const { findRenewalKpiDetailData } = this.props.performance;
     let totalkpi = 0;
+    const totalArr = [];
     let showFirstId = 0;
     if (findRenewalKpiDetailData) {
       findRenewalKpiDetailData.map(item => {
         // eslint-disable-next-line
-        showFirstId = item.renewalOrderList.length === 0 ? -1 : 0;
+        showFirstId = item.renewalOrderList.length === 0 ? -1 : 0; //是否要展示第一个
         // eslint-disable-next-line
-        return (totalkpi += item.totalKpi);
+        totalArr.push(item.totalKpi);
+        return showFirstId;
       });
     }
+    if (totalArr.length) {
+      totalkpi = totalArr.reduce((total, curent) => {
+        return plus(total, curent);
+      });
+    }
+
     const columnsData = [
       {
         title: '报名日期',

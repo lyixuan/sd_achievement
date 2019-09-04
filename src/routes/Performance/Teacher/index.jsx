@@ -45,8 +45,6 @@ class Teacher extends React.Component {
 
     const { loading } = this.props;
     const totalKpi = classHomePageData.totalKpi || 0;
-    const serviceStuCount = classHomePageData.serviceStuCount || 0;
-    const teacherCount = classHomePageData.teacherCount || 0;
     const goodpushOrderCount = classHomePageData.goodpushOrderCount || 0;
     const renewalOrderCount = classHomePageData.renewalOrderCount || 0;
     const examZbtOrderCount = classHomePageData.examZbtOrderCount || 0;
@@ -113,13 +111,6 @@ class Teacher extends React.Component {
               </div>
               <div className={styles.middle}>
                 <ul>
-                  <li>
-                    <p>管理规模</p>
-                    <p>
-                      在服学员 {serviceStuCount}
-                      | 老师 {teacherCount}
-                    </p>
-                  </li>
                   <li>
                     <p>
                       好推单量 {goodpushOrderCount} | 续报单量 {renewalOrderCount} | 成考专套本单量
