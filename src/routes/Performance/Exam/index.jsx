@@ -86,6 +86,7 @@ class Exam extends React.Component {
       findExamZbtKpiDetailData.map(item => {
         // eslint-disable-next-line
         showFirstId = item.orderList.length === 0 ? -1 : 0;
+        totalArr.push(item.totalKpi);
         // eslint-disable-next-line
         return showFirstId;
       });
@@ -187,7 +188,7 @@ class Exam extends React.Component {
                             <span>{item.positionType}</span>
                             <span>{item.examZbtValue}</span>
                             <span>{item.positionPointKpi}%</span>
-                            <span>{item.totalFinanceNetFlow}%</span>
+                            <span>{item.totalFinanceNetFlow}</span>
                             <span>{item.totalKpi}</span>
                             <span
                               style={{

@@ -86,6 +86,7 @@ class GoodPush extends React.Component {
       findGoodpushKpiDetailData.map(item => {
         // eslint-disable-next-line
         showFirstId = item.goodpushOrderList.length === 0 ? -1 : 0;
+        totalArr.push(item.totalKpi);
         // eslint-disable-next-line
         return showFirstId;
       });
