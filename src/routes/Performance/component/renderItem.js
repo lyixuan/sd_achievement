@@ -23,14 +23,16 @@ const name = [
 class RenderItem extends React.Component {
   goto = (key, id) => {
     const { newParams } = this.props;
-    if (newParams.teacher) {
+    if (newParams && newParams.teacher) {
       this.props.history.push({
         pathname: newParams.teacher,
         search: `?groupId=${newParams.orgId}&userId=${id}`,
       });
       return;
     }
+    if (!newParams) return;
     const { userType } = newParams;
+
     let pathname = '';
     name.map(item => {
       if (key === item.name) pathname = item.url;
@@ -84,22 +86,18 @@ class RenderItem extends React.Component {
         {rowData.map((item, index) => {
           const key = index * Math.random();
           return (
-            <tr style={style} key={key}>
+            <tr style={style} key={key} onClick={() => this.goto(item.itemKey, item.itemId, true)}>
               {columnsData.map(item2 => {
                 // columns 每一项的name dataIndex
                 const value = item2.dataIndex;
                 if (value === '操作') {
                   return (
-                    <td key={value} onClick={() => this.goto(item.itemKey, item.itemId)}>
+                    <td key={value}>
                       <Icon type="right" size="xs" color="#00ccc3" />
                     </td>
                   );
                 }
-                return (
-                  <td onClick={() => this.goto(item.itemKey, item.itemId)} key={value}>
-                    {item[value]}
-                  </td>
-                );
+                return <td key={value}>{item[value]}</td>;
               })}
             </tr>
           );
