@@ -77,9 +77,9 @@ class TimeSelect extends Component {
     // eslint-disable-next-line
     return dateListMonth.map(item => {
       if ((currMonth.value || defaultDate) === item.kpiMonth) {
-        const start = moment(item.startDate).format('YYYY-MM-DD');
-        const end = moment(item.endDate).format('YYYY-MM-DD');
-        return `时间: ${start} ~ ${end}`;
+        const start = moment(item.startDate).format('YYYY.MM.DD');
+        const end = moment(item.endDate).format('YYYY.MM.DD');
+        return `时间: ${start} - ${end}`;
       }
     });
   };
