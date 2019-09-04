@@ -14,6 +14,7 @@ class RenderTabel extends React.Component {
           rowData={rowData}
           columnsData={columnsData}
           newParams={newParams}
+          params={params}
           history={this.props.history}
         />
       </table>

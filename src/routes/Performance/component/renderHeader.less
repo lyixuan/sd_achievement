@@ -8,21 +8,24 @@
     margin: 0;
   }
   .header {
-    padding: 0 0.1rem;
+    padding: 0 0.24rem;
     display: flex;
     margin: 0 auto;
     align-items: center;
-    font-size: 0.22rem;
+    font-size: 0.28rem;
     height: 0.7rem;
     color: #00ccc3;
     border-radius: 0.08rem;
-    text-align: center;
+    text-align: left;
     background: #e5f9f9;
 
     th {
       flex: 1;
       // color: #00ccc3;
       font-weight: normal;
+    }
+    th:last-child {
+      text-align: center;
     }
   }
 
@@ -45,11 +48,15 @@
     overflow: hidden; /*内容会被修剪，并且其余内容是不可见的。*/
     text-overflow: ellipsis; /*显示省略号来代表被修剪的文本*/
     flex: 1;
-    text-align: center;
+    text-align: left;
     height: 0.72rem;
     line-height: 0.72rem;
-    font-size: 0.2rem;
+    // font-size: 0.28rem;
     color: #1a1c1f;
+  }
+
+  td:last-child {
+    text-align: center;
   }
 
   :global(.am-icon) {

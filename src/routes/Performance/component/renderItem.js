@@ -73,29 +73,33 @@ class RenderItem extends React.Component {
   };
   render() {
     const { rowData, columnsData } = this.props;
+    const { params } = this.props;
+    const style = {
+      display: 'flex',
+      fontSize: params.fontSize ? params.fontSize : '0.28rem',
+    };
     if (!rowData) return <div />;
     return (
       <tbody className={styles.content}>
         {rowData.map((item, index) => {
           const key = index * Math.random();
           return (
-            <tr style={{ display: 'flex' }} key={key}>
+            <tr style={style} key={key}>
               {columnsData.map(item2 => {
                 // columns 每一项的name dataIndex
                 const value = item2.dataIndex;
                 if (value === '操作') {
                   return (
-                    <td key={value}>
-                      <Icon
-                        type="right"
-                        size="xs"
-                        color="#00ccc3"
-                        onClick={() => this.goto(item.itemKey, item.itemId)}
-                      />
+                    <td key={value} onClick={() => this.goto(item.itemKey, item.itemId)}>
+                      <Icon type="right" size="xs" color="#00ccc3" />
                     </td>
                   );
                 }
-                return <td key={value}>{item[value]}</td>;
+                return (
+                  <td onClick={() => this.goto(item.itemKey, item.itemId)} key={value}>
+                    {item[value]}
+                  </td>
+                );
               })}
             </tr>
           );

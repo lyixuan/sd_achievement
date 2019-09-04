@@ -123,8 +123,8 @@ class GoodPush extends React.Component {
       },
       {
         title: '绩效流水',
-        dataIndex: 'FinanceNetFlow',
-        key: 'FinanceNetFlow',
+        dataIndex: 'financeNetFlow',
+        key: 'financeNetFlow',
       },
       {
         title: '系数',
@@ -155,6 +155,10 @@ class GoodPush extends React.Component {
         key: '操作',
       },
     ];
+
+    const params = {
+      fontSize: '0.2rem',
+    };
     return (
       <div>
         {!loading && (
@@ -222,6 +226,7 @@ class GoodPush extends React.Component {
                           >
                             {item.goodpushOrderList.length !== 0 && (
                               <Table
+                                params={params}
                                 history={this.props.history}
                                 columnsData={columnsData}
                                 rowData={item.goodpushOrderList}
