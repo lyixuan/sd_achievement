@@ -101,7 +101,8 @@ class President extends React.Component {
             <span
               style={{
                 alignItems: 'center',
-                width: '10%',
+                width: '20%',
+                justifyContent: 'center',
                 display: 'flex',
                 cursor: 'pointer',
               }}
@@ -133,7 +134,8 @@ class President extends React.Component {
             <span
               style={{
                 alignItems: 'center',
-                width: '10%',
+                width: '20%',
+                justifyContent: 'center',
                 display: 'flex',
                 cursor: 'pointer',
               }}
@@ -215,7 +217,8 @@ class President extends React.Component {
                           <span
                             style={{
                               alignItems: 'center',
-                              width: '10%',
+                              width: '20%',
+                              justifyContent: 'center',
                               display: 'flex',
                               cursor: 'pointer',
                             }}
