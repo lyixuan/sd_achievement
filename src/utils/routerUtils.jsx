@@ -115,7 +115,6 @@ export function checkoutAuthUrlPerformance() {
   if (!isKpi) {
     return '/exception/403';
   }
-  alert(groupType);
   switch (groupType) {
     case IDENTIFY.admin:
     case IDENTIFY.boss:

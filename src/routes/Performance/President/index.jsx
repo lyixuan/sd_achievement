@@ -25,7 +25,6 @@ class President extends React.Component {
   }
 
   componentDidMount() {
-    alert('请求接口');
     this.getPresidentData();
   }
   // 院长
@@ -36,7 +35,6 @@ class President extends React.Component {
   };
 
   getPresidentData = data => {
-    alert('进到接口');
     const { query } = url.parse(this.props.location.search, true);
     const currentAuthInfo = getCurrentAuthInfo();
     const params = {
@@ -177,7 +175,6 @@ class President extends React.Component {
   };
   render() {
     const { collegeHomePageData } = this.props.performance;
-    alert(collegeHomePageData);
     const { id, month, bflag } = this.state;
     const { loading } = this.props;
     // 默认第一个展示
