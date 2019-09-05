@@ -232,6 +232,7 @@ export async function operateLog(params) {
 * 创收绩效首页-院长首页
  */
 export async function collegeHomePage(params) {
+  alert(`${NEWHOST}/incomeIndex/collegeHomePage`);
   return request(`${NEWHOST}/incomeIndex/collegeHomePage`, {
     method: 'POST',
     body: params,

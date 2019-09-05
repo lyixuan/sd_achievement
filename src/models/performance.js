@@ -78,7 +78,9 @@ export default {
     // 创收绩效首页-院长首页
     *collegeHomePage({ payload }, { call, put }) {
       const response = yield call(collegeHomePage, { ...payload });
+      alert(response);
       if (response.code === 2000) {
+        alert('成功');
         yield put({
           type: 'save',
           payload: { collegeHomePageData: response.data },
