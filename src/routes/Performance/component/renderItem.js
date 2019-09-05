@@ -80,7 +80,7 @@ class RenderItem extends React.Component {
     const style = {
       background: params.backgroundContent ? params.backgroundContent : '#fff',
       display: 'flex',
-      fontSize: params.fontSize ? params.fontSize : '0.28rem',
+      fontSize: params.fontSize ? params.fontSize : '0.26rem',
       textAlign: params.textAlign ? params.textAlign : 'center',
       borderBottom: params.isContentBorder ? '1px solid #EEEEEE' : 'none',
     };
