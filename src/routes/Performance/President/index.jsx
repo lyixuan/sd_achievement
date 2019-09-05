@@ -115,6 +115,9 @@ class President extends React.Component {
     });
   };
   renderIem1 = (id, groupKpiList) => {
+    if (!groupKpiList || !groupKpiList.length) {
+      return <li className={styles.hasnone}>暂无数据</li>;
+    }
     const { id1, bflag1 } = this.state;
     return groupKpiList.map(item => {
       return (
