@@ -25,6 +25,7 @@ class President extends React.Component {
   }
 
   componentDidMount() {
+    alert('请求接口');
     this.getPresidentData();
   }
   // 院长

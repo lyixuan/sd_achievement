@@ -50,10 +50,9 @@ class indexPage extends React.Component {
     const { routerData, match } = this.props;
     let redirectUrl = '';
     if (this.entrance === 'income') {
-      console.log('coming income');
+      alert('income');
       redirectUrl = checkoutAuthUrlPerformance();
     } else {
-      console.log('coming 学分');
       redirectUrl = checkoutAuthUrl();
     }
     const isLoginSuccess = this.checkLoginSuccess();
