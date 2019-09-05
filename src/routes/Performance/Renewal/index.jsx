@@ -99,6 +99,9 @@ class Renewal extends React.Component {
       });
     }
 
+    const params = {
+      className: 'tableRenewal',
+    };
     const columnsData = [
       {
         title: '报名日期',
@@ -213,6 +216,7 @@ class Renewal extends React.Component {
                           >
                             {item.renewalOrderList.length !== 0 && (
                               <Table
+                                params={params}
                                 history={this.props.history}
                                 columnsData={columnsData}
                                 rowData={item.renewalOrderList}

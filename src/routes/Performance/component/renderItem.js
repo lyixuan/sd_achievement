@@ -76,13 +76,17 @@ class RenderItem extends React.Component {
   render() {
     const { rowData, columnsData } = this.props;
     const { params } = this.props;
+    const newName = params.className;
     const style = {
+      background: params.backgroundContent ? params.backgroundContent : '#fff',
       display: 'flex',
       fontSize: params.fontSize ? params.fontSize : '0.28rem',
+      textAlign: params.textAlign ? params.textAlign : 'center',
+      borderBottom: params.isContentBorder ? '1px solid #EEEEEE' : 'none',
     };
     if (!rowData) return <div />;
     return (
-      <tbody className={styles.content}>
+      <tbody className={(styles.content, styles[newName])}>
         {rowData.map((item, index) => {
           const key = index * Math.random();
           return (

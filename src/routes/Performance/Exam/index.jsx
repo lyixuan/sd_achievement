@@ -148,6 +148,9 @@ class Exam extends React.Component {
         key: '操作',
       },
     ];
+    const params = {
+      className: 'tableExam',
+    };
     return (
       <div>
         {!loading && (
@@ -216,6 +219,7 @@ class Exam extends React.Component {
                           >
                             {item.orderList.length !== 0 && (
                               <Table
+                                params={params}
                                 history={this.props.history}
                                 columnsData={columnsData}
                                 rowData={item.orderList}

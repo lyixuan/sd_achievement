@@ -159,7 +159,9 @@ class GoodPush extends React.Component {
     ];
 
     const params = {
+      className: 'tableGoodPush',
       fontSize: '0.2rem',
+      textAlign: 'left',
     };
     return (
       <div>

@@ -88,6 +88,7 @@ class Family extends React.Component {
       orgId: familyHomePageData.orgId || '',
     };
     const params = {
+      className: 'tableFamily',
       color: '#55595E',
       background: '#F7F9FD',
     };

@@ -77,6 +77,7 @@ class Teacher extends React.Component {
       },
     ];
     const params = {
+      className: 'tableTeacher',
       color: '#55595E',
       background: '#F7F9FD',
     };

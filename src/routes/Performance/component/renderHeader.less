@@ -1,39 +1,44 @@
 .newTable {
   border-radius: 0.08rem;
   border: 0;
-
+  box-shadow: 0 0.1rem 0.3rem 0 rgba(26, 28, 31, 0.1);
   tr {
     border: none;
     padding: 0;
     margin: 0;
   }
+
   .header {
     padding: 0 0.24rem;
     display: flex;
     margin: 0 auto;
     align-items: center;
     font-size: 0.28rem;
-    height: 0.7rem;
+    height: 0.82rem;
     color: #00ccc3;
     border-radius: 0.08rem;
     text-align: left;
-    background: #e5f9f9;
+    // background: #e5f9f9;
 
+    // th:first-child {
+    //   text-align: left;
+    // }
     th {
-      flex: 1;
+      // text-align: center;
+      // flex: 1;
       // color: #00ccc3;
       font-weight: normal;
     }
-    th:last-child {
-      text-align: center;
-    }
+    // th:last-child {
+    //   text-align: right;
+    // }
   }
 
   .content {
-    display: flex;
+    // display: flex;
     flex-direction: column;
     width: 100%;
-    background: #f8fafb;
+    // background: #f8fafb;
     margin-top: -2px;
 
     tr {
@@ -47,18 +52,107 @@
     white-space: nowrap; /*规定段落中的文本不进行换行*/
     overflow: hidden; /*内容会被修剪，并且其余内容是不可见的。*/
     text-overflow: ellipsis; /*显示省略号来代表被修剪的文本*/
-    flex: 1;
-    text-align: left;
-    height: 0.72rem;
-    line-height: 0.72rem;
+    // flex: 1;
+    text-align: center;
+    height: 0.82rem;
+    line-height: 0.82rem;
     // font-size: 0.28rem;
     color: #1a1c1f;
   }
 
-  td:last-child {
-    text-align: center;
+  .tableFamily,
+  .tableOperation,
+  .tableTeacher {
+    .header {
+      th {
+        text-align: left;
+      }
+      th:first-child {
+        width: 58% !important;
+      }
+      th:nth-child(2) {
+        width: 32% !important;
+      }
+      th:last-child {
+        width: 10% !important;
+      }
+    }
+    td {
+      white-space: nowrap; /*规定段落中的文本不进行换行*/
+      overflow: hidden; /*内容会被修剪，并且其余内容是不可见的。*/
+      text-overflow: ellipsis; /*显示省略号来代表被修剪的文本*/
+      // flex: 1;
+      text-align: center;
+      height: 0.82rem;
+      line-height: 0.82rem;
+      // font-size: 0.28rem;
+      color: #1a1c1f;
+    }
+  }
+  .tableExam,
+  .tableRenewal {
+    .header {
+      th {
+        text-align: left;
+      }
+      th:first-child {
+        width: 40% !important;
+      }
+      th:nth-child(2) {
+        width: 40% !important;
+      }
+      th:last-child {
+        width: 20% !important;
+      }
+    }
+    td {
+      white-space: nowrap; /*规定段落中的文本不进行换行*/
+      overflow: hidden; /*内容会被修剪，并且其余内容是不可见的。*/
+      text-overflow: ellipsis; /*显示省略号来代表被修剪的文本*/
+      // flex: 1;
+      text-align: center;
+      height: 0.82rem;
+      line-height: 0.82rem;
+      // font-size: 0.28rem;
+      color: #1a1c1f;
+    }
   }
 
+  .tableGoodPush {
+    .header {
+      th {
+        text-align: left;
+      }
+      th:first-child {
+        width: 22% !important;
+      }
+      th:nth-child(2) {
+        width: 22% !important;
+      }
+      th:nth-child(3) {
+        width: 18% !important;
+      }
+      th:nth-child(4) {
+        width: 18% !important;
+      }
+      th:nth-child(5) {
+        width: 22% !important;
+      }
+      th:last-child {
+        width: 8% !important;
+      }
+    }
+    td {
+      white-space: nowrap; /*规定段落中的文本不进行换行*/
+      overflow: hidden; /*内容会被修剪，并且其余内容是不可见的。*/
+      text-overflow: ellipsis; /*显示省略号来代表被修剪的文本*/
+      // flex: 1;
+      text-align: left;
+      height: 0.82rem;
+      line-height: 0.82rem;
+      color: #1a1c1f;
+    }
+  }
   :global(.am-icon) {
     margin-top: 0.23rem;
   }

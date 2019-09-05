@@ -8,7 +8,7 @@ class RenderTabel extends React.Component {
     const { columnsData, rowData, newParams, params = {} } = this.props;
     if (!rowData) return <div>暂无数据</div>;
     return (
-      <table border="0" className={styles.newTable} style={{ width: '100%' }}>
+      <table border="0" cellSpacing="0" className={styles.newTable} style={{ width: '100%' }}>
         <RenderHeader columnsData={columnsData} params={params} />
         <RenderItem
           rowData={rowData}

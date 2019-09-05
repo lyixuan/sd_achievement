@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: #f8fafb;
+  // background: #f8fafb;
   margin-top: -2px;
 
   tr {
@@ -10,6 +10,104 @@
     border-bottom: 1px solid #eee;
   }
   tr:last-child {
+    border-radius: 0 0 0.08rem 0.08rem;
     border-bottom: none;
+  }
+}
+.tableFamily,
+.tableOperation,
+.tableTeacher {
+  tr {
+    padding: 0 0.24rem;
+    border-bottom: 1px solid #eee;
+    td {
+      text-align: left;
+    }
+    td:first-child {
+      width: 58% !important;
+    }
+    td:nth-child(2) {
+      width: 32% !important;
+    }
+    td:last-child {
+      width: 10% !important;
+    }
+  }
+  td {
+    white-space: nowrap; /*规定段落中的文本不进行换行*/
+    overflow: hidden; /*内容会被修剪，并且其余内容是不可见的。*/
+    text-overflow: ellipsis; /*显示省略号来代表被修剪的文本*/
+    // flex: 1;
+    text-align: center;
+    height: 0.82rem;
+    line-height: 0.82rem;
+    // font-size: 0.28rem;
+    color: #1a1c1f;
+  }
+}
+
+.tableExam,
+.tableRenewal {
+  tr {
+    padding: 0 0.24rem;
+    border-bottom: 1px solid #eee;
+    td {
+      text-align: left;
+    }
+    td:first-child {
+      width: 40% !important;
+    }
+    td:nth-child(2) {
+      width: 40% !important;
+    }
+    td:last-child {
+      width: 20% !important;
+    }
+  }
+  td {
+    white-space: nowrap; /*规定段落中的文本不进行换行*/
+    overflow: hidden; /*内容会被修剪，并且其余内容是不可见的。*/
+    text-overflow: ellipsis; /*显示省略号来代表被修剪的文本*/
+    // flex: 1;
+    text-align: center;
+    height: 0.82rem;
+    line-height: 0.82rem;
+    // font-size: 0.28rem;
+    color: #1a1c1f;
+  }
+}
+.tableGoodPush {
+  tr {
+    text-align: left;
+    padding: 0 0.24rem;
+
+    td:first-child {
+      width: 22% !important;
+    }
+    td:nth-child(2) {
+      width: 22% !important;
+    }
+    td:nth-child(3) {
+      width: 18% !important;
+    }
+    td:nth-child(4) {
+      width: 18% !important;
+    }
+    td:nth-child(5) {
+      width: 22% !important;
+    }
+    td:last-child {
+      width: 8% !important;
+    }
+  }
+  td {
+    white-space: nowrap; /*规定段落中的文本不进行换行*/
+    overflow: hidden; /*内容会被修剪，并且其余内容是不可见的。*/
+    text-overflow: ellipsis; /*显示省略号来代表被修剪的文本*/
+    // flex: 1;
+    text-align: left;
+    height: 0.82rem;
+    line-height: 0.82rem;
+    color: #1a1c1f;
   }
 }

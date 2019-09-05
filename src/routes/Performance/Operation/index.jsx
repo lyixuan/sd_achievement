@@ -111,8 +111,10 @@ class Operation extends React.Component {
     ];
 
     const params = {
+      className: 'tableOperation',
       color: '#55595E',
-      background: '#F7F9FD',
+      backgroundHeader: '#F7F9FD',
+      isContentBorder: false,
     };
 
     return (
