@@ -74,7 +74,7 @@ class Admin extends React.Component {
               <div className={styles.presidentContent}>
                 <p className={styles.meta}>
                   <span>组织</span>
-                  <span>绩效</span>
+                  <span>绩效总额</span>
                   <span>操作</span>
                 </p>
                 <ul className={styles.list}>
@@ -83,7 +83,7 @@ class Admin extends React.Component {
                       <li key={item.itemName} onClick={() => this.toggle(item.itemId)}>
                         <div className={styles.items}>
                           <span>{item.itemName}</span>
-                          <span>{item.totalKpi}</span>
+                          <span>{item.totalKpi}元</span>
                           <span
                             style={{
                               alignItems: 'center',

@@ -97,7 +97,7 @@ class President extends React.Component {
         <li key={item.itemName} onClick={() => this.goto(id, item.itemId, item.itemType)}>
           <div className={styles.items}>
             <span>{item.itemName}</span>
-            <span>{item.totalKpi}</span>
+            <span>{item.totalKpi}元</span>
             <span
               style={{
                 alignItems: 'center',
@@ -130,7 +130,7 @@ class President extends React.Component {
         >
           <div className={styles.items}>
             <span>{item.itemName}</span>
-            <span>{item.totalKpi}</span>
+            <span>{item.totalKpi}元</span>
             <span
               style={{
                 alignItems: 'center',
@@ -213,7 +213,7 @@ class President extends React.Component {
                       >
                         <div className={styles.items}>
                           <span>{item.itemName}</span>
-                          <span>{item.totalKpi}</span>
+                          <span>{item.totalKpi}元</span>
                           <span
                             style={{
                               alignItems: 'center',

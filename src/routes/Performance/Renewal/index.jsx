@@ -186,8 +186,8 @@ class Renewal extends React.Component {
                           <div className={styles.items}>
                             <span>{item.positionType}</span>
                             <span>{item.positionPointKpi}%</span>
-                            <span>{item.totalFinanceNetFlow}</span>
-                            <span>{item.totalKpi}</span>
+                            <span>{item.totalFinanceNetFlow}元</span>
+                            <span>{item.totalKpi}元</span>
                             <span
                               // onClick={() => this.toggle(item.index)}
                               style={{

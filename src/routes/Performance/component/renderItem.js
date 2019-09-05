@@ -101,6 +101,9 @@ class RenderItem extends React.Component {
                     </td>
                   );
                 }
+                if (item2.title === '绩效' || item2.title === '绩效流水') {
+                  return <td key={value}>{item[value]}元</td>;
+                }
                 return <td key={value}>{item[value]}</td>;
               })}
             </tr>

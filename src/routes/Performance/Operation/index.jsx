@@ -81,7 +81,7 @@ class Operation extends React.Component {
         key: 'itemKey',
       },
       {
-        title: '金额',
+        title: '绩效',
         dataIndex: 'itemValue',
         key: 'itemValue',
       },

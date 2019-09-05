@@ -203,8 +203,8 @@ class GoodPush extends React.Component {
                           <div className={styles.items}>
                             <span>{item.positionType}</span>
                             <span>{item.positionDistribution}%</span>
-                            <span>{item.kpiFinanceNetFlow}</span>
-                            <span>{item.totalKpi}</span>
+                            <span>{item.kpiFinanceNetFlow}元</span>
+                            <span>{item.totalKpi}元</span>
                             <span
                               style={{
                                 alignItems: 'center',

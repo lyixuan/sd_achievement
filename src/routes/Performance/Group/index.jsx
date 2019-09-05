@@ -107,7 +107,7 @@ class President extends React.Component {
         >
           <div className={styles.items}>
             <span>{item.itemName}</span>
-            <span>{item.totalKpi}</span>
+            <span>{item.totalKpi}元</span>
             <span
               style={{
                 alignItems: 'center',
@@ -183,7 +183,7 @@ class President extends React.Component {
                       >
                         <div className={styles.items}>
                           <span>{item.itemName}</span>
-                          <span>{item.totalKpi}</span>
+                          <span>{item.totalKpi}元</span>
                           <span
                             // onClick={() => this.toggle(item.itemId)}
                             style={{

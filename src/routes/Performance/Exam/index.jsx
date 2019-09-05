@@ -191,8 +191,8 @@ class Exam extends React.Component {
                             <span>{item.positionType}</span>
                             <span>{item.examZbtValue}</span>
                             <span>{item.positionPointKpi}%</span>
-                            <span>{item.totalFinanceNetFlow}</span>
-                            <span>{item.totalKpi}</span>
+                            <span>{item.totalFinanceNetFlow}元</span>
+                            <span>{item.totalKpi}元</span>
                             <span
                               style={{
                                 alignItems: 'center',
