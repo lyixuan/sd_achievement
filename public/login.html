@@ -173,6 +173,8 @@ Login.prototype.toReditUrl=function(pathname){
   var time=new Date().getTime();
   if(this.source === '2'){
     setItem('entrance',"income");
+  }else{
+    removeItem('entrance');
   }
   window.location.href = redit_url + "?v=" + time;
 }
