@@ -172,7 +172,7 @@ Login.prototype.toReditUrl=function(pathname){
   var redit_url = host+newPathname;
   var time=new Date().getTime();
   if(this.source === '2'){
-    setItem('entrance', {"value":"income"});
+    setItem('entrance',"income");
   }
   window.location.href = redit_url + "?v=" + time;
 }
