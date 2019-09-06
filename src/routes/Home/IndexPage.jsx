@@ -19,7 +19,7 @@ class indexPage extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
-    this.entrance = getItem('entrance').value;
+    this.entrance = getItem('entrance') && getItem('entrance').value;
     const initState = {
       paramsObj: {
         startTime: null, // 过滤开始时间

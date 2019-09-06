@@ -174,7 +174,7 @@ Login.prototype.toReditUrl=function(pathname){
   if(this.source === '2'){
     setItem('entrance',"income");
   }else{
-    window.localStorage.removeItem('entrance');
+    setItem('entrance',"achieve");
   }
   window.location.href = redit_url + "?v=" + time;
 }
