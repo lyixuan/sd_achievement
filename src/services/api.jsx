@@ -9,12 +9,12 @@ const hostObj = {
 };
 const HOST = hostObj[NODE_ENV];
 
-const proxyHost = {
-  dev: 'http://172.16.117.65:8082', // 'http://172.16.58.18:8082', // 'http://test.xd.admin.ministudy.com',
-  pro: 'http://api.bd.ministudy.com',
-};
+// const proxyHost = {
+//   dev: 'http://172.16.117.65:8082', // 'http://172.16.58.18:8082', // 'http://test.xd.admin.ministudy.com',
+//   pro: 'http://api.bd.ministudy.com',
+// };
 
-const NEWHOST = proxyHost[NODE_ENV];
+// const HOST = proxyHost[NODE_ENV];
 
 /*
 *此接口为获取微信授权接口(微信企业号)
@@ -232,7 +232,7 @@ export async function operateLog(params) {
 * 创收绩效首页-院长首页
  */
 export async function collegeHomePage(params) {
-  return request(`${NEWHOST}/incomeIndex/collegeHomePage`, {
+  return request(`${HOST}/incomeIndex/collegeHomePage`, {
     method: 'POST',
     body: params,
   });
@@ -240,7 +240,7 @@ export async function collegeHomePage(params) {
 
 // admin
 export async function adminHomePage(params) {
-  return request(`${NEWHOST}/incomeIndex/adminHomePage`, {
+  return request(`${HOST}/incomeIndex/adminHomePage`, {
     method: 'POST',
     body: params,
   });
@@ -248,7 +248,7 @@ export async function adminHomePage(params) {
 
 // 班主任
 export async function classHomePage(params) {
-  return request(`${NEWHOST}/incomeIndex/classHomePage`, {
+  return request(`${HOST}/incomeIndex/classHomePage`, {
     method: 'POST',
     body: params,
   });
@@ -256,7 +256,7 @@ export async function classHomePage(params) {
 
 // 家族长
 export async function familyHomePage(params) {
-  return request(`${NEWHOST}/incomeIndex/familyHomePage`, {
+  return request(`${HOST}/incomeIndex/familyHomePage`, {
     method: 'POST',
     body: params,
   });
@@ -264,7 +264,7 @@ export async function familyHomePage(params) {
 
 // 运营长
 export async function groupHomePage(params) {
-  return request(`${NEWHOST}/incomeIndex/groupHomePage`, {
+  return request(`${HOST}/incomeIndex/groupHomePage`, {
     method: 'POST',
     body: params,
   });
@@ -272,7 +272,7 @@ export async function groupHomePage(params) {
 
 // 小组
 export async function groupRankList(params) {
-  return request(`${NEWHOST}/incomeIndex/groupRankList`, {
+  return request(`${HOST}/incomeIndex/groupRankList`, {
     method: 'POST',
     body: params,
   });
@@ -280,7 +280,7 @@ export async function groupRankList(params) {
 
 // 续报
 export async function findRenewalKpiDetail(params) {
-  return request(`${NEWHOST}/incomeIndex/findRenewalKpiDetail`, {
+  return request(`${HOST}/incomeIndex/findRenewalKpiDetail`, {
     method: 'POST',
     body: params,
   });
@@ -288,7 +288,7 @@ export async function findRenewalKpiDetail(params) {
 
 // 好推
 export async function findGoodpushKpiDetail(params) {
-  return request(`${NEWHOST}/incomeIndex/findGoodpushKpiDetail`, {
+  return request(`${HOST}/incomeIndex/findGoodpushKpiDetail`, {
     method: 'POST',
     body: params,
   });
@@ -296,12 +296,12 @@ export async function findGoodpushKpiDetail(params) {
 
 // 专套本
 export async function findExamZbtKpiDetail(params) {
-  return request(`${NEWHOST}/incomeIndex/findExamZbtKpiDetail`, {
+  return request(`${HOST}/incomeIndex/findExamZbtKpiDetail`, {
     method: 'POST',
     body: params,
   });
 }
 // 时间
 export async function getDateRange() {
-  return request(`${NEWHOST}/incomeIndex/getDateRange`);
+  return request(`${HOST}/incomeIndex/getDateRange`);
 }

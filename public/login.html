@@ -123,6 +123,7 @@ function Login(params){
   this.userType=params.userType||'';
   this.branch=params.branch||'';
   this.loginType=params.loginType||'';
+  this.source = params.source || '';
   this.successPath='/';        //成功回调地址
   this.errorPath='';           //失败回调地址
 }
@@ -170,6 +171,11 @@ Login.prototype.toReditUrl=function(pathname){
   var host=urlObj[this.branch];
   var redit_url = host+newPathname;
   var time=new Date().getTime();
+  if(this.source === '2'){
+    setItem('entrance',"income");
+  }else{
+    setItem('entrance',"achieve");
+  }
   window.location.href = redit_url + "?v=" + time;
 }
 //   操作区;
