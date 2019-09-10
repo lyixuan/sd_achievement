@@ -159,6 +159,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),
     },
     '/user/wechart/:entrance': {
+      // income：创收绩效  achieve：学分绩效
       component: dynamicWrapper(app, [], () => import('../routes/Login/$WeChartLogin')),
     },
     '/static': {
