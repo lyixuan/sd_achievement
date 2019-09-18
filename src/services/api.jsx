@@ -5,8 +5,8 @@ import config from '../config';
 const { NODE_ENV = 'pro' } = config;
 const hostObj = {
   pro: 'http://test-api.bd.ministudy.com/apis',
-  dev: 'http://172.16.59.42:8082',
-  // dev: 'http://172.16.109.87:28082',
+  // dev: 'http://172.16.59.42:8082',
+  dev: 'http://172.16.109.87:28082',
 };
 const HOST = hostObj[NODE_ENV];
 
