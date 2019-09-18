@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: test-kpi-web-service
+  name: test-kpi-web-service
+spec:
+  ports:
+  - port: 9991
+    protocol: TCP
+    targetPort: 80
+    nodePort: 9991
+  selector:
+    app: test-kpi-web-service
+  type: NodePort
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: test-kpi-web-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-kpi-web-service
+    spec:
+      nodeName: 172.16.109.138
+      containers:
+      - name: test-kpi-web-service
+        image: hub.sunland2.com:8234/sscp-service/kpi_web_test:<BUILD_TAG>
+        ports:
+        - containerPort: 9991
