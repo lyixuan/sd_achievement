@@ -29,6 +29,11 @@ class TimeSelect extends Component {
     const { defaultDate } = this.props;
     this.dateFomate(defaultDate);
   }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.defaultDate !== nextProps.defaultDate) {
+      this.dateFomate(nextProps.defaultDate);
+    }
+  }
   onGroupChange = item => {
     const { onChange, defaultDate } = this.props;
     const { name = '' } = item;
