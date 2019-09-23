@@ -92,10 +92,12 @@ class TimeSelect extends Component {
   renderGroupList = () => {
     // 此方法用于render出groupList
     const { dateArea, defaultDate } = this.props;
+    const default1 = defaultDate.split('~')[1].split('.');
+    const defaultDate1 = `${default1[0]}-${default1[1]}`;
     return (
       <ButtonGroup
         dataSource={{ data: dateArea }}
-        id={defaultDate}
+        id={defaultDate1}
         btnClass={styles.timeBtnStyle}
         btnSelectedClass={styles.timeBtnSelected}
         dataReturnFun={item => {
