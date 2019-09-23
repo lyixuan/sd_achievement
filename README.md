@@ -87,7 +87,7 @@ $ npm start         # visit http://localhost:8000
 
     DEBUGGER: true, // 调试环境
     performanceUser: {
-      userId: 'ligang02_1',
+      userId: 'weixiang',
     },
   };
 ```
