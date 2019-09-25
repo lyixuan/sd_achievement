@@ -2,12 +2,7 @@ import { stringify } from 'qs';
 import request from '../utils/request';
 import config from '../config';
 
-const { NODE_ENV = 'pro' } = config;
-const hostObj = {
-  pro: 'http://test-api.bd.ministudy.com/apis',
-  dev: 'http://172.16.117.65:8082',
-};
-const HOST = hostObj[NODE_ENV];
+const HOST = config.SERVER_HOST;
 
 // const proxyHost = {
 //   dev: 'http://172.16.117.65:8082', // 'http://172.16.58.18:8082', // 'http://test.xd.admin.ministudy.com',
@@ -20,11 +15,7 @@ const HOST = hostObj[NODE_ENV];
 *此接口为获取微信授权接口(微信企业号)
 */
 export function getWeChart() {
-  const weChartUrlObj = {
-    dev: 'http://172.16.117.65:8087/authorizeKPI/RedirectToWechat?branch=dev',
-    pro: 'http://bi-wechat.ministudy.com/authorizeKPI/RedirectToWechat?branch=pro',
-  };
-  return weChartUrlObj[NODE_ENV];
+  return config.WECHART_HOST;
 }
 export async function getOrgMap(params) {
   return request(`${HOST}/organization/findOrgMap?${stringify(params)}`, {
