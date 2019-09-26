@@ -5,7 +5,8 @@ import config from '../config';
 const { NODE_ENV = 'pro' } = config;
 const hostObj = {
   pro: 'http://test-api.bd.ministudy.com/apis',
-  dev: 'http://172.16.117.65:8082',
+  // dev: 'http://172.16.59.42:8082',
+  dev: 'http://172.16.109.87:28082',
 };
 const HOST = hostObj[NODE_ENV];
 
@@ -199,6 +200,13 @@ export async function findFamilyDetailKpi(params) {
 */
 export async function findGroupDetailKpi(params) {
   return request(`${HOST}/familyKpi/findGroupDetailKpi `, {
+    method: 'POST',
+    body: params,
+  });
+}
+// 获取teacher页面时间值
+export async function getIncomeKpiDateRange(params) {
+  return request(`${HOST}/familyKpi/getIncomeKpiDateRange `, {
     method: 'POST',
     body: params,
   });
