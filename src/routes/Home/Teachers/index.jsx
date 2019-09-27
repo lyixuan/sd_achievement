@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { connect } from 'dva';
 import { getCurrentAuthInfo, currentPathName, getCurrentMonth } from 'utils/decorator';
 import DatePanle from 'container/DatePanle';
@@ -45,12 +46,14 @@ class Teacher extends React.Component {
 
   componentDidMount() {
     const pathname = this.checkoutUserAuthPathName(); // 检测用户权限,如果该权限不能调转到该页面的话则跳转到指定页面
+
     if (pathname === '/indexPage/teacher') {
       const val = this.tabChangeValue();
       this.getData({ type: val, interfaceFlag: 1 });
     } else {
       this.props.setRouteUrlParams(pathname, {});
     }
+    this.getRangeDate();
   }
 
   // 时间切换时需要更新数据
@@ -94,6 +97,15 @@ class Teacher extends React.Component {
     }
   };
 
+  // 请求model中的getRangeDate方法
+  getRangeDate() {
+    const param = { month: this.state.month };
+    this.props.dispatch({
+      type: 'teacherhome/getRangeDate',
+      payload: { param },
+    });
+  }
+
   // tab切换时button下标数值和接口统一
   tabChangeValue = () => {
     return this.state.tabFlag === 3
@@ -134,11 +146,13 @@ class Teacher extends React.Component {
   buttonChange = (item, classNum, baseKpi) => {
     if (this.state.tabFlag !== item.id) {
       // 放重复点击同一个button
-      if(item.id===5){ // 老师人效的button不需要请求接口，回显数据即可
+      if (item.id === 5) {
+        // 老师人效的button不需要请求接口，回显数据即可
         this.saveParams({ tabFlag: item.id });
-      }
-      else{
-        const baseKpiValue = !baseKpi ? 0 : !baseKpi.value && baseKpi.value !== 0 ? 0 : baseKpi.value;
+      } else {
+        const baseKpiValue = !baseKpi
+          ? 0
+          : !baseKpi.value && baseKpi.value !== 0 ? 0 : baseKpi.value;
         const levelVal =
           item.id === 2
             ? baseKpiValue
@@ -147,7 +161,6 @@ class Teacher extends React.Component {
         this.getData({ type: val, levelVal, interfaceFlag: 2 });
         this.saveParams({ tabFlag: item.id });
       }
-
     }
   };
 
@@ -158,7 +171,7 @@ class Teacher extends React.Component {
   };
 
   render() {
-    const { userFlag, tabFlag, month, groupType } = this.state;
+    const { userFlag, tabFlag, groupType } = this.state;
     const { teacherhome, isloading } = this.props;
     const detailData = !teacherhome.detailKpiData ? [] : teacherhome.detailKpiData;
     const kpiData = !teacherhome.kpiLevelData ? [] : teacherhome.kpiLevelData;
@@ -170,16 +183,22 @@ class Teacher extends React.Component {
     const classNum = !manageScale
       ? 0
       : !manageScale.manageNum && manageScale.classNum !== 0 ? 0 : manageScale.classNum;
-
+    const date = this.props.teacherhome.rangeDate;
+    let defaultDate = '';
+    if (date) {
+      defaultDate = `${moment(date.startDate).format('YYYY.MM.DD')}~${moment(date.endDate).format(
+        'YYYY.MM.DD'
+      )}`;
+    }
     return (
       <div>
         <DatePanle
-          defaultDate={month}
+          defaultDate={defaultDate}
           toHistoryPage={() => {
             this.toHistoryPage();
           }}
-          onChange={date => {
-            this.onDateChange(date);
+          onChange={date1 => {
+            this.onDateChange(date1);
           }}
         />
         {isloading && <Loading />}

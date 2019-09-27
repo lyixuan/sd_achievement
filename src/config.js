@@ -1,8 +1,7 @@
 export default {
   DEBUGGER: false, // 调试环境
-
   performanceUser: {
-    userId: 'ganwenbin',
+    userId: 'weixiang',
   },
 
   SERVER_HOST: {

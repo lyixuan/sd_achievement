@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default,import/no-named-as-default-member */
 import { stringify } from 'qs';
 import request from '../utils/request';
 import config from '../config';
@@ -190,6 +191,13 @@ export async function findFamilyDetailKpi(params) {
 */
 export async function findGroupDetailKpi(params) {
   return request(`${HOST}/familyKpi/findGroupDetailKpi `, {
+    method: 'POST',
+    body: params,
+  });
+}
+// 获取teacher页面时间值
+export async function getIncomeKpiDateRange(params) {
+  return request(`${HOST}/familyKpi/getIncomeKpiDateRange `, {
     method: 'POST',
     body: params,
   });

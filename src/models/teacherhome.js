@@ -1,4 +1,9 @@
-import { findFamilyDetailKpi, findGroupDetailKpi, findKpiLevel } from '../services/api';
+import {
+  findFamilyDetailKpi,
+  findGroupDetailKpi,
+  findKpiLevel,
+  getIncomeKpiDateRange,
+} from '../services/api';
 import Message from '../components/Message';
 
 export default {
@@ -7,11 +12,21 @@ export default {
   state: {
     detailKpiData: null,
     kpiLevelData: null,
+    rangeDate: null,
   },
 
   subscriptions: {},
 
   effects: {
+    *getRangeDate({ payload }, { call, put }) {
+      const { param } = payload;
+      const rangeDate = yield call(getIncomeKpiDateRange, { ...param });
+      if (rangeDate.code === 2000) {
+        yield put({ type: 'kpisave', payload: { rangeDate: rangeDate.data } });
+      } else {
+        Message.error(rangeDate.msg);
+      }
+    },
     *detailKpi({ payload }, { call, put }) {
       //    待优化
       const { detailKpiParams, userFlag, flagVal, kpiLevelParams } = payload;
