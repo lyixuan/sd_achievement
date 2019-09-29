@@ -3,8 +3,8 @@
   "scripts": {
     "start": "cross-env API_TYPE=development roadhog server",
     "start2": "cross-env API_TYPE=development2 roadhog server",
-    "build:test": "cross-env API_TYPE=development roadhog server",
-    "build:test2": "cross-env API_TYPE=development2 roadhog server",
+    "build:test": "cross-env API_TYPE=development roadhog build",
+    "build:test2": "cross-env API_TYPE=development2 roadhog build",
     "build": "cross-env API_TYPE=production roadhog build",
     "precommit": "npm run lint-staged",
     "lint:style": "stylelint \"src/**/*.less\" --syntax less",
