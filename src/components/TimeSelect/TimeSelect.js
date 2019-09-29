@@ -92,8 +92,13 @@ class TimeSelect extends Component {
   renderGroupList = () => {
     // 此方法用于render出groupList
     const { dateArea, defaultDate } = this.props;
-    const default1 = defaultDate.split('~')[1].split('.');
-    const defaultDate1 = `${default1[0]}-${default1[1]}`;
+    let defaultDate1 = null;
+    if (defaultDate.indexOf('~') > -1) {
+      const default1 = defaultDate.split('~')[1].split('.');
+      defaultDate1 = `${default1[0]}-${default1[1]}`;
+    } else {
+      defaultDate1 = defaultDate;
+    }
     return (
       <ButtonGroup
         dataSource={{ data: dateArea }}
