@@ -1,5 +1,5 @@
 export default {
-  DEBUGGER: false, // 调试环境
+  DEBUGGER: true, // 调试环境
   performanceUser: {
     userId: 'weixiang',
   },
