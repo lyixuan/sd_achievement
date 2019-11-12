@@ -60,7 +60,7 @@ class Operation extends React.Component {
     const examZbtOrderCount = groupHomePageData.examZbtOrderCount || 0;
     const goodpushFinanceNetFlow = groupHomePageData.goodpushFinanceNetFlow || 0;
     const renewalFinanceNetFlow = groupHomePageData.renewalFinanceNetFlow || 0;
-    const examZbtFinanceNetFlow = groupHomePageData.examZbtFinanceNetFlow || 0;
+    // const examZbtFinanceNetFlow = groupHomePageData.examZbtFinanceNetFlow || 0;
     const incomeKpiItemList = groupHomePageData.incomeKpiItemList || [];
     const teacherKpiItemList = groupHomePageData.teacherKpiItemList || [];
 
@@ -168,8 +168,8 @@ class Operation extends React.Component {
                         好推绩效流水 {goodpushFinanceNetFlow} 元 | 续报绩效流水{' '}
                         {renewalFinanceNetFlow}元
                         <br />
-                        成考专本套绩效流水
-                        {examZbtFinanceNetFlow}元
+                        {/* 成考专本套绩效流水
+                        {examZbtFinanceNetFlow}元 */}
                       </p>
                     </li>
                   </ul>

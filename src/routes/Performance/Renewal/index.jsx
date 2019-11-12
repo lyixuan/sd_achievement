@@ -109,14 +109,19 @@ class Renewal extends React.Component {
         key: 'registrationDate',
       },
       {
-        title: '子订单ID',
-        dataIndex: 'subOrderId',
-        key: 'subOrderId',
+        title: '学员ID',
+        dataIndex: 'studentId',
+        key: 'studentId',
       },
       {
-        title: '绩效流水',
+        title: '净流水',
         dataIndex: 'financeNetFlow',
         key: 'financeNetFlow',
+      },
+      {
+        title: '竞合比',
+        dataIndex: 'concurrencePercent',
+        key: 'concurrencePercent',
       },
     ];
 

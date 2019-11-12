@@ -50,7 +50,7 @@ class Teacher extends React.Component {
     const examZbtOrderCount = classHomePageData.examZbtOrderCount || 0;
     const goodpushFinanceNetFlow = classHomePageData.goodpushFinanceNetFlow || 0;
     const renewalFinanceNetFlow = classHomePageData.renewalFinanceNetFlow || 0;
-    const examZbtFinanceNetFlow = classHomePageData.examZbtFinanceNetFlow || 0;
+    // const examZbtFinanceNetFlow = classHomePageData.examZbtFinanceNetFlow || 0;
     const incomeKpiItemList = classHomePageData.incomeKpiItemList || [];
 
     const newParams = {
@@ -123,8 +123,8 @@ class Teacher extends React.Component {
                       好推绩效流水 {goodpushFinanceNetFlow} 元 | 续报绩效流水{' '}
                       {renewalFinanceNetFlow}元
                       <br />
-                      成考专本套绩效流水
-                      {examZbtFinanceNetFlow}元
+                      {/* 成考专本套绩效流水
+                      {examZbtFinanceNetFlow}元 */}
                     </p>
                   </li>
                 </ul>
