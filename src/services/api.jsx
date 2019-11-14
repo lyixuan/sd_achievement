@@ -4,7 +4,6 @@ import request from '../utils/request';
 import config from '../config';
 
 const HOST = config.SERVER_HOST;
-alert(HOST);
 
 // const proxyHost = {
 //   dev: 'http://172.16.117.65:8082', // 'http://172.16.58.18:8082', // 'http://test.xd.admin.ministudy.com',
