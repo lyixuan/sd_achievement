@@ -161,6 +161,8 @@
         this.userId = params.userId || null;
         this.userType = params.userType || '';
         this.branch = params.branch || '';
+        alert(this.branch);
+        alert(params.branch);
         this.loginType = params.loginType || '';
         this.source = params.source || '';
         this.successPath = '/'; //成功回调地址
@@ -222,8 +224,10 @@
       };
       //   操作区;
       var urlParams = getUrlParams() || {};
+      alert(JSON.stringify(urlParams));
       var login = new Login(urlParams);
       login.checkLoginType();
+
       function setItem(key) {
         var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
         var days = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;

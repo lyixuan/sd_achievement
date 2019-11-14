@@ -8,7 +8,7 @@ export default {
 
   SERVER_HOST: {
     production: 'http://test-api.bd.ministudy.com/apis',
-    dev: 'http://172.16.117.65:8082',
+    dev: 'http://172.16.109.87:9991', // 'http://172.16.117.65:8082',
     localhost: 'http://172.16.109.87:28082',
     localhost2: 'http://172.16.109.87:38082',
     development: 'http://172.16.109.87:28082',
