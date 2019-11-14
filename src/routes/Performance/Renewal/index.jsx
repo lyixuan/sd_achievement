@@ -122,6 +122,9 @@ class Renewal extends React.Component {
         title: '竞合比',
         dataIndex: 'concurrencePercent',
         key: 'concurrencePercent',
+        render: text => {
+          return <span>{text}%</span>;
+        },
       },
     ];
 

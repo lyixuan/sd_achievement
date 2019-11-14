@@ -104,6 +104,13 @@ class RenderItem extends React.Component {
                 if (item2.title === '绩效' || item2.title === '绩效流水') {
                   return <td key={value}>{item[value]}元</td>;
                 }
+                if (
+                  item2.render &&
+                  Object.prototype.toString.call(item2.render) === '[object Function]'
+                ) {
+                  const newEle = item2.render(item[value]);
+                  return <td key={value}>{newEle}</td>;
+                }
                 return <td key={value}>{item[value]}</td>;
               })}
             </tr>
