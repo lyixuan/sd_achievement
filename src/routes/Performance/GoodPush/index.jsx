@@ -119,9 +119,9 @@ class GoodPush extends React.Component {
         key: 'liveLecturesTime',
       },
       {
-        title: '绩效流水',
-        dataIndex: 'financeNetFlow',
-        key: 'financeNetFlow',
+        title: '创收流水',
+        dataIndex: 'engageAmount',
+        key: 'engageAmount',
       },
       {
         title: '竞合比',

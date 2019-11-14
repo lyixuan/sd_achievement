@@ -110,9 +110,9 @@ class Exam extends React.Component {
         key: 'studentId',
       },
       {
-        title: '净流水',
-        dataIndex: 'financeNetFlow',
-        key: 'financeNetFlow',
+        title: '创收流水',
+        dataIndex: 'engageAmount',
+        key: 'engageAmount',
       },
       {
         title: '竞合比',

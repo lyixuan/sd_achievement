@@ -63,7 +63,7 @@ class Family extends React.Component {
     const examZbtOrderCount = familyHomePageData.examZbtOrderCount || 0;
     const goodpushFinanceNetFlow = familyHomePageData.goodpushFinanceNetFlow || 0;
     const renewalFinanceNetFlow = familyHomePageData.renewalFinanceNetFlow || 0;
-    // const examZbtFinanceNetFlow = familyHomePageData.examZbtFinanceNetFlow || 0;
+    const examZbtFinanceNetFlow = familyHomePageData.examZbtFinanceNetFlow || 0;
     const incomeKpiItemList = familyHomePageData.incomeKpiItemList || [];
     const columnsData = [
       {
@@ -140,7 +140,7 @@ class Family extends React.Component {
                     <p>
                       好推绩效流水 {goodpushFinanceNetFlow} 元 | 续报绩效流水{renewalFinanceNetFlow}元{' '}
                       <br />
-                      {/* 成考专本套绩效流水 {examZbtFinanceNetFlow}元 */}
+                      成考专本套绩效流水 {examZbtFinanceNetFlow}元
                     </p>
                   </li>
                 </ul>
