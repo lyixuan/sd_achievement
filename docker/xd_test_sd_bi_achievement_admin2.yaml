@@ -2,32 +2,32 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: test-kpi-web-service
-  name: test-kpi-web-service
+    app: xd-test-sd-bi-achievement-admin2-service
+  name: xd-test-sd-bi-achievement-admin2-service
 spec:
   ports:
-  - port: 9991
+  - port: 9981
     protocol: TCP
     targetPort: 80
-    nodePort: 9991
+    nodePort: 9981
   selector:
-    app: test-kpi-web-service
+    app: xd-test-sd-bi-achievement-admin2-service
   type: NodePort
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: test-kpi-web-deployment
+  name: xd-test-sd-bi-achievement-admin2-service-deployment
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: test-kpi-web-service
+        app: xd-test-sd-bi-achievement-admin2-service
     spec:
       nodeName: 172.16.109.138
       containers:
-      - name: test-kpi-web-service
+      - name: xd-test-sd-bi-achievement-admin2-service
         image: hub.sunland2.com:8234/sscp-service/kpi_web_test:<BUILD_TAG>
         ports:
-        - containerPort: 9991
+        - containerPort: 9981

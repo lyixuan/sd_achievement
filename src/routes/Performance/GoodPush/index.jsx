@@ -104,9 +104,9 @@ class GoodPush extends React.Component {
         key: 'registrationDate',
       },
       {
-        title: '子订单ID',
-        dataIndex: 'subOrderId',
-        key: 'subOrderId',
+        title: '学员ID',
+        dataIndex: 'studentId',
+        key: 'studentId',
       },
       {
         title: '重播听课',
@@ -119,14 +119,14 @@ class GoodPush extends React.Component {
         key: 'liveLecturesTime',
       },
       {
-        title: '绩效流水',
-        dataIndex: 'financeNetFlow',
-        key: 'financeNetFlow',
+        title: '创收流水',
+        dataIndex: 'engageAmount',
+        key: 'engageAmount',
       },
       {
-        title: '系数',
-        dataIndex: 'goodpushValue',
-        key: 'goodpushValue',
+        title: '竞合比',
+        dataIndex: 'concurrencePercent',
+        key: 'concurrencePercent',
       },
     ];
 

@@ -105,14 +105,19 @@ class Exam extends React.Component {
         key: 'registrationDate',
       },
       {
-        title: '子订单ID',
-        dataIndex: 'subOrderId',
-        key: 'subOrderId',
+        title: '学员ID',
+        dataIndex: 'studentId',
+        key: 'studentId',
       },
       {
-        title: '绩效流水',
-        dataIndex: 'financeNetFlow',
-        key: 'financeNetFlow',
+        title: '创收流水',
+        dataIndex: 'engageAmount',
+        key: 'engageAmount',
+      },
+      {
+        title: '竞合比',
+        dataIndex: 'concurrencePercent',
+        key: 'concurrencePercent',
       },
     ];
 
