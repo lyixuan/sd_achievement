@@ -30,4 +30,4 @@ spec:
       - name: xd-test-sd-bi-achievement-admin2-service
         image: hub.sunland2.com:8234/sscp-service/kpi_web_test:<BUILD_TAG>
         ports:
-        - containerPort: 9991
+        - containerPort: 9981
