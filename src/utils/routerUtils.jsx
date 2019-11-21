@@ -48,11 +48,11 @@ export function getRoutes(path, routerData) {
   return renderRoutes;
 }
 /*
-  * 此方法用于过滤掉使用路由传递参数,过滤掉用不到的参数,并记录原始值
-  * @params{paramsObj} Object  需要合并的参数集合
-  *        {urlParams} Object  从url中获取的参数集合
-  * return Object
-  */
+ * 此方法用于过滤掉使用路由传递参数,过滤掉用不到的参数,并记录原始值
+ * @params{paramsObj} Object  需要合并的参数集合
+ *        {urlParams} Object  从url中获取的参数集合
+ * return Object
+ */
 export function assignUrlParams(paramsObj = {}, urlParams = {}) {
   // 过滤掉不需要的参数
   const returnParams = {};
@@ -76,8 +76,8 @@ export function assignUrlParams(paramsObj = {}, urlParams = {}) {
   return returnParams;
 }
 /*
-*根据权限匹配出不同的路径
-*/
+ *根据权限匹配出不同的路径
+ */
 export function checkoutAuthUrl() {
   const { groupType = null, isKpi } = getCurrentAuthInfo();
   if (!isKpi) {
@@ -120,6 +120,7 @@ export function checkoutAuthUrlPerformance() {
     case IDENTIFY.boss:
       return '/performance/admin';
     case IDENTIFY.family:
+      alert(1);
       return '/performance/family';
     case IDENTIFY.group:
       return '/performance/operation';
