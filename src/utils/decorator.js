@@ -46,6 +46,8 @@ export function currentPathName(target) {
     if (!isKpi) {
       return '/exception/403';
     }
+
+    console.log(groupType, 'groupType');
     if (groupType === 'boss' || groupType === 'college') {
       return '/indexPage/boss';
     } else if (groupType === 'family' || groupType === 'group' || groupType === 'class') {

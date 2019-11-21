@@ -115,12 +115,13 @@ export function checkoutAuthUrlPerformance() {
   if (!isKpi) {
     return '/exception/403';
   }
+  console.log(groupType, 'groupType');
   switch (groupType) {
     case IDENTIFY.admin:
     case IDENTIFY.boss:
       return '/performance/admin';
     case IDENTIFY.family:
-      alert(1);
+      console.log('coming');
       return '/performance/family';
     case IDENTIFY.group:
       return '/performance/operation';
